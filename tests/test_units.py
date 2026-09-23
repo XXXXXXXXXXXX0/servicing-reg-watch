@@ -151,9 +151,20 @@ def test_register_rows_complete_and_valid():
     rows = load_register()
     assert validate_rows(rows) == []
     for r in rows:
-        assert r["citation"] and r["source_url"].startswith("http") and r["provenance"] and r["status"]
+        assert r["provenance"] and r["status"]
+        if r["status"] == "unresearched":
+            assert r["citation"] is None and r["source_url"] is None
+            continue
+        assert r["citation"] and r["source_url"].startswith("http")
         if r["jurisdiction"] != "federal" and not r.get("last_checked"):
             assert r["status"] == "verify"
+
+
+def test_unresearched_rows_cannot_carry_citations():
+    from pipeline.inventory import validate_rows
+    row = next(r for r in load_register() if r["status"] == "unresearched")
+    assert validate_rows([{**row, "citation": "made up"}]) != []
+    assert validate_rows([{**row, "status": "verify"}]) != []
 
 
 def test_inventory_regenerates_from_yaml():

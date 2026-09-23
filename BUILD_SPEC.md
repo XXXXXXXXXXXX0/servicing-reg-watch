@@ -10,7 +10,8 @@ Detect regulatory changes relevant to AI agents that service consumer loans (con
 - No assumptions about any vendor's internal agents, scripts, or configs. Impact maps to **behavior classes** (Section 5), never to named internal workflows.
 - The deployment adapter (Section 9) ships as an empty, documented interface.
 - AI narrows the queue; humans approve. Nothing auto-closes unless the rule in Section 7 allows it.
-- Every register row cites a primary source. State rows and any row marked `verify` carry that status until checked against primary text.
+- Every register row cites a primary source, except rows marked `unresearched`. State rows and any row marked `verify` carry that status until checked against primary text.
+- `unresearched` rows record a known coverage gap where no primary source has been identified yet. They carry `citation: null` and `source_url: null`; citations are never invented to fill them. They are listed in INVENTORY.md under "Coverage map: state research pending".
 
 ## 3. Sources
 **Federal Register API** (`https://www.federalregister.gov/api/v1/documents.json`), last 24 months, document types RULE, PRORULE, NOTICE. Agency slugs:
@@ -26,10 +27,10 @@ Withdrawals and rescissions of guidance are changes and must be captured.
 ```yaml
 id: REGF-FREQ-001
 law: "FDCPA / Regulation F"
-citation: "12 CFR 1006.14(b)"
-source_url: "<primary source>"
+citation: "12 CFR 1006.14(b)"     # null only when status: unresearched
+source_url: "<primary source>"  # null only when status: unresearched
 agency: CFPB
-jurisdiction: federal            # or US-CA, US-FL, US-MA, US-TX
+jurisdiction: federal            # or US-CA, US-FL, US-MA, US-TX; multi-state only while unresearched
 applies_to: [third_party_collectors, post_default_servicers]   # who is covered
 tier: 1                          # 1 = modeled + evaluated; 2 = inventoried + monitored
 behavior_classes: [CONTACT.FREQUENCY]
@@ -37,7 +38,7 @@ constraint: "Presumed violation if >7 call attempts in 7 days, or a call within 
 change_source: federal_register  # or ecfr | manual
 provenance: salient_stated       # salient_stated | third_party_stated | added_by_analysis
 provenance_url: "<page where stated, if any>"
-status: verify                   # verify | verified
+status: verify                   # verify | verified | unresearched (no primary source identified yet)
 effective_date: 2021-11-30
 last_checked: YYYY-MM-DD
 ```
@@ -164,7 +165,7 @@ Problem; design decisions; what is deliberately not automated and why; eval resu
 ## 13. Acceptance criteria
 - Offline run passes against fixtures with no network.
 - Live run ingests all listed agencies for the window and produces triage JSON that validates.
-- Every register row has citation, source_url, provenance, status.
+- Every register row has citation, source_url, provenance, status (citation and source_url are null only for `unresearched` rows).
 - INVENTORY.md regenerates from YAML.
 - Eval script produces results.md from labels.csv.
 - No secrets in the repo.

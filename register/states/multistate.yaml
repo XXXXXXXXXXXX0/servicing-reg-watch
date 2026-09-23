@@ -1,0 +1,79 @@
+# Multi-state INSURANCE.CLAIMS rows (BUILD_SPEC Section 6, Tier 2).
+#
+# status: unresearched. These topics are governed by state law that varies by
+# state, and no primary source has been identified yet. citation and
+# source_url stay null on purpose: do not fill them until a primary source is
+# found, then split the row per state (e.g. US-CA) and move it to `verify`.
+# Per-state research items are tracked in register/research_backlog.yaml.
+rows:
+  - id: INS-GAP-001
+    law: "GAP waiver and add-on product refund laws"
+    citation: null
+    source_url: null
+    agency: state
+    jurisdiction: multi-state
+    applies_to: [creditors, secured_parties]
+    tier: 2
+    behavior_classes: [INSURANCE.CLAIMS]
+    constraint: "Unresearched. Refund duties for GAP and other add-on products on early payoff, total loss or repossession vary by state; no constraint is stated until primary sources are identified."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: unresearched
+    effective_date: null
+    last_checked: null
+    notes: "Rules vary by state. applies_to is provisional pending research."
+
+  - id: INS-APPRAISAL-001
+    law: "Appraisal-clause deadlines (total-loss valuation disputes)"
+    citation: null
+    source_url: null
+    agency: state
+    jurisdiction: multi-state
+    applies_to: [secured_parties]
+    tier: 2
+    behavior_classes: [INSURANCE.CLAIMS]
+    constraint: "Unresearched. Deadlines come from policy terms and state insurance law and vary by state; no constraint is stated until primary sources are identified."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: unresearched
+    effective_date: null
+    last_checked: null
+    notes: "Rules vary by state. applies_to is provisional pending research."
+
+  - id: INS-LIEN-001
+    law: "Lien release timing laws"
+    citation: null
+    source_url: null
+    agency: state
+    jurisdiction: multi-state
+    applies_to: [secured_parties]
+    tier: 2
+    behavior_classes: [INSURANCE.CLAIMS]
+    constraint: "Unresearched. Deadlines to release a vehicle lien after payoff vary by state; no constraint is stated until primary sources are identified."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: unresearched
+    effective_date: null
+    last_checked: null
+    notes: "Rules vary by state. applies_to is provisional pending research."
+
+  - id: INS-CPI-001
+    law: "Collateral protection insurance rules"
+    citation: null
+    source_url: null
+    agency: state
+    jurisdiction: multi-state
+    applies_to: [creditors, secured_parties]
+    tier: 2
+    behavior_classes: [INSURANCE.CLAIMS]
+    constraint: "Unresearched. Notice, placement and charge rules for lender-placed collateral protection insurance vary by state; no constraint is stated until primary sources are identified."
+    change_source: [manual]
+    provenance: added_by_analysis
+    provenance_url: null
+    status: unresearched
+    effective_date: null
+    last_checked: null
+    notes: "Rules vary by state. applies_to is provisional pending research."
