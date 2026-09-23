@@ -1,0 +1,8 @@
+# Runtime pipeline output (ingest, prefilter logs, diffs, triage, queues).
+# CI uploads it as a workflow artifact.
+data/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.env

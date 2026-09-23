@@ -1,0 +1,15 @@
+# State x topic gaps (BUILD_SPEC 6.2 Tier 2 "varies by state" items).
+# These are NOT register rows: no primary citation has been identified yet, so
+# they cannot meet the row requirements (citation, source_url, provenance,
+# status). They are rendered in INVENTORY.md as open research items.
+# Promote an item to a row in register/states/<state>.yaml once a primary
+# citation is found.
+items:
+  - {topic: "Right-to-cure notice", behavior_class: RECOVERY.REPOSSESSION, states: [CA, FL, TX], note: "MA covered by MA-CURE-001. CA reinstatement rights sit in Rees-Levering (CA-REPO-001); confirm whether a separate pre-repossession cure notice applies."}
+  - {topic: "Deficiency balance rules", behavior_class: RECOVERY.REPOSSESSION, states: [CA, FL, TX], note: "MA covered by MA-DEFICIENCY-001."}
+  - {topic: "GAP waiver / add-on refund on early payoff or total loss", behavior_class: INSURANCE.CLAIMS, states: [CA, FL, MA, TX], note: ""}
+  - {topic: "Appraisal-clause deadlines (total-loss valuation disputes)", behavior_class: INSURANCE.CLAIMS, states: [CA, FL, MA, TX], note: "Governed partly by policy terms; identify state insurance code or regulation provisions."}
+  - {topic: "Lien release timing after payoff", behavior_class: INSURANCE.CLAIMS, states: [CA, FL, MA, TX], note: "Typically in vehicle/title codes."}
+  - {topic: "Collateral protection insurance", behavior_class: INSURANCE.CLAIMS, states: [CA, FL, MA, TX], note: ""}
+  - {topic: "Third-party collector rules (MA 209 CMR 18.00)", behavior_class: CONTACT.FREQUENCY, states: [MA], note: "Only needed if the deployment acts as, or for, a third-party collector in MA."}
+  - {topic: "Time-of-day limits for first-party creditors", behavior_class: CONTACT.TIMING, states: [TX], note: "No TDCA time-of-day provision identified; confirm none exists."}

@@ -1,0 +1,122 @@
+# California state-layer rows (BUILD_SPEC 6.3). All rows status: verify.
+# Drafted without access to primary text; check each citation before relying on it.
+rows:
+  - id: CA-ROSENTHAL-001
+    law: "Rosenthal Fair Debt Collection Practices Act"
+    citation: "Cal. Civ. Code 1788.17; 1788.2(c)"
+    source_url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1788.17"
+    agency: state
+    jurisdiction: US-CA
+    applies_to: [first_party_creditors, third_party_collectors]
+    tier: 1
+    behavior_classes: [CONTACT.TIMING, CONTACT.FREQUENCY, DISCLOSURE.REQUIRED, IDENTITY.RIGHT_PARTY, STOP.TRIGGERS]
+    constraint: "Rosenthal's 'debt collector' includes creditors collecting their own consumer debts. Section 1788.17 requires them to comply with FDCPA 1692b-1692j, which carries the federal timing, third-party, disclosure and cease rules to first-party lenders in California."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+
+  - id: CA-ROSENTHAL-002
+    law: "Rosenthal Fair Debt Collection Practices Act"
+    citation: "Cal. Civ. Code 1788.11(d)-(e)"
+    source_url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1788.11"
+    agency: state
+    jurisdiction: US-CA
+    applies_to: [first_party_creditors, third_party_collectors]
+    tier: 1
+    behavior_classes: [CONTACT.FREQUENCY]
+    constraint: "Do not cause a telephone to ring repeatedly or continuously to annoy, or communicate by telephone with a frequency that is unreasonable and constitutes harassment under the circumstances."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+
+  - id: CA-ROSENTHAL-003
+    law: "Rosenthal Fair Debt Collection Practices Act"
+    citation: "Cal. Civ. Code 1788.14(c)"
+    source_url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1788.14"
+    agency: state
+    jurisdiction: US-CA
+    applies_to: [first_party_creditors, third_party_collectors]
+    tier: 1
+    behavior_classes: [STOP.TRIGGERS]
+    constraint: "After written notice that the debtor is represented by an attorney, do not initiate communications with the debtor about the debt, subject to the statute's exceptions."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+
+  - id: CA-REC-001
+    law: "California Invasion of Privacy Act (recording)"
+    citation: "Cal. Penal Code 632, 632.7"
+    source_url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=PEN&sectionNum=632.7"
+    agency: state
+    jurisdiction: US-CA
+    applies_to: [all_persons]
+    tier: 1
+    behavior_classes: [CONTACT.RECORDING]
+    constraint: "All-party consent. Recording a confidential communication, or any communication involving a cellular or cordless phone, needs the consent of all parties. Disclose recording at the start of the call."
+    change_source: [manual]
+    provenance: added_by_analysis
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+
+  - id: CA-AIDISC-001
+    law: "California BOT Disclosure Law"
+    citation: "Cal. Bus. & Prof. Code 17940-17943"
+    source_url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17941"
+    agency: state
+    jurisdiction: US-CA
+    applies_to: [bot_operators]
+    tier: 2
+    behavior_classes: [CONTACT.AI_DISCLOSURE]
+    constraint: "It is unlawful to use a bot to communicate with a person in California online with intent to mislead them about its artificial identity in order to incentivize a sale or transaction, unless the bot is disclosed clearly and conspicuously."
+    change_source: [manual]
+    provenance: added_by_analysis
+    provenance_url: null
+    status: verify
+    effective_date: 2019-07-01
+    last_checked: null
+    notes: "The statute is framed around 'online' communication. Whether it reaches outbound voice calls is an open question for counsel."
+
+  - id: CA-REPO-001
+    law: "Rees-Levering Motor Vehicle Sales and Finance Act"
+    citation: "Cal. Civ. Code 2983.2, 2983.3"
+    source_url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=2983.2"
+    agency: state
+    jurisdiction: US-CA
+    applies_to: [secured_parties, creditors]
+    tier: 2
+    behavior_classes: [RECOVERY.REPOSSESSION]
+    constraint: "After repossessing a vehicle under a conditional sale contract, the holder must give a notice of intent to dispose (with reinstatement and redemption rights) at least 15 days before disposition. Deficiency rights depend on compliance."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+
+  - id: CA-UCC9-001
+    law: "UCC Article 9 (California)"
+    citation: "Cal. Com. Code 9609, 9611, 9614, 9615"
+    source_url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=COM&sectionNum=9609"
+    agency: state
+    jurisdiction: US-CA
+    applies_to: [secured_parties]
+    tier: 2
+    behavior_classes: [RECOVERY.REPOSSESSION]
+    constraint: "Self-help repossession only without breach of the peace. Reasonable authenticated notification before disposition, with consumer-goods content requirements, and application of proceeds and surplus/deficiency explanation."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null

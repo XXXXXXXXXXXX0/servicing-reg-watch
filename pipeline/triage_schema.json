@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Triage output (BUILD_SPEC Section 7 step 4)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "doc_id",
+    "relevant",
+    "confidence",
+    "change_type",
+    "effective_date",
+    "affected_register_rows",
+    "behavior_classes",
+    "what_changed",
+    "compliant_agent_must_now",
+    "open_questions_for_deploying_team",
+    "rationale"
+  ],
+  "properties": {
+    "doc_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Federal Register document number."
+    },
+    "relevant": {
+      "type": "boolean"
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Probability that the `relevant` label is correct."
+    },
+    "change_type": {
+      "type": "string",
+      "enum": [
+        "final_rule",
+        "proposed_rule",
+        "guidance",
+        "withdrawal",
+        "enforcement_signal",
+        "other"
+      ]
+    },
+    "effective_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "affected_register_rows": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z0-9]+(-[A-Z0-9]+)+$"
+      },
+      "uniqueItems": true
+    },
+    "behavior_classes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "CONTACT.TIMING",
+          "CONTACT.FREQUENCY",
+          "CONTACT.CONSENT",
+          "CONTACT.RECORDING",
+          "CONTACT.AI_DISCLOSURE",
+          "DISCLOSURE.REQUIRED",
+          "IDENTITY.RIGHT_PARTY",
+          "STOP.TRIGGERS",
+          "PAYMENT.AUTHORIZATION",
+          "PAYMENT.FEES",
+          "NEGOTIATION.TREATMENT",
+          "ACCOUNT.MODIFICATION",
+          "DISPUTES.CREDIT_REPORTING",
+          "DATA.PRIVACY_SECURITY",
+          "RECOVERY.REPOSSESSION",
+          "INSURANCE.CLAIMS",
+          "VENDOR.GOVERNANCE"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "what_changed": {
+      "type": "string"
+    },
+    "compliant_agent_must_now": {
+      "type": "string"
+    },
+    "open_questions_for_deploying_team": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

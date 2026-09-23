@@ -1,0 +1,20 @@
+# Utah rows. Outside the v1 four-state layer; included only for the AI
+# disclosure inventory item (BUILD_SPEC Tier 2). status: verify.
+rows:
+  - id: UT-AIDISC-001
+    law: "Utah Artificial Intelligence Policy Act"
+    citation: "Utah Code 13-2-12 (as amended 2025) (verify)"
+    source_url: "https://le.utah.gov/xcode/Title13/Chapter2/13-2-S12.html"
+    agency: state
+    jurisdiction: US-UT
+    applies_to: [bot_operators]
+    tier: 2
+    behavior_classes: [CONTACT.AI_DISCLOSURE]
+    constraint: "A person using generative AI to interact with a consumer in a transaction regulated by the Division of Consumer Protection must disclose it when the consumer clearly and unambiguously asks. Regulated occupations and 'high-risk' interactions carry a proactive disclosure duty."
+    change_source: [manual]
+    provenance: added_by_analysis
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "Amended in 2025 and subject to sunset. Confirm current section numbering and scope."
