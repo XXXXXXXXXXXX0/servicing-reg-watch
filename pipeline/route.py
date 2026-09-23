@@ -1,6 +1,8 @@
 """Step 5 - Route. Auto-close only if relevant=false AND confidence >= 0.85
 (BUILD_SPEC Section 7). Everything else, including documents with missing or
-invalid triage output, goes to the human review queue.
+invalid triage output, goes to the human review queue. A document whose full
+text could not be fetched goes to human review (full_text_unavailable) whatever
+its triage output says: it is not triaged from partial information.
 
     python -m pipeline.route [--data-dir DIR]
 """
@@ -11,12 +13,15 @@ import json
 import sys
 
 from .common import data_paths, load_register, read_json, write_json
-from .triage import validate_output
+from .triage import full_text_available, validate_output
 
 AUTO_CLOSE_CONFIDENCE = 0.85
 
 
-def decide(triage: dict | None, errors: list[str] | None = None) -> tuple[str, str]:
+def decide(triage: dict | None, errors: list[str] | None = None,
+           has_full_text: bool = True) -> tuple[str, str]:
+    if not has_full_text:
+        return "review", "full_text_unavailable"
     if triage is None:
         return "review", "untriaged"
     if errors:
@@ -45,7 +50,7 @@ def run(data_dir=None) -> dict:
                 errors = validate_output(triage, doc_id, register_ids)
             except json.JSONDecodeError as e:
                 triage, errors = {}, [f"invalid JSON: {e}"]
-        queue, reason = decide(triage, errors)
+        queue, reason = decide(triage, errors, full_text_available(packet))
         item = {
             "doc_id": doc_id,
             "title": packet["metadata"].get("title"),
@@ -56,6 +61,7 @@ def run(data_dir=None) -> dict:
             "relevant": (triage or {}).get("relevant"),
             "confidence": (triage or {}).get("confidence"),
             "validation_errors": errors or [],
+            "full_text_missing_reason": packet.get("full_text_missing_reason"),
         }
         (closed if queue == "auto_closed" else review).append(item)
     review.sort(key=lambda i: (i["route_reason"] != "relevant", i["publication_date"] or ""))

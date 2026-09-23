@@ -51,7 +51,7 @@ def main(argv=None):
     s = prefilter.run(args.data_dir)
     print(f"[2 prefilter] kept {s['kept']}, dropped {s['dropped']} (logged)")
     t = ingest.fetch_texts(client, args.data_dir)
-    print(f"[2b text] {t['fetched_or_cached']} available, {len(t['missing'])} without text")
+    print(f"[2b text] {t['fetched_or_cached']} available, {t['missing']} missing {t['missing_by_reason']}")
     print(f"[3 diff] {diff.run(client, args.data_dir, today)}")
     print(f"[4 triage inputs] {triage.build_inputs(args.data_dir)} packets")
     if args.with_fixture_triage:

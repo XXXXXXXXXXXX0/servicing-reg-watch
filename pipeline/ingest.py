@@ -17,7 +17,7 @@ import sys
 
 from . import config
 from .common import data_paths, read_json, read_jsonl, write_json
-from .sources import NotFound, make_client
+from .sources import Blocked, NotFound, TextUnavailable, make_client
 
 PER_PAGE = 1000
 MAX_RETRIEVABLE = 2000  # conservative cap on results the API will page through
@@ -121,10 +121,17 @@ def load_raw_docs(data_dir=None) -> list[dict]:
 
 
 def fetch_texts(client, data_dir=None) -> dict:
-    """Fetch full text for documents that survived the prefilter (triage context)."""
+    """Fetch full text for documents that survived the prefilter (triage context).
+
+    Each document gets one fetch; if the Federal Register bot wall answers, one
+    retry with a descriptive User-Agent (see sources.LiveClient.get_full_text).
+    Anything still unavailable is logged as missing with its reason in
+    text/_missing.json and the run moves on. Triage packets carry that reason,
+    and route.py sends those documents to human review.
+    """
     paths = data_paths(data_dir)
     kept = read_jsonl(paths["prefilter"] / "kept.jsonl")
-    got, missing = 0, []
+    got, missing = 0, {}
     for row in kept:
         num = row["document_number"]
         out = paths["text"] / f"{num}.txt"
@@ -134,17 +141,24 @@ def fetch_texts(client, data_dir=None) -> dict:
         doc = read_json(paths["raw"] / f"{num}.json")["document"]
         url = doc.get("raw_text_url")
         if not url:
-            missing.append(num)
+            missing[num] = "no raw_text_url in Federal Register metadata"
             continue
         try:
-            text = client.get_text(url)
+            text = client.get_full_text(url)
         except NotFound:
-            missing.append(num)
+            missing[num] = "not_found (404)"
+            continue
+        except (Blocked, TextUnavailable) as e:
+            missing[num] = str(e)
             continue
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(text)
         got += 1
-    return {"fetched_or_cached": got, "missing": missing}
+    write_json(paths["text"] / "_missing.json", missing)
+    reasons: dict[str, int] = {}
+    for r in missing.values():
+        reasons[r] = reasons.get(r, 0) + 1
+    return {"fetched_or_cached": got, "missing": len(missing), "missing_by_reason": reasons}
 
 
 def main(argv=None):
@@ -158,7 +172,7 @@ def main(argv=None):
     client = make_client(args.offline)
     if args.command == "text":
         res = fetch_texts(client, args.data_dir)
-        print(f"text: {res['fetched_or_cached']} available, {len(res['missing'])} missing")
+        print(f"text: {res['fetched_or_cached']} available, {res['missing']} missing {res['missing_by_reason']}")
         return 0
     start, end = default_window()
     start, end = args.start or start, args.end or end

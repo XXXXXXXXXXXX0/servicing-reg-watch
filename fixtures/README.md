@@ -13,7 +13,8 @@ so they cannot be mistaken for real records.
   `/versions/title-{T}.json?part={P}`, and `full-{date}-title-{T}-section-{S}.xml`
   answers `/full/{date}/title-{T}.xml?section={S}`. The section text is invented;
   it is not the CFR.
-- `text/`: full-text bodies for a few documents (the `raw_text_url` target).
+- `text/`: full-text bodies for a few documents (the `raw_text_url` target). Kept
+  documents without a body exercise the `full_text_unavailable` route to review.
 - `triage/`: hand-written triage outputs for some fixture documents, used to test
   validation, routing, records and the eval script. They cover a relevant final rule
   with an eCFR diff, a guidance withdrawal, a pending-effective rule, a

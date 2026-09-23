@@ -53,10 +53,16 @@ def xml_to_lines(xml_text: str) -> list[str]:
     return lines
 
 
-def _section_text(client, date: str, title: int, part: str, section: str) -> list[str] | None:
+# eCFR content version types that can be fetched and diffed. Appendices include
+# the Official Interpretations (e.g. "Supplement I to Part 1026"), which carry
+# most annual threshold adjustments.
+DIFFABLE_TYPES = {"section", "appendix"}
+
+
+def _section_text(client, date: str, title: int, part: str, section: str, kind: str = "section") -> list[str] | None:
     url = f"{config.ECFR_API}/full/{date}/title-{title}.xml"
     try:
-        return xml_to_lines(client.get_text(url, {"part": part, "section": section}))
+        return xml_to_lines(client.get_text(url, {"part": part, kind: section}))
     except NotFound:
         return None
 
@@ -74,20 +80,27 @@ def diff_document(client, doc: dict, today: dt.date | None = None) -> dict | Non
     if not eff:
         return {**base, "status": "effective_date_unknown"}
     before = (dt.date.fromisoformat(eff) - dt.timedelta(days=1)).isoformat()
+    seen: set[tuple[str, str]] = set()
     for ref in refs:
         versions = client.get_json(f"{config.ECFR_API}/versions/title-{ref['title']}.json", {"part": ref["part"]})
         for v in versions.get("content_versions", []):
-            if v.get("type", "section") != "section" or v.get("amendment_date") != eff:
+            kind = v.get("type", "section")
+            if kind not in DIFFABLE_TYPES or v.get("amendment_date") != eff:
                 continue
             ident = v.get("identifier")
             if ref.get("section") and ident != ref["section"]:
                 continue
-            old = _section_text(client, before, ref["title"], ref["part"], ident)
-            new = [] if v.get("removed") else _section_text(client, eff, ref["title"], ref["part"], ident)
+            key = (kind, ident)
+            if key in seen:  # the versions list can repeat an identifier for one date
+                continue
+            seen.add(key)
+            old = _section_text(client, before, ref["title"], ref["part"], ident, kind)
+            new = [] if v.get("removed") else _section_text(client, eff, ref["title"], ref["part"], ident, kind)
             old, new = old or [], new or []
             udiff = list(difflib.unified_diff(old, new, f"{ident} @ {before}", f"{ident} @ {eff}", lineterm="", n=1))
             base["sections"].append({
                 "section": ident,
+                "type": kind,
                 "name": v.get("name"),
                 "before_date": before,
                 "after_date": eff,

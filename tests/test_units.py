@@ -125,7 +125,7 @@ def test_api_mode_with_stubbed_client(offline_run, monkeypatch):
     monkeypatch.setenv("ANTHROPIC_API_KEY", "test-not-a-key")
     monkeypatch.delenv("MODEL", raising=False)
     stats = triage.triage_api(offline_run["data"], limit=3)
-    assert stats == {"ok": 2, "invalid": 1, "errors": 0}
+    assert stats == {"ok": 2, "invalid": 1, "errors": 0, "skipped_full_text_unavailable": 6}
     assert calls[0]["model"] == "claude-sonnet-5"
     assert calls[0]["output_config"]["format"]["type"] == "json_schema"
     assert calls[0]["system"][0]["cache_control"] == {"type": "ephemeral"}
@@ -143,6 +143,12 @@ def test_api_mode_with_stubbed_client(offline_run, monkeypatch):
 ])
 def test_route_rule(triage_out, errors, expected):
     assert route.decide(triage_out, errors) == expected
+
+
+def test_route_full_text_unavailable_overrides_triage():
+    out = {"relevant": False, "confidence": 0.99}
+    assert route.decide(out, [], has_full_text=False) == ("review", "full_text_unavailable")
+    assert route.decide(None, None, has_full_text=False) == ("review", "full_text_unavailable")
 
 
 # ----------------------------------------------------------------- register

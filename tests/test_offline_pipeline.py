@@ -54,9 +54,10 @@ def test_route_and_records(offline_run):
     closed = {i["doc_id"] for i in read_json(p["queue"] / "auto_closed.json")}
     review = {i["doc_id"]: i["route_reason"] for i in read_json(p["queue"] / "review_queue.json")}
     assert closed == {"FIXTURE-0006"}
-    assert review["FIXTURE-0010"] == "not_relevant_low_confidence"
-    assert review["FIXTURE-0012"] == "not_relevant_low_confidence"
-    assert review["FIXTURE-0011"] == "untriaged"
+    # 0010 and 0012 have triage outputs but no full text: not triaged from partial information.
+    assert review["FIXTURE-0010"] == "full_text_unavailable"
+    assert review["FIXTURE-0012"] == "full_text_unavailable"
+    assert review["FIXTURE-0011"] == "full_text_unavailable"
     rec = offline_run["records"]
     assert {f.stem for f in rec.glob("FIXTURE-*.md")} == {"FIXTURE-0001", "FIXTURE-0002", "FIXTURE-0003", "FIXTURE-0007"}
     text = (rec / "FIXTURE-0001.md").read_text()

@@ -87,6 +87,15 @@ python -m pipeline.triage validate              # check triage JSON against the 
 - **Fail toward human review.** Routing auto-closes only when `relevant=false` **and**
   `confidence ≥ 0.85`. A document that is untriaged or has invalid output lands in
   the review queue, never in auto-closed.
+- **No triage from partial information.** Triage needs the document's full text.
+  When it cannot be fetched, the document is not triaged; it goes to human review
+  with route reason `full_text_unavailable`, and the reason the text is missing is
+  logged in `data/raw/text/_missing.json` and shown in the review queue. Each fetch
+  is tried once; if the Federal Register bot wall (`unblock.federalregister.gov`)
+  answers, it is retried once with the User-Agent
+  `servicing-reg-watch/1.0 (research project)` and then logged as missing, with no
+  further retries. From the cloud environment this was built in, every full-text
+  fetch hit the bot wall, so every live document currently routes to human review.
 - **Records are append-safe.** A change record whose `Reviewer:` line has been filled
   in is never overwritten by a later run.
 
@@ -94,7 +103,12 @@ python -m pipeline.triage validate              # check triage JSON against the 
 
 - **Approval.** AI narrows the queue; humans decide. No record is marked done, and
   no register row is changed, by the pipeline.
-- **Register verification.** Every row ships as `status: verify` with
+- **Unresearched coverage.** Rows with `status: unresearched` (the four
+  multi-state INSURANCE.CLAIMS topics) record a known gap. They carry
+  `citation: null`; the validator rejects a citation on them, so none can be
+  filled in without research. INVENTORY.md lists them under "Coverage map: state
+  research pending".
+- **Register verification.** Every researched row ships as `status: verify` with
   `last_checked: null`. The rows were drafted from working knowledge of the law
   without the primary text open. Flipping a row to `verified` requires a person to
   read the primary source, and the validator rejects `verified` without

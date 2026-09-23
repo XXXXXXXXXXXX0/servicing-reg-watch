@@ -36,7 +36,8 @@ DIFF_EXCERPT_CHARS = 12000
 
 
 # ----------------------------------------------------------------- packets
-def build_packet(doc: dict, prefilter_row: dict, diff: dict | None, text: str | None) -> dict:
+def build_packet(doc: dict, prefilter_row: dict, diff: dict | None, text: str | None,
+                 text_missing_reason: str | None = None) -> dict:
     packet = {
         "doc_id": doc["document_number"],
         "metadata": {k: doc.get(k) for k in (
@@ -46,6 +47,8 @@ def build_packet(doc: dict, prefilter_row: dict, diff: dict | None, text: str | 
         "agencies": [a.get("name") or a.get("raw_name") for a in doc.get("agencies", [])],
         "abstract": doc.get("abstract"),
         "prefilter": {k: prefilter_row.get(k) for k in ("reason", "cfr_hits", "domain_hits", "withdrawal_hits")},
+        "full_text_available": bool(text),
+        "full_text_missing_reason": None if text else (text_missing_reason or "not fetched"),
         "full_text_excerpt": None,
         "full_text_truncated": False,
         "ecfr_diff": None,
@@ -68,6 +71,8 @@ def build_packet(doc: dict, prefilter_row: dict, diff: dict | None, text: str | 
 def build_inputs(data_dir=None) -> int:
     paths = data_paths(data_dir)
     n = 0
+    missing_path = paths["text"] / "_missing.json"
+    missing = read_json(missing_path) if missing_path.exists() else {}
     for row in read_jsonl(paths["prefilter"] / "kept.jsonl"):
         num = row["document_number"]
         doc = read_json(paths["raw"] / f"{num}.json")["document"]
@@ -77,6 +82,7 @@ def build_inputs(data_dir=None) -> int:
             doc, row,
             read_json(diff_path) if diff_path.exists() else None,
             text_path.read_text() if text_path.exists() else None,
+            missing.get(num),
         )
         write_json(paths["triage_inputs"] / f"{num}.json", packet)
         n += 1
@@ -143,11 +149,19 @@ def validate_dir(triage_dir: Path, inputs_dir: Path | None = None) -> dict[str, 
     return results
 
 
+def full_text_available(packet: dict) -> bool:
+    """Packets built before this flag existed are treated as having full text."""
+    return packet.get("full_text_available", True)
+
+
 def pending(data_dir=None) -> list[str]:
+    """Packets awaiting triage. Packets without full text are not triaged; route.py
+    sends them to human review (reason full_text_unavailable)."""
     paths = data_paths(data_dir)
     done = {p.stem for p in paths["triage"].glob("*.json")}
     return sorted(p.stem for p in paths["triage_inputs"].glob("*.json")
-                  if not p.name.startswith("_") and p.stem not in done)
+                  if not p.name.startswith("_") and p.stem not in done
+                  and full_text_available(read_json(p)))
 
 
 def log_run(data_dir, doc_id: str, mode: str, **extra) -> None:
@@ -192,8 +206,13 @@ def triage_api(data_dir=None, limit: int | None = None, force: bool = False) -> 
     todo = sorted(p.stem for p in paths["triage_inputs"].glob("*.json") if not p.name.startswith("_"))
     if not force:
         todo = [d for d in todo if not (paths["triage"] / f"{d}.json").exists()]
+    # Do not triage from partial information; route.py sends these to human review.
+    no_text = [d for d in todo if not full_text_available(read_json(paths["triage_inputs"] / f"{d}.json"))]
+    todo = [d for d in todo if d not in no_text]
     todo = todo[:limit] if limit else todo
     stats = {"ok": 0, "invalid": 0, "errors": 0}
+    if no_text:
+        stats["skipped_full_text_unavailable"] = len(no_text)
     for doc_id in todo:
         packet = read_json(paths["triage_inputs"] / f"{doc_id}.json")
         try:

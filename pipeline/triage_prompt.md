@@ -21,8 +21,9 @@ These instructions are used in two ways:
 Each packet contains:
 - `metadata`: FR document number, title, type (Rule / Proposed Rule / Notice), action,
   agencies, publication date, `effective_on`, CFR references, citation, URL.
-- `abstract` and, when fetched, `full_text_excerpt`. The excerpt may be truncated;
-  `full_text_truncated` says so.
+- `abstract` and `full_text_excerpt`. The excerpt may be truncated;
+  `full_text_truncated` says so. `full_text_available` is true for every packet you
+  are given; see "Full text required" below.
 - `ecfr_diff`: for final rules amending a tracked CFR part, the section-level
   before/after diff and a `status`. `pending_effective` means eCFR does not have the
   new text yet.
@@ -107,6 +108,14 @@ nothing else: no prose, no code fences.
 - `rationale`: two to five sentences on the evidence behind the relevance call and
   confidence, naming the parts of the packet you relied on. Say what you could not
   see (e.g., "abstract only; full text not fetched").
+
+## Full text required
+
+Do not triage from partial information. A packet whose full text could not be
+fetched (`full_text_available: false`, reason in `full_text_missing_reason`) is not
+sent for triage; the router sends it to human review with reason
+`full_text_unavailable`, whatever any triage output says. If you are handed such a
+packet anyway (for example in in-session mode), write no output file for it.
 
 ## Discipline
 
