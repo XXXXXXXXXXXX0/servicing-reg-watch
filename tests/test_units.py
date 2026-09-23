@@ -95,6 +95,7 @@ def test_system_prompt_contains_register_and_schema():
 
 
 def test_api_mode_requires_key(offline_run, monkeypatch):
+    pytest.importorskip("anthropic")
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
     with pytest.raises(SystemExit):
         triage.triage_api(offline_run["data"])
@@ -102,6 +103,7 @@ def test_api_mode_requires_key(offline_run, monkeypatch):
 
 def test_api_mode_with_stubbed_client(offline_run, monkeypatch):
     """Exercise API mode end to end against a stub; no network."""
+    pytest.importorskip("anthropic")
     from pipeline.common import data_paths
     p = data_paths(offline_run["data"])
     for f in p["triage"].glob("*.json"):
