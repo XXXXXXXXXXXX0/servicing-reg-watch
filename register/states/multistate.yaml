@@ -1,6 +1,6 @@
 # Multi-state INSURANCE.CLAIMS rows (BUILD_SPEC Section 6, Tier 2).
 #
-# status: unresearched. These topics are governed by state law that varies by
+# status: unresearched (INS-GAP-001: verify, see its notes). These topics are governed by state law that varies by
 # state, and no primary source has been identified yet. citation and
 # source_url stay null on purpose: do not fill them until a primary source is
 # found, then split the row per state (e.g. US-CA) and move it to `verify`.
@@ -8,21 +8,21 @@
 rows:
   - id: INS-GAP-001
     law: "GAP waiver and add-on product refund laws"
-    citation: null
-    source_url: null
+    citation: "CFPB, Supervisory Highlights, Issue 26, Spring 2022, 87 FR 26727 (May 5, 2022), FR Doc. 2022-09690"
+    source_url: "https://www.federalregister.gov/documents/2022/05/05/2022-09690/supervisory-highlights-issue-26-spring-2022"
     agency: state
     jurisdiction: multi-state
     applies_to: [creditors, secured_parties]
     tier: 2
     behavior_classes: [INSURANCE.CLAIMS]
-    constraint: "Unresearched. Refund duties for GAP and other add-on products on early payoff, total loss or repossession vary by state; no constraint is stated until primary sources are identified."
+    constraint: "Supervisory signal, not a state rule: this CFPB Supervisory Highlights issue reports examination findings about auto servicers and refunds of GAP fees (identified by Federal Register full-text search; finding wording not yet read against the document). State refund duties for GAP and other add-on products still vary by state and are unresearched."
     change_source: [manual]
     provenance: salient_stated
     provenance_url: null
-    status: unresearched
+    status: verify
     effective_date: null
     last_checked: null
-    notes: "Rules vary by state. applies_to is provisional pending research."
+    notes: "Rules vary by state. The citation is a federal supervisory publication (UDAAP findings), not a state law; state primary sources are still unresearched. applies_to is provisional pending research."
 
   - id: INS-APPRAISAL-001
     law: "Appraisal-clause deadlines (total-loss valuation disputes)"

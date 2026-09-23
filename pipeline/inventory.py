@@ -67,8 +67,6 @@ def validate_rows(rows: list[dict]) -> list[str]:
             errors.append(f"{where}: tier must be 1 or 2")
         if not JURIS_RE.match(str(r.get("jurisdiction"))):
             errors.append(f"{where}: jurisdiction must be 'federal', 'multi-state' or US-XX")
-        if r.get("jurisdiction") == "multi-state" and not unresearched:
-            errors.append(f"{where}: multi-state rows must be split per state before leaving unresearched")
         for c in r.get("behavior_classes") or []:
             if c not in classes:
                 errors.append(f"{where}: unknown behavior class {c}")
@@ -128,14 +126,16 @@ def render(rows: list[dict], backlog: list[dict]) -> str:
     for c in tax["behavior_classes"]:
         ids = sorted(by_class.get(c, []))
         out.append(f"| {c} | {', '.join(ids) or '**none**'} | {len(ids)} |")
-    pending = sorted((r for r in rows if r["status"] == "unresearched"), key=lambda r: r["id"])
+    pending = sorted((r for r in rows if r["status"] == "unresearched" or r["jurisdiction"] == "multi-state"),
+                     key=lambda r: r["id"])
     out += ["", "## Coverage map: state research pending", "",
-            "No primary citation yet (`status: unresearched`). Rules vary by state.", "",
-            "| ID | Law | Jurisdiction | Behavior classes | Tier | Prov | Note |", "|---|---|---|---|---|---|---|"]
+            "Rows with no state primary source yet: `status: unresearched`, or `multi-state` rows not yet",
+            "split per state. Rules vary by state.", "",
+            "| ID | Law | Jurisdiction | Behavior classes | Tier | Prov | Status | Note |", "|---|---|---|---|---|---|---|---|"]
     for r in pending:
         out.append("| " + " | ".join([
             r["id"], _cell(r["law"]), r["jurisdiction"], ", ".join(r["behavior_classes"]), str(r["tier"]),
-            PROVENANCE[r["provenance"]], _cell(r.get("notes") or ""),
+            PROVENANCE[r["provenance"]], r["status"], _cell(r.get("notes") or ""),
         ]) + " |")
     out += ["", "## Open research items (state x topic gaps)", "",
             "These have no primary citation yet, so they are not register rows.", "",

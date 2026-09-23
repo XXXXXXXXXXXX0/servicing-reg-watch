@@ -8,7 +8,7 @@ Rows marked `unresearched` have no primary source yet and are listed separately 
 ## Summary
 
 - Rows: 69 (Tier 1: 39, Tier 2: 30)
-- Status: unresearched: 4, verified: 0, verify: 65
+- Status: unresearched: 3, verified: 0, verify: 66
 - Provenance: S (salient_stated): 38, T (third_party_stated): 4, A (added_by_analysis): 27
 - Jurisdictions: US-CA: 7, US-CO: 1, US-FL: 6, US-MA: 6, US-TX: 5, US-UT: 1, federal: 39, multi-state: 4
 - Open research items (not rows): 8
@@ -87,6 +87,7 @@ Rows marked `unresearched` have no primary source yet and are listed separately 
 | [MA-UCC9-001](https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXV/Chapter106/Article9/Section9-609) | UCC Article 9 (Massachusetts) | M.G.L. c. 106, §§ 9-609, 9-611 | US-MA | RECOVERY.REPOSSESSION | manual | S | verify | — |
 | [TX-UCC9-001](https://statutes.capitol.texas.gov/Docs/BC/htm/BC.9.htm#9.609) | UCC Article 9 (Texas) | Tex. Bus. & Com. Code 9.609, 9.611 | US-TX | RECOVERY.REPOSSESSION | manual | S | verify | — |
 | [UT-AIDISC-001](https://le.utah.gov/xcode/Title13/Chapter2/13-2-S12.html) | Utah Artificial Intelligence Policy Act | Utah Code 13-2-12 (as amended 2025) (verify) | US-UT | CONTACT.AI_DISCLOSURE | manual | A | verify | — |
+| [INS-GAP-001](https://www.federalregister.gov/documents/2022/05/05/2022-09690/supervisory-highlights-issue-26-spring-2022) | GAP waiver and add-on product refund laws | CFPB, Supervisory Highlights, Issue 26, Spring 2022, 87 FR 26727 (May 5, 2022), FR Doc. 2022-09690 | multi-state | INSURANCE.CLAIMS | manual | S | verify | — |
 
 ## Coverage by behavior class
 
@@ -112,14 +113,15 @@ Rows marked `unresearched` have no primary source yet and are listed separately 
 
 ## Coverage map: state research pending
 
-No primary citation yet (`status: unresearched`). Rules vary by state.
+Rows with no state primary source yet: `status: unresearched`, or `multi-state` rows not yet
+split per state. Rules vary by state.
 
-| ID | Law | Jurisdiction | Behavior classes | Tier | Prov | Note |
-|---|---|---|---|---|---|---|
-| INS-APPRAISAL-001 | Appraisal-clause deadlines (total-loss valuation disputes) | multi-state | INSURANCE.CLAIMS | 2 | S | Rules vary by state. applies_to is provisional pending research. |
-| INS-CPI-001 | Collateral protection insurance rules | multi-state | INSURANCE.CLAIMS | 2 | A | Rules vary by state. applies_to is provisional pending research. |
-| INS-GAP-001 | GAP waiver and add-on product refund laws | multi-state | INSURANCE.CLAIMS | 2 | S | Rules vary by state. applies_to is provisional pending research. |
-| INS-LIEN-001 | Lien release timing laws | multi-state | INSURANCE.CLAIMS | 2 | S | Rules vary by state. applies_to is provisional pending research. |
+| ID | Law | Jurisdiction | Behavior classes | Tier | Prov | Status | Note |
+|---|---|---|---|---|---|---|---|
+| INS-APPRAISAL-001 | Appraisal-clause deadlines (total-loss valuation disputes) | multi-state | INSURANCE.CLAIMS | 2 | S | unresearched | Rules vary by state. applies_to is provisional pending research. |
+| INS-CPI-001 | Collateral protection insurance rules | multi-state | INSURANCE.CLAIMS | 2 | A | unresearched | Rules vary by state. applies_to is provisional pending research. |
+| INS-GAP-001 | GAP waiver and add-on product refund laws | multi-state | INSURANCE.CLAIMS | 2 | S | verify | Rules vary by state. The citation is a federal supervisory publication (UDAAP findings), not a state law; state primary sources are still unresearched. applies_to is provisional pending research. |
+| INS-LIEN-001 | Lien release timing laws | multi-state | INSURANCE.CLAIMS | 2 | S | unresearched | Rules vary by state. applies_to is provisional pending research. |
 
 ## Open research items (state x topic gaps)
 

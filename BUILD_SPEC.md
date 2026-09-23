@@ -30,7 +30,7 @@ law: "FDCPA / Regulation F"
 citation: "12 CFR 1006.14(b)"     # null only when status: unresearched
 source_url: "<primary source>"  # null only when status: unresearched
 agency: CFPB
-jurisdiction: federal            # or US-CA, US-FL, US-MA, US-TX; multi-state only while unresearched
+jurisdiction: federal            # or US-CA, US-FL, US-MA, US-TX; or multi-state (not yet split per state)
 applies_to: [third_party_collectors, post_default_servicers]   # who is covered
 tier: 1                          # 1 = modeled + evaluated; 2 = inventoried + monitored
 behavior_classes: [CONTACT.FREQUENCY]
