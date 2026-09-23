@@ -124,10 +124,10 @@ def render(res: dict, labels_path: Path, triage_dir: Path) -> str:
                 "**No results yet.** Nothing can be scored until labeled documents also have predictions.",
                 "",
                 "Protocol (BUILD_SPEC Section 10):",
-                "1. After a live ingest, run `python eval/select_sample.py` to draw ~30 documents "
-                "(~15 positive candidates, ~15 negatives including hard negatives).",
+                "1. Run `python eval/select_sample.py` to draw 30 documents from direct Federal Register term searches "
+                "(query mix in the script docstring; at least 5 prefilter-dropped documents).",
                 "2. The labeler fills in `eval/labels.csv` **blind**, before seeing any triage output "
-                "or `eval/sample_strata.csv`: relevant Y/N, behavior classes, tier.",
+                "or `eval/sample_manifest.csv`: relevant Y/N, behavior classes, tier.",
                 "3. Run triage, then `python eval/run_eval.py`.", ""]
         if res["missing_prediction"]:
             out += ["Labeled documents awaiting triage: " + ", ".join(res["missing_prediction"]), ""]

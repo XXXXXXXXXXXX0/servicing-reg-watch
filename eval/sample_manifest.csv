@@ -1,0 +1,31 @@
+doc_id,search_query,prefilter_decision,prefilter_reason
+2024-30824,Regulation F,keep,tracked_cfr_part
+2025-08286,Regulation F,keep,domain_terms
+2024-22962,Regulation F,keep,tracked_cfr_part
+2025-15090,debt collection,keep,tracked_cfr_part
+2026-07804,debt collection,keep,tracked_cfr_part
+2026-06864,debt collection,keep,tracked_cfr_part
+2025-08646,electronic fund transfer,keep,tracked_cfr_part
+2024-31670,electronic fund transfer,keep,domain_terms
+2025-11982,electronic fund transfer,keep,domain_terms
+2026-07960,robocall,keep,tracked_cfr_part
+2025-18398,robocall,drop,noise_title
+2026-16615,robocall,drop,no_signal
+2025-00633,auto loan,keep,domain_terms
+2025-01142,auto loan,keep,domain_terms
+2026-10099,auto loan,drop,noise_title
+2024-27458,mortgage servicing,keep,domain_terms
+2025-14060,mortgage servicing,drop,no_signal
+2024-27836,mortgage servicing,keep,tracked_cfr_part
+2025-19942,overdraft,drop,no_signal
+2024-30293,overdraft,keep,domain_terms
+2025-23712,overdraft,drop,no_signal
+2024-25079,personal financial data rights,keep,domain_terms
+2024-29699,personal financial data rights,keep,tracked_cfr_part
+2025-23785,telemarketing,drop,noise_title
+2026-04952,telemarketing,drop,no_signal
+2024-28399,telemarketing,drop,no_signal
+2026-01557,(unfiltered),drop,noise_title
+2026-08944,(unfiltered),drop,noise_title
+2025-22490,(unfiltered),keep,tracked_cfr_part
+2025-11410,(unfiltered),drop,noise_title

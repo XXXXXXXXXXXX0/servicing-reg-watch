@@ -4,14 +4,14 @@
 
 - Labels: `eval/labels.csv`
 - Triage outputs: `data/triage`
-- Sample rows: 0; labeled: 0; unlabeled: 0; labeled but no prediction yet: 0
+- Sample rows: 30; labeled: 0; unlabeled: 30; labeled but no prediction yet: 0
 
 ## Status
 
 **No results yet.** Nothing can be scored until labeled documents also have predictions.
 
 Protocol (BUILD_SPEC Section 10):
-1. After a live ingest, run `python eval/select_sample.py` to draw ~30 documents (~15 positive candidates, ~15 negatives including hard negatives).
-2. The labeler fills in `eval/labels.csv` **blind**, before seeing any triage output or `eval/sample_strata.csv`: relevant Y/N, behavior classes, tier.
+1. Run `python eval/select_sample.py` to draw 30 documents from direct Federal Register term searches (query mix in the script docstring; at least 5 prefilter-dropped documents).
+2. The labeler fills in `eval/labels.csv` **blind**, before seeing any triage output or `eval/sample_manifest.csv`: relevant Y/N, behavior classes, tier.
 3. Run triage, then `python eval/run_eval.py`.
 

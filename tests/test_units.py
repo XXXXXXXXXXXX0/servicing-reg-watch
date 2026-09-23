@@ -9,7 +9,7 @@ from pathlib import Path
 import pytest
 
 from pipeline import prefilter, route, triage
-from pipeline.common import ROOT, behavior_class_ids, load_register
+from pipeline.common import FIXTURES_DIR as FIXTURES, ROOT, behavior_class_ids, load_register
 from pipeline.diff import xml_to_lines
 
 FIX = ROOT / "fixtures" / "triage"
@@ -221,14 +221,20 @@ def test_clopper_pearson_known_values():
     assert abs(lo - 0.3475) < 1e-3 and abs(hi - 0.9333) < 1e-3
 
 
-def test_sample_selection(offline_run, tmp_path):
+def test_sample_selection(tmp_path):
     import select_sample
-    rc = select_sample.main(["--data-dir", str(offline_run["data"]), "--out-dir", str(tmp_path)])
-    assert rc == 0
+    w = json.loads((FIXTURES / "federal_register" / "window.json").read_text())
+    argv = ["--offline", "--start", w["start"], "--end", w["end"], "--out-dir", str(tmp_path)]
+    assert select_sample.main(argv) == 0
     with open(tmp_path / "labels.csv") as f:
         rows = list(csv.DictReader(f))
     assert rows and all(r["label_relevant"] == "" for r in rows)
-    assert select_sample.main(["--data-dir", str(offline_run["data"]), "--out-dir", str(tmp_path)]) == 1  # no overwrite
+    assert len({r["doc_id"] for r in rows}) == len(rows)
+    cand = (tmp_path / "candidates.md").read_text()
+    assert all(r["doc_id"] in cand for r in rows)
+    for word in ("relevant", "negative", "positive", "stratum"):
+        assert word not in cand.lower()
+    assert select_sample.main(argv) == 1  # no overwrite
 
 
 # ------------------------------------------------------------------ secrets

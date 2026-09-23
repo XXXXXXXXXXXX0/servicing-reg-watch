@@ -104,11 +104,14 @@ class FixtureClient:
         types = {config.DOC_TYPES[t] for t in params.get("conditions[type][]", [])}
         gte = params.get("conditions[publication_date][gte]", "0000-00-00")
         lte = params.get("conditions[publication_date][lte]", "9999-99-99")
+        # FR term search runs over full text; fixtures approximate it with title + abstract.
+        term = params.get("conditions[term]", "").strip('"').lower()
         hits = [
             d for d in self.documents
             if (not agencies or agencies & {a.get("slug") for a in d.get("agencies", [])})
             and (not types or d.get("type") in types)
             and gte <= d.get("publication_date", "") <= lte
+            and (not term or term in f"{d.get('title', '')} {d.get('abstract', '')}".lower())
         ]
         hits.sort(key=lambda d: (d["publication_date"], d["document_number"]))
         per_page = int(params.get("per_page", 20))

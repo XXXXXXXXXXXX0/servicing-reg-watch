@@ -1,72 +1,164 @@
-"""Draw the stratified eval sample (BUILD_SPEC Section 10) from an ingest run.
+"""Draw the ~30-document eval sample (BUILD_SPEC Section 10) independently of the pipeline.
 
-    python eval/select_sample.py [--data-dir DIR] [--seed N] [--force]
+    python eval/select_sample.py [--offline] [--seed N] [--force] [--start D --end D]
+
+Candidates come from direct Federal Register term searches (full-text search on
+the FR side), not from the pipeline's prefilter. The search uses the same
+agencies, document types and 24-month window as ingest, so every sampled
+document is one the pipeline also processed and run_eval.py can score it.
+
+Queries and how many documents each contributes:
+  - the five topic terms for Section 10's relevant-topic side, 3 each (15):
+    "Regulation F", "debt collection", "electronic fund transfer", "robocall", "auto loan"
+  - Section 10's named hard-negative topics (11):
+    "mortgage servicing" 3, "overdraft" 3, "personal financial data rights" 2, "telemarketing" 3
+  - an unfiltered draw from the whole window (4)
+
+The query that surfaced a document says nothing about whether it is relevant;
+only the blind labeler decides that.
+
+The sample must contain at least MIN_PREFILTER_DROPPED documents that the
+prefilter drops (checked with pipeline.prefilter.classify on each candidate),
+so the eval measures prefilter misses. If the random draw has fewer, picks are
+swapped for dropped candidates from the same query until it does.
 
 Writes:
-  eval/labels.csv        - doc_id, title, url, and EMPTY label columns for blind labeling
-  eval/sample_strata.csv - which stratum each document was drawn from
+  eval/labels.csv          - doc_id, title, url, and EMPTY label columns, shuffled
+  eval/candidates.md       - number, title, agency, date, abstract, link; nothing else
+  eval/sample_manifest.csv - query and prefilter decision per document. Selection
+                             bookkeeping only; do not open it before labeling.
 
-The labeler should fill in labels.csv before looking at sample_strata.csv or any
-triage output. Strata are keyword heuristics for drawing a balanced sample, not
-labels. Refuses to overwrite a labels.csv that already has rows unless --force.
+Refuses to overwrite a labels.csv that already has rows unless --force.
 """
 from __future__ import annotations
 
 import argparse
 import csv
+import datetime as dt
 import random
-import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from pipeline.common import data_paths, read_jsonl  # noqa: E402
-from pipeline.ingest import load_raw_docs  # noqa: E402
+from pipeline import config  # noqa: E402
+from pipeline.ingest import default_window  # noqa: E402
+from pipeline.prefilter import classify  # noqa: E402
+from pipeline.sources import make_client  # noqa: E402
 
 LABEL_FIELDS = ["doc_id", "title", "html_url", "label_relevant", "label_behavior_classes",
                 "label_tier", "labeled_by", "labeled_on", "notes"]
 
-# (stratum, group, target count, predicate)
-def _t(d):
-    return " ".join(filter(None, [d.get("title"), d.get("abstract")]))
-
-def _parts(d):
-    return {(int(r.get("title") or 0), str(r.get("part"))) for r in d.get("cfr_references") or []}
-
-STRATA = [
-    ("reg_f", "positive_candidate", 4, lambda d: (12, "1006") in _parts(d) or re.search(r"debt collect", _t(d), re.I)),
-    ("reg_e", "positive_candidate", 4, lambda d: (12, "1005") in _parts(d) or re.search(r"electronic fund transfer", _t(d), re.I)),
-    ("tcpa_servicing", "positive_candidate", 4, lambda d: re.search(r"robocall|robotext|revocation|artificial.{0,20}voice", _t(d), re.I)
-        and not re.search(r"telemarket|lead generat|one-to-one", _t(d), re.I)),
-    ("collections_auto_supervisory", "positive_candidate", 3, lambda d: re.search(
-        r"auto(?:mobile)? (?:loan|financ)|motor vehicle|repossess|supervisory highlights|collection", _t(d), re.I)),
-    ("mortgage_servicing", "hard_negative", 3, lambda d: (12, "1024") in _parts(d) or re.search(r"mortgage", _t(d), re.I)),
-    ("overdraft", "hard_negative", 3, lambda d: re.search(r"overdraft|non-sufficient funds", _t(d), re.I)),
-    ("open_banking", "hard_negative", 2, lambda d: (12, "1033") in _parts(d) or re.search(r"personal financial data|open banking", _t(d), re.I)),
-    ("tcpa_marketing", "hard_negative", 2, lambda d: re.search(r"telemarket|lead generat|one-to-one", _t(d), re.I)),
-    ("other", "easy_negative", 5, lambda d: True),
+# (FR search term or None for an unfiltered draw, documents to draw)
+QUERIES = [
+    ("Regulation F", 3),
+    ("debt collection", 3),
+    ("electronic fund transfer", 3),
+    ("robocall", 3),
+    ("auto loan", 3),
+    ("mortgage servicing", 3),
+    ("overdraft", 3),
+    ("personal financial data rights", 2),
+    ("telemarketing", 3),
+    (None, 4),
 ]
+MIN_PREFILTER_DROPPED = 5
+SEARCH_FIELDS = ["document_number", "title", "type", "abstract", "action", "agencies",
+                 "cfr_references", "publication_date", "html_url"]
+PER_PAGE = 1000
 
 
-def select(docs, seed=0):
+def search(client, term: str | None, start: dt.date, end: dt.date) -> list[dict]:
+    """All documents matching `term` (exact phrase) in the window, agencies and types."""
+    params = {
+        "conditions[agencies][]": config.AGENCIES,
+        "conditions[type][]": list(config.DOC_TYPES),
+        "conditions[publication_date][gte]": start.isoformat(),
+        "conditions[publication_date][lte]": end.isoformat(),
+        "fields[]": SEARCH_FIELDS,
+        "per_page": PER_PAGE,
+        "order": "oldest",
+    }
+    if term:
+        params["conditions[term]"] = f'"{term}"'
+    out, page = [], 1
+    while True:
+        res = client.get_json(config.FR_API, {**params, "page": page})
+        out.extend(res.get("results") or [])
+        if page >= int(res.get("total_pages") or 1):
+            return out
+        page += 1
+
+
+def select(pools: dict, seed: int = 0) -> tuple[list[tuple[str, dict]], list[str]]:
+    """Draw the quota from each pool without repeats, then swap in prefilter-dropped
+    documents (same query) until at least MIN_PREFILTER_DROPPED are included."""
     rng = random.Random(seed)
-    taken, rows = set(), []
-    for name, group, n, pred in STRATA:
-        pool = sorted((d for d in docs if d["document_number"] not in taken and pred(d)),
-                      key=lambda d: d["document_number"])
+    taken: set[str] = set()
+    picks: list[tuple[str, dict]] = []
+    for term, n in QUERIES:
+        pool = [d for d in pools[term] if d["document_number"] not in taken]
         for d in rng.sample(pool, min(n, len(pool))):
             taken.add(d["document_number"])
-            rows.append((name, group, d))
-    return rows
+            picks.append((term, d))
+    warnings = [f"query {t!r}: only {sum(1 for q, _ in picks if q == t)} of {n} available"
+                for t, n in QUERIES if sum(1 for q, _ in picks if q == t) < n]
+
+    def dropped(d):
+        return not classify(d)["keep"]
+
+    need = MIN_PREFILTER_DROPPED - sum(dropped(d) for _, d in picks)
+    order = list(range(len(picks)))
+    rng.shuffle(order)
+    for i in order:
+        if need <= 0:
+            break
+        term, d = picks[i]
+        if dropped(d):
+            continue
+        spare = [x for x in pools[term] if x["document_number"] not in taken and dropped(x)]
+        if not spare:
+            continue
+        new = rng.choice(spare)
+        taken.discard(d["document_number"])
+        taken.add(new["document_number"])
+        picks[i] = (term, new)
+        need -= 1
+    if need > 0:
+        warnings.append(f"only {MIN_PREFILTER_DROPPED - need} prefilter-dropped documents available")
+    return picks, warnings
+
+
+def _agencies(d: dict) -> str:
+    return "; ".join(a.get("name") or a.get("raw_name") or "" for a in d.get("agencies") or [])
+
+
+def _md(v) -> str:
+    return " ".join(str(v or "").split())
+
+
+def render_candidates(docs: list[dict], start: dt.date, end: dt.date) -> str:
+    out = ["# Eval candidates", "",
+           f"{len(docs)} Federal Register documents published {start}..{end}, in label order "
+           "(same order as `labels.csv`). Label them blind in `labels.csv`.", ""]
+    for i, d in enumerate(docs, 1):
+        out += [f"## {i}. {_md(d.get('title'))}", "",
+                f"- Number: {d['document_number']}",
+                f"- Agency: {_agencies(d)}",
+                f"- Date: {d.get('publication_date')}",
+                f"- Link: {d.get('html_url')}", "",
+                f"{_md(d.get('abstract')) or '(no abstract)'}", ""]
+    return "\n".join(out)
 
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--data-dir")
+    ap.add_argument("--offline", action="store_true", help="search fixtures/ instead of the live API")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--start", type=dt.date.fromisoformat)
+    ap.add_argument("--end", type=dt.date.fromisoformat)
     ap.add_argument("--out-dir", default=str(ROOT / "eval"))
     args = ap.parse_args(argv)
     out = Path(args.out_dir)
@@ -76,26 +168,32 @@ def main(argv=None):
             if list(csv.DictReader(f)):
                 print("labels.csv already has rows; use --force to replace (this discards labels)")
                 return 1
-    docs = load_raw_docs(args.data_dir)
-    dropped = {r["document_number"] for r in read_jsonl(data_paths(args.data_dir)["prefilter"] / "dropped.jsonl")}
-    rows = select(docs, args.seed)
-    # Shuffle label order so strata are not inferable from row position.
-    order = rows[:]
+    start, end = default_window()
+    start, end = args.start or start, args.end or end
+    client = make_client(args.offline)
+    pools = {term: search(client, term, start, end) for term, _ in QUERIES}
+    picks, warnings = select(pools, args.seed)
+    # Shuffle label order so the query is not inferable from row position.
+    order = [d for _, d in picks]
     random.Random(args.seed + 1).shuffle(order)
+    out.mkdir(parents=True, exist_ok=True)
     with open(labels, "w", newline="") as f:
         w = csv.DictWriter(f, LABEL_FIELDS)
         w.writeheader()
-        for _, _, d in order:
+        for d in order:
             w.writerow({"doc_id": d["document_number"], "title": d.get("title"), "html_url": d.get("html_url")})
-    with open(out / "sample_strata.csv", "w", newline="") as f:
+    (out / "candidates.md").write_text(render_candidates(order, start, end) + "\n")
+    with open(out / "sample_manifest.csv", "w", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["doc_id", "stratum", "group", "dropped_by_prefilter"])
-        for name, group, d in rows:
-            w.writerow([d["document_number"], name, group, d["document_number"] in dropped])
-    counts = {}
-    for _, g, _ in rows:
-        counts[g] = counts.get(g, 0) + 1
-    print(f"sample: {len(rows)} documents {counts} -> {labels}")
+        w.writerow(["doc_id", "search_query", "prefilter_decision", "prefilter_reason"])
+        for term, d in picks:
+            c = classify(d)
+            w.writerow([d["document_number"], term or "(unfiltered)", "keep" if c["keep"] else "drop", c["reason"]])
+    n_dropped = sum(not classify(d)["keep"] for _, d in picks)
+    print(f"sample: {len(picks)} documents ({n_dropped} dropped by prefilter) from "
+          + ", ".join(f"{t or 'unfiltered'}={len(pools[t])}" for t, _ in QUERIES) + f" -> {labels}")
+    for w_ in warnings:
+        print(f"  warning: {w_}")
     return 0
 
 

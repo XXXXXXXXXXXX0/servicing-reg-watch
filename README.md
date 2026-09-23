@@ -124,14 +124,18 @@ python -m pipeline.triage validate              # check triage JSON against the 
 **None yet.** `eval/results.md` is generated from `eval/labels.csv`, which currently
 has no rows. The protocol (BUILD_SPEC §10) is ready to run:
 
-1. After a live ingest, `python eval/select_sample.py` draws about 30 documents
-   stratified into positive candidates (Reg F, Reg E, TCPA servicing,
-   collections/auto supervisory material), hard negatives (mortgage servicing,
-   overdraft, open banking, marketing-only TCPA consent) and easy negatives. It
-   writes blank label rows in shuffled order, and writes the strata separately to
-   `eval/sample_strata.csv`.
+1. `python eval/select_sample.py` draws 30 documents independently of the
+   pipeline: direct Federal Register term searches ("Regulation F", "debt
+   collection", "electronic fund transfer", "robocall", "auto loan", 3 each; the
+   Section 10 hard-negative topics "mortgage servicing", "overdraft", "personal
+   financial data rights", "telemarketing"; and an unfiltered draw), over the same
+   agencies, types and window as ingest. At least 5 must be documents the prefilter
+   drops, so prefilter misses are measured. It writes blank label rows in shuffled
+   order to `labels.csv`, the documents (number, title, agency, date, abstract,
+   link) to `eval/candidates.md`, and the query and prefilter decision per
+   document to `eval/sample_manifest.csv`. No file carries a relevance judgment.
 2. The labeler fills in `labels.csv` **blind**, before seeing triage output or the
-   strata file.
+   manifest.
 3. `python eval/run_eval.py` reports precision, recall, and behavior-class agreement
    (mean Jaccard and exact-match rate) with exact Clopper-Pearson intervals. A
    document the prefilter dropped counts as a "not relevant" prediction, so the eval
