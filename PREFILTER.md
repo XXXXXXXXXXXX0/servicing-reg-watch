@@ -24,7 +24,7 @@ A document that is not excluded is kept if **any** of A, B or C matches. The rea
 
 ### A. CFR match (`A_cfr_part`)
 
-The document's `cfr_references` include one of these parts:
+The document's own `cfr_references` metadata includes one of these parts. If the metadata has no CFR references, rule A does not apply. CFR parts are never inferred from the agency, the title or anything else.
 - 12 CFR 1002 (Reg B), 1005 (Reg E), 1006 (Reg F), 1016 (Reg P), 1022 (Reg V), 1026 (Reg Z)
 - 47 CFR 64 (TCPA rules are in 64.1200)
 - 16 CFR 314 (FTC Safeguards Rule)
@@ -89,12 +89,4 @@ With the keywords added above, all 69 register rows and all 17 behavior classes 
 
 ## Eval manifest (`eval/sample_manifest.csv`)
 
-The prefilter decisions for the 30 sampled documents were recomputed under these rules without fetching anything. The raw ingest JSON from the live run is not in the repository (`data/` is gitignored and the CI live job has not run), so each document's inputs were rebuilt from committed files:
-- title, agencies and abstract come from `eval/candidates.md`;
-- the document type comes from the pre-cleanup `records/REVIEW_QUEUE.md` (commit 2c06df3), which listed every document the old prefilter kept.
-
-Two inputs could not be rebuilt directly:
-- **CFR references.** The old manifest recorded only "tracked_cfr_part", not which part. For the three non-CFPB documents with that reason (2026-06864 and 2026-07960 from the FCC, 2025-22490 from NCUA), the part was inferred from the agency. The FCC codifies only in title 47, and 47 CFR 64 was the old list's only title-47 part. NCUA's only part on the old list was 12 CFR 748. Both parts are in rule A, so the three documents stay kept. The CFPB documents with that reason are kept by rule B regardless.
-- **Type and `action` for old drops.** These documents were not in the old queue, so their type is unknown. All of them are still dropped. A few PRA-style titles show `no_match` rather than `excluded_pra_information_collection`, because that exclusion requires type Notice. The decision is the same either way.
-
-Result: 16 keep and 14 drop (previously 18 and 12). Two documents changed from keep to drop: 2025-01142 (CFPB) and 2024-27458 (FTC), both PRA information-collection notices. The full ingested corpus has not been re-run under these rules in this environment. The next `python -m pipeline.prefilter` on live data will do that.
+Decisions for the 30 sampled documents are computed by `classify` from each document's ingested Federal Register metadata. CFR parts are never inferred (see rule A).
