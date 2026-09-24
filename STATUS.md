@@ -7,8 +7,7 @@ Branch: `claude/eloquent-goodall-jas2zw` (no PR opened).
 - eCFR diffs for the same 215: 22 diffed, 32 proposed, 9 no matching version, 8 no effective date, 1 pending.
 - Triage in-session (no API). Stage A (abstract, metadata, diff excerpt): 215, all valid; 22 relevant.
 - Stage B (full text, <= ~4,000 words) on 35 docs: relevance changed for 4 (2 to relevant, 2 to not relevant); 12 more changed other fields.
-- Final: 22 relevant; route: 47 review (22 relevant, 25 not relevant < 0.85), 168 auto-closed; 22 change records in `records/`.
-- Human-review flags: 0 for missing full text; 2 with confidence < 0.7 after Stage B (2024-30824 and its correction).
+- Final: 22 relevant; route: 47 review (22 relevant, 25 not relevant < 0.85), 168 auto-closed; 22 change records. Human-review flags: 0 missing full text; 2 < 0.7 (2024-30824 + correction).
 - Stage B log: `data/triage/_stage_b.jsonl`; `eval/run_eval.py` now renders a Stage A/B summary in `eval/results.md`.
 
 ## Data files (committed)
