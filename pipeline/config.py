@@ -3,6 +3,15 @@
 FR_API = "https://www.federalregister.gov/api/v1/documents.json"
 ECFR_API = "https://www.ecfr.gov/api/versioner/v1"
 
+# Full text of Federal Register documents comes from GovInfo, not
+# federalregister.gov (whose text URLs redirect to a bot wall). Primary route:
+# the API granule /htm endpoint, key sent in the X-Api-Key header. Fallback:
+# the public www content link. Package = FR-<publication_date>, granule =
+# document number.
+GOVINFO_API = "https://api.govinfo.gov"
+GOVINFO_WWW = "https://www.govinfo.gov"
+GOVINFO_KEY_ENV = "GOVINFO_API_KEY"
+
 WINDOW_MONTHS = 24
 
 AGENCIES = [

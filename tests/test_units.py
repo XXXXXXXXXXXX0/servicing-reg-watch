@@ -237,6 +237,102 @@ def test_sample_selection(tmp_path):
     assert select_sample.main(argv) == 1  # no overwrite
 
 
+# ------------------------------------------------------------ govinfo text
+def test_html_to_text_strips_tags_and_entities():
+    from pipeline.sources import html_to_text
+    markup = "<html><head><style>p{}</style><script>x()</script></head><body><pre>AGENCY: CFPB &amp; FTC.\n<b>12 CFR</b> 1006</pre></body></html>"
+    assert html_to_text(markup) == "AGENCY: CFPB & FTC.\n12 CFR 1006\n"
+
+
+class _Resp:
+    def __init__(self, status, text="", location=None):
+        self.status_code, self.text = status, text
+        self.headers = {"Location": location} if location else {}
+        self.is_redirect = location is not None
+        self.next = types.SimpleNamespace(url=location)
+
+    def raise_for_status(self):
+        import requests
+        if self.status_code >= 400:
+            raise requests.HTTPError(response=self)
+
+
+def _live_client(monkeypatch, responses, key="k-test"):
+    from pipeline import sources
+    if key:
+        monkeypatch.setenv("GOVINFO_API_KEY", key)
+    else:
+        monkeypatch.delenv("GOVINFO_API_KEY", raising=False)
+    monkeypatch.setattr(sources.time, "sleep", lambda s: None)
+    c = sources.LiveClient(retries=1)
+    calls = []
+
+    def get(url, params=None, headers=None, **kw):
+        calls.append((url, dict(headers or {})))
+        return responses(url)
+    c.session = types.SimpleNamespace(get=get, headers={})
+    return c, calls
+
+
+DOC = {"document_number": "2025-08641", "publication_date": "2025-05-15"}
+
+
+def test_govinfo_api_route_sends_key_in_header_only(monkeypatch):
+    c, calls = _live_client(monkeypatch, lambda url: _Resp(200, "<pre>text</pre>"))
+    assert c.get_document_html(DOC) == ("<pre>text</pre>", "api")
+    url, headers = calls[0]
+    assert url == "https://api.govinfo.gov/packages/FR-2025-05-15/granules/2025-08641/htm"
+    assert headers == {"X-Api-Key": "k-test"} and "k-test" not in url
+
+
+def test_govinfo_falls_back_to_www(monkeypatch):
+    c, calls = _live_client(monkeypatch, lambda url: _Resp(403) if "api." in url else _Resp(200, "<pre>w</pre>"))
+    assert c.get_document_html(DOC) == ("<pre>w</pre>", "www")
+    assert calls[-1] == ("https://www.govinfo.gov/content/pkg/FR-2025-05-15/html/2025-08641.htm", {})
+    c, calls = _live_client(monkeypatch, lambda url: _Resp(200, "w"), key=None)
+    assert c.get_document_html(DOC) == ("w", "www") and len(calls) == 1
+
+
+def test_govinfo_unavailable_reason_never_contains_key(monkeypatch):
+    from pipeline.sources import TextUnavailable
+    c, _ = _live_client(monkeypatch, lambda url: _Resp(429))
+    with pytest.raises(TextUnavailable) as e:
+        c.get_document_html(DOC)
+    assert str(e.value) == "api: HTTP 429; www: HTTP 429" and "k-test" not in str(e.value)
+
+
+def test_key_header_not_forwarded_off_host(monkeypatch):
+    def responses(url):
+        if url.startswith("https://api.govinfo.gov"):
+            return _Resp(302, location="https://elsewhere.example/x")
+        return _Resp(200, "moved")
+    c, calls = _live_client(monkeypatch, responses)
+    assert c.get_document_html(DOC) == ("moved", "api")
+    assert calls[1] == ("https://elsewhere.example/x", {})
+
+
+def test_fetch_texts_caches_and_never_refetches(tmp_path):
+    from pipeline import ingest
+    from pipeline.common import data_paths, write_json, write_jsonl
+
+    class Counting:
+        n = 0
+
+        def get_document_html(self, doc):
+            Counting.n += 1
+            return "<pre>Body &amp; more</pre>", "api"
+    p = data_paths(tmp_path)
+    write_jsonl(p["prefilter"] / "kept.jsonl", [{"document_number": "2025-08641"}])
+    write_json(p["raw"] / "2025-08641.json", {"document": DOC})
+    res = ingest.fetch_texts(Counting(), tmp_path)
+    assert res["fetched_now"] == 1 and Counting.n == 1
+    assert (p["html"] / "2025-08641.htm").read_text() == "<pre>Body &amp; more</pre>"
+    assert (p["text"] / "2025-08641.txt").read_text() == "Body & more\n"
+    (p["text"] / "2025-08641.txt").unlink()        # derived text lost, cached response kept
+    assert ingest.fetch_texts(Counting(), tmp_path)["fetched_now"] == 0 and Counting.n == 1
+    assert (p["text"] / "2025-08641.txt").exists()
+
+
 # ------------------------------------------------------------------ secrets
 SECRET_PATTERNS = [
     re.compile(r"sk-ant-[A-Za-z0-9_-]{10,}"),
@@ -244,6 +340,8 @@ SECRET_PATTERNS = [
     re.compile(r"ghp_[A-Za-z0-9]{30,}"),
     re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----"),
     re.compile(r"ANTHROPIC_API_KEY\s*[=:]\s*['\"]?[A-Za-z0-9_-]{20,}"),
+    re.compile(r"GOVINFO_API_KEY\s*[=:]\s*['\"]?[A-Za-z0-9_-]{20,}"),
+    re.compile(r"api_key=[A-Za-z0-9]{20,}"),
 ]
 
 

@@ -31,6 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GOVINFO_API_KEY: ${{ secrets.GOVINFO_API_KEY }}
       MODEL: ${{ vars.MODEL || 'claude-sonnet-5' }}
     steps:
       - uses: actions/checkout@v4

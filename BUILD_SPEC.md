@@ -21,6 +21,8 @@ Withdrawals and rescissions of guidance are changes and must be captured.
 **eCFR versioner API** (`https://www.ecfr.gov/api/versioner/v1/`) for point-in-time rule text and diffs:
 12 CFR 1005 (Reg E), 1002 (Reg B), 1006 (Reg F), 1016 (Reg P), 1022 (Reg V), 1026 (Reg Z); 47 CFR 64.1200 (TCPA rules); 16 CFR 314 (FTC Safeguards).
 
+**GovInfo** for Federal Register full text (federalregister.gov text URLs redirect to a bot wall): API granule `https://api.govinfo.gov/packages/FR-<publication_date>/granules/<document_number>/htm` with the key from env `GOVINFO_API_KEY` in the `X-Api-Key` header; fallback `https://www.govinfo.gov/content/pkg/FR-<publication_date>/html/<document_number>.htm`. HTML tags are stripped; every response is cached to disk and never refetched.
+
 **Manual rows** (no Federal Register feed): state law, Nacha Operating Rules, bank supervisory bulletins, industry standards.
 
 ## 4. Register row schema

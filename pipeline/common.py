@@ -25,7 +25,8 @@ def data_paths(data_dir: Path | None = None) -> dict[str, Path]:
         "root": d,
         "raw": d / "raw" / "federal_register",
         "manifest": d / "raw" / "ingest_manifest.json",
-        "text": d / "raw" / "text",
+        "html": d / "raw" / "govinfo",   # cached GovInfo responses, as fetched
+        "text": d / "raw" / "text",      # tag-stripped text derived from them
         "prefilter": d / "prefilter",
         "diffs": d / "diffs",
         "triage_inputs": d / "triage_inputs",

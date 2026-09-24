@@ -2,10 +2,14 @@
 FixtureClient answers the same calls from fixtures/ with no network access."""
 from __future__ import annotations
 
+import html
 import json
 import math
+import os
 import time
+from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import urlparse
 
 from . import config
 from .common import FIXTURES_DIR
@@ -23,7 +27,42 @@ class TextUnavailable(Exception):
     """Full text could not be fetched; the message is the logged reason."""
 
 
-TEXT_RETRY_USER_AGENT = "servicing-reg-watch/1.0 (research project)"
+def govinfo_urls(doc: dict) -> dict[str, str]:
+    """GovInfo locations of a Federal Register document's HTML text."""
+    package = f"FR-{doc['publication_date']}"
+    num = doc["document_number"]
+    return {
+        "api": f"{config.GOVINFO_API}/packages/{package}/granules/{num}/htm",
+        "www": f"{config.GOVINFO_WWW}/content/pkg/{package}/html/{num}.htm",
+    }
+
+
+class _TextExtractor(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.parts: list[str] = []
+        self._skip = 0
+
+    def handle_starttag(self, tag, attrs):
+        if tag in ("script", "style"):
+            self._skip += 1
+
+    def handle_endtag(self, tag):
+        if tag in ("script", "style") and self._skip:
+            self._skip -= 1
+
+    def handle_data(self, data):
+        if not self._skip:
+            self.parts.append(data)
+
+
+def html_to_text(markup: str) -> str:
+    """Strip tags (and script/style content) and decode entities. GovInfo FR
+    granules are a <pre> block, so the text keeps its own line breaks."""
+    p = _TextExtractor()
+    p.feed(markup)
+    p.close()
+    return html.unescape("".join(p.parts)).strip() + "\n"
 
 
 class LiveClient:
@@ -50,7 +89,11 @@ class LiveClient:
                     location = resp.headers.get("Location", "")
                     if "unblock.federalregister.gov" in location:
                         raise Blocked(url)
-                    resp = self.session.get(resp.next.url, headers=headers, timeout=self.timeout, allow_redirects=False)
+                    nxt = resp.next.url
+                    # Request-specific headers (the GovInfo key) never follow a redirect off-host.
+                    if urlparse(nxt).netloc != urlparse(url).netloc:
+                        headers = None
+                    resp = self.session.get(nxt, headers=headers, timeout=self.timeout, allow_redirects=False)
             except self._requests.RequestException:
                 if attempt == retries:
                     raise
@@ -71,22 +114,41 @@ class LiveClient:
     def get_text(self, url, params=None):
         return self._get(url, params).text
 
-    def get_full_text(self, url):
-        """Fetch a document's full text. On the FR bot wall, retry once with a
-        descriptive User-Agent; no further retries. Raises Blocked or
-        TextUnavailable with the reason."""
+    def get_document_html(self, doc: dict) -> tuple[str, str]:
+        """Fetch a document's full-text HTML from GovInfo. Returns (html, route).
+
+        Route "api": granule /htm with the key from GOVINFO_API_KEY in the
+        X-Api-Key header (never in the URL, never logged); retries with
+        exponential backoff on 429 and 5xx. Route "www": the public content
+        link, tried when the key is absent or the API route fails. Raises
+        TextUnavailable with both reasons if neither works."""
+        urls = govinfo_urls(doc)
+        key = os.environ.get(config.GOVINFO_KEY_ENV)
+        reasons = []
+        if key:
+            try:
+                return self._get(urls["api"], headers={"X-Api-Key": key}).text, "api"
+            except NotFound:
+                reasons.append("api: not_found (404)")
+            except Blocked:
+                reasons.append("api: redirected to a bot wall")
+            except self._requests.HTTPError as e:
+                reasons.append(f"api: HTTP {e.response.status_code if e.response is not None else '?'}")
+            except self._requests.RequestException as e:
+                reasons.append(f"api: request_error {type(e).__name__}")
+        else:
+            reasons.append(f"api: {config.GOVINFO_KEY_ENV} not set")
         try:
-            return self._get(url, retries=0).text
+            return self._get(urls["www"]).text, "www"
+        except NotFound:
+            reasons.append("www: not_found (404)")
         except Blocked:
-            pass
+            reasons.append("www: redirected to a bot wall")
+        except self._requests.HTTPError as e:
+            reasons.append(f"www: HTTP {e.response.status_code if e.response is not None else '?'}")
         except self._requests.RequestException as e:
-            raise TextUnavailable(f"request_error: {type(e).__name__}") from e
-        try:
-            return self._get(url, headers={"User-Agent": TEXT_RETRY_USER_AGENT}, retries=0).text
-        except Blocked:
-            raise Blocked("fr_bot_wall: redirected to unblock.federalregister.gov (after User-Agent retry)")
-        except self._requests.RequestException as e:
-            raise TextUnavailable(f"request_error on User-Agent retry: {type(e).__name__}") from e
+            reasons.append(f"www: request_error {type(e).__name__}")
+        raise TextUnavailable("; ".join(reasons))
 
 
 class FixtureClient:
@@ -153,8 +215,12 @@ class FixtureClient:
             return json.loads(self._ecfr(url, params))
         raise NotFound(url)
 
-    def get_full_text(self, url):
-        return self.get_text(url)
+    def get_document_html(self, doc: dict) -> tuple[str, str]:
+        """Fixture stand-in for GovInfo: fixtures/text/<document_number>.txt."""
+        f = self.root / "text" / f"{doc['document_number']}.txt"
+        if not f.exists():
+            raise NotFound(govinfo_urls(doc)["api"])
+        return f.read_text(), "fixture"
 
     def get_text(self, url, params=None):
         params = params or {}
