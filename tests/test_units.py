@@ -33,7 +33,8 @@ def test_prefilter_rules():
     assert c(_doc("Wireless Telecommunications Bureau Seeks Comment on Robocall Mitigation"))["reason"] == "C_keyword"
     # A: CFR parts, exact list
     assert c(_doc("Anything", cfr=[(12, "748")]))["reason"] == "A_cfr_part"
-    assert c(_doc("Anything", cfr=[(12, "1090")]))["reason"] == "no_match"
+    assert c(_doc("Anything", cfr=[(12, "1090")]))["reason"] == "A_cfr_part"
+    assert c(_doc("Anything", cfr=[(12, "1024")]))["reason"] == "no_match"
     # B: CFPB types
     assert c(_doc("Rules of Practice", agency=cfpb, typ="Rule"))["cfpb_type"] == "final_rule"
     assert c(_doc("Supervisory Highlights, Issue 35", agency=cfpb))["cfpb_type"] == "supervisory highlights"

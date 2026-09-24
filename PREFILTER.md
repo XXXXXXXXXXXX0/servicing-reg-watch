@@ -29,10 +29,10 @@ The document's own `cfr_references` metadata includes one of these parts. If the
 - 47 CFR 64 (TCPA rules are in 64.1200)
 - 16 CFR 314 (FTC Safeguards Rule)
 - 12 CFR 30 (OCC), 208 (Fed), 225 (Fed), 364 (FDIC), 748 (NCUA): bank and credit union information-security standards, security programs and incident notification
+- 12 CFR 53 (OCC) and 304 (FDIC): computer-security incident notification
+- 12 CFR 1090 (CFPB): larger-participant rules, which bring nonbank auto lenders, collectors and payment companies under CFPB supervision
 
-**Why:** these are the parts that hold the register's federal rules. A document that amends one of them changes rule text that a servicing agent follows. It is kept whatever its title says.
-
-**Change from before:** 12 CFR 53 (OCC incident notification), 304 (FDIC incident notification) and 1090 (CFPB larger participants) are no longer on the list. For the incident-notification rule, 12 CFR 225 still reaches the register row (BANKSEC-INCIDENT-001). A CFPB larger-participant rule is still kept by rule B.
+**Why:** these are the parts that hold the register's federal rules, plus the parts that decide who is supervised for them. A document that amends one of them changes rule text that a servicing agent follows, or changes who has to follow it. It is kept whatever its title says. The list is a minimum, and the prefilter leans toward keeping: parts are added freely and removed only with a stated reason.
 
 ### B. CFPB document type (`B_cfpb_type`)
 

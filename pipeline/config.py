@@ -50,9 +50,11 @@ ECFR_TRACKED = [
 ]
 
 # Prefilter rule A (PREFILTER.md): a document citing any of these CFR parts is
-# kept. Superset of ECFR_TRACKED: adds bank/CU security and supervision parts
-# that are not diffed.
+# kept. Superset of ECFR_TRACKED: adds bank/CU security, incident-notification
+# and supervision parts that are not diffed. The list is a floor, biased toward
+# keeping: add parts freely, remove only with a stated reason.
 PREFILTER_CFR_PARTS = {(t["title"], t["part"]) for t in ECFR_TRACKED} | {
     (12, "30"), (12, "208"), (12, "225"), (12, "364"), (12, "748"),
+    (12, "53"), (12, "304"), (12, "1090"),
 }
 
