@@ -1,0 +1,21 @@
+{
+  "doc_id": "2024-28690",
+  "relevant": true,
+  "confidence": 0.6,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [
+    "FCRA-ACCURACY-001",
+    "GLBA-REGP-001"
+  ],
+  "behavior_classes": [
+    "IDENTITY.RIGHT_PARTY",
+    "DATA.PRIVACY_SECURITY"
+  ],
+  "what_changed": "CFPB proposes amending Regulation V to define 'consumer report' and 'consumer reporting agency' and to govern when CRAs may furnish and users may obtain consumer reports, aimed at data brokers selling sensitive consumer information.",
+  "compliant_agent_must_now": "No change until final; if adopted as proposed, collectors and servicers that buy location or contact data from data brokers (e.g., skip tracing) may need an FCRA permissible purpose and must treat that data as consumer reports.",
+  "open_questions_for_deploying_team": [
+    "Does the deployment use data-broker or credit-header data to locate or verify borrowers? If so, which vendors and under what permissible purpose?"
+  ],
+  "rationale": "Reg V proposal on data brokers; reaches servicing only if collectors' location and identity data sources become consumer reports, which the abstract does not settle. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

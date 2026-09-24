@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-21642",
+  "relevant": false,
+  "confidence": 0.95,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "Corrects the docket number in an FCC proposal on Robocall Mitigation Database filing procedures.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Docket correction to a voice-provider database proposal; nothing on how callers contact consumers. Stage A: title, abstract and metadata only; full text not read."
+}

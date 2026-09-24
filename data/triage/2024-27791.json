@@ -1,0 +1,21 @@
+{
+  "doc_id": "2024-27791",
+  "relevant": true,
+  "confidence": 0.5,
+  "change_type": "guidance",
+  "effective_date": "2025-01-02",
+  "affected_register_rows": [
+    "REGF-FEES-001",
+    "UDAAP-001"
+  ],
+  "behavior_classes": [
+    "PAYMENT.FEES",
+    "NEGOTIATION.TREATMENT"
+  ],
+  "what_changed": "CFPB revises the date of applicability of its Regulation F medical debt advisory opinion (89 FR 80715) to January 2, 2025.",
+  "compliant_agent_must_now": "Third-party collectors only: if the advisory opinion applies to the deployment's debts, comply with it from January 2, 2025 instead of December 3, 2024.",
+  "open_questions_for_deploying_team": [
+    "Does the deployment collect any medical debt, or only consumer loans? If only consumer loans, does the opinion's reading of 12 CFR 1006.18 and 1006.22 change any existing collection script?"
+  ],
+  "rationale": "Applicability-date change to the Reg F medical debt advisory opinion; relevance follows that opinion, whose reach beyond medical debt is unresolved. Stage A: title, abstract and metadata only; full text not read."
+}

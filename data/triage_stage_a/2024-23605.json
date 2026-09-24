@@ -1,0 +1,22 @@
+{
+  "doc_id": "2024-23605",
+  "relevant": true,
+  "confidence": 0.95,
+  "change_type": "final_rule",
+  "effective_date": "2025-04-11",
+  "affected_register_rows": [
+    "TCPA-REVOKE-001",
+    "TCPA-CONSENT-001"
+  ],
+  "behavior_classes": [
+    "CONTACT.CONSENT",
+    "STOP.TRIGGERS"
+  ],
+  "what_changed": "FCC announces April 11, 2025 as the effective date of the TCPA consent-revocation rules adopted in the 2024 order (89 FR 15756): amendments to 47 CFR 64.1200(a)(9)(i)(F) and (d)(3) and new 64.1200(a)(10) and (a)(11). The diff shows exempted-call opt-outs (e.g., 64.1200(a)(9)(i)(F)) must be honored within six business days instead of 30 days.",
+  "compliant_agent_must_now": "From April 11, 2025, any caller placing autodialed or artificial/prerecorded-voice calls or texts (including AI voice agents, first- and third-party collectors) must accept revocation of consent by any reasonable means and honor it within the period the rule sets (six business days in the amended text shown), and must treat revocation under the new 64.1200(a)(10)-(11) as the rule states.",
+  "open_questions_for_deploying_team": [
+    "Which revocation channels (keywords in texts, spoken requests to the AI agent, email) does the deployment capture, and how fast do they propagate to every dialer and texting system?",
+    "Do state rows (e.g., FL, MA) impose shorter opt-out windows than the federal rule?"
+  ],
+  "rationale": "Effective-date announcement for the TCPA revocation rules, with an eCFR diff of 64.1200. Directly governs consent revocation for autodialed and AI-voice servicing calls. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

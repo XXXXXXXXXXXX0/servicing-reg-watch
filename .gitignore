@@ -14,6 +14,10 @@ data/raw/ecfr/*
 !data/raw/fr_search/
 data/raw/fr_search/*
 !data/raw/fr_search/*.json.gz
+# In-session triage output is committed (it cannot be regenerated without redoing the work).
+!data/triage/
+data/triage/_rejected/
+!data/triage_stage_a/
 __pycache__/
 *.pyc
 .pytest_cache/

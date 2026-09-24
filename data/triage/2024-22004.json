@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-22004",
+  "relevant": false,
+  "confidence": 0.93,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB proposes adding CFPB and state-regulator contact information to Regulation E remittance transfer disclosures.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Remittance transfer disclosures under Reg E subpart B; not loan servicing or preauthorized loan payments. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

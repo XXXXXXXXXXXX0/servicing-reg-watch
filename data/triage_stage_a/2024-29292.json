@@ -1,0 +1,20 @@
+{
+  "doc_id": "2024-29292",
+  "relevant": true,
+  "confidence": 0.75,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [
+    "FCRA-DIRECT-001",
+    "FCRA-ACCURACY-001"
+  ],
+  "behavior_classes": [
+    "DISPUTES.CREDIT_REPORTING"
+  ],
+  "what_changed": "CFPB advance notice of proposed rulemaking on amending the Regulation V definitions of 'identity theft' and 'identity theft report' to cover coerced debt (transactions without the consumer's effective consent), with related amendments.",
+  "compliant_agent_must_now": "No change until final; if a rule follows, furnishers would need to handle coerced-debt claims like identity theft claims in disputes and blocking.",
+  "open_questions_for_deploying_team": [
+    "How does the deployment currently route borrower statements that a debt was coerced or taken out without consent?"
+  ],
+  "rationale": "ANPR on furnisher and CRA treatment of coerced debt; it would change dispute handling by furnishers, but proposes no text yet. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

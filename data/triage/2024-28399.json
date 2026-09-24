@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-28399",
+  "relevant": false,
+  "confidence": 0.95,
+  "change_type": "final_rule",
+  "effective_date": "2025-01-09",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FTC extends the Telemarketing Sales Rule to inbound calls responding to ads for technical support products or services.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Telemarketing rule for tech-support sales; excluded marketing-call category. Prefilter dropped it (no match). Stage A: title, abstract and metadata only; full text not read."
+}
