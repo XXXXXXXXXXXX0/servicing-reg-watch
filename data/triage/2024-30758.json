@@ -1,21 +1,26 @@
 {
   "doc_id": "2024-30758",
   "relevant": true,
-  "confidence": 0.8,
+  "confidence": 0.9,
   "change_type": "enforcement_signal",
   "effective_date": null,
   "affected_register_rows": [
-    "UDAAP-001"
+    "UDAAP-001",
+    "REGE-PREAUTH-001"
   ],
   "behavior_classes": [
     "NEGOTIATION.TREATMENT",
-    "PAYMENT.AUTHORIZATION",
-    "DISPUTES.CREDIT_REPORTING"
+    "ACCOUNT.MODIFICATION",
+    "DISCLOSURE.REQUIRED",
+    "STOP.TRIGGERS",
+    "PAYMENT.AUTHORIZATION"
   ],
-  "what_changed": "CFPB Supervisory Highlights special edition (Issue 36) on student lending, covering examinations generally completed in 2024.",
-  "compliant_agent_must_now": "Pending Stage B: the abstract does not state the findings. Student loan servicing findings typically interpret UDAAP as applied to servicer communications, payment handling and repayment options.",
+  "what_changed": "CFPB Supervisory Highlights Issue 36 (student lending; exams generally completed in 2024) reports UDAAP findings (12 U.S.C. 5531, 5536) and Regulation Z violations. Servicing-relevant findings: sec. 2.1.3 failing to re-amortize or offer to re-amortize a consolidated loan after removing loans the borrower excluded (unfair); sec. 2.2.1 denying total-and-permanent-disability discharges on criteria not in the loan note (unfair); sec. 2.2.2 telling borrowers on portals they were ineligible for an autopay rate discount when they were eligible (deceptive); sec. 2.2.3 advertising payment suspension for unemployment after replacing it with a narrower program (deceptive, abusive); sec. 2.3.1-2.3.3 servicers telling borrowers with holder-clause notes (16 CFR 433.2) that no discharge was available and refusing to consider school-misconduct claims unless the borrower had an attorney, with direction to run an accessible claims-review process and suspend collections in some cases; sec. 2.4.1 collection letters implying legal action the servicer never took (deceptive); sec. 2.4.2 model contracts allowing transcript withholding on default (risk of abusive practice). The introduction also reports federal loan servicing violations on return to repayment (communication channels, deceptive billing statements, excess withdrawals from deposit accounts, IDR processing), in a part not read. Refinance-marketing findings (2.1.1, 2.1.2, 2.1.4 under 12 CFR 1026.47(c)/1026.48(d)) concern origination.",
+  "compliant_agent_must_now": "Consumer-loan servicers and their agents, as UDAAP supervisory expectations (student loans directly; the same reasoning applies to other consumer loans): (1) describe hardship, deferment, discharge and discount options exactly as the loan contract and current policy provide, and apply only the contract's eligibility criteria; (2) never imply legal action, fees or consequences the servicer does not actually pursue; (3) when a borrower raises a claim or defense the contract allows (e.g., a holder-in-due-course clause), take it into a documented review without requiring an attorney, and do not say no remedy exists; (4) when a loan is modified or reduced, offer the borrower the resulting payment options (e.g., re-amortization) rather than silently shortening the term; (5) withdraw only authorized amounts from borrowers' accounts.",
   "open_questions_for_deploying_team": [
-    "Does the deployment service student loans? Which findings apply to its servicing practices?"
+    "Does the deployment service private or federal student loans? If not, which of these findings will be adopted as policy for other consumer loans?",
+    "Does any collection script or letter template mention legal action, and does the lender actually take that action?",
+    "How does the agent handle a borrower who asserts a defense under a holder-in-due-course clause (e.g., on auto retail installment contracts)?"
   ],
-  "rationale": "Supervisory findings on student loan servicing (student loans are consumer loans); the abstract gives no findings, so rows and classes are provisional. Stage A: title, abstract and metadata only; full text not read."
+  "rationale": "Full text confirms servicing and collection findings (hardship options, collection threats, claims and defenses, autopay, re-amortization) that clarify UDAAP obligations in the test. Findings on federal loan servicing sit in the unread remainder. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (4000 of 6732 words)."
 }

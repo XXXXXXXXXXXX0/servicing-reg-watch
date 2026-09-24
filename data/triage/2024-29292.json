@@ -11,10 +11,10 @@
   "behavior_classes": [
     "DISPUTES.CREDIT_REPORTING"
   ],
-  "what_changed": "CFPB advance notice of proposed rulemaking on amending the Regulation V definitions of 'identity theft' and 'identity theft report' to cover coerced debt (transactions without the consumer's effective consent), with related amendments.",
-  "compliant_agent_must_now": "No change until final; if a rule follows, furnishers would need to handle coerced-debt claims like identity theft claims in disputes and blocking.",
+  "what_changed": "CFPB ANPR responding to an August 2024 NCLC/CSAJ petition: the CFPB states it has determined a rulemaking is warranted and will propose amending the Regulation V definitions of 'identity theft' and 'identity theft report' (under 15 U.S.C. 1681a(q)(3)) to cover coerced debt, i.e., transactions without the consumer's effective consent, so survivors could use identity theft blocks under 15 U.S.C. 1681c-2. It asks seven sets of questions, including what documentation or self-attestation should prove coercion and whether presumptions should apply. Comments due March 7, 2025 (extended to April 7, 2025 by 2025-03685).",
+  "compliant_agent_must_now": "No change until a rule is proposed and finalized. If the definitions change as the petition asks, furnishers would receive identity-theft blocks and disputes for coerced debts and would need to handle a borrower's statement that a loan was coerced like an identity theft claim (investigate, stop re-reporting blocked information, and route to the appropriate process).",
   "open_questions_for_deploying_team": [
-    "How does the deployment currently route borrower statements that a debt was coerced or taken out without consent?"
+    "How does the agent currently respond when a borrower says a loan was taken out in their name by an abusive partner or under coercion? Is that routed to identity-theft or dispute handling?"
   ],
-  "rationale": "ANPR on furnisher and CRA treatment of coerced debt; it would change dispute handling by furnishers, but proposes no text yet. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+  "rationale": "Full text is an ANPR with no proposed text but a stated intent to propose; it would change furnisher dispute and identity-theft handling, which is in the test. Confidence unchanged at 0.75 because no text exists yet. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (1549 of 1549 words)."
 }

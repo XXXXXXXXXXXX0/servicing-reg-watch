@@ -1,19 +1,19 @@
 {
   "doc_id": "2025-08645",
   "relevant": true,
-  "confidence": 0.55,
+  "confidence": 0.75,
   "change_type": "withdrawal",
-  "effective_date": null,
+  "effective_date": "2025-05-15",
   "affected_register_rows": [
     "UDAAP-001",
     "FTC5-001"
   ],
   "behavior_classes": [
-    "NEGOTIATION.TREATMENT",
-    "PAYMENT.FEES"
+    "PAYMENT.FEES",
+    "NEGOTIATION.TREATMENT"
   ],
-  "what_changed": "CFPB withdraws its Regulation AA proposal on prohibited contract terms (12 CFR 1027) as of May 15, 2025.",
-  "compliant_agent_must_now": "No change to current obligations: the proposed contract-term prohibitions and codification of Credit Practices Rule provisions will not be adopted by the CFPB.",
+  "what_changed": "CFPB withdraws its Regulation AA proposal (90 FR 3566, Jan. 14, 2025) as of May 15, 2025, citing duplication of the FTC Credit Practices Rule, a policy of limiting regulatory burden and comments questioning its authority; it will take no further action on that proposal.",
+  "compliant_agent_must_now": "No change to current obligations: the proposed 12 CFR part 1027 (late-fee pyramiding, cosigner, contract-term prohibitions) will not be adopted by the CFPB. Existing duties remain: the FTC Credit Practices Rule (16 CFR part 444) for creditors under FTC jurisdiction and UDAAP generally.",
   "open_questions_for_deploying_team": [],
-  "rationale": "Withdrawal of a proposal triaged relevant at low confidence (2025-00633); relevance follows that proposal. Stage A: title, abstract and metadata only; full text not read."
+  "rationale": "Full text confirms the withdrawal of a proposal judged relevant in Stage B (2025-00633); withdrawing a proposed servicing-conduct rule is a change under the test. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (479 of 479 words)."
 }

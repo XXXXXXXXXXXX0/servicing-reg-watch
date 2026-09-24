@@ -1,22 +1,26 @@
 {
   "doc_id": "2024-31670",
   "relevant": true,
-  "confidence": 0.85,
+  "confidence": 0.9,
   "change_type": "enforcement_signal",
   "effective_date": null,
   "affected_register_rows": [
     "FCRA-ACCURACY-001",
     "FCRA-DIRECT-001",
-    "UDAAP-001"
+    "UDAAP-001",
+    "NACHA-FRAUD-001",
+    "REGE-PREAUTH-001"
   ],
   "behavior_classes": [
     "DISPUTES.CREDIT_REPORTING",
-    "NEGOTIATION.TREATMENT"
+    "PAYMENT.AUTHORIZATION",
+    "STOP.TRIGGERS"
   ],
-  "what_changed": "CFPB Supervisory Highlights Issue 37 (Winter 2024) reports findings on deposits, furnishing and short-term small-dollar lending from exams completed January 1 to October 1, 2024.",
-  "compliant_agent_must_now": "Pending Stage B: the abstract does not state the findings. Furnishing findings interpret furnisher accuracy and dispute duties; small-dollar lending findings may cover collection and payment practices.",
+  "what_changed": "CFPB Supervisory Highlights Issue 37 (exams Jan. 1 to Oct. 1, 2024). Furnishing (sec. 2.2): installment loan furnishers had no procedures to respond to CRC identity-theft block notifications and refurnished blocked information (15 U.S.C. 1681s-2(a)(6)(A)); debt collector furnishers verified indirect disputes through automated systems that checked only their own records, without their clients' records, and agents forwarded disputes to clients and told CRCs to delete tradelines when clients did not respond (1681s-2(b)(1)); student loan and installment loan furnishers lacked reasonable written accuracy and integrity policies (12 CFR 1022.42(a)-(b)), leading to reporting of bankruptcy-discharged accounts, wrong special comment codes, ignored CRC rejection feedback and mismatched consumer data. Payments (sec. 2.1.3): ODFIs failed to monitor originator clients re-presenting returned ACH debits as new entries (unfair), noting network rules cap re-presentments at two after an NSF return; sec. 2.1.4: debit card network operators processed recurring debits after valid stop-payment orders (Reg E 1005.10(c), unfair). Deposit overdraft/NSF findings (2.1.1, 2.1.2) are outside scope. BNPL and paycheck-advance findings are in the unread remainder.",
+  "compliant_agent_must_now": "Lenders and servicers that furnish, and collectors acting for them: (1) maintain and follow procedures to act on CRC identity-theft block notifications and never refurnish blocked information; (2) investigate every indirect dispute against all records reasonably available, including the creditor client's system of record, rather than automated self-verification or deletion by default; (3) keep written accuracy and integrity policies (1022.42) covering bankruptcy discharges, comment codes and CRC rejection feedback. Lenders collecting by ACH: when a debit is returned for insufficient funds, re-present it only as a properly coded re-presentment, no more than the network limit, and never as a new authorization; honor borrower stop-payment requests on recurring debits.",
   "open_questions_for_deploying_team": [
-    "Which furnishing and small-dollar lending findings match the deployment's dispute-intake and collection practices?"
+    "When a borrower tells the agent they dispute a tradeline or were an identity-theft victim, how is that routed into the furnisher's dispute and block procedures?",
+    "Does the payment system re-present returned ACH debits automatically, and how are re-presentments coded and counted?"
   ],
-  "rationale": "Supervisory findings on furnishing and small-dollar lending are within the test as clarifications; the deposits portion is excluded. Findings not visible in the abstract. Stage A: title, abstract and metadata only; full text not read."
+  "rationale": "Full text confirms furnisher dispute and accuracy findings and ACH re-presentment and stop-payment findings that interpret obligations in the test; deposit overdraft findings are excluded. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (4000 of 6288 words)."
 }

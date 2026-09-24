@@ -1,22 +1,30 @@
 {
   "doc_id": "2024-24093",
   "relevant": true,
-  "confidence": 0.85,
+  "confidence": 0.95,
   "change_type": "enforcement_signal",
   "effective_date": null,
   "affected_register_rows": [
     "UDAAP-001",
-    "INS-GAP-001"
+    "INS-GAP-001",
+    "INS-LIEN-001",
+    "FCRA-ACCURACY-001"
   ],
   "behavior_classes": [
     "RECOVERY.REPOSSESSION",
     "INSURANCE.CLAIMS",
-    "NEGOTIATION.TREATMENT"
+    "NEGOTIATION.TREATMENT",
+    "PAYMENT.FEES",
+    "VENDOR.GOVERNANCE",
+    "DISPUTES.CREDIT_REPORTING"
   ],
-  "what_changed": "CFPB Supervisory Highlights special edition (Issue 35) on auto finance, covering examinations completed November 1, 2023 to August 30, 2024.",
-  "compliant_agent_must_now": "Pending Stage B: the abstract does not state the findings. Auto-servicing supervisory findings typically interpret UDAAP as applied to servicing, repossession and add-on product practices.",
+  "what_changed": "CFPB Supervisory Highlights Issue 35 (auto finance; exams completed Nov. 1, 2023 to Aug. 30, 2024) reports UDAAP findings under 12 U.S.C. 5531 against auto servicers: sec. 2.2.1 wrongful repossession when repossession orders were not cancelled after payments, extensions, deferments or modifications or payment arrangements sufficient to stop repossession; sec. 2.2.2 repossessing vehicles without a recorded lien; sec. 2.3.1 applying post-maturity payments in an order different from the order disclosed on the website, producing late fees (deceptive and unfair); sec. 2.3.2 excessive delay delivering titles after payoff or for out-of-state registration transfer, against a two-business-day policy; sec. 2.4.1 collecting add-on product charges (service contracts, GAP) consumers did not agree to in refinances marketed by service providers (abusive), with direction to monitor consumer-facing service providers and record all calls; sec. 2.4.2 financing GAP that was void on salvage-title vehicles; sec. 2.4.4 requiring two in-person dealership visits to cancel add-on products (abusive). Origination findings (sec. 2.1, 2.4.3: 'as low as' APR marketing, Reg Z 1026.17(c)(1), 1026.18(c)(1)(iii)) are outside servicing. The introduction also cites incorrect payment-history furnishing, in a part not read.",
+  "compliant_agent_must_now": "Auto servicers (first-party lenders and servicers acting for them), as UDAAP supervisory expectations: (1) before and during any repossession workflow, check for payments, promises to pay, extensions, deferrals or modifications that should stop it, and cancel or reverse the repossession order immediately; confirm a recorded lien before assigning any vehicle for repossession; (2) apply payments, including on post-maturity loans, in exactly the order disclosed to borrowers, and never quote a different order; (3) when a loan is paid off or a borrower requests title for re-registration, trigger title/lien release within the servicer's stated timeline and tell the borrower the true timeline; (4) do not add, retain or collect for add-on products the borrower did not affirmatively agree to, explain voluntariness and cost in any refinance conversation, and let borrowers cancel add-ons without unreasonable steps (no in-person-only cancellation); ensure refunds of unearned add-on premiums on early payoff or default; (5) lenders deploying an agent must monitor it as a consumer-facing service provider, including recording and reviewing calls.",
   "open_questions_for_deploying_team": [
-    "Which specific findings (repossession, add-on refunds, payment handling, communications) apply to the deployment's portfolios?"
+    "Can the agent see real-time repossession status and cancel or hold a repossession order when a borrower pays or agrees to a qualifying arrangement during the call?",
+    "Where is the payment-allocation order disclosed to borrowers, and does the agent's explanation match how post-maturity payments are actually applied?",
+    "Register gap check: INS-LIEN-001 is unresearched; this document gives a supervisory expectation (timely title delivery) but not a state deadline. Should a federal UDAAP-based row be added for title/lien release timing?",
+    "Does the agent discuss add-on product cancellations or refunds, and what cancellation channels does it offer?"
   ],
-  "rationale": "CFPB supervisory findings focused on auto finance, which the relevance test counts as clarifying obligations when they interpret servicing conduct. The abstract gives no findings, so rows and classes are provisional. Stage A: title, abstract and metadata only; full text not read."
+  "rationale": "Full text confirms servicing-specific UDAAP findings on repossession, payment allocation, title release and add-on products, which interpret obligations in the test. Findings on furnishing, in the unread remainder, are not summarized. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (4000 of 7338 words)."
 }

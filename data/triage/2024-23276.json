@@ -1,13 +1,13 @@
 {
   "doc_id": "2024-23276",
   "relevant": false,
-  "confidence": 0.6,
+  "confidence": 0.85,
   "change_type": "final_rule",
   "effective_date": "2025-01-01",
   "affected_register_rows": [],
   "behavior_classes": [],
-  "what_changed": "Annual CPI-W adjustment of the Consumer Leasing Act/Regulation M exempt-lease threshold from $69,500 to $71,900, effective January 1, 2025.",
+  "what_changed": "Board and CFPB raise the Consumer Leasing Act/Regulation M exempt-lease threshold (12 CFR 1013.2(e)(1); comment 2(e) in Supplement I to Part 1013, and 12 CFR 213.2(e) for the Board) from $69,500 to $71,900 for 2025 by the annual CPI-W adjustment.",
   "compliant_agent_must_now": "No change.",
   "open_questions_for_deploying_team": [],
-  "rationale": "Consumer lease coverage threshold; leases are not loans and the register has no Reg M row. Near the line only if the deployment services auto leases. Stage A: title, abstract and metadata only; full text not read."
+  "rationale": "Full text confirms an inflation adjustment to consumer lease coverage; leases are not consumer loans, the register has no Regulation M row, and no servicing conduct changes. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (1500 of 4664 words)."
 }

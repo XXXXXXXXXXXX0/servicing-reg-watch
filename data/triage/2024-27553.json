@@ -1,13 +1,13 @@
 {
   "doc_id": "2024-27553",
   "relevant": false,
-  "confidence": 0.6,
+  "confidence": 0.9,
   "change_type": "final_rule",
   "effective_date": "2025-01-01",
   "affected_register_rows": [],
   "behavior_classes": [],
-  "what_changed": "CFPB annual CPI adjustments to Regulation Z dollar amounts for credit card penalty-fee safe harbors and other card thresholds, HOEPA and qualified mortgage thresholds, effective January 1, 2025.",
+  "what_changed": "CFPB annual CPI adjustments to Regulation Z for 2025: the open-end minimum interest charge disclosure threshold (12 CFR 1026.6(b)(2)(iii), 1026.60(b)(3)) stays at $1.00; HOEPA high-cost mortgage thresholds (loan amount threshold $26,968; points-and-fees trigger $1,348) and qualified mortgage APR-spread and points-and-fees thresholds change. The regulatory text amends only Supplement I commentary to 1026.32(a)(1)(ii) and 1026.43(e)(2)(vi) and (e)(3)(ii).",
   "compliant_agent_must_now": "No change.",
   "open_questions_for_deploying_team": [],
-  "rationale": "Mostly mortgage (HOEPA, QM) thresholds, which are excluded; the credit card penalty-fee safe harbor would matter only if the deployment services card accounts. Near the line. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+  "rationale": "Full text shows the only amended text is mortgage (HOEPA and QM) commentary, which the relevance test excludes, and the credit card minimum interest charge threshold is unchanged. Stage A's note about credit card penalty-fee safe harbors was wrong: the document does not adjust them. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (1800 of 7681 words)."
 }
