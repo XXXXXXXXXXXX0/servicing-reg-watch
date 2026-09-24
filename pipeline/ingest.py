@@ -2,7 +2,7 @@
 document types and window; store raw JSON (including the abstract) per document.
 
     python -m pipeline.ingest [--offline] [--start YYYY-MM-DD --end YYYY-MM-DD]
-    python -m pipeline.ingest text [--offline]   # fetch full text for prefilter survivors
+    python -m pipeline.ingest text [--offline] [--include-eval]   # full text for prefilter survivors (+ eval sample)
 
 Fetched data is saved to committed compressed files under data/raw/ and is
 never fetched again (see ingest() and fetch_texts()).
@@ -19,7 +19,7 @@ import datetime as dt
 import sys
 
 from . import config
-from .common import (data_paths, read_gz_text, read_json, read_jsonl, read_jsonl_gz, write_gz_text,
+from .common import (data_paths, read_gz_text, read_json, read_jsonl_gz, triage_rows, write_gz_text,
                      write_json, write_jsonl_gz)
 from .sources import Blocked, NotFound, TextUnavailable, html_to_text, make_client
 
@@ -165,8 +165,9 @@ def load_raw_docs(data_dir=None) -> list[dict]:
     return [read_json(p)["document"] for p in sorted(paths["raw"].glob("*.json"))]
 
 
-def fetch_texts(client, data_dir=None) -> dict:
-    """Fetch full text for documents that survived the prefilter (triage context).
+def fetch_texts(client, data_dir=None, include_eval: bool = False) -> dict:
+    """Fetch full text for documents that survived the prefilter (triage context),
+    plus the eval sample with include_eval.
 
     Source is GovInfo (sources.LiveClient.get_document_html): the API granule
     /htm route first, the www content link as fallback. Every response is
@@ -177,7 +178,7 @@ def fetch_texts(client, data_dir=None) -> dict:
     sends those documents to human review.
     """
     paths = data_paths(data_dir)
-    kept = read_jsonl(paths["prefilter"] / "kept.jsonl")
+    kept = triage_rows(data_dir, include_eval)
     sources_path = paths["text"] / "_sources.json"
     routes = read_json(sources_path) if sources_path.exists() else {}
     got, fetched, missing = 0, 0, {}
@@ -220,10 +221,11 @@ def main(argv=None):
     ap.add_argument("--start", type=dt.date.fromisoformat)
     ap.add_argument("--end", type=dt.date.fromisoformat)
     ap.add_argument("--data-dir")
+    ap.add_argument("--include-eval", action="store_true", help="text: also the eval sample (eval/labels.csv)")
     args = ap.parse_args(argv)
     client = make_client(args.offline)
     if args.command == "text":
-        res = fetch_texts(client, args.data_dir)
+        res = fetch_texts(client, args.data_dir, args.include_eval)
         print(f"text: {res['fetched_or_cached']} available, {res['missing']} missing {res['missing_by_reason']}")
         return 0
     start, end = default_window()

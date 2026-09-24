@@ -9,7 +9,7 @@ pipeline/triage_schema.json. Two ways to produce it:
   api        : optional; calls the Anthropic API (MODEL env, default
                claude-sonnet-5; key from ANTHROPIC_API_KEY).
 
-    python -m pipeline.triage inputs   [--data-dir DIR]  # build packets
+    python -m pipeline.triage inputs   [--data-dir DIR] [--include-eval]  # build packets
     python -m pipeline.triage prompt   [--data-dir DIR]  # write assembled system prompt
     python -m pipeline.triage status   [--data-dir DIR]  # packets lacking output
     python -m pipeline.triage validate [--data-dir DIR | --dir DIR]
@@ -28,7 +28,7 @@ from pathlib import Path
 import jsonschema
 
 from .common import (PROMPT_PATH, SCHEMA_PATH, behavior_class_ids, data_paths, load_register,
-                     load_taxonomy, read_json, read_jsonl, write_json)
+                     load_taxonomy, read_json, triage_rows, write_json)
 
 DEFAULT_MODEL = "claude-sonnet-5"
 TEXT_EXCERPT_CHARS = 20000
@@ -68,12 +68,12 @@ def build_packet(doc: dict, prefilter_row: dict, diff: dict | None, text: str | 
     return packet
 
 
-def build_inputs(data_dir=None) -> int:
+def build_inputs(data_dir=None, include_eval: bool = False) -> int:
     paths = data_paths(data_dir)
     n = 0
     missing_path = paths["text"] / "_missing.json"
     missing = read_json(missing_path) if missing_path.exists() else {}
-    for row in read_jsonl(paths["prefilter"] / "kept.jsonl"):
+    for row in triage_rows(data_dir, include_eval):
         num = row["document_number"]
         doc = read_json(paths["raw"] / f"{num}.json")["document"]
         diff_path = paths["diffs"] / f"{num}.json"
@@ -263,10 +263,11 @@ def main(argv=None):
     ap.add_argument("--dir", help="validate: directory of triage JSON (default data/triage)")
     ap.add_argument("--limit", type=int)
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--include-eval", action="store_true", help="inputs: also the eval sample (eval/labels.csv)")
     args = ap.parse_args(argv)
     paths = data_paths(args.data_dir)
     if args.command == "inputs":
-        print(f"triage inputs: {build_inputs(args.data_dir)} packets -> {paths['triage_inputs']}")
+        print(f"triage inputs: {build_inputs(args.data_dir, args.include_eval)} packets -> {paths['triage_inputs']}")
     elif args.command == "prompt":
         out = paths["triage_inputs"] / "_system_prompt.md"
         out.parent.mkdir(parents=True, exist_ok=True)

@@ -15,6 +15,7 @@ SCHEMA_PATH = ROOT / "pipeline" / "triage_schema.json"
 PROMPT_PATH = ROOT / "pipeline" / "triage_prompt.md"
 FIXTURES_DIR = ROOT / "fixtures"
 RECORDS_DIR = ROOT / "records"
+EVAL_LABELS_PATH = ROOT / "eval" / "labels.csv"
 
 # Pipeline data lives under data/; override for tests or CI. Fetched source data
 # (the "store") is committed as compressed files; everything derived from it is
@@ -44,6 +45,29 @@ def data_paths(data_dir: Path | None = None) -> dict[str, Path]:
         "triage": d / "triage",
         "queue": d / "queue",
     }
+
+
+def eval_doc_ids(path: Path | None = None) -> list[str]:
+    """Document numbers of the eval sample: the doc_id column of eval/labels.csv only."""
+    import csv
+    path = Path(path or EVAL_LABELS_PATH)
+    if not path.exists():
+        return []
+    with open(path, newline="") as f:
+        return [r["doc_id"] for r in csv.DictReader(f) if r.get("doc_id")]
+
+
+def triage_rows(data_dir: Path | None = None, include_eval: bool = False) -> list[dict]:
+    """Prefilter rows of the documents that get full text, a diff and a triage
+    packet: the prefilter survivors, plus, with include_eval, every eval sample
+    document whatever its prefilter decision (so each one gets a prediction)."""
+    paths = data_paths(data_dir)
+    rows = read_jsonl(paths["prefilter"] / "kept.jsonl")
+    if include_eval:
+        have = {r["document_number"] for r in rows}
+        want = set(eval_doc_ids()) - have
+        rows += [r for r in read_jsonl(paths["prefilter"] / "dropped.jsonl") if r["document_number"] in want]
+    return rows
 
 
 def load_taxonomy() -> dict:

@@ -355,6 +355,19 @@ def test_fetch_texts_caches_and_never_refetches(tmp_path):
     assert (p["text"] / "2025-08641.txt").exists()
 
 
+def test_triage_rows_adds_dropped_eval_documents(tmp_path, monkeypatch):
+    from pipeline import common
+    from pipeline.common import data_paths, write_jsonl
+    p = data_paths(tmp_path)
+    write_jsonl(p["prefilter"] / "kept.jsonl", [{"document_number": "K1"}, {"document_number": "E1"}])
+    write_jsonl(p["prefilter"] / "dropped.jsonl", [{"document_number": "E2"}, {"document_number": "D1"}])
+    labels = tmp_path / "labels.csv"
+    labels.write_text("doc_id,label_relevant\nE1,\nE2,\n")
+    monkeypatch.setattr(common, "EVAL_LABELS_PATH", labels)
+    assert [r["document_number"] for r in common.triage_rows(tmp_path)] == ["K1", "E1"]
+    assert [r["document_number"] for r in common.triage_rows(tmp_path, include_eval=True)] == ["K1", "E1", "E2"]
+
+
 def test_ingest_serves_closed_months_from_store(tmp_path):
     import datetime as dt
     from pipeline import ingest, sources

@@ -2,7 +2,7 @@
 section text before and after the amendment from the eCFR versioner API and
 compute a section-level unified diff.
 
-    python -m pipeline.diff [--offline] [--data-dir DIR]
+    python -m pipeline.diff [--offline] [--data-dir DIR] [--include-eval]
 
 Statuses written per document:
   diffed                  - at least one section diffed
@@ -20,7 +20,7 @@ import sys
 import xml.etree.ElementTree as ET
 
 from . import config
-from .common import data_paths, read_json, read_jsonl, write_json
+from .common import data_paths, read_json, triage_rows, write_json
 from .sources import EcfrTextCache, NotFound, make_client
 
 BLOCK_TAGS = {"HEAD", "P", "FP", "HD", "EXTRACT", "NOTE", "CITA", "AUTH", "SOURCE"}
@@ -119,11 +119,11 @@ def diff_document(client, doc: dict, today: dt.date | None = None) -> dict | Non
     return {**base, "status": status}
 
 
-def run(client, data_dir=None, today=None) -> dict:
+def run(client, data_dir=None, today=None, include_eval: bool = False) -> dict:
     paths = data_paths(data_dir)
     client = EcfrTextCache(client, paths["ecfr"])
     counts: dict[str, int] = {}
-    for row in read_jsonl(paths["prefilter"] / "kept.jsonl"):
+    for row in triage_rows(data_dir, include_eval):
         doc = read_json(paths["raw"] / f"{row['document_number']}.json")["document"]
         res = diff_document(client, doc, today)
         if res is None:
@@ -138,8 +138,9 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--offline", action="store_true")
     ap.add_argument("--data-dir")
+    ap.add_argument("--include-eval", action="store_true", help="also the eval sample (eval/labels.csv)")
     args = ap.parse_args(argv)
-    print(f"diff: {run(make_client(args.offline), args.data_dir)}")
+    print(f"diff: {run(make_client(args.offline), args.data_dir, include_eval=args.include_eval)}")
     return 0
 
 
