@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-01142",
+  "relevant": false,
+  "confidence": 0.9,
+  "change_type": "other",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB requests OMB approval of an 'Auto Loan Survey' information collection under the PRA.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Paperwork Reduction Act notice for a survey; creates no obligation on lenders or servicers. Prefilter excluded it as a PRA notice. Stage A: title, abstract and metadata only; full text not read."
+}

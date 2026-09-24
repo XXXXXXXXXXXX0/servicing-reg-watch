@@ -1,0 +1,21 @@
+{
+  "doc_id": "2025-08644",
+  "relevant": true,
+  "confidence": 0.55,
+  "change_type": "withdrawal",
+  "effective_date": null,
+  "affected_register_rows": [
+    "FCRA-ACCURACY-001",
+    "GLBA-REGP-001"
+  ],
+  "behavior_classes": [
+    "IDENTITY.RIGHT_PARTY",
+    "DATA.PRIVACY_SECURITY"
+  ],
+  "what_changed": "CFPB withdraws its December 2024 Regulation V data broker proposal (89 FR 101402) as of May 15, 2025 and will take no further action on it.",
+  "compliant_agent_must_now": "No change to current obligations: the proposed treatment of data-broker and credit-header data as consumer reports will not be adopted. Keep existing FCRA and GLBA handling of skip-tracing and contact data.",
+  "open_questions_for_deploying_team": [
+    "Were any planned changes to skip-tracing or data-vendor practices made in anticipation of the proposal?"
+  ],
+  "rationale": "Withdrawal of a proposal triaged relevant at low confidence (2024-28690); relevance follows that proposal. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

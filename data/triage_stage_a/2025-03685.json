@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-03685",
+  "relevant": false,
+  "confidence": 0.7,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB extends the comment period on its Regulation V identity theft and coerced debt ANPR (89 FR 100922) from March 7 to April 7, 2025.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Procedural extension; creates or changes no obligation by itself. The underlying ANPR is triaged separately (2024-29292). Stage A: title, abstract and metadata only; full text not read."
+}

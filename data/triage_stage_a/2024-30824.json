@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-30824",
+  "relevant": false,
+  "confidence": 0.55,
+  "change_type": "final_rule",
+  "effective_date": "2025-03-17",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB amends Regulation V: adds a definition of medical debt information (12 CFR 1022.3(j)), removes the exception that let creditors obtain and use medical debt information in credit eligibility determinations (1022.30), and limits CRAs from furnishing such information to creditors (1022.38).",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Governs creditor use of medical debt information in credit eligibility determinations, mainly origination. Near the line: if eligibility determinations include loan modification or forbearance decisions, servicing negotiation is affected. The diff shows 1022.30 changes but the excerpt does not settle the servicing reach. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

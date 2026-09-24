@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-04811",
+  "relevant": false,
+  "confidence": 0.88,
+  "change_type": "final_rule",
+  "effective_date": "2026-03-25",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC requires voice service providers to block calls using a reasonable do-not-originate list and to return SIP code 603+ when blocking on analytics (47 CFR 64.1200(k)(9) as shown in the diff); 64.1200(o) delayed.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Duties fall on voice service providers, not on callers; a lender's dialer would only receive a different SIP response code when blocked. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

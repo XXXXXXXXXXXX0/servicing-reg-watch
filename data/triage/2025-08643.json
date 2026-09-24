@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-08643",
+  "relevant": false,
+  "confidence": 0.92,
+  "change_type": "final_rule",
+  "effective_date": "2025-07-15",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB interim final rule rescinding the 2021 COVID-19 mortgage servicing protections in Regulation X.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Mortgage servicing only (Regulation X), excluded by the relevance test. Stage A: title, abstract and metadata only; full text not read."
+}

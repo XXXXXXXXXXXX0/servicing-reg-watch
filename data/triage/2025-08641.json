@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-08641",
+  "relevant": false,
+  "confidence": 0.75,
+  "change_type": "withdrawal",
+  "effective_date": "2025-05-15",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB withdraws its May 2022 interpretive rule on the scope of state enforcement of the CFPA under section 1042.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Withdrawn guidance concerns which governments may enforce the CFPA, not how lenders or servicers must conduct any activity in the test; near the line because state UDAAP enforcement exposure is affected. Stage A: title, abstract and metadata only; full text not read."
+}

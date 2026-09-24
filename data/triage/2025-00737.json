@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-00737",
+  "relevant": false,
+  "confidence": 0.93,
+  "change_type": "final_rule",
+  "effective_date": "2025-01-15",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "NCUA adjusts civil monetary penalty maximums for inflation (12 CFR 747).",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Penalty ceilings only; 'debt collection' hit is the Debt Collection Improvement Act. Stage A: title, abstract and metadata only; full text not read."
+}
