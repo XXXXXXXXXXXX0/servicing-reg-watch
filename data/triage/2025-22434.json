@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-22434",
+  "relevant": false,
+  "confidence": 0.97,
+  "change_type": "final_rule",
+  "effective_date": "2028-06-05",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC adopts multilingual Wireless Emergency Alert templates for participating mobile providers.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Emergency alerting for carriers; unrelated to lending. Stage A: title, abstract and metadata only; full text not read."
+}

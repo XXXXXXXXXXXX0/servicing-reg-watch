@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-16352",
+  "relevant": false,
+  "confidence": 0.85,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB proposes a binding definition of 'risks to consumers' for designating nonbanks for supervision (12 CFR 1091).",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Standard for supervisory designation of nonbanks; changes no servicing conduct. Stage A: title, abstract and metadata only; full text not read."
+}

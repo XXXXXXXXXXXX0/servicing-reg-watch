@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-23785",
+  "relevant": false,
+  "confidence": 0.98,
+  "change_type": "other",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC procedures, deadlines and minimum bids for Auction 113 of AWS-3 spectrum licenses.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Spectrum auction procedures; unrelated to lending. Prefilter excluded it as FCC licensing. Stage A: title, abstract and metadata only; full text not read."
+}

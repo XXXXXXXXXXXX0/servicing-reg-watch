@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-22814",
+  "relevant": false,
+  "confidence": 0.6,
+  "change_type": "final_rule",
+  "effective_date": "2026-01-01",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "Annual CPI-W adjustment of the TILA/Regulation Z exempt-transaction threshold from $71,900 to $73,400 (Supplement I to Part 1026, comment 3(b)), effective January 1, 2026.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Changes which non-mortgage consumer loans Regulation Z covers, which marginally changes which refinancings need new 1026.20(a) disclosures; an annual inflation adjustment rather than a new servicing duty. Near the line. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

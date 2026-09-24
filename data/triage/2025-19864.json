@@ -1,0 +1,19 @@
+{
+  "doc_id": "2025-19864",
+  "relevant": true,
+  "confidence": 0.6,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [
+    "REGB-001"
+  ],
+  "behavior_classes": [
+    "NEGOTIATION.TREATMENT"
+  ],
+  "what_changed": "CFPB proposes amending Regulation B provisions on disparate impact, discouragement of applicants and prospective applicants, and special purpose credit programs.",
+  "compliant_agent_must_now": "No change until final; if adopted as proposed, the CFPB's reading of ECOA would change on disparate impact, which can reach collection and servicing treatment of borrowers (Regulation B covers collection procedures).",
+  "open_questions_for_deploying_team": [
+    "Does the deployment test collection and settlement treatment for disparate impact across borrower groups, and would that testing change if the proposal is adopted?"
+  ],
+  "rationale": "Reg B proposal centered on applications and discouragement; the disparate impact part may reach servicing and collection treatment under REGB-001, which the abstract does not settle. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

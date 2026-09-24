@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-19865",
+  "relevant": false,
+  "confidence": 0.95,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB proposes revisions to the Regulation B small business lending (Section 1071) rule: coverage, small business definition, data points and compliance date.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Small business lending data (Section 1071), excluded. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

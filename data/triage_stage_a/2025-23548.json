@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-23548",
+  "relevant": false,
+  "confidence": 0.93,
+  "change_type": "guidance",
+  "effective_date": "2025-12-22",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "Federal Reserve rescinds its 2023 policy statement on section 9(13) of the Federal Reserve Act (novel activities, crypto) and issues a new one.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "State member bank permissible activities; unrelated to servicing conduct. Stage A: title, abstract and metadata only; full text not read."
+}

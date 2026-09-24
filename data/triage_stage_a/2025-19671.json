@@ -1,0 +1,20 @@
+{
+  "doc_id": "2025-19671",
+  "relevant": true,
+  "confidence": 0.65,
+  "change_type": "guidance",
+  "effective_date": "2025-10-28",
+  "affected_register_rows": [
+    "FCRA-ACCURACY-001",
+    "FCRA-DIRECT-001"
+  ],
+  "behavior_classes": [
+    "DISPUTES.CREDIT_REPORTING"
+  ],
+  "what_changed": "CFPB interpretive rule stating that the FCRA generally preempts state laws touching broad areas of credit reporting; replaces the July 2022 interpretive rule withdrawn in May 2025. Applicable October 28, 2025.",
+  "compliant_agent_must_now": "Furnishers: the CFPB's view is that state credit-reporting laws in areas the FCRA regulates are generally preempted. This is interpretive; state laws are not repealed and courts may differ, so do not stop complying with a state furnishing rule on this basis without counsel.",
+  "open_questions_for_deploying_team": [
+    "Which state credit-reporting or furnishing laws (e.g., medical debt or coerced debt reporting bans) does the deployment currently follow, and should any be reassessed under this interpretation?"
+  ],
+  "rationale": "Interpretive rule on preemption of state credit-reporting laws; affects which state furnishing rules apply to furnishers. The register has no state credit-reporting rows, so this may be a register gap. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

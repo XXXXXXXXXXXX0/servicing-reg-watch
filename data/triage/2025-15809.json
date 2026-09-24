@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-15809",
+  "relevant": false,
+  "confidence": 0.9,
+  "change_type": "final_rule",
+  "effective_date": "2025-09-18",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC sets rules for voice providers that use third parties to sign calls under STIR/SHAKEN, including SPC token and certificate requirements and recordkeeping.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Caller ID authentication duties of voice providers, not callers such as lenders or collectors. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}
