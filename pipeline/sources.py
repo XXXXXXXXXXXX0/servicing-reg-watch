@@ -6,6 +6,7 @@ import html
 import json
 import math
 import os
+import re
 import time
 from html.parser import HTMLParser
 from pathlib import Path
@@ -231,6 +232,33 @@ class FixtureClient:
         if not f.exists():
             raise NotFound(url)
         return f.read_text()
+
+
+class EcfrTextCache:
+    """Wraps a client so eCFR point-in-time text (/full/<date>/..., fixed for a
+    given date) is read from the committed store data/raw/ecfr/*.xml.gz and
+    requested only when absent. The versions index is passed through: it gains
+    entries when rules are amended, so a saved copy would hide new versions."""
+
+    def __init__(self, client, ecfr_dir: Path):
+        self.client = client
+        self.dir = Path(ecfr_dir)
+
+    def __getattr__(self, name):
+        return getattr(self.client, name)
+
+    def get_text(self, url, params=None):
+        prefix = f"{config.ECFR_API}/full/"
+        if not url.startswith(prefix):
+            return self.client.get_text(url, params)
+        from .common import read_gz_text, write_gz_text
+        key = url[len(prefix):] + "".join(f"_{k}-{v}" for k, v in sorted((params or {}).items()))
+        path = self.dir / (re.sub(r"[^A-Za-z0-9.-]+", "_", key) + ".gz")
+        if path.exists():
+            return read_gz_text(path)
+        text = self.client.get_text(url, params)
+        write_gz_text(path, text)
+        return text
 
 
 def make_client(offline: bool):

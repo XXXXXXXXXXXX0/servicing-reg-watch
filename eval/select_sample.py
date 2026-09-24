@@ -1,6 +1,7 @@
 """Draw the ~30-document eval sample (BUILD_SPEC Section 10) independently of the pipeline.
 
     python eval/select_sample.py [--offline] [--seed N] [--force] [--start D --end D]
+    python eval/select_sample.py --manifest-only   # recompute prefilter decisions, no network
 
 Candidates come from direct Federal Register term searches (full-text search on
 the FR side), not from the pipeline's prefilter. The search uses the same
@@ -43,6 +44,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from pipeline import config  # noqa: E402
+from pipeline.common import data_paths, read_gz_text, read_jsonl_gz, write_gz_text  # noqa: E402
 from pipeline.ingest import default_window  # noqa: E402
 from pipeline.prefilter import classify  # noqa: E402
 from pipeline.sources import make_client  # noqa: E402
@@ -69,8 +71,15 @@ SEARCH_FIELDS = ["document_number", "title", "type", "abstract", "action", "agen
 PER_PAGE = 1000
 
 
-def search(client, term: str | None, start: dt.date, end: dt.date) -> list[dict]:
-    """All documents matching `term` (exact phrase) in the window, agencies and types."""
+def search(client, term: str | None, start: dt.date, end: dt.date, data_dir=None) -> list[dict]:
+    """All documents matching `term` (exact phrase) in the window, agencies and types.
+    Results are saved to data/raw/fr_search/ and reused; the API is queried only
+    for a term and window not saved yet."""
+    import json
+    safe = (term or "unfiltered").replace(" ", "_")
+    cache = data_paths(data_dir)["fr_search"] / f"{safe}_{start}_{end}.json.gz"
+    if cache.exists() and not getattr(client, "offline", False):
+        return json.loads(read_gz_text(cache))
     params = {
         "conditions[agencies][]": config.AGENCIES,
         "conditions[type][]": list(config.DOC_TYPES),
@@ -87,6 +96,8 @@ def search(client, term: str | None, start: dt.date, end: dt.date) -> list[dict]
         res = client.get_json(config.FR_API, {**params, "page": page})
         out.extend(res.get("results") or [])
         if page >= int(res.get("total_pages") or 1):
+            if not getattr(client, "offline", False):
+                write_gz_text(cache, json.dumps(out, sort_keys=True))
             return out
         page += 1
 
@@ -152,6 +163,29 @@ def render_candidates(docs: list[dict], start: dt.date, end: dt.date) -> str:
     return "\n".join(out)
 
 
+def refresh_manifest(out: Path, data_dir=None) -> int:
+    """Re-run classify() on each sampled document's ingested metadata."""
+    store = {r["document"]["document_number"]: r["document"]
+             for r in read_jsonl_gz(data_paths(data_dir)["fr_store"])}
+    path = out / "sample_manifest.csv"
+    with open(path, newline="") as f:
+        rows = list(csv.DictReader(f))
+    missing = [r["doc_id"] for r in rows if r["doc_id"] not in store]
+    if missing:
+        print(f"not in the Federal Register store: {missing}; run ingest for the sample window first")
+        return 1
+    for r in rows:
+        c = classify(store[r["doc_id"]])
+        r["prefilter_decision"], r["prefilter_reason"] = ("keep" if c["keep"] else "drop"), c["reason"]
+    with open(path, "w", newline="") as f:
+        w = csv.DictWriter(f, list(rows[0]))
+        w.writeheader()
+        w.writerows(rows)
+    n_drop = sum(r["prefilter_decision"] == "drop" for r in rows)
+    print(f"manifest: {len(rows)} documents, {len(rows) - n_drop} keep, {n_drop} drop -> {path}")
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--offline", action="store_true", help="search fixtures/ instead of the live API")
@@ -160,8 +194,14 @@ def main(argv=None):
     ap.add_argument("--start", type=dt.date.fromisoformat)
     ap.add_argument("--end", type=dt.date.fromisoformat)
     ap.add_argument("--out-dir", default=str(ROOT / "eval"))
+    ap.add_argument("--data-dir")
+    ap.add_argument("--manifest-only", action="store_true",
+                    help="recompute prefilter decisions in sample_manifest.csv from the committed "
+                         "Federal Register store; no network, labels and candidates untouched")
     args = ap.parse_args(argv)
     out = Path(args.out_dir)
+    if args.manifest_only:
+        return refresh_manifest(out, args.data_dir)
     labels = out / "labels.csv"
     if labels.exists() and not args.force:
         with open(labels) as f:
@@ -171,7 +211,7 @@ def main(argv=None):
     start, end = default_window()
     start, end = args.start or start, args.end or end
     client = make_client(args.offline)
-    pools = {term: search(client, term, start, end) for term, _ in QUERIES}
+    pools = {term: search(client, term, start, end, args.data_dir) for term, _ in QUERIES}
     picks, warnings = select(pools, args.seed)
     # Shuffle label order so the query is not inferable from row position.
     order = [d for _, d in picks]

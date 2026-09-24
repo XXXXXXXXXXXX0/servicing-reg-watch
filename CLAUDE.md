@@ -3,8 +3,8 @@
 Read BUILD_SPEC.md before changing anything. These rules apply to all work in this repo.
 
 ## Data and output
-- Write large data to files (under `data/`, which is gitignored). Never print document contents to chat; report counts, IDs, headings, and file paths instead.
-- Cache every API response to disk and never refetch a cached document. Check the cache before any request.
+- Write large data to files under `data/`. Never print document contents to chat; report counts, IDs, headings, and file paths instead.
+- "Cache" means committed compressed files under `data/raw/` (`federal_register.jsonl.gz`, `govinfo/*.htm.gz`, `ecfr/*.gz`, `fr_search/*.json.gz`, plus `ingest_manifest.json`). Every fetch function checks them first and requests only documents not already saved; nothing saved is refetched. Commit new store files with the step that fetched them. Keep each committed file under 50 MB (`MAX_COMMITTED_BYTES` in `pipeline/common.py`). Everything else under `data/` is derived runtime output and stays gitignored.
 - Batch requests and back off on rate limits (429 and 5xx: exponential backoff, as in `pipeline/sources.py`).
 
 ## Code

@@ -97,8 +97,15 @@ python -m pipeline.triage validate              # check triage JSON against the 
   (`api.govinfo.gov/packages/FR-<date>/granules/<doc>/htm`, key from
   `GOVINFO_API_KEY` sent in the `X-Api-Key` header), then the public
   `www.govinfo.gov/content/pkg/FR-<date>/html/<doc>.htm` link as fallback. Every
-  response is cached as fetched in `data/raw/govinfo/` and never fetched again;
-  the tag-stripped text goes to `data/raw/text/`.
+  response is saved as fetched to `data/raw/govinfo/<doc>.htm.gz` (committed) and
+  never fetched again; the tag-stripped text goes to `data/raw/text/` (runtime).
+- **Fetched data is committed, compressed, and never refetched.** Federal Register
+  metadata lives in `data/raw/federal_register.jsonl.gz`; ingest serves any
+  agency-month that was fetched completely after it ended from that file and
+  queries only open or new months. GovInfo text, eCFR point-in-time section text
+  and eval term searches are saved the same way. The eCFR versions index is always
+  queried, because it gains entries when rules are amended. Each committed file
+  must stay under 50 MB. Everything else under `data/` is gitignored runtime output.
 - **Records are append-safe.** A change record whose `Reviewer:` line has been filled
   in is never overwritten by a later run.
 

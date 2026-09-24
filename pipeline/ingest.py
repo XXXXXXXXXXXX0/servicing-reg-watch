@@ -4,6 +4,9 @@ document types and window; store raw JSON (including the abstract) per document.
     python -m pipeline.ingest [--offline] [--start YYYY-MM-DD --end YYYY-MM-DD]
     python -m pipeline.ingest text [--offline]   # fetch full text for prefilter survivors
 
+Fetched data is saved to committed compressed files under data/raw/ and is
+never fetched again (see ingest() and fetch_texts()).
+
 Queries are chunked by agency and calendar month. A chunk whose reported count
 exceeds what the API will page through is split in half until it fits. The
 manifest records reported vs. retrieved counts for every chunk; the command
@@ -16,7 +19,8 @@ import datetime as dt
 import sys
 
 from . import config
-from .common import data_paths, read_json, read_jsonl, write_json
+from .common import (data_paths, read_gz_text, read_json, read_jsonl, read_jsonl_gz, write_gz_text,
+                     write_json, write_jsonl_gz)
 from .sources import Blocked, NotFound, TextUnavailable, html_to_text, make_client
 
 PER_PAGE = 1000
@@ -73,28 +77,65 @@ def fetch_chunk(client, agency, start, end, manifest):
     yield from results
 
 
-def ingest(client, start: dt.date, end: dt.date, data_dir=None) -> dict:
+def ingest(client, start: dt.date, end: dt.date, data_dir=None, today: dt.date | None = None) -> dict:
+    """Ingest the window, serving from the committed store where possible.
+
+    The store (data/raw/federal_register.jsonl.gz) holds every document ever
+    fetched. An agency-month is served from it, with no request, when the
+    manifest shows that month was fetched completely after it had ended. Open
+    months (the current one, or one fetched before it ended) are queried again.
+    """
     paths = data_paths(data_dir)
+    today = today or dt.date.today()
     fetched_at = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
+    store = {r["document"]["document_number"]: r for r in read_jsonl_gz(paths["fr_store"])}
+    prev = read_json(paths["manifest"]) if paths["manifest"].exists() else {}
+    months = {(m["agency"], m["start"], m["end"]): m for m in prev.get("month_chunks", [])}
     manifest_chunks: list[dict] = []
     docs: dict[str, dict] = {}
     seen_via: dict[str, set] = {}
+    requested = served = 0
     for agency in config.AGENCIES:
         for cs, ce in month_chunks(start, end):
-            for doc in fetch_chunk(client, agency, cs, ce, manifest_chunks):
+            key = (agency, cs.isoformat(), ce.isoformat())
+            m = months.get(key)
+            if m and m["complete"] and m["end"] < m["fetched_on"]:
+                found = [r["document"] for r in store.values()
+                         if agency in r.get("matched_agency_queries", [])
+                         and key[1] <= r["document"].get("publication_date", "") <= key[2]]
+                served += 1
+            else:
+                first = len(manifest_chunks)
+                found = list(fetch_chunk(client, agency, cs, ce, manifest_chunks))
+                sub = manifest_chunks[first:]
+                months[key] = {"agency": agency, "start": key[1], "end": key[2], "fetched_on": today.isoformat(),
+                               "reported_count": sum(c["reported_count"] for c in sub), "retrieved": len(found),
+                               "complete": all(c["complete"] for c in sub)}
+                requested += 1
+                for doc in found:
+                    num = doc["document_number"]
+                    old = store.get(num, {})
+                    store[num] = {"fetched_at": fetched_at, "source": config.FR_API,
+                                  "offline_fixture": bool(getattr(client, "offline", False)),
+                                  "matched_agency_queries": sorted(set(old.get("matched_agency_queries", [])) | {agency}),
+                                  "document": doc}
+            for doc in found:
                 num = doc["document_number"]
                 docs[num] = doc
                 seen_via.setdefault(num, set()).add(agency)
+    write_jsonl_gz(paths["fr_store"], [store[k] for k in sorted(store)])
     for num, doc in docs.items():
         write_json(paths["raw"] / f"{num}.json", {
-            "fetched_at": fetched_at,
+            "fetched_at": store[num]["fetched_at"],
             "source": config.FR_API,
             "matched_agency_queries": sorted(seen_via[num]),
             "offline_fixture": bool(getattr(client, "offline", False)),
             "document": doc,
         })
+    window_months = [months[(a, cs.isoformat(), ce.isoformat())]
+                     for a in config.AGENCIES for cs, ce in month_chunks(start, end)]
     per_agency = {}
-    for c in manifest_chunks:
+    for c in window_months:
         a = per_agency.setdefault(c["agency"], {"reported": 0, "retrieved": 0, "chunks": 0, "incomplete_chunks": 0})
         a["reported"] += c["reported_count"]
         a["retrieved"] += c["retrieved"]
@@ -107,9 +148,13 @@ def ingest(client, start: dt.date, end: dt.date, data_dir=None) -> dict:
         "agencies": config.AGENCIES,
         "doc_types": list(config.DOC_TYPES),
         "unique_documents": len(docs),
+        "stored_documents": len(store),
+        "agency_months_requested": requested,
+        "agency_months_from_store": served,
         "per_agency": per_agency,
-        "complete": all(c["complete"] for c in manifest_chunks),
-        "chunks": manifest_chunks,
+        "complete": all(c["complete"] for c in window_months),
+        "chunks": manifest_chunks,  # sub-chunks queried in this run
+        "month_chunks": sorted(months.values(), key=lambda m: (m["agency"], m["start"], m["end"])),
     }
     write_json(paths["manifest"], manifest)
     return manifest
@@ -125,9 +170,9 @@ def fetch_texts(client, data_dir=None) -> dict:
 
     Source is GovInfo (sources.LiveClient.get_document_html): the API granule
     /htm route first, the www content link as fallback. Every response is
-    cached as fetched in raw/govinfo/<doc>.htm and never fetched again; the
-    tag-stripped text is written to raw/text/<doc>.txt. A document with either
-    file on disk makes no request. Anything unavailable is logged with its
+    saved as fetched to the committed store raw/govinfo/<doc>.htm.gz and never
+    fetched again; the tag-stripped text is written to raw/text/<doc>.txt
+    (runtime). A document with either file on disk makes no request. Anything unavailable is logged with its
     reason in text/_missing.json; triage packets carry that reason and route.py
     sends those documents to human review.
     """
@@ -139,7 +184,7 @@ def fetch_texts(client, data_dir=None) -> dict:
     for row in kept:
         num = row["document_number"]
         out = paths["text"] / f"{num}.txt"
-        cached = paths["html"] / f"{num}.htm"
+        cached = paths["html"] / f"{num}.htm.gz"
         if out.exists():
             got += 1
             continue
@@ -153,12 +198,11 @@ def fetch_texts(client, data_dir=None) -> dict:
             except (Blocked, TextUnavailable) as e:
                 missing[num] = str(e)
                 continue
-            cached.parent.mkdir(parents=True, exist_ok=True)
-            cached.write_text(markup)
+            write_gz_text(cached, markup)
             routes[num] = route
             fetched += 1
         out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(html_to_text(cached.read_text()))
+        out.write_text(html_to_text(read_gz_text(cached)))
         got += 1
     write_json(paths["text"] / "_missing.json", missing)
     write_json(sources_path, routes)

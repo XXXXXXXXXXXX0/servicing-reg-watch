@@ -46,7 +46,7 @@ def main(argv=None):
     start, end = args.start or start, args.end or end
     paths = data_paths(args.data_dir)
 
-    m = ingest.ingest(client, start, end, args.data_dir)
+    m = ingest.ingest(client, start, end, args.data_dir, today)
     print(f"[1 ingest] {m['unique_documents']} documents, {start}..{end}, complete={m['complete']}")
     s = prefilter.run(args.data_dir)
     print(f"[2 prefilter] kept {s['kept']}, dropped {s['dropped']} (logged)")

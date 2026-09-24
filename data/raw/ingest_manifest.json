@@ -1,0 +1,1706 @@
+{
+  "fetched_at": "2026-09-24T17:38:51+00:00",
+  "offline_fixture": false,
+  "window": {
+    "start": "2024-09-23",
+    "end": "2026-09-24"
+  },
+  "agencies": [
+    "consumer-financial-protection-bureau",
+    "federal-communications-commission",
+    "federal-trade-commission",
+    "comptroller-of-the-currency",
+    "federal-deposit-insurance-corporation",
+    "federal-reserve-system",
+    "national-credit-union-administration"
+  ],
+  "doc_types": [
+    "RULE",
+    "PRORULE",
+    "NOTICE"
+  ],
+  "unique_documents": 2203,
+  "stored_documents": 2203,
+  "agency_months_requested": 7,
+  "agency_months_from_store": 168,
+  "per_agency": {
+    "consumer-financial-protection-bureau": {
+      "reported": 133,
+      "retrieved": 133,
+      "chunks": 25,
+      "incomplete_chunks": 0
+    },
+    "federal-communications-commission": {
+      "reported": 863,
+      "retrieved": 863,
+      "chunks": 25,
+      "incomplete_chunks": 0
+    },
+    "federal-trade-commission": {
+      "reported": 150,
+      "retrieved": 150,
+      "chunks": 25,
+      "incomplete_chunks": 0
+    },
+    "comptroller-of-the-currency": {
+      "reported": 168,
+      "retrieved": 168,
+      "chunks": 25,
+      "incomplete_chunks": 0
+    },
+    "federal-deposit-insurance-corporation": {
+      "reported": 206,
+      "retrieved": 206,
+      "chunks": 25,
+      "incomplete_chunks": 0
+    },
+    "federal-reserve-system": {
+      "reported": 639,
+      "retrieved": 639,
+      "chunks": 25,
+      "incomplete_chunks": 0
+    },
+    "national-credit-union-administration": {
+      "reported": 126,
+      "retrieved": 126,
+      "chunks": 25,
+      "incomplete_chunks": 0
+    }
+  },
+  "complete": true,
+  "chunks": [
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2026-09-01",
+      "end": "2026-09-24",
+      "reported_count": 0,
+      "retrieved": 0,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2026-09-01",
+      "end": "2026-09-24",
+      "reported_count": 32,
+      "retrieved": 32,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2026-09-01",
+      "end": "2026-09-24",
+      "reported_count": 8,
+      "retrieved": 8,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2026-09-01",
+      "end": "2026-09-24",
+      "reported_count": 6,
+      "retrieved": 6,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2026-09-01",
+      "end": "2026-09-24",
+      "reported_count": 14,
+      "retrieved": 14,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2026-09-01",
+      "end": "2026-09-24",
+      "reported_count": 19,
+      "retrieved": 19,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2026-09-01",
+      "end": "2026-09-24",
+      "reported_count": 3,
+      "retrieved": 3,
+      "complete": true
+    }
+  ],
+  "month_chunks": [
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2024-09-23",
+      "end": "2024-09-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 2,
+      "retrieved": 2,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2024-10-01",
+      "end": "2024-10-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 11,
+      "retrieved": 11,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2024-11-01",
+      "end": "2024-11-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 3,
+      "retrieved": 3,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2024-12-01",
+      "end": "2024-12-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 3,
+      "retrieved": 3,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2025-01-01",
+      "end": "2025-01-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 2,
+      "retrieved": 2,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2025-02-01",
+      "end": "2025-02-28",
+      "fetched_on": "2026-09-24",
+      "reported_count": 3,
+      "retrieved": 3,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2025-03-01",
+      "end": "2025-03-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 3,
+      "retrieved": 3,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2025-04-01",
+      "end": "2025-04-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 5,
+      "retrieved": 5,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2025-05-01",
+      "end": "2025-05-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 10,
+      "retrieved": 10,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2025-06-01",
+      "end": "2025-06-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 14,
+      "retrieved": 14,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2025-07-01",
+      "end": "2025-07-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 11,
+      "retrieved": 11,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2025-08-01",
+      "end": "2025-08-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 9,
+      "retrieved": 9,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2025-09-01",
+      "end": "2025-09-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 1,
+      "retrieved": 1,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2025-10-01",
+      "end": "2025-10-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 4,
+      "retrieved": 4,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2025-11-01",
+      "end": "2025-11-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 8,
+      "retrieved": 8,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2025-12-01",
+      "end": "2025-12-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 17,
+      "retrieved": 17,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2026-01-01",
+      "end": "2026-01-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 4,
+      "retrieved": 4,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2026-02-01",
+      "end": "2026-02-28",
+      "fetched_on": "2026-09-24",
+      "reported_count": 12,
+      "retrieved": 12,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2026-03-01",
+      "end": "2026-03-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 9,
+      "retrieved": 9,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2026-04-01",
+      "end": "2026-04-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 12,
+      "retrieved": 12,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2026-05-01",
+      "end": "2026-05-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 3,
+      "retrieved": 3,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2026-06-01",
+      "end": "2026-06-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 10,
+      "retrieved": 10,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2026-07-01",
+      "end": "2026-07-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 2,
+      "retrieved": 2,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2026-08-01",
+      "end": "2026-08-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 4,
+      "retrieved": 4,
+      "complete": true
+    },
+    {
+      "agency": "comptroller-of-the-currency",
+      "start": "2026-09-01",
+      "end": "2026-09-24",
+      "fetched_on": "2026-09-24",
+      "reported_count": 6,
+      "retrieved": 6,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2024-09-23",
+      "end": "2024-09-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 1,
+      "retrieved": 1,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2024-10-01",
+      "end": "2024-10-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 10,
+      "retrieved": 10,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2024-11-01",
+      "end": "2024-11-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 5,
+      "retrieved": 5,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2024-12-01",
+      "end": "2024-12-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 11,
+      "retrieved": 11,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2025-01-01",
+      "end": "2025-01-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 19,
+      "retrieved": 19,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2025-02-01",
+      "end": "2025-02-28",
+      "fetched_on": "2026-09-24",
+      "reported_count": 0,
+      "retrieved": 0,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2025-03-01",
+      "end": "2025-03-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 3,
+      "retrieved": 3,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2025-04-01",
+      "end": "2025-04-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 0,
+      "retrieved": 0,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2025-05-01",
+      "end": "2025-05-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 13,
+      "retrieved": 13,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2025-06-01",
+      "end": "2025-06-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 5,
+      "retrieved": 5,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2025-07-01",
+      "end": "2025-07-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 3,
+      "retrieved": 3,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2025-08-01",
+      "end": "2025-08-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 7,
+      "retrieved": 7,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2025-09-01",
+      "end": "2025-09-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 2,
+      "retrieved": 2,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2025-10-01",
+      "end": "2025-10-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 5,
+      "retrieved": 5,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2025-11-01",
+      "end": "2025-11-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 6,
+      "retrieved": 6,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2025-12-01",
+      "end": "2025-12-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 17,
+      "retrieved": 17,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2026-01-01",
+      "end": "2026-01-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 7,
+      "retrieved": 7,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2026-02-01",
+      "end": "2026-02-28",
+      "fetched_on": "2026-09-24",
+      "reported_count": 6,
+      "retrieved": 6,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2026-03-01",
+      "end": "2026-03-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 4,
+      "retrieved": 4,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2026-04-01",
+      "end": "2026-04-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 1,
+      "retrieved": 1,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2026-05-01",
+      "end": "2026-05-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 2,
+      "retrieved": 2,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2026-06-01",
+      "end": "2026-06-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 3,
+      "retrieved": 3,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2026-07-01",
+      "end": "2026-07-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 1,
+      "retrieved": 1,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2026-08-01",
+      "end": "2026-08-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 2,
+      "retrieved": 2,
+      "complete": true
+    },
+    {
+      "agency": "consumer-financial-protection-bureau",
+      "start": "2026-09-01",
+      "end": "2026-09-24",
+      "fetched_on": "2026-09-24",
+      "reported_count": 0,
+      "retrieved": 0,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2024-09-23",
+      "end": "2024-09-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 13,
+      "retrieved": 13,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2024-10-01",
+      "end": "2024-10-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 35,
+      "retrieved": 35,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2024-11-01",
+      "end": "2024-11-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 40,
+      "retrieved": 40,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2024-12-01",
+      "end": "2024-12-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 49,
+      "retrieved": 49,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2025-01-01",
+      "end": "2025-01-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 23,
+      "retrieved": 23,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2025-02-01",
+      "end": "2025-02-28",
+      "fetched_on": "2026-09-24",
+      "reported_count": 28,
+      "retrieved": 28,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2025-03-01",
+      "end": "2025-03-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 52,
+      "retrieved": 52,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2025-04-01",
+      "end": "2025-04-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 39,
+      "retrieved": 39,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2025-05-01",
+      "end": "2025-05-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 34,
+      "retrieved": 34,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2025-06-01",
+      "end": "2025-06-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 30,
+      "retrieved": 30,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2025-07-01",
+      "end": "2025-07-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 41,
+      "retrieved": 41,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2025-08-01",
+      "end": "2025-08-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 44,
+      "retrieved": 44,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2025-09-01",
+      "end": "2025-09-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 35,
+      "retrieved": 35,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2025-10-01",
+      "end": "2025-10-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 2,
+      "retrieved": 2,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2025-11-01",
+      "end": "2025-11-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 20,
+      "retrieved": 20,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2025-12-01",
+      "end": "2025-12-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 60,
+      "retrieved": 60,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2026-01-01",
+      "end": "2026-01-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 28,
+      "retrieved": 28,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2026-02-01",
+      "end": "2026-02-28",
+      "fetched_on": "2026-09-24",
+      "reported_count": 45,
+      "retrieved": 45,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2026-03-01",
+      "end": "2026-03-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 30,
+      "retrieved": 30,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2026-04-01",
+      "end": "2026-04-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 48,
+      "retrieved": 48,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2026-05-01",
+      "end": "2026-05-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 33,
+      "retrieved": 33,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2026-06-01",
+      "end": "2026-06-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 26,
+      "retrieved": 26,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2026-07-01",
+      "end": "2026-07-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 36,
+      "retrieved": 36,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2026-08-01",
+      "end": "2026-08-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 40,
+      "retrieved": 40,
+      "complete": true
+    },
+    {
+      "agency": "federal-communications-commission",
+      "start": "2026-09-01",
+      "end": "2026-09-24",
+      "fetched_on": "2026-09-24",
+      "reported_count": 32,
+      "retrieved": 32,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2024-09-23",
+      "end": "2024-09-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 6,
+      "retrieved": 6,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2024-10-01",
+      "end": "2024-10-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 19,
+      "retrieved": 19,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2024-11-01",
+      "end": "2024-11-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 6,
+      "retrieved": 6,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2024-12-01",
+      "end": "2024-12-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 9,
+      "retrieved": 9,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2025-01-01",
+      "end": "2025-01-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 5,
+      "retrieved": 5,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2025-02-01",
+      "end": "2025-02-28",
+      "fetched_on": "2026-09-24",
+      "reported_count": 3,
+      "retrieved": 3,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2025-03-01",
+      "end": "2025-03-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 8,
+      "retrieved": 8,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2025-04-01",
+      "end": "2025-04-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 4,
+      "retrieved": 4,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2025-05-01",
+      "end": "2025-05-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 6,
+      "retrieved": 6,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2025-06-01",
+      "end": "2025-06-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 5,
+      "retrieved": 5,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2025-07-01",
+      "end": "2025-07-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 18,
+      "retrieved": 18,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2025-08-01",
+      "end": "2025-08-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 6,
+      "retrieved": 6,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2025-09-01",
+      "end": "2025-09-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 2,
+      "retrieved": 2,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2025-10-01",
+      "end": "2025-10-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 4,
+      "retrieved": 4,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2025-11-01",
+      "end": "2025-11-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 7,
+      "retrieved": 7,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2025-12-01",
+      "end": "2025-12-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 14,
+      "retrieved": 14,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2026-01-01",
+      "end": "2026-01-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 8,
+      "retrieved": 8,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2026-02-01",
+      "end": "2026-02-28",
+      "fetched_on": "2026-09-24",
+      "reported_count": 6,
+      "retrieved": 6,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2026-03-01",
+      "end": "2026-03-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 11,
+      "retrieved": 11,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2026-04-01",
+      "end": "2026-04-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 12,
+      "retrieved": 12,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2026-05-01",
+      "end": "2026-05-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 5,
+      "retrieved": 5,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2026-06-01",
+      "end": "2026-06-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 13,
+      "retrieved": 13,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2026-07-01",
+      "end": "2026-07-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 8,
+      "retrieved": 8,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2026-08-01",
+      "end": "2026-08-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 7,
+      "retrieved": 7,
+      "complete": true
+    },
+    {
+      "agency": "federal-deposit-insurance-corporation",
+      "start": "2026-09-01",
+      "end": "2026-09-24",
+      "fetched_on": "2026-09-24",
+      "reported_count": 14,
+      "retrieved": 14,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2024-09-23",
+      "end": "2024-09-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 13,
+      "retrieved": 13,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2024-10-01",
+      "end": "2024-10-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 40,
+      "retrieved": 40,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2024-11-01",
+      "end": "2024-11-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 30,
+      "retrieved": 30,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2024-12-01",
+      "end": "2024-12-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 34,
+      "retrieved": 34,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2025-01-01",
+      "end": "2025-01-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 22,
+      "retrieved": 22,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2025-02-01",
+      "end": "2025-02-28",
+      "fetched_on": "2026-09-24",
+      "reported_count": 29,
+      "retrieved": 29,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2025-03-01",
+      "end": "2025-03-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 25,
+      "retrieved": 25,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2025-04-01",
+      "end": "2025-04-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 36,
+      "retrieved": 36,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2025-05-01",
+      "end": "2025-05-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 23,
+      "retrieved": 23,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2025-06-01",
+      "end": "2025-06-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 22,
+      "retrieved": 22,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2025-07-01",
+      "end": "2025-07-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 31,
+      "retrieved": 31,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2025-08-01",
+      "end": "2025-08-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 20,
+      "retrieved": 20,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2025-09-01",
+      "end": "2025-09-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 28,
+      "retrieved": 28,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2025-10-01",
+      "end": "2025-10-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 4,
+      "retrieved": 4,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2025-11-01",
+      "end": "2025-11-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 28,
+      "retrieved": 28,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2025-12-01",
+      "end": "2025-12-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 41,
+      "retrieved": 41,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2026-01-01",
+      "end": "2026-01-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 21,
+      "retrieved": 21,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2026-02-01",
+      "end": "2026-02-28",
+      "fetched_on": "2026-09-24",
+      "reported_count": 14,
+      "retrieved": 14,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2026-03-01",
+      "end": "2026-03-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 34,
+      "retrieved": 34,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2026-04-01",
+      "end": "2026-04-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 27,
+      "retrieved": 27,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2026-05-01",
+      "end": "2026-05-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 20,
+      "retrieved": 20,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2026-06-01",
+      "end": "2026-06-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 26,
+      "retrieved": 26,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2026-07-01",
+      "end": "2026-07-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 30,
+      "retrieved": 30,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2026-08-01",
+      "end": "2026-08-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 22,
+      "retrieved": 22,
+      "complete": true
+    },
+    {
+      "agency": "federal-reserve-system",
+      "start": "2026-09-01",
+      "end": "2026-09-24",
+      "fetched_on": "2026-09-24",
+      "reported_count": 19,
+      "retrieved": 19,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2024-09-23",
+      "end": "2024-09-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 3,
+      "retrieved": 3,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2024-10-01",
+      "end": "2024-10-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 6,
+      "retrieved": 6,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2024-11-01",
+      "end": "2024-11-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 7,
+      "retrieved": 7,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2024-12-01",
+      "end": "2024-12-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 6,
+      "retrieved": 6,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2025-01-01",
+      "end": "2025-01-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 15,
+      "retrieved": 15,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2025-02-01",
+      "end": "2025-02-28",
+      "fetched_on": "2026-09-24",
+      "reported_count": 4,
+      "retrieved": 4,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2025-03-01",
+      "end": "2025-03-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 3,
+      "retrieved": 3,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2025-04-01",
+      "end": "2025-04-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 6,
+      "retrieved": 6,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2025-05-01",
+      "end": "2025-05-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 2,
+      "retrieved": 2,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2025-06-01",
+      "end": "2025-06-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 3,
+      "retrieved": 3,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2025-07-01",
+      "end": "2025-07-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 5,
+      "retrieved": 5,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2025-08-01",
+      "end": "2025-08-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 5,
+      "retrieved": 5,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2025-09-01",
+      "end": "2025-09-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 9,
+      "retrieved": 9,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2025-10-01",
+      "end": "2025-10-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 0,
+      "retrieved": 0,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2025-11-01",
+      "end": "2025-11-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 2,
+      "retrieved": 2,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2025-12-01",
+      "end": "2025-12-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 9,
+      "retrieved": 9,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2026-01-01",
+      "end": "2026-01-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 6,
+      "retrieved": 6,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2026-02-01",
+      "end": "2026-02-28",
+      "fetched_on": "2026-09-24",
+      "reported_count": 6,
+      "retrieved": 6,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2026-03-01",
+      "end": "2026-03-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 7,
+      "retrieved": 7,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2026-04-01",
+      "end": "2026-04-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 9,
+      "retrieved": 9,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2026-05-01",
+      "end": "2026-05-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 9,
+      "retrieved": 9,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2026-06-01",
+      "end": "2026-06-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 5,
+      "retrieved": 5,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2026-07-01",
+      "end": "2026-07-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 7,
+      "retrieved": 7,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2026-08-01",
+      "end": "2026-08-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 8,
+      "retrieved": 8,
+      "complete": true
+    },
+    {
+      "agency": "federal-trade-commission",
+      "start": "2026-09-01",
+      "end": "2026-09-24",
+      "fetched_on": "2026-09-24",
+      "reported_count": 8,
+      "retrieved": 8,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2024-09-23",
+      "end": "2024-09-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 3,
+      "retrieved": 3,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2024-10-01",
+      "end": "2024-10-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 5,
+      "retrieved": 5,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2024-11-01",
+      "end": "2024-11-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 5,
+      "retrieved": 5,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2024-12-01",
+      "end": "2024-12-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 6,
+      "retrieved": 6,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2025-01-01",
+      "end": "2025-01-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 2,
+      "retrieved": 2,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2025-02-01",
+      "end": "2025-02-28",
+      "fetched_on": "2026-09-24",
+      "reported_count": 1,
+      "retrieved": 1,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2025-03-01",
+      "end": "2025-03-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 3,
+      "retrieved": 3,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2025-04-01",
+      "end": "2025-04-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 7,
+      "retrieved": 7,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2025-05-01",
+      "end": "2025-05-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 0,
+      "retrieved": 0,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2025-06-01",
+      "end": "2025-06-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 1,
+      "retrieved": 1,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2025-07-01",
+      "end": "2025-07-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 7,
+      "retrieved": 7,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2025-08-01",
+      "end": "2025-08-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 2,
+      "retrieved": 2,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2025-09-01",
+      "end": "2025-09-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 2,
+      "retrieved": 2,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2025-10-01",
+      "end": "2025-10-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 5,
+      "retrieved": 5,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2025-11-01",
+      "end": "2025-11-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 2,
+      "retrieved": 2,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2025-12-01",
+      "end": "2025-12-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 11,
+      "retrieved": 11,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2026-01-01",
+      "end": "2026-01-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 12,
+      "retrieved": 12,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2026-02-01",
+      "end": "2026-02-28",
+      "fetched_on": "2026-09-24",
+      "reported_count": 13,
+      "retrieved": 13,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2026-03-01",
+      "end": "2026-03-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 4,
+      "retrieved": 4,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2026-04-01",
+      "end": "2026-04-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 6,
+      "retrieved": 6,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2026-05-01",
+      "end": "2026-05-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 5,
+      "retrieved": 5,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2026-06-01",
+      "end": "2026-06-30",
+      "fetched_on": "2026-09-24",
+      "reported_count": 6,
+      "retrieved": 6,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2026-07-01",
+      "end": "2026-07-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 3,
+      "retrieved": 3,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2026-08-01",
+      "end": "2026-08-31",
+      "fetched_on": "2026-09-24",
+      "reported_count": 12,
+      "retrieved": 12,
+      "complete": true
+    },
+    {
+      "agency": "national-credit-union-administration",
+      "start": "2026-09-01",
+      "end": "2026-09-24",
+      "fetched_on": "2026-09-24",
+      "reported_count": 3,
+      "retrieved": 3,
+      "complete": true
+    }
+  ]
+}

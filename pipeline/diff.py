@@ -21,7 +21,7 @@ import xml.etree.ElementTree as ET
 
 from . import config
 from .common import data_paths, read_json, read_jsonl, write_json
-from .sources import NotFound, make_client
+from .sources import EcfrTextCache, NotFound, make_client
 
 BLOCK_TAGS = {"HEAD", "P", "FP", "HD", "EXTRACT", "NOTE", "CITA", "AUTH", "SOURCE"}
 
@@ -121,6 +121,7 @@ def diff_document(client, doc: dict, today: dt.date | None = None) -> dict | Non
 
 def run(client, data_dir=None, today=None) -> dict:
     paths = data_paths(data_dir)
+    client = EcfrTextCache(client, paths["ecfr"])
     counts: dict[str, int] = {}
     for row in read_jsonl(paths["prefilter"] / "kept.jsonl"):
         doc = read_json(paths["raw"] / f"{row['document_number']}.json")["document"]

@@ -347,11 +347,55 @@ def test_fetch_texts_caches_and_never_refetches(tmp_path):
     write_json(p["raw"] / "2025-08641.json", {"document": DOC})
     res = ingest.fetch_texts(Counting(), tmp_path)
     assert res["fetched_now"] == 1 and Counting.n == 1
-    assert (p["html"] / "2025-08641.htm").read_text() == "<pre>Body &amp; more</pre>"
+    from pipeline.common import read_gz_text
+    assert read_gz_text(p["html"] / "2025-08641.htm.gz") == "<pre>Body &amp; more</pre>"
     assert (p["text"] / "2025-08641.txt").read_text() == "Body & more\n"
     (p["text"] / "2025-08641.txt").unlink()        # derived text lost, cached response kept
     assert ingest.fetch_texts(Counting(), tmp_path)["fetched_now"] == 0 and Counting.n == 1
     assert (p["text"] / "2025-08641.txt").exists()
+
+
+def test_ingest_serves_closed_months_from_store(tmp_path):
+    import datetime as dt
+    from pipeline import ingest, sources
+    from pipeline.common import data_paths, read_jsonl_gz
+
+    class Counting(sources.FixtureClient):
+        calls = 0
+
+        def get_json(self, url, params=None):
+            Counting.calls += 1
+            return super().get_json(url, params)
+    start, end, today = dt.date(2024, 9, 1), dt.date(2026, 8, 31), dt.date(2026, 9, 10)
+    m1 = ingest.ingest(Counting(), start, end, tmp_path, today)
+    first = Counting.calls
+    assert first > 0 and m1["agency_months_from_store"] == 0
+    assert len(read_jsonl_gz(data_paths(tmp_path)["fr_store"])) == m1["unique_documents"] == 16
+    m2 = ingest.ingest(Counting(), start, end, tmp_path, today)
+    assert Counting.calls == first and m2["agency_months_requested"] == 0
+    assert m2["unique_documents"] == 16 and m2["complete"]
+    # a month fetched before it ended is queried again
+    m3 = ingest.ingest(Counting(), start, end, tmp_path / "b", dt.date(2026, 8, 15))
+    m4 = ingest.ingest(Counting(), start, end, tmp_path / "b", dt.date(2026, 8, 15))
+    assert m4["agency_months_requested"] == len(ingest.config.AGENCIES)
+
+
+def test_ecfr_full_text_cached(tmp_path):
+    from pipeline import config, sources
+
+    class Inner:
+        n = 0
+
+        def get_text(self, url, params=None):
+            Inner.n += 1
+            return "<xml/>"
+    c = sources.EcfrTextCache(Inner(), tmp_path)
+    url = f"{config.ECFR_API}/full/2025-06-01/title-12.xml"
+    assert c.get_text(url, {"part": "1006", "section": "1006.14"}) == "<xml/>"
+    assert c.get_text(url, {"part": "1006", "section": "1006.14"}) == "<xml/>" and Inner.n == 1
+    c.get_text(f"{config.ECFR_API}/versions/title-12.json", {"part": "1006"})
+    c.get_text(f"{config.ECFR_API}/versions/title-12.json", {"part": "1006"})
+    assert Inner.n == 3  # versions index is never served from disk
 
 
 # ------------------------------------------------------------------ secrets

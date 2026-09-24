@@ -1,6 +1,19 @@
-# Runtime pipeline output (ingest, prefilter logs, diffs, triage, queues).
-# CI uploads it as a workflow artifact.
-data/
+# data/: fetched source data is committed as compressed files (the store, never
+# refetched); everything derived from it is runtime output and ignored.
+data/*
+!data/raw/
+data/raw/*
+!data/raw/federal_register.jsonl.gz
+!data/raw/ingest_manifest.json
+!data/raw/govinfo/
+data/raw/govinfo/*
+!data/raw/govinfo/*.htm.gz
+!data/raw/ecfr/
+data/raw/ecfr/*
+!data/raw/ecfr/*.gz
+!data/raw/fr_search/
+data/raw/fr_search/*
+!data/raw/fr_search/*.json.gz
 __pycache__/
 *.pyc
 .pytest_cache/

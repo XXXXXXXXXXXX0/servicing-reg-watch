@@ -1,6 +1,7 @@
 """Shared paths and loaders."""
 from __future__ import annotations
 
+import gzip
 import json
 import os
 from pathlib import Path
@@ -15,18 +16,28 @@ PROMPT_PATH = ROOT / "pipeline" / "triage_prompt.md"
 FIXTURES_DIR = ROOT / "fixtures"
 RECORDS_DIR = ROOT / "records"
 
-# Runtime data lives outside git by default; override for tests or CI.
+# Pipeline data lives under data/; override for tests or CI. Fetched source data
+# (the "store") is committed as compressed files; everything derived from it is
+# gitignored runtime output (see .gitignore).
 DATA_DIR = Path(os.environ.get("SRW_DATA_DIR", ROOT / "data"))
+
+# GitHub rejects files over 100 MB and warns over 50 MB; committed store files stay under this.
+MAX_COMMITTED_BYTES = 50 * 1024 * 1024
 
 
 def data_paths(data_dir: Path | None = None) -> dict[str, Path]:
     d = Path(data_dir) if data_dir else DATA_DIR
     return {
         "root": d,
-        "raw": d / "raw" / "federal_register",
+        # committed store: fetched once, never refetched
+        "fr_store": d / "raw" / "federal_register.jsonl.gz",  # FR metadata, one record per document
         "manifest": d / "raw" / "ingest_manifest.json",
-        "html": d / "raw" / "govinfo",   # cached GovInfo responses, as fetched
-        "text": d / "raw" / "text",      # tag-stripped text derived from them
+        "html": d / "raw" / "govinfo",   # GovInfo responses as fetched, <doc>.htm.gz
+        "ecfr": d / "raw" / "ecfr",      # eCFR point-in-time text, *.xml.gz
+        "fr_search": d / "raw" / "fr_search",  # eval sample term searches, *.json.gz
+        # runtime (gitignored), rebuilt from the store
+        "raw": d / "raw" / "federal_register",
+        "text": d / "raw" / "text",      # tag-stripped text derived from html/
         "prefilter": d / "prefilter",
         "diffs": d / "diffs",
         "triage_inputs": d / "triage_inputs",
@@ -82,3 +93,33 @@ def read_jsonl(path: Path) -> list[dict]:
     if not Path(path).exists():
         return []
     return [json.loads(line) for line in Path(path).read_text().splitlines() if line.strip()]
+
+
+def _check_size(path: Path) -> None:
+    size = Path(path).stat().st_size
+    if size > MAX_COMMITTED_BYTES:
+        raise RuntimeError(f"{path} is {size} bytes, over the {MAX_COMMITTED_BYTES}-byte limit for committed data; shard it")
+
+
+def write_gz_text(path: Path, text: str) -> None:
+    """Write a committed store file. mtime=0 keeps unchanged content byte-identical."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "wb") as raw, gzip.GzipFile(fileobj=raw, mode="wb", mtime=0) as f:
+        f.write(text.encode("utf-8"))
+    _check_size(path)
+
+
+def read_gz_text(path: Path) -> str:
+    with gzip.open(path, "rb") as f:
+        return f.read().decode("utf-8")
+
+
+def write_jsonl_gz(path: Path, rows) -> None:
+    write_gz_text(path, "".join(json.dumps(r, sort_keys=True, default=str) + "\n" for r in rows))
+
+
+def read_jsonl_gz(path: Path) -> list[dict]:
+    if not Path(path).exists():
+        return []
+    return [json.loads(line) for line in read_gz_text(path).splitlines() if line.strip()]
