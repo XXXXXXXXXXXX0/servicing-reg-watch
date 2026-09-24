@@ -1,0 +1,19 @@
+{
+  "doc_id": "2026-07804",
+  "relevant": true,
+  "confidence": 0.6,
+  "change_type": "final_rule",
+  "effective_date": "2026-07-21",
+  "affected_register_rows": [
+    "REGB-001"
+  ],
+  "behavior_classes": [
+    "NEGOTIATION.TREATMENT"
+  ],
+  "what_changed": "CFPB final rule amending Regulation B provisions on disparate impact, discouragement and special purpose credit programs, effective July 21, 2026; the diff shows amendments to 12 CFR 1002.4, 1002.6, 1002.8, 1002.15 and Supplement I (including removal of commentary heading 2(p)).",
+  "compliant_agent_must_now": "From July 21, 2026, creditors apply Regulation B as amended. Whether servicing and collection treatment must still be tested for disparate impact depends on the amended 1002.4 and 1002.6 text, which the excerpt does not show.",
+  "open_questions_for_deploying_team": [
+    "Does the deployment's fair-lending testing of collection and settlement treatment rely on disparate impact, and does the amended Regulation B change that program?"
+  ],
+  "rationale": "Final Reg B rule on disparate impact and discouragement; Reg B covers collection procedures (REGB-001), but the diff excerpt shows commentary and section headers, not the operative change for servicing. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

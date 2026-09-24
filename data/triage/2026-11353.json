@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-11353",
+  "relevant": false,
+  "confidence": 0.97,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC proposes modernizing the Universal Service High-Cost Program.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Telecom subsidy program; unrelated to lending. Stage A: title, abstract and metadata only; full text not read."
+}

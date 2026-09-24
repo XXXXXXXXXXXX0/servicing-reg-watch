@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-18478",
+  "relevant": false,
+  "confidence": 0.97,
+  "change_type": "final_rule",
+  "effective_date": "2026-10-13",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC removes the ASCII capability requirement for TTY-based relay services.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Relay service technical rule; unrelated to lending. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

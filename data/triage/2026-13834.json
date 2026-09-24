@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-13834",
+  "relevant": false,
+  "confidence": 0.93,
+  "change_type": "other",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB requests information on reducing burdens in TRID integrated mortgage disclosures, the right of rescission and reverse mortgage disclosures.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Mortgage disclosures; excluded, and a request for information proposes no text. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

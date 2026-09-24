@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-07473",
+  "relevant": false,
+  "confidence": 0.95,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FTC ANPR on unfair or deceptive fees in online food delivery services.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Food delivery fees; not consumer lending. Stage A: title, abstract and metadata only; full text not read."
+}

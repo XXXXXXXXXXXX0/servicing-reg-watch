@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-07343",
+  "relevant": false,
+  "confidence": 0.9,
+  "change_type": "final_rule",
+  "effective_date": "2026-06-15",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC direct final rule rescinding facially obsolete wireline provisions across 47 CFR parts including part 64.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Obsolete carrier rules; the abstract does not indicate any change to 64.1200 calling rules, and eCFR showed no matching part 64 version to diff. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

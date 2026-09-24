@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-16615",
+  "relevant": false,
+  "confidence": 0.9,
+  "change_type": "other",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC publishes its entries in the 2026 Unified Agenda of Federal Regulatory and Deregulatory Actions.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "A regulatory agenda lists planned actions and creates or changes no obligation. Prefilter dropped it (no match). Stage A: title, abstract and metadata only; full text not read."
+}

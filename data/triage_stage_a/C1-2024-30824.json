@@ -1,0 +1,13 @@
+{
+  "doc_id": "C1-2024-30824",
+  "relevant": false,
+  "confidence": 0.55,
+  "change_type": "other",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "Correction to the CFPB Regulation V medical information final rule (90 FR 3276); the packet has no abstract.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Correction to a rule triaged not relevant at low confidence (2024-30824); relevance follows that rule and the correction's content is not in the packet. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

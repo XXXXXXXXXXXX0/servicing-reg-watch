@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-15777",
+  "relevant": false,
+  "confidence": 0.95,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "Federal Reserve proposes modernizing Regulation O on loans to bank insiders.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Insider lending limits at member banks; not consumer loan servicing. Stage A: title, abstract and metadata only; full text not read."
+}

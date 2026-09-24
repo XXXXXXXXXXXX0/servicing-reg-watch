@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-07960",
+  "relevant": false,
+  "confidence": 0.8,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC proposes limiting telecom, cable, VoIP and satellite providers' use of foreign call centers, raising standards for remaining foreign centers, and deterring foreign-originated unlawful calls.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Applies to communications providers' customer service, not lenders; near the line because the FCC asks whether to extend the rules to other types of services. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

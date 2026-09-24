@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-00328",
+  "relevant": false,
+  "confidence": 0.65,
+  "change_type": "withdrawal",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB and DOJ withdraw their October 2023 joint statement on how ECOA applies to a creditor's consideration of immigration status.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Withdrawn guidance concerns credit decisions (underwriting) rather than the servicing activities in the test; near the line because Regulation B's 'credit transaction' includes collection, and the abstract does not say whether the statement addressed servicing. Stage A: title, abstract and metadata only; full text not read."
+}
