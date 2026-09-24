@@ -19,5 +19,6 @@ Read BUILD_SPEC.md before changing anything. These rules apply to all work in th
 - Never print or commit secrets or API keys (`GOVINFO_API_KEY`, `ANTHROPIC_API_KEY`, or any other). Send keys in request headers, not URLs, and keep them out of logs and error messages.
 
 ## Workflow
+- Every prompt ends with the marker END OF PROMPT. If a message lacks it, do no work; tell me the message may be truncated and quote its last line.
 - Commit and push after each step.
 - End with a summary of under 15 lines.

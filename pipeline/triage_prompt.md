@@ -32,32 +32,46 @@ Each packet contains:
 
 ## Decide relevance
 
-Mark `relevant: true` if the document creates, amends, delays, withdraws, rescinds,
-or authoritatively interprets an obligation that governs at least one behavior class
-in the taxonomy, for any of these: consumer-loan servicers, first-party creditors
-collecting their own debts, debt collectors, or their service providers (including
-AI vendors). Also mark it relevant if it is a clear enforcement or supervisory signal
-about those behaviors, such as a consent order, supervisory highlights, or a compliance
-bulletin on collections, auto servicing, payments, or AI use.
+This is the single test for `relevant`. Apply it and nothing else; keyword hits,
+agency, and document type do not decide relevance on their own.
 
-Withdrawals and rescissions of guidance count as changes. A withdrawn advisory opinion
-or interpretive rule on a covered behavior is relevant, even though it removes text
-rather than adding it.
+**A document is relevant if it creates, changes, clarifies, delays, or withdraws an
+obligation governing how a lender, servicer, or collector of US consumer loans
+(banks, credit unions, captive finance companies, specialty and nonbank lenders), or
+an AI agent acting for one, does any of:**
+- contacts borrowers (timing, frequency, consent, recording, AI disclosure);
+- makes required disclosures;
+- verifies identity or limits third-party contact;
+- handles cease-contact, attorney representation, bankruptcy, dispute,
+  deceased-borrower, or servicemember events;
+- takes payments or charges payment fees;
+- negotiates settlements, extensions, or modifications;
+- handles credit-reporting disputes;
+- protects customer data;
+- manages repossession, insurance, GAP, or lien events;
+- or is examined as a third-party vendor.
 
-Usually **not relevant** (hard negatives; still read the document before deciding):
-- Mortgage-only servicing rules (Regulation X, 12 CFR 1024; mortgage-specific parts of
-  Regulation Z), unless the change also reaches non-mortgage consumer loans.
-- Overdraft or deposit-account fee rules that do not touch loan payments or collection.
-- Open banking / personal financial data rights (12 CFR 1033), unless the change reaches
-  payment authorization or servicing conduct.
-- TCPA rules that apply only to telemarketing or marketing consent (e.g., lead-generator
-  consent). Informational servicing and collection calls are a different category. A
-  rule that changes consent or revocation for all robocalls or robotexts is relevant.
-- Broadcast, spectrum, merger/acquisition applications, agency meetings, paperwork
-  notices, and internal agency administration.
+Withdrawing guidance is a change under this test: a withdrawn advisory opinion or
+interpretive rule on one of these activities is relevant, even though it removes
+text rather than adding it.
 
-When the document is clearly outside scope, say so. When the abstract alone does not
-settle the question, do not guess; lower your confidence.
+**Not relevant unless it also meets that test:**
+- mortgage-only rules (Regulation X, mortgage origination);
+- deposit-account and overdraft rules;
+- open banking (Section 1033);
+- small business lending data (Section 1071);
+- HMDA;
+- business or commercial credit only;
+- telemarketing or lead-generation consent rules that apply only to marketing calls;
+- bank capital, liquidity, and resolution rules.
+
+Read the document before applying these exclusions: a document in one of these
+areas is relevant if some part of it meets the test (for example, a Regulation Z
+change that reaches non-mortgage consumer loans, or a consent rule that covers all
+robocalls rather than only marketing calls).
+
+When the document is clearly outside scope, say so. When the packet does not settle
+the question, do not guess; lower your confidence.
 
 ## Fields
 
