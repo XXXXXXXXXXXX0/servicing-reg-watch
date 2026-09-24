@@ -2,6 +2,9 @@
 
 Read BUILD_SPEC.md before changing anything. These rules apply to all work in this repo.
 
+## Handoff
+- At the start of every session, read STATUS.md before exploring the repo. At the end of every session, update STATUS.md in under 25 lines: completed steps, current branch, data files, open issues, next step.
+
 ## Data and output
 - Write large data to files under `data/`. Never print document contents to chat; report counts, IDs, headings, and file paths instead.
 - "Cache" means committed compressed files under `data/raw/` (`federal_register.jsonl.gz`, `govinfo/*.htm.gz`, `ecfr/*.gz`, `fr_search/*.json.gz`, plus `ingest_manifest.json`). Every fetch function checks them first and requests only documents not already saved; nothing saved is refetched. Commit new store files with the step that fetched them. Keep each committed file under 50 MB (`MAX_COMMITTED_BYTES` in `pipeline/common.py`). Everything else under `data/` is derived runtime output and stays gitignored.
