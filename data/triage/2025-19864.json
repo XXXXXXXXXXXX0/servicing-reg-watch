@@ -1,7 +1,7 @@
 {
   "doc_id": "2025-19864",
   "relevant": true,
-  "confidence": 0.6,
+  "confidence": 0.75,
   "change_type": "proposed_rule",
   "effective_date": null,
   "affected_register_rows": [
@@ -10,10 +10,10 @@
   "behavior_classes": [
     "NEGOTIATION.TREATMENT"
   ],
-  "what_changed": "CFPB proposes amending Regulation B provisions on disparate impact, discouragement of applicants and prospective applicants, and special purpose credit programs.",
-  "compliant_agent_must_now": "No change until final; if adopted as proposed, the CFPB's reading of ECOA would change on disparate impact, which can reach collection and servicing treatment of borrowers (Regulation B covers collection procedures).",
+  "what_changed": "CFPB proposes amending Regulation B: 12 CFR 1002.6(a) would state that ECOA does not provide for the effects test (disparate impact); 1002.4(b) would limit discouragement to statements directed at applicants or prospective applicants that a reasonable person would read as signalling denial or worse terms on a prohibited basis; 1002.8 would add conditions for for-profit special purpose credit programs and bar race, color, national origin or sex as eligibility criteria. Comments due December 15, 2025. Finalized as proposed by 2026-07804 (effective July 21, 2026).",
+  "compliant_agent_must_now": "No change until final; see 2026-07804, which adopted this proposal without change effective July 21, 2026.",
   "open_questions_for_deploying_team": [
-    "Does the deployment test collection and settlement treatment for disparate impact across borrower groups, and would that testing change if the proposal is adopted?"
+    "Does the deployment run fair-lending or disparate-impact testing of collection, settlement and hardship outcomes? Will it continue as internal policy, given that state fair-lending laws and other regulators may still apply an effects test?"
   ],
-  "rationale": "Reg B proposal centered on applications and discouragement; the disparate impact part may reach servicing and collection treatment under REGB-001, which the abstract does not settle. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+  "rationale": "Full text (proposed 1002.4(b), 1002.6(a), 1002.8) matches the final rule judged relevant; relevance follows it. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (1200 of 24768 words)."
 }

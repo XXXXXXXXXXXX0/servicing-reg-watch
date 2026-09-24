@@ -1,13 +1,13 @@
 {
   "doc_id": "2025-15089",
   "relevant": false,
-  "confidence": 0.65,
+  "confidence": 0.8,
   "change_type": "proposed_rule",
   "effective_date": null,
   "affected_register_rows": [],
   "behavior_classes": [],
-  "what_changed": "CFPB ANPR on amending the test for larger participants in the automobile financing market (12 CFR 1090).",
+  "what_changed": "CFPB ANPR on raising the 12 CFR 1090 larger-participant threshold for the automobile financing market (currently 10,000 aggregate annual originations, about 63 nonbanks covering an estimated 94 percent of originations); one example threshold of 1,050,000 originations would leave five entities (about 42 percent of market activity). Comments due September 22, 2025.",
   "compliant_agent_must_now": "No change.",
   "open_questions_for_deploying_team": [],
-  "rationale": "Would change which nonbank auto lenders the CFPB supervises, not what servicing conduct is required; near the line because supervision scope affects exam exposure for auto-finance deployments. Stage A: title, abstract and metadata only; full text not read."
+  "rationale": "Full text confirms the ANPR concerns only which nonbank auto finance companies the CFPB may supervise under 12 U.S.C. 5514(a)(1)(B); it changes no conduct obligation, and the underlying laws apply regardless of supervision. Not auto-closed because supervision scope affects exam exposure of auto-finance clients. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (2000 of 3374 words)."
 }

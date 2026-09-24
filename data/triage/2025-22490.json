@@ -1,21 +1,15 @@
 {
   "doc_id": "2025-22490",
-  "relevant": true,
-  "confidence": 0.6,
+  "relevant": false,
+  "confidence": 0.75,
   "change_type": "proposed_rule",
   "effective_date": null,
-  "affected_register_rows": [
-    "BANKSEC-GUIDE-001",
-    "NCUA-CYBER-001"
-  ],
-  "behavior_classes": [
-    "DATA.PRIVACY_SECURITY",
-    "VENDOR.GOVERNANCE"
-  ],
-  "what_changed": "NCUA proposes removing Appendix B to 12 CFR part 748 (guidance on response programs for unauthorized access to member information and member notice) from the CFR and republishing it as guidance.",
-  "compliant_agent_must_now": "No change until final; if adopted, credit unions' response-program and member-notice expectations would continue as guidance, and the underlying requirement to have a response program remains in regulation.",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "NCUA proposes removing Appendix B to 12 CFR part 748 (Guidance on Response Programs for Unauthorized Access to Member Information and Member Notice, 2005) from the CFR and republishing it as guidance; the preamble states the intended effect is to simplify the regulatory text 'without altering any substantive compliance obligations'. The response-program requirement in part 748 remains. Comments due February 9, 2026.",
+  "compliant_agent_must_now": "No change.",
   "open_questions_for_deploying_team": [
-    "Do incident-response commitments to credit union clients cite 12 CFR 748 Appendix B?"
+    "If finalized, check whether register rows BANKSEC-GUIDE-001 or NCUA-CYBER-001 cite 12 CFR part 748 app. B and update the citation."
   ],
-  "rationale": "Credit union incident response and member notice are within the test, but the proposal appears to relocate text rather than change it; confidence low until the full text is read. Stage A: title, abstract and metadata only; full text not read."
+  "rationale": "Full text states no substantive compliance obligation changes; the regulation requiring response programs stays. Stage A marked it relevant at 0.6 pending this check; Stage B reverses that. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (1500 of 2179 words)."
 }

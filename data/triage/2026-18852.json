@@ -8,12 +8,13 @@
     "TPRM-001"
   ],
   "behavior_classes": [
-    "VENDOR.GOVERNANCE"
+    "VENDOR.GOVERNANCE",
+    "DATA.PRIVACY_SECURITY"
   ],
-  "what_changed": "Federal Reserve proposes a third-party risk management guide for traditional community banking organizations, covering key risks in third-party relationships and common relationship categories.",
-  "compliant_agent_must_now": "No change until final; if adopted, community bank clients would use the guide when conducting due diligence and ongoing monitoring of vendors such as an AI servicing provider.",
+  "what_changed": "Federal Reserve proposes a Third-Party Risk Management Guide for Traditional Community Banking Organizations (under $30 billion in assets, not complex bank-fintech partnerships), a companion to the proposed all-bank TPRM guidance (2026-18859). Sec. IV.B covers operational resilience, system and information security, compliance with rules and regulations, and financial resilience of vendors; sec. IV.C gives vendor-by-vendor considerations for core, IT infrastructure, cybersecurity, payment processing and digital banking, loan management system, card, BSA/AML and fraud providers. The guide states it is not a rule, banks are not required to take the actions described, and consumer compliance is out of scope. Comments due November 16, 2026.",
+  "compliant_agent_must_now": "No change until final. If adopted, Federal Reserve-supervised community bank clients would use the guide's operational resilience, information security, regulatory compliance and financial resilience considerations when onboarding and monitoring a servicing provider (likely treated like a loan management or payment-processing vendor).",
   "open_questions_for_deploying_team": [
-    "Which community bank clients are Federal Reserve-supervised, and what evidence packages (SOC reports, model documentation, complaint data) would the guide lead them to request?"
+    "Which community bank clients are Federal Reserve-supervised state member banks under $30 billion, and which vendor category in sec. IV.C would they place the servicing agent in?"
   ],
-  "rationale": "Proposed supervisory guidance on how banks examine third parties; within the vendor-examination part of the test. Stage A: title, abstract and metadata only; full text not read."
+  "rationale": "Full text confirms a proposed supervisory guide on how community banks examine vendors; within the test's vendor-examination clause. Confidence 0.85 rather than 0.9 because it is non-binding, Federal Reserve-only and excludes consumer compliance. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (1500 of 7897 words)."
 }

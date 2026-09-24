@@ -1,7 +1,7 @@
 {
   "doc_id": "2026-07804",
   "relevant": true,
-  "confidence": 0.6,
+  "confidence": 0.75,
   "change_type": "final_rule",
   "effective_date": "2026-07-21",
   "affected_register_rows": [
@@ -10,10 +10,11 @@
   "behavior_classes": [
     "NEGOTIATION.TREATMENT"
   ],
-  "what_changed": "CFPB final rule amending Regulation B provisions on disparate impact, discouragement and special purpose credit programs, effective July 21, 2026; the diff shows amendments to 12 CFR 1002.4, 1002.6, 1002.8, 1002.15 and Supplement I (including removal of commentary heading 2(p)).",
-  "compliant_agent_must_now": "From July 21, 2026, creditors apply Regulation B as amended. Whether servicing and collection treatment must still be tested for disparate impact depends on the amended 1002.4 and 1002.6 text, which the excerpt does not show.",
+  "what_changed": "CFPB final rule, effective July 21, 2026, adopting its November 2025 proposal as proposed: revised 12 CFR 1002.6(a) states 'The Act does not provide that the \"effects test\" applies for determining whether there is discrimination in violation of the Act', and new comment 6(a)-2 limits prohibited practices to disparate treatment, reaching facially neutral criteria only when they function as proxies designed or applied with intent to advantage or disadvantage on a protected basis; revised 1002.4(b) and comment 4(b)-1 limit discouragement to oral or written statements directed at applicants or prospective applicants that a reasonable person would read as signalling denial or worse terms because of a prohibited basis (interview scripts that discourage on a prohibited basis remain prohibited); revised 1002.8(a)(3), (b)(2)-(4) and (c) add conditions for for-profit special purpose credit programs and bar race, color, national origin or sex as eligibility criteria; 1002.15(d)(1)(ii) revised.",
+  "compliant_agent_must_now": "From July 21, 2026, creditors (including in collection and servicing, which ECOA covers as 'any aspect of a credit transaction'): continue to prohibit any difference in treatment on a prohibited basis in contact, hardship, settlement and modification decisions, and never use prohibited-basis characteristics or intentional proxies for them. Under Regulation B as amended, outcome disparities from neutral servicing policies are no longer a Regulation B violation by themselves; do not remove disparity monitoring without counsel review because state law and other enforcers may differ.",
   "open_questions_for_deploying_team": [
-    "Does the deployment's fair-lending testing of collection and settlement treatment rely on disparate impact, and does the amended Regulation B change that program?"
+    "Does the deployment run fair-lending or disparate-impact testing of collection, settlement and hardship outcomes? Will it continue as internal policy, given that state fair-lending laws and other regulators may still apply an effects test?",
+    "Do any agent scripts or statements to borrowers about hardship or refinance options risk being read as discouraging a borrower on a prohibited basis (1002.4(b))?"
   ],
-  "rationale": "Final Reg B rule on disparate impact and discouragement; Reg B covers collection procedures (REGB-001), but the diff excerpt shows commentary and section headers, not the operative change for servicing. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+  "rationale": "Full text shows a change to the ECOA standard that governs all aspects of a credit transaction, including collection treatment (REGB-001). Confidence 0.75 rather than higher because most of the rule's practical effect is on underwriting and special purpose credit programs. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (4000 of 56179 words)."
 }

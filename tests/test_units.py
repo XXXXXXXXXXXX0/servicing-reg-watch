@@ -234,6 +234,25 @@ def test_eval_without_labels_writes_status(tmp_path):
     assert "No results yet" in out.read_text()
 
 
+def test_eval_reports_stage_b_changes(tmp_path):
+    import run_eval
+    triage, stage_a = tmp_path / "triage", tmp_path / "triage_stage_a"
+    triage.mkdir()
+    stage_a.mkdir()
+    for d in ("A", "B", "C", "D"):
+        (stage_a / f"{d}.json").write_text("{}")
+    rows = [{"doc_id": "A", "direction": "not_relevant_to_relevant", "fields_changed": ["relevant"]},
+            {"doc_id": "B", "direction": "relevant_to_not_relevant", "fields_changed": ["relevant"]},
+            {"doc_id": "C", "direction": None, "fields_changed": ["behavior_classes"]}]
+    (triage / "_stage_b.jsonl").write_text("".join(json.dumps(r) + "\n" for r in rows))
+    sb = run_eval.stage_b_summary(triage)
+    assert sb == {"stage_a_total": 4, "stage_b_reads": 3, "to_relevant": 1, "to_not_relevant": 1, "other_fields_changed": 1}
+    out = tmp_path / "results.md"
+    assert run_eval.main(["--labels", str(ROOT / "eval" / "labels.csv"), "--triage-dir", str(triage),
+                          "--data-dir", str(tmp_path), "--out", str(out)]) == 0
+    assert "changed the Stage A relevance answer for 2 of 3" in out.read_text()
+
+
 def test_clopper_pearson_known_values():
     import run_eval
     lo, hi = run_eval.clopper_pearson(15, 15)

@@ -1,13 +1,13 @@
 {
   "doc_id": "2026-12011",
   "relevant": false,
-  "confidence": 0.6,
-  "change_type": "final_rule",
+  "confidence": 0.97,
+  "change_type": "other",
   "effective_date": null,
   "affected_register_rows": [],
   "behavior_classes": [],
-  "what_changed": "FCC rule titled 'Miscellaneous Rules Relating to Common Carriers' amending 47 CFR 64; the packet has no abstract, action or effective date.",
+  "what_changed": "Office of the Federal Register CFR correction reinstating the introductory text of 47 CFR 64.615(a)(1) (VRS user call validation against the TRS User Registration Database) omitted from the October 1, 2025 CFR revision.",
   "compliant_agent_must_now": "No change.",
   "open_questions_for_deploying_team": [],
-  "rationale": "Nothing in the packet says what changed. 47 CFR 64 contains the TCPA rules (64.1200), so a TCPA change cannot be ruled out from metadata alone. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+  "rationale": "Full text shows an editorial correction to a telecommunications relay service provision, unrelated to the TCPA rules in 64.1200 or to lending. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (213 of 213 words)."
 }

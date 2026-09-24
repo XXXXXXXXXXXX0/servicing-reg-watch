@@ -1,18 +1,18 @@
 {
   "doc_id": "2026-16029",
   "relevant": true,
-  "confidence": 0.75,
+  "confidence": 0.7,
   "change_type": "final_rule",
   "effective_date": "2026-09-08",
   "affected_register_rows": [],
   "behavior_classes": [
     "VENDOR.GOVERNANCE"
   ],
-  "what_changed": "NCUA final rule removing its regulation on third-party servicing of indirect vehicle loans, effective September 8, 2026, in favor of principles-based supervision.",
-  "compliant_agent_must_now": "From September 8, 2026, federally insured credit unions are no longer bound by NCUA's specific third-party servicing rule for indirect vehicle loans; oversight of servicers (including an AI servicing vendor) rests on general safety-and-soundness and vendor due-diligence expectations.",
+  "what_changed": "NCUA final rule, effective September 8, 2026, adopting its March 2026 proposal without change after 14 supportive comments: removes 12 CFR 701.21(h) (limits on federal credit union purchases of indirect vehicle loans serviced by any one third-party servicer to 50 percent of net worth, 100 percent after 30 months, with waivers), removes 741.203(c) (same limits for federally insured state-chartered credit unions) and removes the 701.21(h)(3) citation from 746.201(c). The preamble says boards remain responsible for policies scaled to their indirect lending and that NCUA vendor-management, enterprise-risk and governance expectations continue to apply through examination.",
+  "compliant_agent_must_now": "From September 8, 2026, federally insured credit unions are no longer subject to a regulatory cap on indirect vehicle loans serviced by a single third-party servicer. A servicing provider's agent behavior does not change, but credit union clients' due diligence and ongoing monitoring of the servicer (under their own board policies and NCUA examination) become the controlling oversight.",
   "open_questions_for_deploying_team": [
-    "Register gap: no row covers NCUA's (now removed) third-party servicing rule for indirect vehicle loans. Should a VENDOR.GOVERNANCE row record the removal and what replaces it?",
-    "Which credit union contracts reference the removed rule's limits, and should they be renegotiated?"
+    "Register gap: no row covers NCUA oversight of third-party servicers of indirect vehicle loans (former 12 CFR 701.21(h) and 741.203(c)). Should a VENDOR.GOVERNANCE row record the removal and the principles-based expectations that replace it?",
+    "Will credit union clients replace the removed limits with internal concentration limits or new due-diligence requirements on the servicer?"
   ],
-  "rationale": "Directly concerns credit unions' use of third-party servicers for auto loans. Register gap: no NCUA third-party servicing row. Stage A: title, abstract and metadata only; full text not read."
+  "rationale": "Full text confirms removal of the NCUA third-party servicing concentration rule for indirect vehicle loans; relevant to how credit unions oversee a servicing vendor, at the same 0.7 confidence as the proposal. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (2000 of 2892 words)."
 }

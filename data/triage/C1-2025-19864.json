@@ -1,8 +1,8 @@
 {
   "doc_id": "C1-2025-19864",
   "relevant": true,
-  "confidence": 0.55,
-  "change_type": "proposed_rule",
+  "confidence": 0.75,
+  "change_type": "other",
   "effective_date": null,
   "affected_register_rows": [
     "REGB-001"
@@ -10,8 +10,8 @@
   "behavior_classes": [
     "NEGOTIATION.TREATMENT"
   ],
-  "what_changed": "Correction to the CFPB Regulation B proposal on disparate impact, discouragement and special purpose credit programs (90 FR 50901); the packet has no abstract.",
-  "compliant_agent_must_now": "No change until final; follows the corrected proposal (2025-19864), which has since been finalized (2026-07804).",
+  "what_changed": "Correction to proposed rule 2025-19864 (90 FR 50901): republishes the proposed amendatory text for 12 CFR 1002.4(b), 1002.6(a) and 1002.8 to conform with the document the CFPB submitted on November 7, 2025 (the printed version had duplicated and misplaced text). No substantive change to the proposal.",
+  "compliant_agent_must_now": "No change; see 2026-07804 for the final rule.",
   "open_questions_for_deploying_team": [],
-  "rationale": "Correction to a proposal triaged relevant at low confidence; the correction's content is not in the packet. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+  "rationale": "Correction to a proposal judged relevant; relevance follows that proposal. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (1500 of 2212 words)."
 }

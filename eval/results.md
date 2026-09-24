@@ -15,3 +15,11 @@ Protocol (BUILD_SPEC Section 10):
 2. The labeler fills in `eval/labels.csv` **blind**, before seeing any triage output or `eval/sample_manifest.csv`: relevant Y/N, behavior classes, tier.
 3. Run triage, then `python eval/run_eval.py`.
 
+## Triage method: Stage A screening and Stage B full-text reads
+
+- Stage A (abstract, metadata and eCFR diff excerpt only): 215 documents.
+- Stage B (saved full text, about 4,000 words at most) for every Stage A 'relevant' call and every call with confidence below 0.7: 35 documents.
+- Stage B changed the Stage A relevance answer for 4 of 35: 2 not relevant to relevant, 2 relevant to not relevant.
+- Stage B kept the relevance answer but changed register rows, behavior classes, change type or effective date for 12 more.
+- Predictions scored here are the post-Stage-B answers in the triage directory; Stage A answers are kept in `data/triage_stage_a/`.
+

@@ -1,13 +1,13 @@
 {
   "doc_id": "2025-15091",
   "relevant": false,
-  "confidence": 0.65,
+  "confidence": 0.8,
   "change_type": "proposed_rule",
   "effective_date": null,
   "affected_register_rows": [],
   "behavior_classes": [],
-  "what_changed": "CFPB ANPR on amending the test for larger participants in the consumer debt collection market (12 CFR 1090).",
+  "what_changed": "CFPB ANPR on raising the 12 CFR 1090 larger-participant threshold for the consumer debt collection market (currently more than $10 million in annual receipts from consumer debt collection); an example $25 million threshold would cover roughly 100-125 collectors. Comments due September 22, 2025.",
   "compliant_agent_must_now": "No change.",
   "open_questions_for_deploying_team": [],
-  "rationale": "Would change which nonbank collectors the CFPB supervises, not the collection conduct Regulation F requires; near the line because supervision scope affects exam exposure for collection deployments. Stage A: title, abstract and metadata only; full text not read."
+  "rationale": "Full text confirms the ANPR concerns only which nonbank collectors the CFPB may supervise; FDCPA and Regulation F obligations are unchanged. Not auto-closed because supervision scope affects exam exposure of collection clients. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (2000 of 3267 words)."
 }
