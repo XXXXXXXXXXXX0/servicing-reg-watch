@@ -91,7 +91,7 @@ With the keywords added above, all 69 register rows and all 17 behavior classes 
 
 Decisions for the 30 sampled documents are computed by `classify` from each document's ingested Federal Register metadata. CFR parts are never inferred (see rule A).
 
-Recompute with `python eval/select_sample.py --manifest-only` (reads `data/raw/federal_register.jsonl.gz`; no network). All 30 sampled documents are in the store. Current result: 16 keep (A 11, B 4, C 1) and 14 drop.
+Recompute with `python eval/select_sample.py --manifest-only` (reads `data/raw/federal_register.jsonl.gz`; no network). All 30 sampled documents are in the store. Current result: 16 keep (A 10, B 5, C 1) and 14 drop (excluded 7, no_match 7).
 
 ## Results on the full ingest (2024-09-23 to 2026-09-24, 2,203 documents)
 

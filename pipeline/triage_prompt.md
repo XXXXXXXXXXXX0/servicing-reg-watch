@@ -51,6 +51,9 @@ an AI agent acting for one, does any of:**
 - manages repossession, insurance, GAP, or lien events;
 - or is examined as a third-party vendor.
 
+Supervisory findings, enforcement actions, and advisory opinions count as clarifying
+an obligation when they interpret how an obligation within the test applies.
+
 Withdrawing guidance is a change under this test: a withdrawn advisory opinion or
 interpretive rule on one of these activities is relevant, even though it removes
 text rather than adding it.
