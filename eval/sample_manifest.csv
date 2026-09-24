@@ -1,31 +1,31 @@
 doc_id,search_query,prefilter_decision,prefilter_reason
-2024-30824,Regulation F,keep,B_cfpb_type
+2024-30824,Regulation F,keep,A_cfr_part
 2025-08286,Regulation F,keep,B_cfpb_type
-2024-22962,Regulation F,keep,B_cfpb_type
-2025-15090,debt collection,keep,B_cfpb_type
-2026-07804,debt collection,keep,B_cfpb_type
-2026-06864,debt collection,drop,no_match
-2025-08646,electronic fund transfer,keep,B_cfpb_type
+2024-22962,Regulation F,keep,A_cfr_part
+2025-15090,debt collection,keep,A_cfr_part
+2026-07804,debt collection,keep,A_cfr_part
+2026-06864,debt collection,keep,A_cfr_part
+2025-08646,electronic fund transfer,keep,A_cfr_part
 2024-31670,electronic fund transfer,keep,B_cfpb_type
 2025-11982,electronic fund transfer,keep,B_cfpb_type
-2026-07960,robocall,drop,no_match
-2025-18398,robocall,drop,no_match
+2026-07960,robocall,keep,A_cfr_part
+2025-18398,robocall,drop,excluded_pra_information_collection
 2026-16615,robocall,drop,no_match
 2025-00633,auto loan,keep,B_cfpb_type
 2025-01142,auto loan,drop,excluded_pra_information_collection
-2026-10099,auto loan,drop,no_match
+2026-10099,auto loan,drop,excluded_pra_information_collection
 2024-27458,mortgage servicing,drop,excluded_pra_information_collection
 2025-14060,mortgage servicing,drop,no_match
-2024-27836,mortgage servicing,keep,B_cfpb_type
+2024-27836,mortgage servicing,keep,A_cfr_part
 2025-19942,overdraft,drop,no_match
 2024-30293,overdraft,keep,C_keyword
 2025-23712,overdraft,drop,no_match
 2024-25079,personal financial data rights,keep,B_cfpb_type
-2024-29699,personal financial data rights,keep,B_cfpb_type
+2024-29699,personal financial data rights,keep,A_cfr_part
 2025-23785,telemarketing,drop,excluded_fcc_spectrum_broadcast_licensing
 2026-04952,telemarketing,drop,no_match
 2024-28399,telemarketing,drop,no_match
-2026-01557,(unfiltered),drop,no_match
+2026-01557,(unfiltered),drop,excluded_pra_information_collection
 2026-08944,(unfiltered),drop,no_match
-2025-22490,(unfiltered),drop,no_match
-2025-11410,(unfiltered),drop,no_match
+2025-22490,(unfiltered),keep,A_cfr_part
+2025-11410,(unfiltered),drop,excluded_pra_information_collection

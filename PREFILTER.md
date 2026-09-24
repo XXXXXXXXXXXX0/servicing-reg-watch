@@ -90,3 +90,13 @@ With the keywords added above, all 69 register rows and all 17 behavior classes 
 ## Eval manifest (`eval/sample_manifest.csv`)
 
 Decisions for the 30 sampled documents are computed by `classify` from each document's ingested Federal Register metadata. CFR parts are never inferred (see rule A).
+
+Recompute with `python eval/select_sample.py --manifest-only` (reads `data/raw/federal_register.jsonl.gz`; no network). All 30 sampled documents are in the store. Current result: 16 keep (A 11, B 4, C 1) and 14 drop.
+
+## Results on the full ingest (2024-09-23 to 2026-09-24, 2,203 documents)
+
+- Kept 201: A (CFR part) 102, B (CFPB type) 35, C (keyword) 64. The reason is the first rule that matched. Counting every match regardless of order: A 102, B 77, C 107.
+- Excluded as administrative 1,052: PRA information collection 772, FCC spectrum/broadcast/licensing 138, Sunshine Act 81, Privacy Act SORN 58, agency organization 3.
+- Dropped as `no_match`: 950.
+- 36 excluded documents also matched a keep rule. None matched rule A. Two were CFPB Privacy Act notices whose "rescission" is of a records system, not of guidance. The rest were keyword hits in paperwork notices, meeting notices and two FCC satellite and internet rules.
+
