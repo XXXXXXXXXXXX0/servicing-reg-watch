@@ -12,7 +12,7 @@ Branch: `claude/eloquent-goodall-jas2zw` (no PR opened).
 
 ## Data files (committed)
 - `data/raw/federal_register.jsonl.gz`: 2,203 docs, 2024-09-23..2026-09-24 (~0.55 MB).
-- `data/raw/ingest_manifest.json`: 175 agency-months, all complete (~73 KB).
+- `data/raw/ingest_manifest.json`: 175 agency-months, all complete (~43 KB).
 - Not yet fetched: GovInfo full text, eCFR text, diffs. Prefilter output is runtime (`data/prefilter/`, ignored).
 
 ## Open issues
