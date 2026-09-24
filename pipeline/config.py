@@ -49,12 +49,10 @@ ECFR_TRACKED = [
     {"title": 16, "part": "314", "label": "FTC Safeguards"},
 ]
 
-# CFR parts whose appearance in a document's cfr_references keeps it through
-# the prefilter. Superset of ECFR_TRACKED: adds register parts that are not
-# diffed (bank/CU security, incident notification, CFPB larger participants).
+# Prefilter rule A (PREFILTER.md): a document citing any of these CFR parts is
+# kept. Superset of ECFR_TRACKED: adds bank/CU security and supervision parts
+# that are not diffed.
 PREFILTER_CFR_PARTS = {(t["title"], t["part"]) for t in ECFR_TRACKED} | {
-    (12, "30"), (12, "364"), (12, "208"), (12, "748"),
-    (12, "53"), (12, "225"), (12, "304"), (12, "1090"),
+    (12, "30"), (12, "208"), (12, "225"), (12, "364"), (12, "748"),
 }
 
-FINANCE_AGENCIES = set(AGENCIES) - {"federal-communications-commission"}

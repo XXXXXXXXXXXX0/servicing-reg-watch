@@ -22,19 +22,39 @@ def _doc(title, abstract=None, agency="federal-communications-commission", typ="
 
 # ---------------------------------------------------------------- prefilter
 def test_prefilter_rules():
-    assert prefilter.classify(_doc("Television Broadcasting Services; Anytown"))["reason"] == "noise_title"
-    assert prefilter.classify(_doc("Advanced Methods To Target and Eliminate Unlawful Robocalls"))["keep"]
-    assert prefilter.classify(_doc("Privacy Act of 1974; System of Records", agency="federal-trade-commission"))["keep"] is False
-    # withdrawal by a finance agency is kept even without domain terms; FCC withdrawal is not
-    assert prefilter.classify(_doc("Rescission of Policy", agency="comptroller-of-the-currency"))["reason"] == "withdrawal_or_rescission"
-    assert prefilter.classify(_doc("Withdrawal of Proposed Rule on Tower Siting"))["keep"] is False
-    # tracked CFR part beats a noise title
-    assert prefilter.classify(_doc("Sunshine Act Meeting", cfr=[(12, "1006")]))["reason"] == "tracked_cfr_part"
-    # case-sensitive acronym: "ai" inside words does not match
-    assert prefilter.classify(_doc("Maintenance of Fair Claims"))["keep"] is False
+    cfpb = "consumer-financial-protection-bureau"
+    c = prefilter.classify
+    # EXCLUDE runs first, even over a CFR match
+    assert c(_doc("Sunshine Act Meeting", cfr=[(12, "1006")]))["reason"] == "excluded_sunshine_act_meeting"
+    assert c(_doc("Agency Information Collection Activities: Reg F", agency=cfpb))["reason"] == "excluded_pra_information_collection"
+    assert c(_doc("Privacy Act of 1974; System of Records", agency="federal-trade-commission"))["reason"] == "excluded_privacy_act_sorn"
+    assert c(_doc("Delegation of Authority", agency=cfpb))["reason"] == "excluded_agency_organization"
+    assert c(_doc("Television Broadcasting Services; Anytown"))["reason"] == "excluded_fcc_spectrum_broadcast_licensing"
+    assert c(_doc("Wireless Telecommunications Bureau Seeks Comment on Robocall Mitigation"))["reason"] == "C_keyword"
+    # A: CFR parts, exact list
+    assert c(_doc("Anything", cfr=[(12, "748")]))["reason"] == "A_cfr_part"
+    assert c(_doc("Anything", cfr=[(12, "1090")]))["reason"] == "no_match"
+    # B: CFPB types
+    assert c(_doc("Rules of Practice", agency=cfpb, typ="Rule"))["cfpb_type"] == "final_rule"
+    assert c(_doc("Supervisory Highlights, Issue 35", agency=cfpb))["cfpb_type"] == "supervisory highlights"
+    assert c(_doc("Withdrawal of Guidance Documents", agency=cfpb))["cfpb_type"] == "guidance_withdrawal_or_rescission"
+    assert c(_doc("Consumer Credit Card Market Report", agency=cfpb))["reason"] == "no_match"
+    assert c(_doc("Rescission of Policy", agency="comptroller-of-the-currency"))["reason"] == "no_match"
+    # C: whole words, optional plural, stems, case-sensitive acronyms
+    assert c(_doc("Advanced Methods To Target and Eliminate Unlawful Robocalls"))["keyword_hits"] == ["robocall"]
+    assert c(_doc("Loan Delinquency Reporting", agency=cfpb))["keyword_hits"] == ["delinquen*"]
+    assert c(_doc("GAP Waivers", agency=cfpb))["keyword_hits"] == ["GAP waiver"]
+    assert c(_doc("Gap waiver", agency=cfpb))["keep"] is False
+    assert c(_doc("Achieving ach Goals", agency=cfpb))["keep"] is False
+    assert c(_doc("Robot Rules", agency=cfpb))["keep"] is False
+    assert c(_doc("Title", abstract="Third party relationships", agency=cfpb))["keyword_hits"] == ["third-party relationship"]
 
 
-# --------------------------------------------------------------------- diff
+def test_prefilter_coverage_reaches_every_row_and_class():
+    cov = prefilter.coverage()
+    assert cov["unreached_rows"] == [] and cov["unreached_classes"] == []
+
+
 def test_xml_to_lines():
     xml = "<DIV8><HEAD>§ 1 Head.</HEAD><P>(a) One <I>two</I>.</P><P>(b)  Three</P></DIV8>"
     assert xml_to_lines(xml) == ["§ 1 Head.", "(a) One two.", "(b) Three"]

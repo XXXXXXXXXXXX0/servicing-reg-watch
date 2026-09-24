@@ -63,13 +63,14 @@ python -m pipeline.triage validate              # check triage JSON against the 
   chunk, and ingest exits non-zero if any chunk comes back short. That makes
   "ingested all listed agencies for the window" checkable rather than asserted.
   Multi-agency documents are stored once.
-- **The prefilter leans toward keeping.** A document is kept if it references a
-  tracked CFR part or matches domain terms. CFPB rules and proposed rules are
-  always kept, as are withdrawals or rescissions from any financial regulator.
-  Titles that are obvious noise (broadcast, bank-holding applications, meetings,
-  paperwork notices) are dropped only when nothing else matches. Every drop is
-  written with its reason to `data/prefilter/dropped.jsonl`. Hard negatives such as
-  mortgage servicing deliberately pass the prefilter; separating them is triage's job.
+- **The prefilter is a stated rule set, not a tuned score.** Administrative notices
+  (paperwork, Sunshine Act, Privacy Act system-of-records, agency organization,
+  FCC spectrum/broadcast/licensing) are excluded first. Then a document is kept if
+  it cites a tracked CFR part (A), is a CFPB rule or guidance document (B), or has
+  a listed keyword in its title or abstract (C); everything else is dropped. Rules
+  and reasons are in [PREFILTER.md](PREFILTER.md). Every drop is written with its
+  reason to `data/prefilter/dropped.jsonl`. Hard negatives such as mortgage
+  servicing deliberately pass the prefilter; separating them is triage's job.
 - **Diffs come from eCFR, not the rule preamble.** For final rules on a tracked part,
   the diff step finds the eCFR section versions dated on the rule's effective date
   and diffs the section text from the day before against the effective date. It

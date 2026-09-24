@@ -25,14 +25,16 @@ def test_prefilter_decisions_are_all_logged(offline_run):
     kept = {r["document_number"]: r["reason"] for r in read_jsonl(p["prefilter"] / "kept.jsonl")}
     dropped = {r["document_number"]: r["reason"] for r in read_jsonl(p["prefilter"] / "dropped.jsonl")}
     assert len(kept) + len(dropped) == 16 and not set(kept) & set(dropped)
-    assert kept["FIXTURE-0001"] == "tracked_cfr_part"
-    assert kept["FIXTURE-0002"] == "domain_terms"          # guidance withdrawal
-    assert kept["FIXTURE-0010"] == "withdrawal_or_rescission"
-    assert kept["FIXTURE-0017"] == "cfpb_rulemaking"
-    assert kept["FIXTURE-0006"] == "domain_terms"          # hard negative reaches triage
-    assert dropped == {"FIXTURE-0004": "noise_title", "FIXTURE-0005": "noise_title",
-                       "FIXTURE-0009": "noise_title", "FIXTURE-0013": "noise_title",
-                       "FIXTURE-0014": "no_signal"}
+    assert kept["FIXTURE-0001"] == "A_cfr_part"
+    assert kept["FIXTURE-0002"] == "B_cfpb_type"           # CFPB guidance withdrawal
+    assert kept["FIXTURE-0017"] == "B_cfpb_type"           # CFPB final rule
+    assert kept["FIXTURE-0006"] == "B_cfpb_type"           # hard negative reaches triage
+    assert kept["FIXTURE-0015"] == "C_keyword"
+    assert dropped == {"FIXTURE-0004": "excluded_fcc_spectrum_broadcast_licensing",
+                       "FIXTURE-0009": "excluded_pra_information_collection",
+                       "FIXTURE-0005": "no_match", "FIXTURE-0013": "no_match",
+                       "FIXTURE-0014": "no_match",
+                       "FIXTURE-0010": "no_match"}         # non-CFPB rescission, no keyword
 
 
 def test_diff_statuses(offline_run):
@@ -54,8 +56,7 @@ def test_route_and_records(offline_run):
     closed = {i["doc_id"] for i in read_json(p["queue"] / "auto_closed.json")}
     review = {i["doc_id"]: i["route_reason"] for i in read_json(p["queue"] / "review_queue.json")}
     assert closed == {"FIXTURE-0006"}
-    # 0010 and 0012 have triage outputs but no full text: not triaged from partial information.
-    assert review["FIXTURE-0010"] == "full_text_unavailable"
+    # 0012 has a triage output but no full text: not triaged from partial information.
     assert review["FIXTURE-0012"] == "full_text_unavailable"
     assert review["FIXTURE-0011"] == "full_text_unavailable"
     rec = offline_run["records"]

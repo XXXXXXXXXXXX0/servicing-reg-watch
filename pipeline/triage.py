@@ -46,7 +46,7 @@ def build_packet(doc: dict, prefilter_row: dict, diff: dict | None, text: str | 
             "regulation_id_numbers", "html_url")},
         "agencies": [a.get("name") or a.get("raw_name") for a in doc.get("agencies", [])],
         "abstract": doc.get("abstract"),
-        "prefilter": {k: prefilter_row.get(k) for k in ("reason", "cfr_hits", "domain_hits", "withdrawal_hits")},
+        "prefilter": {k: prefilter_row.get(k) for k in ("reason", "exclude", "cfr_hits", "cfpb_type", "keyword_hits")},
         "full_text_available": bool(text),
         "full_text_missing_reason": None if text else (text_missing_reason or "not fetched"),
         "full_text_excerpt": None,

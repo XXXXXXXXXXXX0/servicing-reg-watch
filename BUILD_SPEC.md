@@ -115,7 +115,7 @@ Selection criteria: law reaches lenders collecting their own debts; stricter tha
 
 ## 7. Pipeline
 1. **Ingest**: pull Federal Register documents for the agencies and window above; store raw JSON + abstract.
-2. **Prefilter**: cheap keyword/CFR-part filter to drop obvious noise; log everything dropped.
+2. **Prefilter**: exclude administrative notices, then keep on CFR part (A), CFPB document type (B) or keyword in title/abstract (C); drop the rest and log everything dropped. Rules and reasons: [PREFILTER.md](PREFILTER.md).
 3. **Diff**: for documents amending a tracked CFR part, fetch before/after text from eCFR and compute the section-level diff.
 4. **Triage (LLM)**: model from env `MODEL` (default `claude-sonnet-5`), key from env `ANTHROPIC_API_KEY`. Output must validate against:
 ```json
