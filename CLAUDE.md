@@ -24,4 +24,5 @@ Read BUILD_SPEC.md before changing anything. These rules apply to all work in th
 ## Workflow
 - Every prompt ends with the marker END OF PROMPT. If a message lacks it, do no work; tell me the message may be truncated and quote its last line.
 - Commit and push after each step.
+- Never start background watchers or polling loops. Before ending a session, stop all background tasks and confirm none are running.
 - End with a summary of under 15 lines.
