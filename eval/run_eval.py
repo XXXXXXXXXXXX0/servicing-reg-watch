@@ -3,10 +3,14 @@
     python eval/run_eval.py [--labels eval/labels.csv] [--triage-dir data/triage]
                             [--data-dir DIR] [--out eval/results.md]
 
-Prediction per labeled document:
+End-to-end prediction per labeled document:
   - dropped by the prefilter        -> predicted not relevant (source: prefilter)
   - triage output present           -> triage `relevant` (source: triage)
   - kept but no triage output       -> excluded from scoring, reported as missing
+Triage-only prediction: triage `relevant` for every labeled document with a triage
+output, whatever its prefilter decision (eval documents are triaged with --include-eval).
+Prefilter decisions come from data/prefilter/{kept,dropped}.jsonl when present, else
+from pipeline.prefilter.classify over the committed metadata store.
 Labels: label_relevant Y/N; label_behavior_classes separated by ';'; label_tier 1/2.
 Rows with a blank label_relevant are unlabeled and excluded.
 """
@@ -22,7 +26,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from pipeline.common import data_paths, load_register, read_jsonl  # noqa: E402
+from pipeline import prefilter  # noqa: E402
+from pipeline.common import data_paths, load_register, read_jsonl, read_jsonl_gz  # noqa: E402
 
 
 def _binom_cdf(k: int, n: int, p: float) -> float:
@@ -73,13 +78,29 @@ def _classes(v):
     return {c.strip() for c in (v or "").replace(",", ";").split(";") if c.strip()}
 
 
-def evaluate(labels_path: Path, triage_dir: Path, dropped: set[str]) -> dict:
+def prefilter_decisions(paths: dict) -> tuple[set[str], set[str]]:
+    """(kept, dropped) document numbers: the prefilter logs if they hold any records,
+    else the prefilter's own classify() applied to the committed metadata store."""
+    logged = [{r["document_number"] for r in read_jsonl(paths["prefilter"] / f"{k}.jsonl")}
+              for k in ("kept", "dropped") if (paths["prefilter"] / f"{k}.jsonl").exists()]
+    if len(logged) == 2 and (logged[0] or logged[1]):
+        return logged[0], logged[1]
+    kept, dropped = set(), set()
+    if paths["fr_store"].exists():
+        for rec in read_jsonl_gz(paths["fr_store"]):
+            doc = rec["document"]
+            (kept if prefilter.classify(doc)["keep"] else dropped).add(doc["document_number"])
+    return kept, dropped
+
+
+def evaluate(labels_path: Path, triage_dir: Path, dropped: set[str], kept: set[str] | None = None) -> dict:
     with open(labels_path) as f:
         rows = list(csv.DictReader(f))
     tiers = {r["id"]: r["tier"] for r in load_register()}
     res = {"sample_rows": len(rows), "labeled": 0, "unlabeled": 0, "missing_prediction": [],
            "tp": 0, "fp": 0, "fn": 0, "tn": 0, "by_source": {"prefilter": 0, "triage": 0},
-           "class_pairs": [], "tier_pairs": [], "errors": []}
+           "class_pairs": [], "tier_pairs": [], "errors": [], "tiers_labeled": 0,
+           "triage_only": {"tp": 0, "fp": 0, "fn": 0, "tn": 0}, "pf_pos_kept": 0, "pf_pos_dropped": 0}
     for r in rows:
         label = _yn(r.get("label_relevant"))
         if label is None:
@@ -88,6 +109,15 @@ def evaluate(labels_path: Path, triage_dir: Path, dropped: set[str]) -> dict:
         res["labeled"] += 1
         doc_id = r["doc_id"]
         tpath = triage_dir / f"{doc_id}.json"
+        if r.get("label_tier", "").strip():
+            res["tiers_labeled"] += 1
+        if label and doc_id in dropped:
+            res["pf_pos_dropped"] += 1
+        elif label and (kept is None or doc_id in kept):
+            res["pf_pos_kept"] += 1
+        if tpath.exists():
+            t_pred = bool(json.loads(tpath.read_text()).get("relevant"))
+            res["triage_only"][("tp" if t_pred else "fn") if label else ("fp" if t_pred else "tn")] += 1
         if doc_id in dropped:
             pred, out, src = False, None, "prefilter"
         elif tpath.exists():
@@ -99,6 +129,8 @@ def evaluate(labels_path: Path, triage_dir: Path, dropped: set[str]) -> dict:
         res["by_source"][src] += 1
         key = ("tp" if pred else "fn") if label else ("fp" if pred else "tn")
         res[key] += 1
+        if key in ("fp", "fn"):
+            res["errors"].append((doc_id, key.upper(), src))
         if label and pred and out is not None:
             res["class_pairs"].append((doc_id, _classes(r.get("label_behavior_classes")), set(out.get("behavior_classes", []))))
             pred_tiers = [tiers[i] for i in out.get("affected_register_rows", []) if i in tiers]
@@ -144,6 +176,20 @@ def _pct(x):
     return "n/a" if x is None else f"{100 * x:.1f}%"
 
 
+def _rate(name: str, x: int, n: int, of: str) -> str:
+    """Markdown table row: raw fraction, point estimate, exact 95% interval, what n counts."""
+    if not n:
+        return f"| {name} | 0/0 | n/a | n/a | {of} |"
+    lo, hi = clopper_pearson(x, n)
+    return f"| {name} | {x}/{n} | {_pct(x / n)} | {_pct(lo)} to {_pct(hi)} | {of} |"
+
+
+def _matrix(c: dict) -> list[str]:
+    return ["| | Labeled relevant | Labeled not relevant |", "|---|---|---|",
+            f"| Predicted relevant | TP {c['tp']} | FP {c['fp']} |",
+            f"| Predicted not relevant | FN {c['fn']} | TN {c['tn']} |", ""]
+
+
 def render(res: dict, labels_path: Path, triage_dir: Path, stages: dict | None = None) -> str:
     out = ["# Eval results", "",
            "<!-- GENERATED by eval/run_eval.py. Do not edit by hand. -->", "",
@@ -165,38 +211,53 @@ def render(res: dict, labels_path: Path, triage_dir: Path, stages: dict | None =
         if res["missing_prediction"]:
             out += ["Labeled documents awaiting triage: " + ", ".join(res["missing_prediction"]), ""]
         return "\n".join(out + _render_stages(stages))
-    pos, pred_pos = res["tp"] + res["fn"], res["tp"] + res["fp"]
-    prec = res["tp"] / pred_pos if pred_pos else None
-    rec = res["tp"] / pos if pos else None
-    p_ci = clopper_pearson(res["tp"], pred_pos) if pred_pos else None
-    r_ci = clopper_pearson(res["tp"], pos) if pos else None
-    out += ["## Relevance", "",
-            "| | Labeled relevant | Labeled not relevant |", "|---|---|---|",
-            f"| Predicted relevant | TP {res['tp']} | FP {res['fp']} |",
-            f"| Predicted not relevant | FN {res['fn']} | TN {res['tn']} |", "",
+    pos, pred_pos, neg = res["tp"] + res["fn"], res["tp"] + res["fp"], res["fp"] + res["tn"]
+    t = res["triage_only"]
+    t_pos, t_neg = t["tp"] + t["fn"], t["fp"] + t["tn"]
+    pf_n = res["pf_pos_kept"] + res["pf_pos_dropped"]
+    out += ["## Relevance: end to end (prefilter, then triage)", "",
+            "A prefilter drop counts as a 'not relevant' prediction.", ""] + _matrix(res) + [
             f"Predictions from triage: {res['by_source']['triage']}; from prefilter drops: {res['by_source']['prefilter']}.", "",
-            "| Metric | Point estimate | 95% exact (Clopper-Pearson) interval | n |", "|---|---|---|---|",
-            f"| Precision | {_pct(prec)} | {'n/a' if not p_ci else f'{_pct(p_ci[0])} to {_pct(p_ci[1])}'} | {pred_pos} |",
-            f"| Recall | {_pct(rec)} | {'n/a' if not r_ci else f'{_pct(r_ci[0])} to {_pct(r_ci[1])}'} | {pos} |", ""]
+            "## Relevance: triage alone", "",
+            f"Every labeled document with a triage output ({t_pos + t_neg}), including prefilter-dropped eval documents.", ""
+            ] + _matrix(t) + [
+            "## Rates", "",
+            "Exact (Clopper-Pearson) two-sided 95% intervals. n is the denominator.", "",
+            "| Metric | Raw fraction | Point estimate | 95% interval | Denominator |", "|---|---|---|---|---|",
+            _rate("Precision (end to end)", res["tp"], pred_pos, "documents the pipeline marked relevant"),
+            _rate("Recall (triage alone)", t["tp"], t_pos, "labeled-relevant documents with a triage output"),
+            _rate("Specificity (triage alone)", t["tn"], t_neg, "labeled-not-relevant documents with a triage output"),
+            _rate("Prefilter recall", res["pf_pos_kept"], pf_n, "labeled-relevant documents; numerator = kept by the prefilter"),
+            _rate("End-to-end recall", res["tp"], pos, "labeled-relevant documents; numerator = kept and triaged relevant"),
+            _rate("Specificity (end to end)", res["tn"], neg, "labeled-not-relevant documents"),
+            _rate("Precision (triage alone)", t["tp"], t["tp"] + t["fp"], "documents triage marked relevant"), ""]
+    if res["errors"]:
+        out += ["Model errors (end to end): " + "; ".join(f"{d} {k} (from {s})" for d, k, s in res["errors"]) + ".", ""]
     if res["class_pairs"]:
         jac = [len(a & b) / len(a | b) if a | b else 1.0 for _, a, b in res["class_pairs"]]
         exact = sum(1 for _, a, b in res["class_pairs"] if a == b)
         out += ["## Behavior-class agreement (true positives only)", "",
                 f"- Documents compared: {len(jac)}",
                 f"- Mean Jaccard overlap: {sum(jac) / len(jac):.2f}",
-                f"- Exact set match: {exact}/{len(jac)}", "",
+                f"- Exact set match: {exact}/{len(jac)}",
+                f"- Class instances: {sum(len(a & b) for _, a, b in res['class_pairs'])} of "
+                f"{sum(len(a) for _, a, b in res['class_pairs'])} labeled classes predicted; "
+                f"{sum(len(a & b) for _, a, b in res['class_pairs'])} of {sum(len(b) for _, a, b in res['class_pairs'])} "
+                "predicted classes labeled (instances within a document are not independent, so no interval is given).", "",
                 "| Document | Labeled classes | Predicted classes |", "|---|---|---|"]
         out += [f"| {d} | {', '.join(sorted(a)) or '—'} | {', '.join(sorted(b)) or '—'} |" for d, a, b in res["class_pairs"]]
         out.append("")
+    if not res["tiers_labeled"]:
+        out += ["## Tier agreement", "", "Not scored: no labeled document has a tier.", ""]
     if res["tier_pairs"]:
         agree = sum(1 for _, a, b in res["tier_pairs"] if a == b)
         out += ["## Tier agreement", "",
                 f"Predicted tier = lowest tier among the affected register rows. Agreement: {agree}/{len(res['tier_pairs'])}.", ""]
     out += ["## Sample-size caveat", "",
             f"This eval has {pos} labeled positives and {scored - pos} labeled negatives. At this size the "
-            "intervals above are wide, and they are the honest summary. For example, perfect recall on 15 positives "
-            f"gives a 95% two-sided lower bound of {_pct(clopper_pearson(15, 15)[0])} "
-            "(one-sided 95%: 81.9%). That supports 'recall above roughly 80%', not '100% recall'.", ""]
+            "intervals above are wide, and they are the honest summary. For example, perfect recall on "
+            f"{pos} positives would give a 95% two-sided lower bound of {_pct(clopper_pearson(pos, pos)[0])}; "
+            f"one miss moves recall by {_pct(1 / pos) if pos else 'n/a'}.", ""]
     if res["missing_prediction"]:
         out += ["Labeled documents without a prediction (excluded): " + ", ".join(res["missing_prediction"]), ""]
     return "\n".join(out + _render_stages(stages))
@@ -211,9 +272,9 @@ def main(argv=None):
     args = ap.parse_args(argv)
     paths = data_paths(args.data_dir)
     triage_dir = Path(args.triage_dir) if args.triage_dir else paths["triage"]
-    dropped = {r["document_number"] for r in read_jsonl(paths["prefilter"] / "dropped.jsonl")}
+    kept, dropped = prefilter_decisions(paths)
     labels = Path(args.labels).resolve()
-    res = evaluate(labels, triage_dir.resolve(), dropped)
+    res = evaluate(labels, triage_dir.resolve(), dropped, kept)
     Path(args.out).write_text(render(res, labels, triage_dir.resolve(), stage_b_summary(triage_dir)) + "\n")
     print(f"eval: labeled {res['labeled']}, TP {res['tp']} FP {res['fp']} FN {res['fn']} TN {res['tn']} -> {args.out}")
     return 0

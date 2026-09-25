@@ -4,16 +4,66 @@
 
 - Labels: `eval/labels.csv`
 - Triage outputs: `data/triage`
-- Sample rows: 30; labeled: 0; unlabeled: 30; labeled but no prediction yet: 0
+- Sample rows: 30; labeled: 30; unlabeled: 0; labeled but no prediction yet: 0
 
-## Status
+## Relevance: end to end (prefilter, then triage)
 
-**No results yet.** Nothing can be scored until labeled documents also have predictions.
+A prefilter drop counts as a 'not relevant' prediction.
 
-Protocol (BUILD_SPEC Section 10):
-1. Run `python eval/select_sample.py` to draw 30 documents from direct Federal Register term searches (query mix in the script docstring; at least 5 prefilter-dropped documents).
-2. The labeler fills in `eval/labels.csv` **blind**, before seeing any triage output or `eval/sample_manifest.csv`: relevant Y/N, behavior classes, tier.
-3. Run triage, then `python eval/run_eval.py`.
+| | Labeled relevant | Labeled not relevant |
+|---|---|---|
+| Predicted relevant | TP 5 | FP 1 |
+| Predicted not relevant | FN 1 | TN 23 |
+
+Predictions from triage: 16; from prefilter drops: 14.
+
+## Relevance: triage alone
+
+Every labeled document with a triage output (30), including prefilter-dropped eval documents.
+
+| | Labeled relevant | Labeled not relevant |
+|---|---|---|
+| Predicted relevant | TP 5 | FP 1 |
+| Predicted not relevant | FN 1 | TN 23 |
+
+## Rates
+
+Exact (Clopper-Pearson) two-sided 95% intervals. n is the denominator.
+
+| Metric | Raw fraction | Point estimate | 95% interval | Denominator |
+|---|---|---|---|---|
+| Precision (end to end) | 5/6 | 83.3% | 35.9% to 99.6% | documents the pipeline marked relevant |
+| Recall (triage alone) | 5/6 | 83.3% | 35.9% to 99.6% | labeled-relevant documents with a triage output |
+| Specificity (triage alone) | 23/24 | 95.8% | 78.9% to 99.9% | labeled-not-relevant documents with a triage output |
+| Prefilter recall | 6/6 | 100.0% | 54.1% to 100.0% | labeled-relevant documents; numerator = kept by the prefilter |
+| End-to-end recall | 5/6 | 83.3% | 35.9% to 99.6% | labeled-relevant documents; numerator = kept and triaged relevant |
+| Specificity (end to end) | 23/24 | 95.8% | 78.9% to 99.9% | labeled-not-relevant documents |
+| Precision (triage alone) | 5/6 | 83.3% | 35.9% to 99.6% | documents triage marked relevant |
+
+Model errors (end to end): 2025-22490 FN (from triage); 2024-22962 FP (from triage).
+
+## Behavior-class agreement (true positives only)
+
+- Documents compared: 5
+- Mean Jaccard overlap: 0.62
+- Exact set match: 2/5
+- Class instances: 12 of 14 labeled classes predicted; 12 of 17 predicted classes labeled (instances within a document are not independent, so no interval is given).
+
+| Document | Labeled classes | Predicted classes |
+|---|---|---|
+| 2025-08286 | DATA.PRIVACY_SECURITY, DISCLOSURE.REQUIRED, DISPUTES.CREDIT_REPORTING, NEGOTIATION.TREATMENT, PAYMENT.FEES, RECOVERY.REPOSSESSION, STOP.TRIGGERS | DATA.PRIVACY_SECURITY, DISCLOSURE.REQUIRED, DISPUTES.CREDIT_REPORTING, NEGOTIATION.TREATMENT, PAYMENT.FEES, RECOVERY.REPOSSESSION, STOP.TRIGGERS |
+| 2024-31670 | DISPUTES.CREDIT_REPORTING, NEGOTIATION.TREATMENT, PAYMENT.AUTHORIZATION | DISPUTES.CREDIT_REPORTING, PAYMENT.AUTHORIZATION, STOP.TRIGGERS |
+| 2024-30824 | ACCOUNT.MODIFICATION, NEGOTIATION.TREATMENT | DATA.PRIVACY_SECURITY, INSURANCE.CLAIMS, NEGOTIATION.TREATMENT |
+| 2025-00633 | NEGOTIATION.TREATMENT | DISCLOSURE.REQUIRED, NEGOTIATION.TREATMENT, PAYMENT.FEES |
+| 2026-07804 | NEGOTIATION.TREATMENT | NEGOTIATION.TREATMENT |
+
+## Tier agreement
+
+Not scored: no labeled document has a tier.
+
+## Sample-size caveat
+
+This eval has 6 labeled positives and 24 labeled negatives. At this size the intervals above are wide, and they are the honest summary. For example, perfect recall on 6 positives would give a 95% two-sided lower bound of 54.1%; one miss moves recall by 16.7%.
 
 ## Triage method: Stage A screening and Stage B full-text reads
 

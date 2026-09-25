@@ -223,6 +223,8 @@ def test_eval_scores_fixture_labels(offline_run, tmp_path):
     text = out.read_text()
     assert "TP 2" in text and "FP 0" in text and "FN 1" in text and "TN 2" in text
     assert "Exact set match: 1/2" in text
+    assert "| Specificity (end to end) | 2/2 |" in text and "## Relevance: triage alone" in text
+    assert "| Prefilter recall |" in text and "Model errors (end to end): FIXTURE-0012 FN (from triage)" in text
     assert "FIXTURE-0011" in text  # reported as missing
     assert "Sample-size caveat" in text
 
