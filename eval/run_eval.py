@@ -233,6 +233,8 @@ def render(res: dict, labels_path: Path, triage_dir: Path, stages: dict | None =
             _rate("Precision (triage alone)", t["tp"], t["tp"] + t["fp"], "documents triage marked relevant"), ""]
     if res["errors"]:
         out += ["Model errors (end to end): " + "; ".join(f"{d} {k} (from {s})" for d, k, s in res["errors"]) + ".", ""]
+        if (ROOT / "eval" / "error_analysis.md").exists():
+            out += ["Root-cause analysis of each error: `eval/error_analysis.md` (hand-written after scoring).", ""]
     if res["class_pairs"]:
         jac = [len(a & b) / len(a | b) if a | b else 1.0 for _, a, b in res["class_pairs"]]
         exact = sum(1 for _, a, b in res["class_pairs"] if a == b)

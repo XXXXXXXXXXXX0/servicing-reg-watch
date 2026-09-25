@@ -42,6 +42,8 @@ Exact (Clopper-Pearson) two-sided 95% intervals. n is the denominator.
 
 Model errors (end to end): 2025-22490 FN (from triage); 2024-22962 FP (from triage).
 
+Root-cause analysis of each error: `eval/error_analysis.md` (hand-written after scoring).
+
 ## Behavior-class agreement (true positives only)
 
 - Documents compared: 5
