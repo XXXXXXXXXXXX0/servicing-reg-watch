@@ -63,17 +63,45 @@ text rather than adding it.
 _v1.1, derived from v1 eval errors; not yet tested on a fresh eval set._ Where a
 rule here and an earlier sentence in this section disagree, the rule here wins.
 
-- **Legal-status changes.** A change in an obligation's legal status is relevant even
-  if its text is unchanged: codifying it, moving it out of the CFR into guidance or
-  back, or removing it. Route these as `change_type` `interpretation` for control
-  validation. (From v1 eval error 2025-22490: an NCUA proposal to move breach-response
-  guidance out of 12 CFR 748 was called not relevant because its text was unchanged.)
-- **Non-loan debt types and restatements.** Guidance limited to a non-loan debt type,
-  such as medical debt, is not relevant unless it states a rule that applies to
-  consumer-loan collection generally. Guidance that only restates existing law routes
-  as `interpretation`, not as a behavior change. (From v1 eval error 2024-22962: a
-  medical-debt advisory opinion was called relevant because the Regulation F sections
-  it restates also govern loan collectors.)
+**Judge by the ACTION line and substance, not the Federal Register document-type
+label.** The type label can mislead: 2024-22962 is typed "Rule" but its ACTION line
+says "Advisory opinion."
+
+**Ask who the document binds before what it is about.** A change that does not bind
+consumer-loan lenders, servicers, or collectors on a covered behavior is not relevant.
+Examples: duties that fall only on voice service providers, or only on credit
+reporting agencies.
+
+Relevant:
+- Proposed rules, including FCC Notices of Proposed Rulemaking, with specific changes
+  to a covered obligation.
+- Final rules, including FCC Reports and Orders, that adopt or change a covered
+  obligation. A final decision declining to adopt or terminating a covered proposal is
+  relevant as a withdrawal, so the open change record can be closed.
+- FCC Memoranda Opinions and Orders and Declaratory Rulings, when they amend, reverse,
+  or interpret a covered obligation. They are not relevant when they deny a petition
+  and leave covered rules unchanged.
+- Withdrawals and rescissions, when anything withdrawn concerns a covered obligation.
+  Check the list of withdrawn items.
+- Supervisory Highlights, when a finding interprets a covered obligation.
+- Changes in an obligation's legal status, even if its text is unchanged: codifying
+  it, moving it out of the CFR into guidance or back, or removing it. (From v1 eval
+  error 2025-22490: an NCUA proposal to move breach-response guidance out of 12 CFR 748
+  was called not relevant because its text was unchanged.)
+
+Not relevant:
+- General reviews, requests for information, requests for comment without proposed
+  text, advance notices of proposed rulemaking without proposed text, regulatory
+  agendas including the Unified Agenda, paperwork information collections, bank
+  ownership and control notices, and wholesale interbank payment operations.
+- Guidance limited to a non-loan debt type, such as medical debt, unless it states a
+  rule that applies to consumer-loan collection generally. (From v1 eval error
+  2024-22962: a medical-debt advisory opinion was called relevant because the
+  Regulation F sections it restates also govern loan collectors.)
+
+Routing as `interpretation` (control validation, not a behavior change):
+- a change in an obligation's legal status (above);
+- guidance that only restates existing law.
 
 **Not relevant unless it also meets that test:**
 - mortgage-only rules (Regulation X, mortgage origination);
