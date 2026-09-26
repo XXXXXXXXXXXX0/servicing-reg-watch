@@ -4,15 +4,9 @@ Branch: `claude/eloquent-goodall-jas2zw` (no PR opened).
 
 ## Completed
 - v1 eval final (`eval/results.md`): TP 5, FP 1, FN 1, TN 23. Labels, scores and all 215 triage outputs unchanged.
-- v1.1 (derived from v1 eval errors; not yet tested on a fresh eval set). `pipeline/triage_prompt.md`:
-  - rules for legal-status changes, non-loan debt guidance, ACTION line over FR type label, who the document binds;
-  - `interpretation` change type (control validation);
-  - primary and secondary behavior classes (schema v1.1; v1 outputs still validate).
+- v1.1 (derived from v1 eval errors; untested on a fresh set), `pipeline/triage_prompt.md`: legal-status, non-loan debt, ACTION-line and who-it-binds rules; `interpretation` type (control validation); primary/secondary classes (v1 outputs still validate).
 - `eval/v1_1_fixes.md` records the errors, root causes, fixes and gap check. `eval/v1_1_conflicts.md` lists 5 relevance and 4 change-type conflicts.
-- Records: `records/record_meta.yaml`, applied by `python -m pipeline.records annotate`, validated by `check`:
-  - supersession links (7 records closed);
-  - `interpretation` on 7 records;
-  - primary/secondary split on all 23.
+- Records (`records/record_meta.yaml`; `python -m pipeline.records annotate` / `check`): supersession links (7 closed), `interpretation` on 7, primary/secondary split on all 23.
 - Human review (`records/REVIEW_LOG.md`): 2025-22490 record created (interpretation, open); 2024-22962 closed as not relevant.
 - Register: 4 gap rows (3 `verify` cited to committed FR text, 1 `unresearched` state row); 73 rows.
 
