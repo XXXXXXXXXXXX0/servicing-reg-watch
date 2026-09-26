@@ -15,9 +15,18 @@
 # output (which stays as it was). `interpretation` means control validation: check
 # existing controls against the stated interpretation (pipeline/triage_prompt.md).
 # change_type_reason says which v1.1 category applies.
+#
+# behavior_classes_primary / behavior_classes_secondary: the v1.1 split of the record's
+# classes. Primary: the document changes or clarifies what the agent must do; these drive
+# routing and review. Secondary: touched without changing the agent's obligations; context
+# only. Re-tagging splits the model's v1 classes and adds or drops none (checked); for a
+# proposal, primary is what the proposal would change. tagging_note explains a record
+# with no primary class.
 
 records:
   2024-22962:
+    behavior_classes_primary: [NEGOTIATION.TREATMENT]
+    behavior_classes_secondary: [PAYMENT.FEES, DISCLOSURE.REQUIRED]
     change_type: interpretation
     change_type_reason: "Advisory opinion (ACTION line) restating FDCPA and Regulation F provisions for medical debt"
     superseded_by:
@@ -28,6 +37,9 @@ records:
         relation: withdrawal
         note: "item 3 of the withdrawal list cites this opinion (89 FR 80715)"
   2024-27791:
+    behavior_classes_primary: []
+    behavior_classes_secondary: [PAYMENT.FEES, NEGOTIATION.TREATMENT]
+    tagging_note: "No primary class: the document only revises the advisory opinion's applicability date and states the opinion creates no binding obligation."
     change_type: interpretation
     change_type_reason: "Advisory opinion (ACTION line: revision of date of applicability)"
     supersedes:
@@ -39,6 +51,8 @@ records:
         relation: withdrawal
         note: "withdraws the advisory opinion (89 FR 80715) whose date this document revised"
   2025-08286:
+    behavior_classes_primary: [PAYMENT.FEES, NEGOTIATION.TREATMENT, DISPUTES.CREDIT_REPORTING, RECOVERY.REPOSSESSION, DATA.PRIVACY_SECURITY, STOP.TRIGGERS, DISCLOSURE.REQUIRED]
+    behavior_classes_secondary: []
     supersedes:
       - doc_id: 2024-22962
         relation: withdrawal
@@ -47,24 +61,36 @@ records:
         relation: withdrawal
         note: "withdrawing the opinion also ends its revised applicability date"
   2024-28690:
+    behavior_classes_primary: [DATA.PRIVACY_SECURITY]
+    behavior_classes_secondary: [IDENTITY.RIGHT_PARTY]
     superseded_by:
       - doc_id: 2025-08644
         relation: withdrawal
         note: "withdraws the proposed rule published at 89 FR 101402"
   2025-08644:
+    behavior_classes_primary: []
+    behavior_classes_secondary: [IDENTITY.RIGHT_PARTY, DATA.PRIVACY_SECURITY]
+    tagging_note: "No primary class: withdrawing a proposal changes no current obligation. The closure is routed through the superseded record 2024-28690."
     supersedes:
       - doc_id: 2024-28690
         relation: withdrawal
   2025-00633:
+    behavior_classes_primary: [NEGOTIATION.TREATMENT]
+    behavior_classes_secondary: [PAYMENT.FEES, DISCLOSURE.REQUIRED]
     superseded_by:
       - doc_id: 2025-08645
         relation: withdrawal
         note: "withdraws the proposed rule published at 90 FR 3566"
   2025-08645:
+    behavior_classes_primary: []
+    behavior_classes_secondary: [PAYMENT.FEES, NEGOTIATION.TREATMENT]
+    tagging_note: "No primary class: withdrawing a proposal changes no current obligation. The closure is routed through the superseded record 2025-00633."
     supersedes:
       - doc_id: 2025-00633
         relation: withdrawal
   2025-19864:
+    behavior_classes_primary: [NEGOTIATION.TREATMENT]
+    behavior_classes_secondary: []
     superseded_by:
       - doc_id: C1-2025-19864
         relation: correction
@@ -73,6 +99,9 @@ records:
         relation: final_rule
         note: "final rule cites this proposal (90 FR 50901)"
   C1-2025-19864:
+    behavior_classes_primary: []
+    behavior_classes_secondary: [NEGOTIATION.TREATMENT]
+    tagging_note: "No primary class: the correction conforms the printed proposal text, with no substantive change; see 2025-19864 and 2026-07804."
     supersedes:
       - doc_id: 2025-19864
         relation: correction
@@ -81,38 +110,70 @@ records:
         relation: final_rule
         note: "final rule cites these corrections (91 FR 9191)"
   2026-07804:
+    behavior_classes_primary: [NEGOTIATION.TREATMENT]
+    behavior_classes_secondary: []
     supersedes:
       - doc_id: 2025-19864
         relation: final_rule
       - doc_id: C1-2025-19864
         relation: final_rule
   2026-05797:
+    behavior_classes_primary: [VENDOR.GOVERNANCE]
+    behavior_classes_secondary: []
     superseded_by:
       - doc_id: 2026-16029
         relation: final_rule
         note: "final rule cites this proposal (91 FR 14484)"
   2026-16029:
+    behavior_classes_primary: [VENDOR.GOVERNANCE]
+    behavior_classes_secondary: []
     supersedes:
       - doc_id: 2026-05797
         relation: final_rule
   2024-30824:
+    behavior_classes_primary: [NEGOTIATION.TREATMENT]
+    behavior_classes_secondary: [DATA.PRIVACY_SECURITY, INSURANCE.CLAIMS]
     superseded_by:
       - doc_id: C1-2024-30824
         relation: correction
         note: "no later withdrawal or vacatur of this rule is in the ingested store"
   C1-2024-30824:
+    behavior_classes_primary: []
+    behavior_classes_secondary: [NEGOTIATION.TREATMENT, DATA.PRIVACY_SECURITY]
+    tagging_note: "No primary class: the correction fixes a misprinted year in the DATES section; the obligations are tagged on 2024-30824."
     supersedes:
       - doc_id: 2024-30824
         relation: correction
   2024-24093:
+    behavior_classes_primary: [RECOVERY.REPOSSESSION, INSURANCE.CLAIMS, NEGOTIATION.TREATMENT, VENDOR.GOVERNANCE]
+    behavior_classes_secondary: [PAYMENT.FEES, DISPUTES.CREDIT_REPORTING]
     change_type: interpretation
     change_type_reason: "Supervisory findings (ACTION line: Supervisory highlights)"
   2024-30758:
+    behavior_classes_primary: [NEGOTIATION.TREATMENT, ACCOUNT.MODIFICATION, STOP.TRIGGERS]
+    behavior_classes_secondary: [DISCLOSURE.REQUIRED, PAYMENT.AUTHORIZATION]
     change_type: interpretation
     change_type_reason: "Supervisory findings (ACTION line: Supervisory highlights)"
   2024-31670:
+    behavior_classes_primary: [DISPUTES.CREDIT_REPORTING, PAYMENT.AUTHORIZATION]
+    behavior_classes_secondary: [STOP.TRIGGERS]
     change_type: interpretation
     change_type_reason: "Supervisory findings (ACTION line: Supervisory Highlights)"
   2025-19671:
+    behavior_classes_primary: [DISPUTES.CREDIT_REPORTING]
+    behavior_classes_secondary: []
     change_type: interpretation
     change_type_reason: "Interpretive rule (ACTION line) stating how existing FCRA preemption applies; no rule text changed"
+  2024-23605:
+    behavior_classes_primary: [CONTACT.CONSENT, STOP.TRIGGERS]
+    behavior_classes_secondary: []
+  2024-29292:
+    behavior_classes_primary: []
+    behavior_classes_secondary: [DISPUTES.CREDIT_REPORTING]
+    tagging_note: "No primary class: an advance notice with no proposed text changes nothing the agent must do."
+  2026-18852:
+    behavior_classes_primary: [VENDOR.GOVERNANCE]
+    behavior_classes_secondary: [DATA.PRIVACY_SECURITY]
+  2026-18859:
+    behavior_classes_primary: [VENDOR.GOVERNANCE]
+    behavior_classes_secondary: []

@@ -5,7 +5,8 @@ overwritten.
 
 records/record_meta.yaml holds what the records add on top of the model's
 triage output, which is never edited: links to later or earlier documents
-(supersedes / superseded_by) and the v1.1 change type. `annotate` applies it to the record files; `run`
+(supersedes / superseded_by), the v1.1 change type, and v1.1 primary/secondary
+behavior classes. `annotate` applies it to the record files; `run`
 calls it after writing records.
 
     python -m pipeline.records [--data-dir DIR] [--records-dir DIR]
@@ -154,6 +155,25 @@ def _replace_section(text: str, heading: str, body: list[str], before: str) -> s
     return text.replace(f"{before}\n", f"{block}\n{before}\n", 1)
 
 
+_CLASS_LINE = re.compile(r"^(Behavior classes|Primary behavior classes[^:\n]*|Secondary behavior classes[^:\n]*|Tagging note):.*\n\n?",
+                         re.MULTILINE)
+
+
+def _replace_class_lines(text: str, meta: dict) -> str:
+    def fmt(cs):
+        return ", ".join(f"`{c}`" for c in cs) or "none"
+    block = (f"Primary behavior classes (drive routing and review): {fmt(meta.get('behavior_classes_primary', []))}\n\n"
+             f"Secondary behavior classes (context only): {fmt(meta.get('behavior_classes_secondary', []))}\n\n")
+    if meta.get("tagging_note"):
+        block += f"Tagging note: {meta['tagging_note']}\n\n"
+    m = _CLASS_LINE.search(text)
+    if not m:
+        return text
+    start = m.start()
+    text = _CLASS_LINE.sub("", text)
+    return text[:start] + block + text[start:]
+
+
 def _v1_change_type(doc_id: str) -> str | None:
     path = data_paths()["triage"] / f"{doc_id}.json"
     return read_json(path).get("change_type") if path.exists() else None
@@ -174,6 +194,8 @@ def apply_meta(text: str, meta: dict, records_dir: Path, doc_id: str | None = No
         text = text.replace(heading + INTERPRETATION_NOTE + "\n\n", heading)
         if ct == "interpretation":
             text = text.replace(heading, heading + INTERPRETATION_NOTE + "\n\n", 1)
+    if "behavior_classes_primary" in meta or "behavior_classes_secondary" in meta:
+        text = _replace_class_lines(text, meta)
     if "supersedes" in meta or "superseded_by" in meta:
         text = _replace_section(text, "## Supersession", _link_lines(meta, records_dir), "## Triage")
     return text
@@ -206,7 +228,18 @@ def check_meta(records_dir: Path | None = None, store_path: Path | None = None) 
     meta = load_record_meta(records_dir)
     known = {r["document"]["document_number"] for r in read_jsonl_gz(store_path or data_paths()["fr_store"])}
     errors = []
+    triage_dir = data_paths()["triage"]
     for doc_id, m in meta.items():
+        if "behavior_classes_primary" in m or "behavior_classes_secondary" in m:
+            p, sec = m.get("behavior_classes_primary", []), m.get("behavior_classes_secondary", [])
+            if set(p) & set(sec):
+                errors.append(f"{doc_id}: classes in both primary and secondary: {sorted(set(p) & set(sec))}")
+            out = triage_dir / f"{doc_id}.json"
+            v1 = read_json(out) if out.exists() else None
+            # Re-tagging splits the model's classes; it adds and drops none. Review overrides are exempt.
+            if v1 and v1.get("relevant") and not m.get("review") and set(p) | set(sec) != set(class_tags(v1)[0] + class_tags(v1)[1]):
+                errors.append(f"{doc_id}: primary + secondary {sorted(set(p) | set(sec))} differ from the triage "
+                              f"output's classes {sorted(set(class_tags(v1)[0] + class_tags(v1)[1]))}")
         for field, mirror in (("supersedes", "superseded_by"), ("superseded_by", "supersedes")):
             for link in m.get(field, []):
                 other, rel = link.get("doc_id"), link.get("relation")

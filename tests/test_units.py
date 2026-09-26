@@ -530,3 +530,19 @@ def test_record_change_type_interpretation(tmp_path):
     assert "| Change type basis | Supervisory findings |" in text
     assert text.count(records.INTERPRETATION_NOTE) == 1
     assert records.annotate(tmp_path)["annotated"] == []  # idempotent
+
+
+def test_record_primary_secondary_retag(tmp_path):
+    from pipeline import records
+    meta = {"P-1": {"behavior_classes_primary": [], "behavior_classes_secondary": ["PAYMENT.FEES"],
+                    "tagging_note": "No primary class: proposal withdrawn."}}
+    store = _meta_dir(tmp_path, meta)
+    for _ in range(2):  # the second run must not duplicate the rendered class lines
+        records.annotate(tmp_path)
+    text = (tmp_path / "P-1.md").read_text()
+    assert text.count("Primary behavior classes (drive routing and review): none") == 1
+    assert text.count("Secondary behavior classes (context only): `PAYMENT.FEES`") == 1
+    assert text.count("Tagging note:") == 1 and "Behavior classes:" not in text
+    meta["P-1"]["behavior_classes_primary"] = ["PAYMENT.FEES"]
+    _meta_dir(tmp_path, meta)
+    assert any("both primary and secondary" in e for e in records.check_meta(tmp_path, store))
