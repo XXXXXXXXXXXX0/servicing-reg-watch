@@ -7,11 +7,11 @@ Rows marked `unresearched` have no primary source yet and are listed separately 
 
 ## Summary
 
-- Rows: 69 (Tier 1: 39, Tier 2: 30)
-- Status: unresearched: 3, verified: 0, verify: 66
-- Provenance: S (salient_stated): 38, T (third_party_stated): 4, A (added_by_analysis): 27
-- Jurisdictions: US-CA: 7, US-CO: 1, US-FL: 6, US-MA: 6, US-TX: 5, US-UT: 1, federal: 39, multi-state: 4
-- Open research items (not rows): 8
+- Rows: 73 (Tier 1: 39, Tier 2: 34)
+- Status: unresearched: 4, verified: 0, verify: 69
+- Provenance: S (salient_stated): 38, T (third_party_stated): 4, A (added_by_analysis): 31
+- Jurisdictions: US-CA: 7, US-CO: 1, US-FL: 6, US-MA: 6, US-TX: 5, US-UT: 1, federal: 42, multi-state: 5
+- Open research items (not rows): 9
 
 ## Tier 1: modeled, triaged, evaluated
 
@@ -66,10 +66,13 @@ Rows marked `unresearched` have no primary source yet and are listed separately 
 | [ESIGN-001](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title15-section7001&num=0&edition=prelim) | E-SIGN Act | 15 USC 7001(c) | federal | DISCLOSURE.REQUIRED | manual | A | verify | — |
 | [FCRA-ACCURACY-001](https://www.ecfr.gov/current/title-12/section-1022.42) | FCRA / Regulation V | 15 USC 1681s-2(a)(1)-(3); 12 CFR 1022.42 | federal | DISPUTES.CREDIT_REPORTING | federal_register + ecfr | T | verify | — |
 | [FCRA-DIRECT-001](https://www.ecfr.gov/current/title-12/section-1022.43) | FCRA / Regulation V | 15 USC 1681s-2(a)(8); 12 CFR 1022.43 | federal | DISPUTES.CREDIT_REPORTING | federal_register + ecfr | T | verify | — |
+| [FCRA-MEDINFO-001](https://www.federalregister.gov/documents/2025/01/14/2024-30824/prohibition-on-creditors-and-consumer-reporting-agencies-concerning-medical-information-regulation-v) | FCRA / Regulation V: creditor prohibition on obtaining or using medical information | 15 USC 1681b(g)(2); 12 CFR 1022.30 (as quoted and amended in CFPB final rule, 90 FR 3276, FR Doc. 2024-30824) | federal | NEGOTIATION.TREATMENT | federal_register + ecfr | A | verify | — |
+| [FCRA-PERMPURP-001](https://www.federalregister.gov/documents/2024/12/13/2024-28690/protecting-americans-from-harmful-data-broker-practices-regulation-v) | Fair Credit Reporting Act (FCRA): permissible purpose for users of consumer reports | 15 USC 1681b(a)(3)(A); 15 USC 1681b(f) (as cited in CFPB proposed rule, 89 FR 101402, FR Doc. 2024-28690) | federal | DATA.PRIVACY_SECURITY, IDENTITY.RIGHT_PARTY | federal_register | A | verify | — |
 | [FTC-SAFE-001](https://www.ecfr.gov/current/title-16/section-314.4) | FTC Safeguards Rule | 16 CFR 314.4 | federal | DATA.PRIVACY_SECURITY, VENDOR.GOVERNANCE | federal_register + ecfr | A | verify | 2024-05-13 |
 | [GLBA-REGP-001](https://www.ecfr.gov/current/title-12/part-1016) | GLBA / Regulation P | 15 USC 6801-6809; 12 CFR 1016 | federal | DATA.PRIVACY_SECURITY | federal_register + ecfr | A | verify | — |
 | [MRM-001](https://www.federalreserve.gov/supervisionreg/srletters/sr1107.htm) | Model risk management guidance | Federal Reserve SR 11-7 (Apr. 4, 2011); OCC Bulletin 2011-12 | federal | VENDOR.GOVERNANCE | manual | A | verify | 2011-04-04 |
 | [NCUA-CYBER-001](https://www.ecfr.gov/current/title-12/section-748.1) | NCUA cyber incident notification | 12 CFR 748.1(c) | federal | DATA.PRIVACY_SECURITY, VENDOR.GOVERNANCE | federal_register | A | verify | 2023-09-01 |
+| [NCUA-INDIRECT-001](https://www.federalregister.gov/documents/2026/08/06/2026-16029/third-party-servicing-of-indirect-vehicle-loans) | NCUA third-party servicing of indirect vehicle loans (regulatory limits removed) | Former 12 CFR 701.21(h) and 741.203(c), removed by NCUA final rule, 91 FR 50677 (FR Doc. 2026-16029), effective September 8, 2026 | federal | VENDOR.GOVERNANCE | federal_register | A | verify | 2026-09-08 |
 | [PCI-001](https://www.pcisecuritystandards.org/document_library/) | PCI DSS | PCI Data Security Standard v4.0.1 | federal | VENDOR.GOVERNANCE, DATA.PRIVACY_SECURITY | manual | T | verify | 2025-03-31 |
 | [REGB-001](https://www.ecfr.gov/current/title-12/section-1002.4) | ECOA / Regulation B | 15 USC 1691(a); 12 CFR 1002.4(a); 12 CFR 1002.2(m) | federal | NEGOTIATION.TREATMENT | federal_register + ecfr | A | verify | — |
 | [REGZ-MOD-001](https://www.ecfr.gov/current/title-12/section-1026.20) | TILA / Regulation Z | 12 CFR 1026.20(a) | federal | ACCOUNT.MODIFICATION | federal_register + ecfr | A | verify | — |
@@ -99,17 +102,17 @@ Rows marked `unresearched` have no primary source yet and are listed separately 
 | CONTACT.RECORDING | CA-REC-001, FL-REC-001, MA-REC-001, TX-REC-001 | 4 |
 | CONTACT.AI_DISCLOSURE | CA-AIDISC-001, CO-AIACT-001, UT-AIDISC-001 | 3 |
 | DISCLOSURE.REQUIRED | CA-ROSENTHAL-001, ESIGN-001, REGF-DISC-001, REGF-DISC-002, TX-TDCA-002 | 5 |
-| IDENTITY.RIGHT_PARTY | CA-ROSENTHAL-001, FL-FCCPA-004, MA-940CMR-002, REGF-IDENT-001 | 4 |
+| IDENTITY.RIGHT_PARTY | CA-ROSENTHAL-001, FCRA-PERMPURP-001, FL-FCCPA-004, MA-940CMR-002, REGF-IDENT-001 | 5 |
 | STOP.TRIGGERS | BK-DISCH-001, BK-STAY-001, CA-ROSENTHAL-001, CA-ROSENTHAL-003, FL-FCCPA-003, REGF-MEDIA-001, REGF-STOP-001, REGF-STOP-002, REGF-STOP-003, SCRA-RATE-001, SCRA-REPO-001, TCPA-REVOKE-001 | 12 |
 | PAYMENT.AUTHORIZATION | NACHA-FRAUD-001, NACHA-TEL-001, NACHA-WEB-001, REGE-PREAUTH-001, REGE-PREAUTH-002 | 5 |
 | PAYMENT.FEES | REGF-FEES-001 | 1 |
-| NEGOTIATION.TREATMENT | FTC5-001, REGB-001, REGE-PREAUTH-002, SCRA-RATE-001, TX-TDCA-003, UDAAP-001 | 6 |
+| NEGOTIATION.TREATMENT | FCRA-MEDINFO-001, FTC5-001, REGB-001, REGE-PREAUTH-002, SCRA-RATE-001, TX-TDCA-003, UDAAP-001 | 7 |
 | ACCOUNT.MODIFICATION | REGZ-MOD-001 | 1 |
-| DISPUTES.CREDIT_REPORTING | FCRA-ACCURACY-001, FCRA-DIRECT-001 | 2 |
-| DATA.PRIVACY_SECURITY | BANKSEC-GUIDE-001, BANKSEC-INCIDENT-001, FTC-SAFE-001, GLBA-REGP-001, NCUA-CYBER-001, PCI-001 | 6 |
+| DISPUTES.CREDIT_REPORTING | FCRA-ACCURACY-001, FCRA-DIRECT-001, STATE-CREDITRPT-001 | 3 |
+| DATA.PRIVACY_SECURITY | BANKSEC-GUIDE-001, BANKSEC-INCIDENT-001, FCRA-PERMPURP-001, FTC-SAFE-001, GLBA-REGP-001, NCUA-CYBER-001, PCI-001 | 7 |
 | RECOVERY.REPOSSESSION | BK-STAY-001, CA-REPO-001, CA-UCC9-001, FL-UCC9-001, MA-CURE-001, MA-DEFICIENCY-001, MA-UCC9-001, SCRA-REPO-001, TX-UCC9-001 | 9 |
 | INSURANCE.CLAIMS | INS-APPRAISAL-001, INS-CPI-001, INS-GAP-001, INS-LIEN-001 | 4 |
-| VENDOR.GOVERNANCE | BANKSEC-GUIDE-001, BANKSEC-INCIDENT-001, CO-AIACT-001, FTC-SAFE-001, MRM-001, NACHA-FRAUD-001, NCUA-CYBER-001, PCI-001, SOC2-001, TPRM-001 | 10 |
+| VENDOR.GOVERNANCE | BANKSEC-GUIDE-001, BANKSEC-INCIDENT-001, CO-AIACT-001, FTC-SAFE-001, MRM-001, NACHA-FRAUD-001, NCUA-CYBER-001, NCUA-INDIRECT-001, PCI-001, SOC2-001, TPRM-001 | 11 |
 
 ## Coverage map: state research pending
 
@@ -122,6 +125,7 @@ split per state. Rules vary by state.
 | INS-CPI-001 | Collateral protection insurance rules | multi-state | INSURANCE.CLAIMS | 2 | A | unresearched | Rules vary by state. applies_to is provisional pending research. |
 | INS-GAP-001 | GAP waiver and add-on product refund laws | multi-state | INSURANCE.CLAIMS | 2 | S | verify | Rules vary by state. The citation is a federal supervisory publication (UDAAP findings), not a state law; state primary sources are still unresearched. applies_to is provisional pending research. |
 | INS-LIEN-001 | Lien release timing laws | multi-state | INSURANCE.CLAIMS | 2 | S | unresearched | Rules vary by state. applies_to is provisional pending research. |
+| STATE-CREDITRPT-001 | State credit reporting and furnishing laws | multi-state | DISPUTES.CREDIT_REPORTING | 2 | A | unresearched | Raised as a register gap in record 2025-19671. That CFPB interpretive rule (FR Doc. 2025-19671) says 15 USC 1681t(b)(1)(E) and (F) broadly preempt such state laws. It also acknowledges that courts decide preemption and that several circuits read the clause narrowly. No state statute is cited in the committed text for CA, FL, MA or TX. Research item in register/research_backlog.yaml. |
 
 ## Open research items (state x topic gaps)
 
@@ -137,3 +141,4 @@ These have no primary citation yet, so they are not register rows.
 | Collateral protection insurance | INSURANCE.CLAIMS | CA, FL, MA, TX |  |
 | Third-party collector rules (MA 209 CMR 18.00) | CONTACT.FREQUENCY | MA | Only needed if the deployment acts as, or for, a third-party collector in MA. |
 | Time-of-day limits for first-party creditors | CONTACT.TIMING | TX | No TDCA time-of-day provision identified; confirm none exists. |
+| State credit reporting and furnishing restrictions (e.g., medical-debt reporting limits) | DISPUTES.CREDIT_REPORTING | CA, FL, MA, TX | Placeholder row STATE-CREDITRPT-001 (unresearched). Check each state's law against FCRA preemption (15 USC 1681t(b)(1)(E)-(F)); see record 2025-19671. |

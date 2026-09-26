@@ -85,7 +85,7 @@ Anything not excluded and not kept is dropped and logged.
 - every register row is reachable through a rule-A part in its citation, or a rule-C keyword in its law name, citation or constraint;
 - every behavior class in `taxonomy/behaviors.yaml` is reachable through its register rows or a keyword in its own description.
 
-With the keywords added above, all 69 register rows and all 17 behavior classes are reached. Before the additions, 14 rows were not reached (listed in the table above). No behavior class was unreached.
+With the keywords added above, all 73 register rows and all 17 behavior classes are reached. The four v1.1 gap rows (FCRA-PERMPURP-001, FCRA-MEDINFO-001, NCUA-INDIRECT-001, STATE-CREDITRPT-001) are reached by rule A (12 CFR 1022) or existing keywords such as "credit reporting", "servicing", "servicer" and "furnisher"; no keyword was added for them. Before the additions, 14 rows were not reached (listed in the table above). No behavior class was unreached.
 
 ## Eval manifest (`eval/sample_manifest.csv`)
 

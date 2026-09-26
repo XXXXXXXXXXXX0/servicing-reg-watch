@@ -473,6 +473,65 @@ rows:
     effective_date: null
     last_checked: null
 
+  # v1.1 register gaps raised by change records (2024-28690, 2025-08644, 2024-30824,
+  # 2026-05797, 2026-16029). Citations are taken only from committed Federal Register
+  # full text and metadata; the statute and eCFR text themselves are not yet read, so
+  # each row stays `verify`.
+  - id: FCRA-PERMPURP-001
+    law: "Fair Credit Reporting Act (FCRA): permissible purpose for users of consumer reports"
+    citation: "15 USC 1681b(a)(3)(A); 15 USC 1681b(f) (as cited in CFPB proposed rule, 89 FR 101402, FR Doc. 2024-28690)"
+    source_url: "https://www.federalregister.gov/documents/2024/12/13/2024-28690/protecting-americans-from-harmful-data-broker-practices-regulation-v"
+    agency: CFPB
+    jurisdiction: federal
+    applies_to: [first_party_creditors, third_party_collectors, post_default_servicers]
+    tier: 2
+    behavior_classes: [DATA.PRIVACY_SECURITY, IDENTITY.RIGHT_PARTY]
+    constraint: "A user may obtain or use a consumer report only for a permissible purpose (15 USC 1681b(f)). One permissible purpose is a credit transaction involving the consumer that involves the extension of credit to, or review or collection of an account of, that consumer (15 USC 1681b(a)(3)(A)). A servicing agent that pulls borrower contact or location data from a consumer reporting agency product needs such a purpose for each pull and may use the data only for it."
+    change_source: [federal_register]
+    provenance: added_by_analysis
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "Raised as a register gap in records 2024-28690 and 2025-08644. The source document is a proposed rule that was withdrawn (2025-08644); it is cited only for its statement of the statute, which the withdrawal does not affect. The constraint paraphrases the permissible-purpose wording in that document; check it against the U.S. Code."
+
+  - id: FCRA-MEDINFO-001
+    law: "FCRA / Regulation V: creditor prohibition on obtaining or using medical information"
+    citation: "15 USC 1681b(g)(2); 12 CFR 1022.30 (as quoted and amended in CFPB final rule, 90 FR 3276, FR Doc. 2024-30824)"
+    source_url: "https://www.federalregister.gov/documents/2025/01/14/2024-30824/prohibition-on-creditors-and-consumer-reporting-agencies-concerning-medical-information-regulation-v"
+    agency: CFPB
+    jurisdiction: federal
+    applies_to: [creditors]
+    tier: 2
+    behavior_classes: [NEGOTIATION.TREATMENT]
+    constraint: "Except as the statute or regulation permits, a creditor may not obtain or use medical information about a consumer in determining the consumer's eligibility, or continued eligibility, for credit (FCRA 604(g)(2), incorporated at 12 CFR 1022.30(b)). For a servicing agent this reaches extension, modification and other continued-eligibility decisions. The permitted exceptions are in 12 CFR 1022.30(d)-(e)."
+    change_source: [federal_register, ecfr]
+    ecfr: {title: 12, part: 1022}
+    provenance: added_by_analysis
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "Raised as a register gap in record 2024-30824. FR Doc. 2024-30824 removes the financial information exception in 1022.30(d) and revises 1022.30(c) and (e), stated effective March 17, 2025 (the printed year is corrected by C1-2024-30824). No later withdrawal or vacatur of that rule is in the ingested store; check current eCFR text of 1022.30 before relying on which exceptions apply."
+
+  - id: NCUA-INDIRECT-001
+    law: "NCUA third-party servicing of indirect vehicle loans (regulatory limits removed)"
+    citation: "Former 12 CFR 701.21(h) and 741.203(c), removed by NCUA final rule, 91 FR 50677 (FR Doc. 2026-16029), effective September 8, 2026"
+    source_url: "https://www.federalregister.gov/documents/2026/08/06/2026-16029/third-party-servicing-of-indirect-vehicle-loans"
+    agency: NCUA
+    jurisdiction: federal
+    applies_to: [credit_unions]
+    tier: 2
+    behavior_classes: [VENDOR.GOVERNANCE]
+    constraint: "From September 8, 2026 there is no NCUA regulatory limit on the indirect vehicle loans a federally insured credit union may buy that are serviced by any one third-party servicer. The former limit was 50 percent of net worth, rising to 100 percent after 30 months with that servicer, with a waiver process. Each credit union's board sets policies scaled to its indirect lending, and NCUA monitors these purchases through examination. A servicing provider should expect credit union clients' due diligence and monitoring to follow their board policies."
+    change_source: [federal_register]
+    provenance: added_by_analysis
+    provenance_url: null
+    status: verify
+    effective_date: 2026-09-08
+    last_checked: null
+    notes: "Raised as a register gap in records 2026-05797 (proposal) and 2026-16029 (final rule). The row records a removal: it tells a deploying team that the cap no longer applies and that oversight rests on the credit union's own policies."
+
   - id: REGB-001
     law: "ECOA / Regulation B"
     citation: "15 USC 1691(a); 12 CFR 1002.4(a); 12 CFR 1002.2(m)"

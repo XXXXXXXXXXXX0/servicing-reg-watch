@@ -77,3 +77,22 @@ rows:
     effective_date: null
     last_checked: null
     notes: "Rules vary by state. applies_to is provisional pending research."
+
+  - id: STATE-CREDITRPT-001
+    law: "State credit reporting and furnishing laws"
+    citation: null
+    source_url: null
+    agency: state
+    jurisdiction: multi-state
+    applies_to: [furnishers, creditors]
+    tier: 2
+    behavior_classes: [DISPUTES.CREDIT_REPORTING]
+    constraint: "Unresearched. State laws on what furnishers may report and on what consumer reports may contain (for example, limits on reporting medical debt) vary by state. How far the FCRA preempts them is contested. No constraint is stated until state primary sources are identified."
+    change_source: [manual]
+    provenance: added_by_analysis
+    provenance_url: null
+    status: unresearched
+    effective_date: null
+    last_checked: null
+    notes: "Raised as a register gap in record 2025-19671. That CFPB interpretive rule (FR Doc. 2025-19671) says 15 USC 1681t(b)(1)(E) and (F) broadly preempt such state laws. It also acknowledges that courts decide preemption and that several circuits read the clause narrowly. No state statute is cited in the committed text for CA, FL, MA or TX. Research item in register/research_backlog.yaml."
+
