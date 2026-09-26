@@ -3,7 +3,14 @@ review queue (BUILD_SPEC Section 8), plus REVIEW_QUEUE.md indexing everything
 awaiting a human. A record whose reviewer sign-off has been filled in is never
 overwritten.
 
+records/record_meta.yaml holds what the records add on top of the model's
+triage output, which is never edited: links to later or earlier documents
+(supersedes / superseded_by). `annotate` applies it to the record files; `run`
+calls it after writing records.
+
     python -m pipeline.records [--data-dir DIR] [--records-dir DIR]
+    python -m pipeline.records annotate [--records-dir DIR]   # apply record_meta.yaml only
+    python -m pipeline.records check                          # validate record_meta.yaml
 """
 from __future__ import annotations
 
@@ -12,7 +19,9 @@ import re
 import sys
 from pathlib import Path
 
-from .common import RECORDS_DIR, data_paths, load_register, read_json
+import yaml
+
+from .common import RECORDS_DIR, data_paths, load_register, read_json, read_jsonl_gz
 from .triage import class_tags
 
 STANDARD_QUESTIONS = [
@@ -23,6 +32,16 @@ STANDARD_QUESTIONS = [
 ]
 SIGNED_OFF = re.compile(r"^- Reviewer:[ \t]*\S", re.MULTILINE)
 DIFF_LINES_PER_SECTION = 60
+META_FILE = "record_meta.yaml"
+# How a later document affects the earlier one's record.
+RELATION_EFFECT = {
+    "withdrawal": "closes",    # guidance or proposal withdrawn or rescinded
+    "final_rule": "closes",    # proposal replaced by the final rule (tracked in the final rule's record)
+    "disapproval": "closes",   # e.g. Congressional Review Act disapproval
+    "vacatur": "reverses",     # court vacatur, or a rule conforming the CFR to one
+    "amends": "amends",        # e.g. revised applicability date; record stays open
+    "correction": "amends",    # FR correction document
+}
 
 
 def _md_escape(s) -> str:
@@ -97,6 +116,87 @@ def render_record(packet: dict, triage: dict, diff: dict | None, rows_by_id: dic
     return "\n".join(out)
 
 
+# ------------------------------------------------------- record metadata
+def load_record_meta(records_dir: Path | None = None) -> dict:
+    path = Path(records_dir or RECORDS_DIR) / META_FILE
+    return (yaml.safe_load(path.read_text()) or {}).get("records", {}) if path.exists() else {}
+
+
+def _link_lines(meta: dict, records_dir: Path) -> list[str]:
+    def fmt(link: dict, own_effect: bool) -> str:
+        d = link["doc_id"]
+        name = f"[{d}]({d}.md)" if (records_dir / f"{d}.md").exists() else d
+        effect = RELATION_EFFECT[link["relation"]]
+        what = f"{effect} this record" if own_effect else f"{effect} that record"
+        note = f"; {link['note']}" if link.get("note") else ""
+        return f"  - {name}: {link['relation']} ({what}{note})"
+    sup, by = meta.get("supersedes", []), meta.get("superseded_by", [])
+    closing = [x for x in by if RELATION_EFFECT[x["relation"]] in ("closes", "reverses")]
+    status = ("; ".join(f"{'reversed' if RELATION_EFFECT[x['relation']] == 'reverses' else 'closed'} "
+                        f"by {x['doc_id']} ({x['relation']})" for x in closing) if closing else "open")
+    out = ["## Supersession", "", f"- Record status: {status}", "- supersedes:" + ("" if sup else " none")]
+    out += [fmt(x, False) for x in sup]
+    out += ["- superseded_by:" + ("" if by else " none")]
+    out += [fmt(x, True) for x in by]
+    return out + [""]
+
+
+def _replace_section(text: str, heading: str, body: list[str], before: str) -> str:
+    """Replace the markdown section `heading` (up to the next '## '), or insert it before `before`."""
+    block = "\n".join(body)
+    pat = re.compile(rf"^{re.escape(heading)}\n.*?(?=^## )", re.MULTILINE | re.DOTALL)
+    if pat.search(text):
+        return pat.sub(lambda _: block + "\n", text, count=1)
+    return text.replace(f"{before}\n", f"{block}\n{before}\n", 1)
+
+
+def apply_meta(text: str, meta: dict, records_dir: Path) -> str:
+    if "supersedes" in meta or "superseded_by" in meta:
+        text = _replace_section(text, "## Supersession", _link_lines(meta, records_dir), "## Triage")
+    return text
+
+
+def annotate(records_dir: Path | None = None) -> dict:
+    """Apply record_meta.yaml to existing record files. Signed records are left alone."""
+    records_dir = Path(records_dir or RECORDS_DIR)
+    changed, signed, missing = [], [], []
+    for doc_id, meta in load_record_meta(records_dir).items():
+        path = records_dir / f"{doc_id}.md"
+        if not path.exists():
+            missing.append(doc_id)
+            continue
+        text = path.read_text()
+        if SIGNED_OFF.search(text):
+            signed.append(doc_id)
+            continue
+        new = apply_meta(text, meta, records_dir)
+        if new != text:
+            path.write_text(new)
+            changed.append(doc_id)
+    return {"annotated": changed, "signed_left_alone": signed, "no_record_file": missing}
+
+
+def check_meta(records_dir: Path | None = None, store_path: Path | None = None) -> list[str]:
+    """Errors in record_meta.yaml: unknown relation, link to a document not in the
+    ingested store, or a link not mirrored on the other record when both exist."""
+    records_dir = Path(records_dir or RECORDS_DIR)
+    meta = load_record_meta(records_dir)
+    known = {r["document"]["document_number"] for r in read_jsonl_gz(store_path or data_paths()["fr_store"])}
+    errors = []
+    for doc_id, m in meta.items():
+        for field, mirror in (("supersedes", "superseded_by"), ("superseded_by", "supersedes")):
+            for link in m.get(field, []):
+                other, rel = link.get("doc_id"), link.get("relation")
+                if rel not in RELATION_EFFECT:
+                    errors.append(f"{doc_id}: {field} {other}: unknown relation {rel!r}")
+                if other not in known:
+                    errors.append(f"{doc_id}: {field} {other}: not in the ingested store")
+                if other in meta and not any(x["doc_id"] == doc_id and x["relation"] == rel
+                                             for x in meta[other].get(mirror, [])):
+                    errors.append(f"{doc_id}: {field} {other} ({rel}) not mirrored in {other}.{mirror}")
+    return errors
+
+
 def render_queue_index(review: list[dict], closed_count: int) -> str:
     out = ["# Review queue", "",
            f"{len(review)} documents awaiting human review; {closed_count} auto-closed "
@@ -135,15 +235,26 @@ def run(data_dir=None, records_dir: Path | None = None) -> dict:
         target.write_text(render_record(packet, triage, diff, rows_by_id))
         written.append(doc_id)
     (records_dir / "REVIEW_QUEUE.md").write_text(render_queue_index(review, len(closed)))
-    return {"records_written": len(written), "signed_records_preserved": kept_signed}
+    return {"records_written": len(written), "signed_records_preserved": kept_signed,
+            "annotate": annotate(records_dir)}
 
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("command", nargs="?", default="run", choices=["run", "annotate", "check"])
     ap.add_argument("--data-dir")
     ap.add_argument("--records-dir")
     args = ap.parse_args(argv)
-    print(f"records: {run(args.data_dir, args.records_dir)}")
+    if args.command == "annotate":
+        print(f"records annotate: {annotate(args.records_dir)}")
+    elif args.command == "check":
+        errs = check_meta(args.records_dir)
+        print(f"record_meta check: {len(errs)} errors")
+        for e in errs:
+            print(f"  {e}")
+        return 1 if errs else 0
+    else:
+        print(f"records: {run(args.data_dir, args.records_dir)}")
     return 0
 
 

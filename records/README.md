@@ -8,3 +8,14 @@ see STATUS.md). Each record's Triage section gives the confidence and what was r
 
 A record whose `- Reviewer:` line has been filled in is never overwritten by a
 later run.
+
+## Operational metadata (v1.1)
+
+`record_meta.yaml` holds what a record adds on top of the model's triage output, which
+is never edited. `python -m pipeline.records annotate` applies it to the record files,
+and `python -m pipeline.records check` validates it.
+
+- **Supersession** (`supersedes`, `superseded_by`): links to a later or earlier Federal
+  Register document in the ingested store. A later withdrawal, final rule, disapproval or
+  vacatur closes or reverses the earlier record. An amendment or correction leaves it open.
+  Each record's "Supersession" section shows the links and the record status.

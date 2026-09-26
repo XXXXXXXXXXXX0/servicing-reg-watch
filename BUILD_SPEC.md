@@ -140,6 +140,7 @@ Selection criteria: law reaches lenders collecting their own debts; stricter tha
 - What a compliant agent must now do
 - Questions the deploying team must answer: owning config/script, approver, rollout sequence, test evidence required
 - Triage confidence and reviewer sign-off field
+- v1.1: `supersedes` / `superseded_by` links, so a later withdrawal, final rule, disapproval or vacatur closes or reverses the earlier record (`records/record_meta.yaml`; the model's triage output is not edited)
 
 ## 9. Deployment adapter (empty interface)
 `adapter/deployment_map.template.yaml`: maps each behavior class to `owning_system`, `config_ref`, `test_suite_ref`, `approver_role`. Shipped unfilled with instructions.

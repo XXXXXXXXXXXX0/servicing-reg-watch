@@ -484,3 +484,38 @@ def test_no_secrets_in_tracked_files():
         text = path.read_text(errors="ignore")
         hits += [f"{rel}: {p.pattern}" for p in SECRET_PATTERNS if p.search(text)]
     assert hits == []
+
+
+# ------------------------------------------------------------ record metadata
+_RECORD = "# Change record: {d}\n\n| Change type | proposed_rule |\n\nBehavior classes: `PAYMENT.FEES`\n\n## Triage\n\n- Relevant: True\n\n## Reviewer sign-off\n\n- Reviewer:\n- Notes:\n"
+
+
+def _meta_dir(tmp_path, meta):
+    import yaml
+    from pipeline.common import write_jsonl_gz
+    for d in ("P-1", "W-2"):
+        (tmp_path / f"{d}.md").write_text(_RECORD.format(d=d))
+    (tmp_path / "record_meta.yaml").write_text(yaml.safe_dump({"records": meta}))
+    store = tmp_path / "store.jsonl.gz"
+    write_jsonl_gz(store, [{"document": {"document_number": d}} for d in ("P-1", "W-2")])
+    return store
+
+
+def test_record_supersession_links(tmp_path):
+    from pipeline import records
+    meta = {"P-1": {"superseded_by": [{"doc_id": "W-2", "relation": "withdrawal"}]},
+            "W-2": {"supersedes": [{"doc_id": "P-1", "relation": "withdrawal"}]}}
+    store = _meta_dir(tmp_path, meta)
+    assert records.check_meta(tmp_path, store) == []
+    assert records.annotate(tmp_path)["annotated"] == ["P-1", "W-2"]
+    text = (tmp_path / "P-1.md").read_text()
+    assert "- Record status: closed by W-2 (withdrawal)" in text and "[W-2](W-2.md): withdrawal (closes this record" in text
+    assert text.index("## Supersession") < text.index("## Triage")
+    assert "- Record status: open" in (tmp_path / "W-2.md").read_text()
+    assert records.annotate(tmp_path)["annotated"] == []  # idempotent
+    meta["W-2"] = {}  # link not mirrored; unknown relation; document outside the store
+    meta["P-1"]["superseded_by"] += [{"doc_id": "X-9", "relation": "repeal"}]
+    _meta_dir(tmp_path, meta)
+    errs = records.check_meta(tmp_path, store)
+    assert any("not mirrored" in e for e in errs) and any("unknown relation" in e for e in errs)
+    assert any("not in the ingested store" in e for e in errs)

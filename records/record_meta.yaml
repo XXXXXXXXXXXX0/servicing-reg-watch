@@ -1,0 +1,97 @@
+# Operational metadata for change records (v1.1).
+#
+# The model's triage outputs in data/triage/ are never edited. This file holds what
+# the records add on top of them; `python -m pipeline.records annotate` applies it to
+# records/<doc_id>.md, and `python -m pipeline.records check` validates it.
+#
+# supersedes / superseded_by: links between a record and a later (or earlier) Federal
+# Register document that withdraws, finalizes, disapproves, vacates, amends or corrects
+# it. relation is one of: withdrawal, final_rule, disapproval, vacatur (these close or
+# reverse the earlier record), amends, correction (the earlier record stays open).
+# Links are made only where the other document is in the ingested store
+# (data/raw/federal_register.jsonl.gz); each note says where the link is stated.
+
+records:
+  2024-22962:
+    superseded_by:
+      - doc_id: 2024-27791
+        relation: amends
+        note: "revises the opinion's date of applicability to January 2, 2025"
+      - doc_id: 2025-08286
+        relation: withdrawal
+        note: "item 3 of the withdrawal list cites this opinion (89 FR 80715)"
+  2024-27791:
+    supersedes:
+      - doc_id: 2024-22962
+        relation: amends
+        note: "revises that opinion's date of applicability"
+    superseded_by:
+      - doc_id: 2025-08286
+        relation: withdrawal
+        note: "withdraws the advisory opinion (89 FR 80715) whose date this document revised"
+  2025-08286:
+    supersedes:
+      - doc_id: 2024-22962
+        relation: withdrawal
+        note: "item 3 of the withdrawal list"
+      - doc_id: 2024-27791
+        relation: withdrawal
+        note: "withdrawing the opinion also ends its revised applicability date"
+  2024-28690:
+    superseded_by:
+      - doc_id: 2025-08644
+        relation: withdrawal
+        note: "withdraws the proposed rule published at 89 FR 101402"
+  2025-08644:
+    supersedes:
+      - doc_id: 2024-28690
+        relation: withdrawal
+  2025-00633:
+    superseded_by:
+      - doc_id: 2025-08645
+        relation: withdrawal
+        note: "withdraws the proposed rule published at 90 FR 3566"
+  2025-08645:
+    supersedes:
+      - doc_id: 2025-00633
+        relation: withdrawal
+  2025-19864:
+    superseded_by:
+      - doc_id: C1-2025-19864
+        relation: correction
+        note: "corrects the proposed amendatory text (91 FR 9191)"
+      - doc_id: 2026-07804
+        relation: final_rule
+        note: "final rule cites this proposal (90 FR 50901)"
+  C1-2025-19864:
+    supersedes:
+      - doc_id: 2025-19864
+        relation: correction
+    superseded_by:
+      - doc_id: 2026-07804
+        relation: final_rule
+        note: "final rule cites these corrections (91 FR 9191)"
+  2026-07804:
+    supersedes:
+      - doc_id: 2025-19864
+        relation: final_rule
+      - doc_id: C1-2025-19864
+        relation: final_rule
+  2026-05797:
+    superseded_by:
+      - doc_id: 2026-16029
+        relation: final_rule
+        note: "final rule cites this proposal (91 FR 14484)"
+  2026-16029:
+    supersedes:
+      - doc_id: 2026-05797
+        relation: final_rule
+  2024-30824:
+    superseded_by:
+      - doc_id: C1-2024-30824
+        relation: correction
+        note: "no later withdrawal or vacatur of this rule is in the ingested store"
+  C1-2024-30824:
+    supersedes:
+      - doc_id: 2024-30824
+        relation: correction
