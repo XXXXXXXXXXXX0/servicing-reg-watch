@@ -487,7 +487,7 @@ def test_no_secrets_in_tracked_files():
 
 
 # ------------------------------------------------------------ record metadata
-_RECORD = "# Change record: {d}\n\n| Change type | proposed_rule |\n\nBehavior classes: `PAYMENT.FEES`\n\n## What a compliant agent must now do\n\nX.\n\n## Triage\n\n- Relevant: True\n\n## Reviewer sign-off\n\n- Reviewer:\n- Notes:\n"
+_RECORD = "# Change record: {d}\n\n| Change type | proposed_rule |\n\nBehavior classes: `PAYMENT.FEES`\n\n## What a compliant agent must now do\n\nX.\n\n## Triage\n\n- Relevant: True\n\n## Reviewer sign-off\n\n- Decision: [ ] Confirm relevant, implement  [ ] Not relevant, close  [ ] Escalate to counsel\n- Reviewer:\n- Date:\n- Notes:\n"
 
 
 def _meta_dir(tmp_path, meta):
@@ -546,3 +546,27 @@ def test_record_primary_secondary_retag(tmp_path):
     meta["P-1"]["behavior_classes_primary"] = ["PAYMENT.FEES"]
     _meta_dir(tmp_path, meta)
     assert any("both primary and secondary" in e for e in records.check_meta(tmp_path, store))
+
+
+def test_review_overrides(tmp_path):
+    """A not_relevant review signs and closes the record; a relevant review of a
+    not-relevant model answer creates the record from committed data."""
+    import yaml
+    from pipeline import records
+    real = records.load_record_meta()
+    meta = {"P-1": {"review": {"decision": "not_relevant", "reviewer": "R", "date": "2026-01-01", "reason": "Out of scope."}},
+            "2025-22490": real["2025-22490"]}
+    _meta_dir(tmp_path, meta)
+    (tmp_path / "record_meta.yaml").write_text(yaml.safe_dump({"records": meta}))
+    (tmp_path / "REVIEW_QUEUE.md").write_text("| [P-1](u) | T | Rule | 2026 | relevant | True | 0.70 | [record](P-1.md) |\n")
+    res = records.annotate(tmp_path)
+    assert res["created_by_review"] == ["2025-22490"]
+    closed = (tmp_path / "P-1.md").read_text()
+    assert "[x] Not relevant, close" in closed and "- Reviewer: R" in closed and records.SIGNED_OFF.search(closed)
+    assert "human review: not relevant, closed |" in (tmp_path / "REVIEW_QUEUE.md").read_text()
+    created = (tmp_path / "2025-22490.md").read_text()
+    assert "- Relevant: False" in created  # the model's answer is shown, not rewritten
+    assert "| Change type | interpretation (v1 triage output: proposed_rule) |" in created
+    assert "Primary behavior classes (drive routing and review): `DATA.PRIVACY_SECURITY`" in created
+    assert not records.SIGNED_OFF.search(created)  # confirmed relevant; still awaits sign-off
+    assert records.annotate(tmp_path)["annotated"] == []

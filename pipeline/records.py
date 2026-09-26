@@ -5,8 +5,9 @@ overwritten.
 
 records/record_meta.yaml holds what the records add on top of the model's
 triage output, which is never edited: links to later or earlier documents
-(supersedes / superseded_by), the v1.1 change type, and v1.1 primary/secondary
-behavior classes. `annotate` applies it to the record files; `run`
+(supersedes / superseded_by), the v1.1 change type, v1.1 primary/secondary
+behavior classes, and human review overrides (`review`; logged in
+records/REVIEW_LOG.md). `annotate` applies it to the record files; `run`
 calls it after writing records.
 
     python -m pipeline.records [--data-dir DIR] [--records-dir DIR]
@@ -179,6 +180,55 @@ def _v1_change_type(doc_id: str) -> str | None:
     return read_json(path).get("change_type") if path.exists() else None
 
 
+def _v1_output(doc_id: str) -> dict | None:
+    path = data_paths()["triage"] / f"{doc_id}.json"
+    return read_json(path) if path.exists() else None
+
+
+def _review_lines(review: dict, v1: dict | None) -> list[str]:
+    if v1:
+        p, s2 = class_tags(v1)
+        model = (f"relevant={v1['relevant']}, confidence {v1['confidence']:.2f}, change_type {v1['change_type']}, "
+                 f"classes {', '.join(p + s2) or 'none'}")
+    else:
+        model = "no triage output"
+    decision = {"relevant": "relevant: change record created or kept",
+                "not_relevant": "not relevant: record closed"}[review["decision"]]
+    return ["## Human review override", "",
+            f"- Model answer (unchanged in data/triage/): {model}",
+            f"- Reviewer decision: {decision}",
+            f"- Reason: {review['reason']}",
+            f"- Reviewed by {review['reviewer']} on {review['date']}",
+            "- Logged in [REVIEW_LOG.md](REVIEW_LOG.md). The v1 eval scores are not affected.", ""]
+
+
+def _sign_off(text: str, review: dict) -> str:
+    box = "- Decision: [ ] Confirm relevant, implement  [x] Not relevant, close  [ ] Escalate to counsel"
+    text = re.sub(r"^- Decision:.*$", lambda _: box, text, count=1, flags=re.MULTILINE)
+    text = re.sub(r"^- Reviewer:[ \t]*$", lambda _: f"- Reviewer: {review['reviewer']}", text, count=1, flags=re.MULTILINE)
+    text = re.sub(r"^- Date:[ \t]*$", lambda _: f"- Date: {review['date']}", text, count=1, flags=re.MULTILINE)
+    return re.sub(r"^- Notes:[ \t]*$", lambda _: f"- Notes: {review['reason']} (human review override; see REVIEW_LOG.md)",
+                  text, count=1, flags=re.MULTILINE)
+
+
+def override_record(doc_id: str, meta: dict, rows_by_id: dict | None = None) -> str | None:
+    """Record for a document the reviewer found relevant against a not-relevant model
+    answer. Built from committed metadata; shows the model's answer in its Triage
+    section and takes the record fields from the review."""
+    from .triage import build_packet
+    review, v1 = meta.get("review") or {}, _v1_output(doc_id)
+    if review.get("decision") != "relevant" or not review.get("record") or not v1:
+        return None
+    store = {r["document"]["document_number"]: r["document"] for r in read_jsonl_gz(data_paths()["fr_store"])}
+    if doc_id not in store:
+        return None
+    packet = build_packet(store[doc_id], {}, None, None)
+    shown = {**v1, **{k: review["record"][k] for k in ("affected_register_rows", "what_changed", "compliant_agent_must_now",
+                                                          "open_questions_for_deploying_team") if k in review["record"]}}
+    diff = {"status": "proposed_no_ecfr_change"} if store[doc_id].get("type") == "Proposed Rule" else None
+    return render_record(packet, shown, diff, rows_by_id or {r["id"]: r for r in load_register()})
+
+
 def apply_meta(text: str, meta: dict, records_dir: Path, doc_id: str | None = None) -> str:
     if meta.get("change_type"):
         ct = meta["change_type"]
@@ -198,18 +248,45 @@ def apply_meta(text: str, meta: dict, records_dir: Path, doc_id: str | None = No
         text = _replace_class_lines(text, meta)
     if "supersedes" in meta or "superseded_by" in meta:
         text = _replace_section(text, "## Supersession", _link_lines(meta, records_dir), "## Triage")
+    if meta.get("review"):
+        text = _replace_section(text, "## Human review override",
+                                _review_lines(meta["review"], _v1_output(doc_id) if doc_id else None), "## Reviewer sign-off")
+        if meta["review"]["decision"] == "not_relevant":
+            text = _sign_off(text, meta["review"])
     return text
+
+
+def _patch_queue(records_dir: Path, meta: dict) -> None:
+    """Point REVIEW_QUEUE.md rows at the human review outcome."""
+    path = records_dir / "REVIEW_QUEUE.md"
+    if not path.exists():
+        return
+    lines = path.read_text().splitlines()
+    for i, line in enumerate(lines):
+        for doc_id, m in meta.items():
+            review = m.get("review")
+            if review and line.startswith(f"| [{doc_id}]("):
+                cells = line.split(" | ")
+                cells[-1] = (f"[record]({doc_id}.md), human review: relevant |" if review["decision"] == "relevant"
+                             else f"[record]({doc_id}.md), human review: not relevant, closed |")
+                lines[i] = " | ".join(cells)
+    path.write_text("\n".join(lines) + "\n")
 
 
 def annotate(records_dir: Path | None = None) -> dict:
     """Apply record_meta.yaml to existing record files. Signed records are left alone."""
     records_dir = Path(records_dir or RECORDS_DIR)
-    changed, signed, missing = [], [], []
-    for doc_id, meta in load_record_meta(records_dir).items():
+    changed, signed, missing, created = [], [], [], []
+    all_meta = load_record_meta(records_dir)
+    for doc_id, meta in all_meta.items():
         path = records_dir / f"{doc_id}.md"
         if not path.exists():
-            missing.append(doc_id)
-            continue
+            text = override_record(doc_id, meta)
+            if text is None:
+                missing.append(doc_id)
+                continue
+            path.write_text(text)
+            created.append(doc_id)
         text = path.read_text()
         if SIGNED_OFF.search(text):
             signed.append(doc_id)
@@ -218,7 +295,8 @@ def annotate(records_dir: Path | None = None) -> dict:
         if new != text:
             path.write_text(new)
             changed.append(doc_id)
-    return {"annotated": changed, "signed_left_alone": signed, "no_record_file": missing}
+    _patch_queue(records_dir, all_meta)
+    return {"annotated": changed, "created_by_review": created, "signed_left_alone": signed, "no_record_file": missing}
 
 
 def check_meta(records_dir: Path | None = None, store_path: Path | None = None) -> list[str]:

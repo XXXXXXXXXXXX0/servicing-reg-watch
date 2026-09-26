@@ -22,9 +22,20 @@
 # only. Re-tagging splits the model's v1 classes and adds or drops none (checked); for a
 # proposal, primary is what the proposal would change. tagging_note explains a record
 # with no primary class.
+#
+# review: a human review override of the model's answer (decision relevant or
+# not_relevant, reviewer, date, reason). A not_relevant decision fills the record's
+# sign-off and closes it. A relevant decision on a document the model called not
+# relevant creates its record from committed metadata, with record fields from the
+# review. Every override is also logged in records/REVIEW_LOG.md.
 
 records:
   2024-22962:
+    review:
+      decision: not_relevant
+      reviewer: Angela
+      date: 2026-09-26
+      reason: "Guidance limited to medical debt, a non-loan debt type."
     behavior_classes_primary: [NEGOTIATION.TREATMENT]
     behavior_classes_secondary: [PAYMENT.FEES, DISCLOSURE.REQUIRED]
     change_type: interpretation
@@ -176,4 +187,22 @@ records:
     behavior_classes_secondary: [DATA.PRIVACY_SECURITY]
   2026-18859:
     behavior_classes_primary: [VENDOR.GOVERNANCE]
+    behavior_classes_secondary: []
+  2025-22490:
+    review:
+      decision: relevant
+      reviewer: Angela
+      date: 2026-09-26
+      reason: "Change in an obligation's legal status: breach-response guidance moved out of 12 CFR 748 into a Letter to Credit Unions with its text unchanged (v1.1 legal-status rule). Change type interpretation; required action control validation."
+      record:
+        affected_register_rows: [BANKSEC-GUIDE-001, NCUA-CYBER-001]
+        what_changed: "NCUA proposes removing Appendix B to 12 CFR part 748 (Guidance on Response Programs for Unauthorized Access to Member Information and Member Notice, issued June 2005) from the CFR and publishing the same content as guidance in a Letter to Credit Unions. NCUA says Appendix B is guidance for the response programs its regulation requires, that its CFR placement may confuse credit unions about its nonbinding status, and that the change alters no substantive compliance obligation. Comments were due February 9, 2026. The companion proposal 2025-22489 does the same for Appendix A (Guidelines for Safeguarding Member Information)."
+        compliant_agent_must_now: "No change until final, and no agent behavior change if adopted: the response-program requirement stays in NCUA's regulation. Control validation: check that credit union clients' incident-response and member-notice controls, and any servicing-provider contract terms, that cite 12 CFR 748 Appendix B still hold against the same content once it is reissued as a Letter to Credit Unions, and re-cite them to the new source."
+        open_questions_for_deploying_team:
+          - "Which credit union client contracts, incident-response procedures or member-notice templates cite 12 CFR 748 Appendix B by name?"
+          - "Once the content is a Letter to Credit Unions, NCUA can revise it without notice and comment. How will changes to the letter be tracked, given it will not appear in eCFR?"
+          - "Register gap: no row cites 12 CFR 748 Appendix B itself. Should BANKSEC-GUIDE-001 or NCUA-CYBER-001 be extended, or a row added, once the letter is issued?"
+    change_type: interpretation
+    change_type_reason: "Change in an obligation's legal status (moved out of the CFR into guidance, text unchanged); human review override"
+    behavior_classes_primary: [DATA.PRIVACY_SECURITY]
     behavior_classes_secondary: []
