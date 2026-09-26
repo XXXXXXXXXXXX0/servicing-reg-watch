@@ -58,6 +58,23 @@ Withdrawing guidance is a change under this test: a withdrawn advisory opinion o
 interpretive rule on one of these activities is relevant, even though it removes
 text rather than adding it.
 
+### v1.1 rules
+
+_v1.1, derived from v1 eval errors; not yet tested on a fresh eval set._ Where a
+rule here and an earlier sentence in this section disagree, the rule here wins.
+
+- **Legal-status changes.** A change in an obligation's legal status is relevant even
+  if its text is unchanged: codifying it, moving it out of the CFR into guidance or
+  back, or removing it. Route these as `change_type` `interpretation` for control
+  validation. (From v1 eval error 2025-22490: an NCUA proposal to move breach-response
+  guidance out of 12 CFR 748 was called not relevant because its text was unchanged.)
+- **Non-loan debt types and restatements.** Guidance limited to a non-loan debt type,
+  such as medical debt, is not relevant unless it states a rule that applies to
+  consumer-loan collection generally. Guidance that only restates existing law routes
+  as `interpretation`, not as a behavior change. (From v1 eval error 2024-22962: a
+  medical-debt advisory opinion was called relevant because the Regulation F sections
+  it restates also govern loan collectors.)
+
 **Not relevant unless it also meets that test:**
 - mortgage-only rules (Regulation X, mortgage origination);
 - deposit-account and overdraft rules;
@@ -71,7 +88,10 @@ text rather than adding it.
 Read the document before applying these exclusions: a document in one of these
 areas is relevant if some part of it meets the test (for example, a Regulation Z
 change that reaches non-mortgage consumer loans, or a consent rule that covers all
-robocalls rather than only marketing calls).
+robocalls rather than only marketing calls). This read-through does not override the
+v1.1 non-loan debt rule above: a part that restates a general provision (for example,
+a Regulation F section) while applying it only to a non-loan debt type does not meet
+the test.
 
 When the document is clearly outside scope, say so. When the packet does not settle
 the question, do not guess; lower your confidence.
@@ -99,6 +119,11 @@ nothing else: no prose, no code fences.
     prior rule or policy.
   - `enforcement_signal`: consent order, enforcement action notice, or supervisory
     findings.
+  - `interpretation` (v1.1): a document that changes only an obligation's legal
+    status (codified, moved out of the CFR into guidance or back, or removed with its
+    content kept), or guidance that only restates existing law. The required action
+    is **control validation**: check existing controls against the stated
+    interpretation. It is not an agent behavior change unless validation finds a gap.
   - `other`: anything else.
 - `effective_date`: `YYYY-MM-DD` taken from the document (`effective_on` or its DATES
   section). `null` if the document states none. Do not infer one.
@@ -106,9 +131,17 @@ nothing else: no prose, no code fences.
   ID. Empty list if none apply. If the document is relevant but no register row covers
   it, leave this empty, say "register gap" in `rationale`, and add an open question
   proposing the missing row.
-- `behavior_classes`: taxonomy IDs affected. Must be non-empty when `relevant` is true.
-  Use behavior classes, never names of any vendor's internal workflows, scripts, or
-  configs.
+- `behavior_classes_primary` and `behavior_classes_secondary` (v1.1; they replace
+  v1's single `behavior_classes` list, which the schema still accepts for v1 outputs):
+  - **Primary**: classes where the document changes or clarifies what the agent must
+    do. Primary classes drive routing and review. Must be non-empty when `relevant`
+    is true.
+  - **Secondary**: classes the document touches without changing the agent's
+    obligations. They are recorded for context only.
+  - When unsure whether a class is primary, tag it secondary rather than dropping it.
+    A class appears in at most one of the two lists.
+  - Use behavior classes, never names of any vendor's internal workflows, scripts, or
+    configs.
 - `what_changed`: a factual summary of the change, citing sections. When `ecfr_diff`
   is present, quote or paraphrase the changed text. Do not speculate beyond the
   document. For a not-relevant document, one sentence on what the document does.

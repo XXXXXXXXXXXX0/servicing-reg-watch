@@ -13,6 +13,7 @@ import sys
 from pathlib import Path
 
 from .common import RECORDS_DIR, data_paths, load_register, read_json
+from .triage import class_tags
 
 STANDARD_QUESTIONS = [
     "Owning config/script: which config, prompt, or script in the deployment implements each affected behavior class? (See adapter/deployment_map.template.yaml.)",
@@ -77,7 +78,9 @@ def render_record(packet: dict, triage: dict, diff: dict | None, rows_by_id: dic
             out.append(f"| {rid} | {_md_escape(r.get('law'))} | {_md_escape(r.get('citation'))} | {r.get('status', 'unknown')} |")
     else:
         out.append("No existing register row identified (possible register gap; see open questions).")
-    out += ["", "Behavior classes: " + (", ".join(f"`{c}`" for c in triage["behavior_classes"]) or "none"), "",
+    primary, secondary = class_tags(triage)
+    out += ["", "Primary behavior classes (drive routing and review): " + (", ".join(f"`{c}`" for c in primary) or "none"),
+            "", "Secondary behavior classes (context only): " + (", ".join(f"`{c}`" for c in secondary) or "none"), "",
             "## What a compliant agent must now do", "", triage["compliant_agent_must_now"], "",
             "## Questions the deploying team must answer", ""]
     out += [f"{i}. {q}" for i, q in enumerate(STANDARD_QUESTIONS + triage["open_questions_for_deploying_team"], 1)]

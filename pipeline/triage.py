@@ -110,6 +110,14 @@ def load_schema() -> dict:
     return json.loads(SCHEMA_PATH.read_text())
 
 
+def class_tags(obj: dict) -> tuple[list[str], list[str]]:
+    """(primary, secondary) behavior classes. A v1 output has one undivided
+    `behavior_classes` list; it is returned as primary, since v1 made no split."""
+    if "behavior_classes_primary" in obj or "behavior_classes_secondary" in obj:
+        return list(obj.get("behavior_classes_primary", [])), list(obj.get("behavior_classes_secondary", []))
+    return list(obj.get("behavior_classes", [])), []
+
+
 def validate_output(obj, expected_doc_id: str | None = None, register_ids: set | None = None) -> list[str]:
     """Schema validation plus semantic checks. Returns a list of error strings."""
     errors = [f"schema: {e.message} at /{'/'.join(map(str, e.path))}"
@@ -122,9 +130,14 @@ def validate_output(obj, expected_doc_id: str | None = None, register_ids: set |
     unknown = [r for r in obj["affected_register_rows"] if r not in ids]
     if unknown:
         errors.append(f"unknown register row ids: {unknown}")
+    primary, secondary = class_tags(obj)
+    if "behavior_classes" in obj and ("behavior_classes_primary" in obj or "behavior_classes_secondary" in obj):
+        errors.append("use either v1 behavior_classes or v1.1 behavior_classes_primary/secondary, not both")
+    if set(primary) & set(secondary):
+        errors.append(f"classes in both primary and secondary: {sorted(set(primary) & set(secondary))}")
     if obj["relevant"]:
-        if not obj["behavior_classes"]:
-            errors.append("relevant=true requires at least one behavior class")
+        if not primary:
+            errors.append("relevant=true requires at least one behavior class (primary, in v1.1 output)")
         for field in ("what_changed", "compliant_agent_must_now"):
             if not obj[field].strip():
                 errors.append(f"relevant=true requires non-empty {field}")
@@ -189,7 +202,12 @@ def api_schema(schema: dict | None = None):
         if isinstance(node, list):
             return [strip(v) for v in node]
         return node
-    return strip(schema or load_schema())
+    schema = copy.deepcopy(schema or load_schema())
+    # The API gets the v1.1 shape only: primary/secondary lists, no v1 behavior_classes.
+    if schema.pop("anyOf", None) is not None:
+        schema["properties"].pop("behavior_classes", None)
+        schema["required"] = schema["required"] + ["behavior_classes_primary", "behavior_classes_secondary"]
+    return strip(schema)
 
 
 def triage_api(data_dir=None, limit: int | None = None, force: bool = False) -> dict:

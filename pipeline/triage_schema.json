@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Triage output (BUILD_SPEC Section 7 step 4)",
+  "title": "Triage output (BUILD_SPEC Section 7 step 4; v1.1)",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -10,11 +10,23 @@
     "change_type",
     "effective_date",
     "affected_register_rows",
-    "behavior_classes",
     "what_changed",
     "compliant_agent_must_now",
     "open_questions_for_deploying_team",
     "rationale"
+  ],
+  "anyOf": [
+    {
+      "required": [
+        "behavior_classes"
+      ]
+    },
+    {
+      "required": [
+        "behavior_classes_primary",
+        "behavior_classes_secondary"
+      ]
+    }
   ],
   "properties": {
     "doc_id": {
@@ -39,6 +51,7 @@
         "guidance",
         "withdrawal",
         "enforcement_signal",
+        "interpretation",
         "other"
       ]
     },
@@ -81,7 +94,62 @@
           "VENDOR.GOVERNANCE"
         ]
       },
-      "uniqueItems": true
+      "uniqueItems": true,
+      "description": "v1 only: single list of affected classes. v1.1 outputs use behavior_classes_primary and behavior_classes_secondary."
+    },
+    "behavior_classes_primary": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "CONTACT.TIMING",
+          "CONTACT.FREQUENCY",
+          "CONTACT.CONSENT",
+          "CONTACT.RECORDING",
+          "CONTACT.AI_DISCLOSURE",
+          "DISCLOSURE.REQUIRED",
+          "IDENTITY.RIGHT_PARTY",
+          "STOP.TRIGGERS",
+          "PAYMENT.AUTHORIZATION",
+          "PAYMENT.FEES",
+          "NEGOTIATION.TREATMENT",
+          "ACCOUNT.MODIFICATION",
+          "DISPUTES.CREDIT_REPORTING",
+          "DATA.PRIVACY_SECURITY",
+          "RECOVERY.REPOSSESSION",
+          "INSURANCE.CLAIMS",
+          "VENDOR.GOVERNANCE"
+        ]
+      },
+      "uniqueItems": true,
+      "description": "v1.1: classes where the document changes or clarifies what the agent must do; drive routing and review."
+    },
+    "behavior_classes_secondary": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "CONTACT.TIMING",
+          "CONTACT.FREQUENCY",
+          "CONTACT.CONSENT",
+          "CONTACT.RECORDING",
+          "CONTACT.AI_DISCLOSURE",
+          "DISCLOSURE.REQUIRED",
+          "IDENTITY.RIGHT_PARTY",
+          "STOP.TRIGGERS",
+          "PAYMENT.AUTHORIZATION",
+          "PAYMENT.FEES",
+          "NEGOTIATION.TREATMENT",
+          "ACCOUNT.MODIFICATION",
+          "DISPUTES.CREDIT_REPORTING",
+          "DATA.PRIVACY_SECURITY",
+          "RECOVERY.REPOSSESSION",
+          "INSURANCE.CLAIMS",
+          "VENDOR.GOVERNANCE"
+        ]
+      },
+      "uniqueItems": true,
+      "description": "v1.1: classes the document touches without changing the agent's obligations; context only."
     },
     "what_changed": {
       "type": "string"

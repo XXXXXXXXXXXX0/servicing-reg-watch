@@ -89,6 +89,31 @@ def test_invalid_outputs_rejected(mutate, needle):
     assert any(needle in e for e in errs), errs
 
 
+def _v11(o, primary, secondary):
+    o.pop("behavior_classes")
+    o.update(behavior_classes_primary=primary, behavior_classes_secondary=secondary)
+    return o
+
+
+def test_v1_1_primary_secondary_tags():
+    o = _v11(_valid(), ["CONTACT.FREQUENCY"], ["CONTACT.AI_DISCLOSURE"])
+    assert triage.validate_output(o, "FIXTURE-0001") == []
+    assert triage.class_tags(o) == (["CONTACT.FREQUENCY"], ["CONTACT.AI_DISCLOSURE"])
+    assert triage.class_tags(_valid()) == (_valid()["behavior_classes"], [])  # v1: undivided list reads as primary
+    o["change_type"] = "interpretation"
+    assert triage.validate_output(o, "FIXTURE-0001") == []
+    both = _v11(_valid(), ["CONTACT.FREQUENCY"], ["CONTACT.FREQUENCY"])
+    assert any("both primary and secondary" in e for e in triage.validate_output(both, "FIXTURE-0001"))
+    no_primary = _v11(_valid(), [], ["CONTACT.FREQUENCY"])
+    assert any("at least one behavior class" in e for e in triage.validate_output(no_primary, "FIXTURE-0001"))
+    mixed = _valid()
+    mixed.update(behavior_classes_primary=["CONTACT.FREQUENCY"], behavior_classes_secondary=[])
+    assert any("not both" in e for e in triage.validate_output(mixed, "FIXTURE-0001"))
+    neither = _valid()
+    neither.pop("behavior_classes")
+    assert any(e.startswith("schema") for e in triage.validate_output(neither, "FIXTURE-0001"))
+
+
 def test_validate_cli_exit_code(tmp_path):
     bad = _valid()
     bad["change_type"] = "nope"
@@ -100,7 +125,8 @@ def test_validate_cli_exit_code(tmp_path):
 
 def test_schema_enum_matches_taxonomy():
     schema = triage.load_schema()
-    assert schema["properties"]["behavior_classes"]["items"]["enum"] == behavior_class_ids()
+    for k in ("behavior_classes", "behavior_classes_primary", "behavior_classes_secondary"):
+        assert schema["properties"][k]["items"]["enum"] == behavior_class_ids()
 
 
 def test_api_schema_strips_unsupported_keywords():
@@ -108,6 +134,9 @@ def test_api_schema_strips_unsupported_keywords():
     for k in ("pattern", "minimum", "maximum", "minLength", "uniqueItems", "$schema"):
         assert f'"{k}"' not in s
     assert triage.api_schema()["properties"]["effective_date"] == {"anyOf": [{"type": "string"}, {"type": "null"}]}
+    api = triage.api_schema()
+    assert "behavior_classes" not in api["properties"] and "anyOf" not in api
+    assert {"behavior_classes_primary", "behavior_classes_secondary"} <= set(api["required"])
 
 
 def test_system_prompt_contains_register_and_schema():

@@ -27,6 +27,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from pipeline import prefilter  # noqa: E402
+from pipeline.triage import class_tags  # noqa: E402
 from pipeline.common import data_paths, load_register, read_jsonl, read_jsonl_gz  # noqa: E402
 
 
@@ -132,7 +133,7 @@ def evaluate(labels_path: Path, triage_dir: Path, dropped: set[str], kept: set[s
         if key in ("fp", "fn"):
             res["errors"].append((doc_id, key.upper(), src))
         if label and pred and out is not None:
-            res["class_pairs"].append((doc_id, _classes(r.get("label_behavior_classes")), set(out.get("behavior_classes", []))))
+            res["class_pairs"].append((doc_id, _classes(r.get("label_behavior_classes")), set().union(*class_tags(out))))
             pred_tiers = [tiers[i] for i in out.get("affected_register_rows", []) if i in tiers]
             if r.get("label_tier", "").strip() and pred_tiers:
                 res["tier_pairs"].append((doc_id, int(r["label_tier"]), min(pred_tiers)))

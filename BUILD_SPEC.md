@@ -121,13 +121,15 @@ Selection criteria: law reaches lenders collecting their own debts; stricter tha
 ```json
 {
   "doc_id": "", "relevant": true, "confidence": 0.0,
-  "change_type": "final_rule|proposed_rule|guidance|withdrawal|enforcement_signal|other",
+  "change_type": "final_rule|proposed_rule|guidance|withdrawal|enforcement_signal|interpretation|other",
   "effective_date": null,
-  "affected_register_rows": [], "behavior_classes": [],
+  "affected_register_rows": [],
+  "behavior_classes_primary": [], "behavior_classes_secondary": [],
   "what_changed": "", "compliant_agent_must_now": "",
   "open_questions_for_deploying_team": [], "rationale": ""
 }
 ```
+   v1.1 (derived from v1 eval errors; not yet tested on a fresh eval set): behavior classes are split into primary (the document changes or clarifies what the agent must do; drives routing and review) and secondary (context only). v1 outputs with a single `behavior_classes` list still validate. `interpretation` marks legal-status changes and guidance that only restates existing law; its required action is control validation, not an agent behavior change. Rules: `pipeline/triage_prompt.md`; history: `eval/v1_1_fixes.md`.
 5. **Route**: auto-close only if `relevant=false` and `confidence >= 0.85`. Everything else goes to the human review queue.
 6. **Change record**: one markdown file per relevant document (Section 8).
 
