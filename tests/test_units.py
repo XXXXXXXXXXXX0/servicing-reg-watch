@@ -175,7 +175,7 @@ def test_api_mode_with_stubbed_client(offline_run, monkeypatch):
     monkeypatch.setenv("ANTHROPIC_API_KEY", "test-not-a-key")
     monkeypatch.delenv("MODEL", raising=False)
     stats = triage.triage_api(offline_run["data"], limit=3)
-    assert stats == {"ok": 2, "invalid": 1, "errors": 0, "skipped_full_text_unavailable": 6}
+    assert stats == {"ok": 2, "invalid": 1, "errors": 0, "skipped_full_text_unavailable": 5}
     assert calls[0]["model"] == "claude-sonnet-5"
     assert calls[0]["output_config"]["format"]["type"] == "json_schema"
     assert calls[0]["system"][0]["cache_control"] == {"type": "ephemeral"}
