@@ -7,7 +7,7 @@ Branch: `claude/eloquent-goodall-jas2zw` (no PR opened).
 - v1.1 (derived from v1 eval errors; untested on a fresh set), `pipeline/triage_prompt.md`: legal-status, non-loan debt, ACTION-line and who-it-binds rules; `interpretation` type (control validation); primary/secondary classes (v1 outputs still validate).
 - `eval/v1_1_fixes.md` records the errors, root causes, fixes and gap check. `eval/v1_1_conflicts.md` lists 5 relevance and 4 change-type conflicts.
 - Records (`records/record_meta.yaml`; `python -m pipeline.records annotate` / `check`): supersession links (7 closed), `interpretation` on 7, primary/secondary split on all 23.
-- Human review (`records/REVIEW_LOG.md`): 2025-22490 record created (interpretation, open); 2024-22962 closed as not relevant.
+- Human review (`records/REVIEW_LOG.md`): 2025-22490 record created (interpretation, open); 2024-22962 and its date revision 2024-27791 closed as not relevant.
 - Register: 4 gap rows (3 `verify` cited to committed FR text, 1 `unresearched` state row); 73 rows.
 
 ## Data files (committed)
@@ -15,8 +15,8 @@ Branch: `claude/eloquent-goodall-jas2zw` (no PR opened).
 
 ## Open issues
 - v1.1 rules are untested: a fresh labeled eval set is needed to measure them.
-- 2025-22489 (NCUA Appendix A, same legal-status change as #12) is unreviewed. 2024-27791 and 2024-29292 conflict with v1.1 and await review.
+- 2025-22489 (NCUA Appendix A, same legal-status change as #12) and 2024-29292 (ANPR, no proposed text) conflict with v1.1 and await review.
 - New register rows are not yet linked from the records that raised them. Their statute and eCFR text has not been read.
 
 ## Next step
-- Review the three pending v1.1 conflicts; draw and label a fresh eval set to test v1.1.
+- Review the two pending v1.1 conflicts; draw and label a fresh eval set to test v1.1.

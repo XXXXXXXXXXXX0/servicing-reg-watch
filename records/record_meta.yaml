@@ -48,6 +48,11 @@ records:
         relation: withdrawal
         note: "item 3 of the withdrawal list cites this opinion (89 FR 80715)"
   2024-27791:
+    review:
+      decision: not_relevant
+      reviewer: Angela
+      date: 2026-09-26
+      reason: "Revises only the applicability date of the medical-debt advisory opinion 2024-22962, closed as not relevant (guidance limited to medical debt, a non-loan debt type); closed to match that override."
     behavior_classes_primary: []
     behavior_classes_secondary: [PAYMENT.FEES, NEGOTIATION.TREATMENT]
     tagging_note: "No primary class: the document only revises the advisory opinion's applicability date and states the opinion creates no binding obligation."
