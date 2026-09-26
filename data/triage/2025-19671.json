@@ -1,0 +1,21 @@
+{
+  "doc_id": "2025-19671",
+  "relevant": true,
+  "confidence": 0.7,
+  "change_type": "guidance",
+  "effective_date": "2025-10-28",
+  "affected_register_rows": [
+    "FCRA-ACCURACY-001",
+    "FCRA-DIRECT-001"
+  ],
+  "behavior_classes": [
+    "DISPUTES.CREDIT_REPORTING"
+  ],
+  "what_changed": "CFPB interpretive rule (applicable October 28, 2025) confirming withdrawal of its July 2022 FCRA preemption interpretive rule (87 FR 41042) and stating that 15 U.S.C. 1681t(b)(1) broadly preempts state law: under 1681t(b)(1)(F), 'any State law that concerns the responsibilities of furnishers' (the subject matter of 1681s-2) is preempted, and under 1681t(b)(1)(E) all state laws on the inclusion of information in consumer reports (e.g., medical debt, rental information, arrest records, which the 2022 rule had said states could regulate) are preempted. The rule acknowledges agencies have no special authority to pronounce on preemption, that courts decide, and that the First, Second and Ninth Circuits (Frey, Galper, Aargon) have read the clause narrowly.",
+  "compliant_agent_must_now": "Furnishers (lenders and servicers reporting to CRAs): this is the CFPB's non-binding view. Do not stop complying with a state furnishing or credit-reporting law (e.g., a state medical-debt or coerced-debt reporting restriction) on the strength of this rule alone; courts in several circuits read preemption narrowly. Keep federal furnisher duties (12 CFR 1022.42, 1022.43; 15 U.S.C. 1681s-2) unchanged and route any proposed change to state-law handling to counsel.",
+  "open_questions_for_deploying_team": [
+    "Which state credit-reporting or furnishing requirements does the deployment follow today, and in which circuits are the portfolios' borrowers located (the First, Second and Ninth Circuits read preemption narrowly)?",
+    "Register gap: no state credit-reporting rows exist; should state furnishing restrictions for CA, FL, MA and TX be researched?"
+  ],
+  "rationale": "Full text confirms an interpretation of which state credit-reporting laws apply to furnishers, which clarifies obligations in the test. Confidence stays at 0.7 because the rule is expressly non-binding and courts are split on the reading it adopts. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (4000 of 5933 words)."
+}

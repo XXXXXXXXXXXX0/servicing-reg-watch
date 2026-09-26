@@ -1,0 +1,62 @@
+# Behavior taxonomy (reference model), BUILD_SPEC Section 5.
+# Derived from the regulations and public product descriptions.
+# This is NOT any vendor's internal taxonomy. Register rows and triage output
+# map impact to these classes, never to named internal workflows or scripts.
+version: 1
+behavior_classes:
+  CONTACT.TIMING:
+    description: Time and place of contact.
+  CONTACT.FREQUENCY:
+    description: Attempt and conversation caps.
+  CONTACT.CONSENT:
+    description: Consent and revocation for automated or artificial-voice calls and texts; channel opt-outs.
+  CONTACT.RECORDING:
+    description: Call-recording consent and disclosure.
+  CONTACT.AI_DISCLOSURE:
+    description: Disclosure that the caller is an AI.
+  DISCLOSURE.REQUIRED:
+    description: Mandated statements (e.g., collector identification, validation information).
+  IDENTITY.RIGHT_PARTY:
+    description: Verification before discussing the debt; third-party contact limits.
+  STOP.TRIGGERS:
+    description: Cease requests, attorney representation, bankruptcy, disputes, deceased borrower, servicemember status.
+  PAYMENT.AUTHORIZATION:
+    description: ACH and recurring payment authorization and records.
+  PAYMENT.FEES:
+    description: Convenience / pay-to-pay fees.
+  NEGOTIATION.TREATMENT:
+    description: Settlements, extensions, deferrals; fair and non-deceptive treatment.
+  ACCOUNT.MODIFICATION:
+    description: Modifications that trigger new disclosure duties.
+  DISPUTES.CREDIT_REPORTING:
+    description: Furnisher accuracy and direct disputes.
+  DATA.PRIVACY_SECURITY:
+    description: Privacy notices, safeguards, breach duties.
+  RECOVERY.REPOSSESSION:
+    description: Repossession, right-to-cure, disposition notices, deficiency.
+  INSURANCE.CLAIMS:
+    description: Total loss, GAP, appraisal-clause deadlines, lien release, collateral protection insurance, add-on refunds.
+  VENDOR.GOVERNANCE:
+    description: How bank and credit union customers examine an AI vendor.
+
+# Controlled vocabulary for the register's `applies_to` field (who is covered).
+covered_entities:
+  all_callers: Any person placing calls or texts (TCPA reaches callers generally).
+  third_party_collectors: Debt collectors as defined in FDCPA 15 USC 1692a(6).
+  post_default_servicers: Servicers that obtained the debt after default (FDCPA collector status).
+  first_party_creditors: Creditors and lenders collecting their own debts.
+  covered_persons: CFPA covered persons (12 USC 5481(6)).
+  service_providers: CFPA service providers (12 USC 5481(26)), which can include an AI vendor.
+  nonbank_financial_companies: Persons subject to FTC Act Section 5 (banks excluded).
+  financial_institutions: Reg E / GLBA financial institutions.
+  ach_originators: Originators and ODFIs under the Nacha Operating Rules.
+  furnishers: Persons furnishing information to consumer reporting agencies.
+  creditors: ECOA / TILA creditors.
+  secured_parties: UCC Article 9 secured parties and repossession agents acting for them.
+  banks: National banks, state member and nonmember banks, savings associations.
+  credit_unions: Federally insured credit unions.
+  bank_service_providers: Bank service providers under the interagency computer-security incident notification rule.
+  bot_operators: Persons using automated online accounts / AI systems to communicate with the public.
+  deployers: Deployers of AI systems (e.g., Colorado SB 24-205 terminology).
+  merchants_payment_processors: Entities that store, process or transmit cardholder data.
+  all_persons: Statute or rule applies without entity limitation.

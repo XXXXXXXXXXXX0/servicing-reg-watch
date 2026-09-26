@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-04952",
+  "relevant": false,
+  "confidence": 0.85,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FTC ANPR on amending the Negative Option Rule (16 CFR 425) so consumers can avoid and cancel unintended recurring payments for products and services.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Negative option plans for goods and services, not loan repayment authorizations. Prefilter dropped it (no match). Stage A: title, abstract and metadata only; full text not read."
+}

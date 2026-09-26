@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-07622",
+  "relevant": false,
+  "confidence": 0.95,
+  "change_type": "final_rule",
+  "effective_date": "2026-05-20",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC reduces barriers to network changes and service discontinuances in the transition to IP networks.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Carrier network rules; unrelated to lending. Stage A: title, abstract and metadata only; full text not read."
+}

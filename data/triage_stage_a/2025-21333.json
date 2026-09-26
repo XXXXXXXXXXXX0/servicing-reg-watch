@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-21333",
+  "relevant": false,
+  "confidence": 0.8,
+  "change_type": "other",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "OCC request for information on community banks' engagement with core service providers and other essential third-party service providers.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Request for information with no proposed text; no change to third-party risk management expectations yet. Stage A: title, abstract and metadata only; full text not read."
+}

@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-06748",
+  "relevant": false,
+  "confidence": 0.95,
+  "change_type": "final_rule",
+  "effective_date": "2025-04-18",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "Agencies grant temporary exceptions to FIRREA appraisal requirements for real estate transactions in Los Angeles County after the 2025 wildfires, expiring January 8, 2028.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Real estate appraisal requirements; mortgage-related, excluded. Stage A: title, abstract and metadata only; full text not read."
+}

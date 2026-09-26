@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-19689",
+  "relevant": false,
+  "confidence": 0.88,
+  "change_type": "final_rule",
+  "effective_date": "2025-10-29",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB rescinds the nonbank registry rule for public agency and court orders (12 CFR 1092).",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Registry reporting to the CFPB; not servicing conduct. Stage A: title, abstract and metadata only; full text not read."
+}

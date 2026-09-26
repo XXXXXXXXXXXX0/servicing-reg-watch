@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-12149",
+  "relevant": false,
+  "confidence": 0.8,
+  "change_type": "withdrawal",
+  "effective_date": "2026-06-17",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB rescinds its December 2020 Regulation B advisory opinion on special purpose credit programs by for-profit organizations.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Withdrawn guidance concerns designing credit programs (origination), not servicing activities in the test. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

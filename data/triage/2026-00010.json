@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-00010",
+  "relevant": false,
+  "confidence": 0.93,
+  "change_type": "final_rule",
+  "effective_date": "2026-02-05",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC adopts Robocall Mitigation Database accuracy requirements and forfeitures for false or stale filings.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Duties of RMD filers (voice providers); no caller obligation. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

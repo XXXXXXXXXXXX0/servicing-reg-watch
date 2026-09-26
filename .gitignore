@@ -1,0 +1,25 @@
+# data/: fetched source data is committed as compressed files (the store, never
+# refetched); everything derived from it is runtime output and ignored.
+data/*
+!data/raw/
+data/raw/*
+!data/raw/federal_register.jsonl.gz
+!data/raw/ingest_manifest.json
+!data/raw/govinfo/
+data/raw/govinfo/*
+!data/raw/govinfo/*.htm.gz
+!data/raw/ecfr/
+data/raw/ecfr/*
+!data/raw/ecfr/*.gz
+!data/raw/fr_search/
+data/raw/fr_search/*
+!data/raw/fr_search/*.json.gz
+# In-session triage output is committed (it cannot be regenerated without redoing the work).
+!data/triage/
+data/triage/_rejected/
+!data/triage_stage_a/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.env

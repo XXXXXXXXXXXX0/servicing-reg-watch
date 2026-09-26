@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-16641",
+  "relevant": false,
+  "confidence": 0.85,
+  "change_type": "final_rule",
+  "effective_date": "2025-08-29",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC conforms 47 CFR 64.1200(f)(9) to the court decision vacating the one-to-one prior express written consent rule; the diff restores the earlier definition of prior express written consent for telemarketing.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Prior express written consent governs telemarketing and advertising calls only, excluded by the test; servicing and collection calls rely on prior express consent, which is unchanged in the diff. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

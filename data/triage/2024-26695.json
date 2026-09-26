@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-26695",
+  "relevant": false,
+  "confidence": 0.88,
+  "change_type": "enforcement_signal",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FTC proposed consent order with H&R Block settling alleged unfair or deceptive practices.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "FTC order against a tax-preparation company, not a lender, servicer or collector. Stage A: title, abstract and metadata only; full text not read."
+}

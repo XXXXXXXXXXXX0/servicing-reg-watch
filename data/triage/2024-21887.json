@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-21887",
+  "relevant": false,
+  "confidence": 0.93,
+  "change_type": "final_rule",
+  "effective_date": "2024-10-30",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "NCUA codifies the Fair Hiring in Banking Act and IRPS 19-1 on credit union participation by persons with certain criminal convictions, and rescinds IRPS 19-1.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Credit union employment and participation rule; the rescinded IRPS concerns hiring, not servicing conduct. Prefilter kept it only on 12 CFR 748 in its CFR list. Stage A: title, abstract and metadata only; full text not read."
+}

@@ -1,0 +1,15 @@
+{
+  "doc_id": "2026-13628",
+  "relevant": false,
+  "confidence": 0.7,
+  "change_type": "guidance",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FTC proposed policy statement (comments due July 31, 2026), issued under E.O. 14365, stating that companies marketing AI systems represent that the systems aim for truthful and accurate output, and that steering outputs toward undisclosed objectives, including to comply with state laws such as Colorado's AI Act, may be deceptive under FTC Act section 5 (15 U.S.C. 45(a)) unless the company clearly discloses that it prioritizes other objectives.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [
+    "The statement takes a position on how compliance with state AI laws (register row CO-AIACT-001) interacts with FTC Act section 5. If the deployment alters agent outputs to meet a state AI law, should counsel review whether borrower-facing disclosures cover that?"
+  ],
+  "rationale": "Full text (about 4,000 words read) is aimed at companies marketing general AI systems to consumers and their representations about output accuracy; it creates no servicing, contact or disclosure duty for a lender's agent. Stage A kept it at 0.6; Stage B confirms not relevant at 0.7, below auto-close because it bears on CO-AIACT-001. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (4000 of 5889 words)."
+}

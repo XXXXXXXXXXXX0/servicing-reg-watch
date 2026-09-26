@@ -1,0 +1,20 @@
+{
+  "doc_id": "2025-22489",
+  "relevant": true,
+  "confidence": 0.6,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [
+    "BANKSEC-GUIDE-001"
+  ],
+  "behavior_classes": [
+    "DATA.PRIVACY_SECURITY",
+    "VENDOR.GOVERNANCE"
+  ],
+  "what_changed": "NCUA proposes removing Appendix A to 12 CFR part 748 (guidelines for safeguarding member information) from the CFR and republishing its content as a Letter to Credit Unions.",
+  "compliant_agent_must_now": "No change until final; if adopted, the substance would remain as guidance, so credit union information security programs and their oversight of service providers (including an AI vendor) continue to follow the same expectations, cited to the letter instead of the CFR.",
+  "open_questions_for_deploying_team": [
+    "Do credit union client contracts or due-diligence questionnaires cite 12 CFR 748 Appendix A, and do they need re-citation?"
+  ],
+  "rationale": "Credit union security guidelines covering service-provider oversight are within the test (data protection, vendor examination), but the proposal moves text without stating substantive change; relevance depends on whether content or binding status changes. Stage A: title, abstract and metadata only; full text not read."
+}

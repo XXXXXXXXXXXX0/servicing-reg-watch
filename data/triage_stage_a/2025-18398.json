@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-18398",
+  "relevant": false,
+  "confidence": 0.93,
+  "change_type": "other",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC PRA notice inviting comment on information collections under review.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Paperwork Reduction Act notice; creates no obligation. Prefilter excluded it as a PRA notice. Stage A: title, abstract and metadata only; full text not read."
+}

@@ -1,0 +1,19 @@
+{
+  "doc_id": "FIXTURE-0002",
+  "relevant": true,
+  "confidence": 0.9,
+  "change_type": "withdrawal",
+  "effective_date": null,
+  "affected_register_rows": [
+    "REGF-FEES-001"
+  ],
+  "behavior_classes": [
+    "PAYMENT.FEES"
+  ],
+  "what_changed": "CFPB withdrew listed guidance documents, including its advisory opinion on pay-to-pay fees under the FDCPA and Regulation F.",
+  "compliant_agent_must_now": "No change to the statutory rule: 12 CFR 1006.22(b) still bars fees not authorized by agreement or law. Stop citing the withdrawn advisory opinion as authority in fee scripts or policy.",
+  "open_questions_for_deploying_team": [
+    "Do any fee policies rely on the withdrawn advisory opinion's reasoning?"
+  ],
+  "rationale": "Notice withdraws guidance on a covered behavior (convenience fees). Withdrawals are changes. Full-text excerpt lists the pay-to-pay opinion."
+}

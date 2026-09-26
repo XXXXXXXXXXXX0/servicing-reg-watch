@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-00565",
+  "relevant": false,
+  "confidence": 0.8,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB proposed interpretive rule on how Regulation E's EFT and account definitions apply to emerging payment mechanisms (e.g., new funds-transfer products).",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Concerns coverage of new payment products as Reg E accounts, not preauthorized loan payments or servicing; near the line only if a borrower pays through such a mechanism. Stage A: title, abstract and metadata only; full text not read."
+}

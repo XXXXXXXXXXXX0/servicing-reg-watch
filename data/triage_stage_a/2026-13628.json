@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-13628",
+  "relevant": false,
+  "confidence": 0.6,
+  "change_type": "guidance",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FTC proposed policy statement on applying the Section 5 deception prohibition to companies that market AI systems, concerning suppression of accuracy in AI systems.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Addresses how AI system vendors may be liable for deception; an AI servicing vendor is such a company, but the statement governs marketing of AI systems rather than a servicing behavior in the test. Near the line; the abstract does not say what 'suppression of accuracy' covers. Stage A: title, abstract and metadata only; full text not read."
+}

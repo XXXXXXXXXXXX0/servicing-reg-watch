@@ -1,0 +1,21 @@
+{
+  "doc_id": "2024-22962",
+  "relevant": true,
+  "confidence": 0.55,
+  "change_type": "guidance",
+  "effective_date": "2024-12-03",
+  "affected_register_rows": [
+    "REGF-FEES-001",
+    "UDAAP-001"
+  ],
+  "behavior_classes": [
+    "PAYMENT.FEES",
+    "NEGOTIATION.TREATMENT"
+  ],
+  "what_changed": "CFPB advisory opinion under Regulation F (12 CFR 1006) reminding debt collectors that the FDCPA and Regulation F prohibitions on false, deceptive or misleading representations and on unfair or unconscionable means apply to collecting medical debt. Applicable December 3, 2024.",
+  "compliant_agent_must_now": "Third-party collectors (FDCPA debt collectors) only: do not represent or attempt to collect amounts that are not owed or not authorized. Whether this reaches consumer-loan collection beyond medical debt is not settled from the abstract.",
+  "open_questions_for_deploying_team": [
+    "Does the deployment collect any medical debt, or only consumer loans? If only consumer loans, does the opinion's reading of 12 CFR 1006.18 and 1006.22 change any existing collection script?"
+  ],
+  "rationale": "Reg F advisory opinion interpreting 1006.18/1006.22, which govern collectors generally, but its subject is medical debt, which is outside consumer-loan servicing. Relevance depends on whether the interpretation reaches non-medical debts; confidence kept low for Stage B. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-21323",
+  "relevant": false,
+  "confidence": 0.75,
+  "change_type": "other",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC announces its intent to dismiss with prejudice certain older petitions for reconsideration and applications for review under the TCPA; objections due January 12, 2026.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Dismissing pending petitions leaves the TCPA rules as they are, so no obligation changes. Near the line because the abstract does not list the petitions, some of which could concern servicing or collection calls. Stage A: title, abstract and metadata only; full text not read."
+}

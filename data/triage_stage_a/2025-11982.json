@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-11982",
+  "relevant": false,
+  "confidence": 0.85,
+  "change_type": "guidance",
+  "effective_date": "2025-06-27",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB policy statement describing its plan for referrals of criminally liable regulatory offenses.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Agency enforcement-referral policy; does not change what lenders or servicers must do. Stage A: title, abstract and metadata only; full text not read."
+}

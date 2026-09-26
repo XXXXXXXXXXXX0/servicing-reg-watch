@@ -1,0 +1,13 @@
+{
+  "doc_id": "FIXTURE-0012",
+  "relevant": false,
+  "confidence": 0.8,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "Proposed one-seller-at-a-time rule for telemarketing prior express written consent.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Marketing-only TCPA consent rule; hard negative. Kept under 0.85 because it amends 47 CFR 64.1200, which servicing calls also rely on."
+}

@@ -1,0 +1,104 @@
+# Massachusetts state-layer rows (BUILD_SPEC 6.3). All rows status: verify.
+rows:
+  - id: MA-940CMR-001
+    law: "Massachusetts AG Debt Collection Regulations (creditors)"
+    citation: "940 CMR 7.04(1)(f)"
+    source_url: "https://www.mass.gov/regulations/940-CMR-700-debt-collection-regulations"
+    agency: state
+    jurisdiction: US-MA
+    applies_to: [first_party_creditors]
+    tier: 1
+    behavior_classes: [CONTACT.FREQUENCY]
+    constraint: "Creditors may initiate no more than two telephone communications in each seven-day period to the debtor's residence, cell phone, or other personal number provided by the debtor, per debt. Workplace calls are limited to two in each 30-day period."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "Third-party collectors are regulated separately (209 CMR 18.00); not yet modeled."
+
+  - id: MA-940CMR-002
+    law: "Massachusetts AG Debt Collection Regulations (creditors)"
+    citation: "940 CMR 7.04(1) (paragraph for time-of-day and third-party limits: verify)"
+    source_url: "https://www.mass.gov/regulations/940-CMR-700-debt-collection-regulations"
+    agency: state
+    jurisdiction: US-MA
+    applies_to: [first_party_creditors]
+    tier: 1
+    behavior_classes: [CONTACT.TIMING, IDENTITY.RIGHT_PARTY]
+    constraint: "940 CMR 7.04 also limits the time of creditor communications and contact with third parties. Paragraph-level text has not been extracted yet. Treat as a placeholder that points to the primary text."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+
+  - id: MA-REC-001
+    law: "Massachusetts Wiretap Act"
+    citation: "M.G.L. c. 272, § 99"
+    source_url: "https://malegislature.gov/Laws/GeneralLaws/PartIV/TitleI/Chapter272/Section99"
+    agency: state
+    jurisdiction: US-MA
+    applies_to: [all_persons]
+    tier: 1
+    behavior_classes: [CONTACT.RECORDING]
+    constraint: "Secret recording of a wire or oral communication is prohibited, which in effect requires all-party knowledge. Disclose recording at the start of the call."
+    change_source: [manual]
+    provenance: added_by_analysis
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+
+  - id: MA-CURE-001
+    law: "Massachusetts Motor Vehicle Retail Installment Sales Act (right to cure)"
+    citation: "M.G.L. c. 255B, § 20A"
+    source_url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXX/Chapter255B/Section20A"
+    agency: state
+    jurisdiction: US-MA
+    applies_to: [creditors, secured_parties]
+    tier: 2
+    behavior_classes: [RECOVERY.REPOSSESSION]
+    constraint: "Before accelerating or repossessing after default on a covered motor vehicle contract, the creditor must send a notice of default and right to cure and let the cure period run."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+
+  - id: MA-DEFICIENCY-001
+    law: "Massachusetts Motor Vehicle Retail Installment Sales Act (deficiency)"
+    citation: "M.G.L. c. 255B, § 20B"
+    source_url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXX/Chapter255B/Section20B"
+    agency: state
+    jurisdiction: US-MA
+    applies_to: [creditors, secured_parties]
+    tier: 2
+    behavior_classes: [RECOVERY.REPOSSESSION]
+    constraint: "Limits deficiency claims after repossession: measured against fair market value, and barred below a statutory balance threshold. Confirm the threshold against primary text."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+
+  - id: MA-UCC9-001
+    law: "UCC Article 9 (Massachusetts)"
+    citation: "M.G.L. c. 106, §§ 9-609, 9-611"
+    source_url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXV/Chapter106/Article9/Section9-609"
+    agency: state
+    jurisdiction: US-MA
+    applies_to: [secured_parties]
+    tier: 2
+    behavior_classes: [RECOVERY.REPOSSESSION]
+    constraint: "Self-help repossession only without breach of the peace. Reasonable authenticated notification before disposition of collateral."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null

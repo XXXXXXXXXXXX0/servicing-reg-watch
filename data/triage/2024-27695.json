@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-27695",
+  "relevant": false,
+  "confidence": 0.92,
+  "change_type": "final_rule",
+  "effective_date": "2025-01-01",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB sets the 2025 maximum allowable charge for consumer reporting agency file disclosures under FCRA section 609 (Appendix O to 12 CFR 1022).",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Charge a consumer reporting agency may impose on consumers; no furnisher or servicer obligation. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

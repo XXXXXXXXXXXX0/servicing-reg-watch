@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-30988",
+  "relevant": false,
+  "confidence": 0.8,
+  "change_type": "guidance",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB Circular 2024-07 on whether card issuers or rewards partners can violate the law by devaluing or blocking redemption of earned credit card rewards.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Rewards-program design and administration is not a servicing behavior in the relevance test (contact, disclosures, payments, disputes, recovery); near the line only for card servicing. Stage A: title, abstract and metadata only; full text not read."
+}

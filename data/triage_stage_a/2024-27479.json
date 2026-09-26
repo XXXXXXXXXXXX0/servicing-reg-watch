@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-27479",
+  "relevant": false,
+  "confidence": 0.97,
+  "change_type": "final_rule",
+  "effective_date": "2025-01-13",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC clarifies and modifies accessibility performance objectives for interoperable video conferencing services and TRS Fund support.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Disability access rule for video conferencing providers; unrelated to lending. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

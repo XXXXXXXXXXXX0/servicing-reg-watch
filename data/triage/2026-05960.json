@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-05960",
+  "relevant": false,
+  "confidence": 0.97,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "Agencies propose revisions to standardized-approach risk weights and regulatory capital definitions, including mortgage servicing asset deductions.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Bank capital rule, excluded; 'servicing' refers to mortgage servicing assets. Stage A: title, abstract and metadata only; full text not read."
+}

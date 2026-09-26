@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-08944",
+  "relevant": false,
+  "confidence": 0.95,
+  "change_type": "other",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "Federal Reserve notice listing change in bank control notices for acquisitions of bank or bank holding company shares.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Bank ownership notices; no consumer servicing obligation. No abstract; prefilter dropped it (no match). Stage A: title, abstract and metadata only; full text not read."
+}

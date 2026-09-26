@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-10998",
+  "relevant": false,
+  "confidence": 0.9,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC proposes requiring providers on non-IP networks to implement non-IP caller ID authentication frameworks (STIR/SHAKEN, TRACED Act).",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Duty on voice providers, not on callers such as lenders or collectors. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

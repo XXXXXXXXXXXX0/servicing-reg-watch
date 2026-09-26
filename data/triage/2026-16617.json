@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-16617",
+  "relevant": false,
+  "confidence": 0.9,
+  "change_type": "other",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FTC publishes its 2026 regulatory agenda (Energy Labeling, Alternative Fuel, removal of vacated Negative Option amendments, and others).",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "A regulatory agenda creates or changes no obligation; listed rules are not lending rules. Stage A: title, abstract and metadata only; full text not read."
+}

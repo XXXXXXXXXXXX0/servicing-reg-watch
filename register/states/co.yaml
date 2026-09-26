@@ -1,0 +1,20 @@
+# Colorado rows. Outside the v1 four-state layer; included only for the AI
+# disclosure inventory item (BUILD_SPEC Tier 2). status: verify.
+rows:
+  - id: CO-AIACT-001
+    law: "Colorado Artificial Intelligence Act (SB 24-205)"
+    citation: "C.R.S. 6-1-1701 et seq.; 6-1-1704 (consumer disclosure) (verify)"
+    source_url: "https://leg.colorado.gov/bills/sb24-205"
+    agency: state
+    jurisdiction: US-CO
+    applies_to: [deployers]
+    tier: 2
+    behavior_classes: [CONTACT.AI_DISCLOSURE, VENDOR.GOVERNANCE]
+    constraint: "A deployer of an AI system intended to interact with consumers must disclose to each consumer that they are interacting with an AI system, unless that would be obvious. Separate high-risk-system duties apply to consequential decisions, which include financial or lending services."
+    change_source: [manual]
+    provenance: added_by_analysis
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "Status in flux (BUILD_SPEC). The effective date was delayed by 2025 legislation and may have been changed or amended again. Do not rely on any date until checked."

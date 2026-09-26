@@ -1,0 +1,21 @@
+{
+  "doc_id": "2025-22490",
+  "relevant": true,
+  "confidence": 0.6,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [
+    "BANKSEC-GUIDE-001",
+    "NCUA-CYBER-001"
+  ],
+  "behavior_classes": [
+    "DATA.PRIVACY_SECURITY",
+    "VENDOR.GOVERNANCE"
+  ],
+  "what_changed": "NCUA proposes removing Appendix B to 12 CFR part 748 (guidance on response programs for unauthorized access to member information and member notice) from the CFR and republishing it as guidance.",
+  "compliant_agent_must_now": "No change until final; if adopted, credit unions' response-program and member-notice expectations would continue as guidance, and the underlying requirement to have a response program remains in regulation.",
+  "open_questions_for_deploying_team": [
+    "Do incident-response commitments to credit union clients cite 12 CFR 748 Appendix B?"
+  ],
+  "rationale": "Credit union incident response and member notice are within the test, but the proposal appears to relocate text rather than change it; confidence low until the full text is read. Stage A: title, abstract and metadata only; full text not read."
+}

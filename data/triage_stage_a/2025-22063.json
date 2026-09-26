@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-22063",
+  "relevant": false,
+  "confidence": 0.75,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC proposes requiring terminating providers to transmit verified caller name for A-attested calls (Rich Call Data), flagging foreign-originated calls and barring spoofing of US numbers from abroad; also asks which calling rules to simplify or eliminate.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Proposed duties fall on voice providers, not callers. Near the line because the request to streamline 'calling-related rules' could later reach TCPA rules that govern servicing calls, and verified caller name affects how servicing calls display. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

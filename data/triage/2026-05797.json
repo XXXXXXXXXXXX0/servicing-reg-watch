@@ -1,0 +1,18 @@
+{
+  "doc_id": "2026-05797",
+  "relevant": true,
+  "confidence": 0.7,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [
+    "VENDOR.GOVERNANCE"
+  ],
+  "what_changed": "NCUA proposes removing 12 CFR 701.21(h) (third-party servicing of indirect vehicle loans: a federal credit union may purchase indirect vehicle loans and participations serviced by any one third-party servicer only up to 50 percent of net worth, rising to 100 percent after 30 months with that servicer, with a waiver process in (h)(2)-(3)), removing 741.203(c) (applying the same limits to federally insured state-chartered credit unions) and conforming 746.201(c). Credit union boards would set their own policies; NCUA would continue to review these purchases in examinations. Comments due May 26, 2026.",
+  "compliant_agent_must_now": "No change until final (finalized without change by 2026-16029, effective September 8, 2026). If adopted, credit unions would no longer be capped on how much indirect auto paper serviced by a single third-party servicer (which could include a servicing provider using an AI agent) they may buy; oversight would rest on board policy, vendor due diligence and examination.",
+  "open_questions_for_deploying_team": [
+    "Register gap: no row covers NCUA oversight of third-party servicers of indirect vehicle loans (former 12 CFR 701.21(h) and 741.203(c)). Should a VENDOR.GOVERNANCE row record the removal and the principles-based expectations that replace it?",
+    "Do credit union clients buy indirect vehicle loans serviced by the deployment's operator, and do their contracts or policies still reference the 701.21(h) limits?"
+  ],
+  "rationale": "Full text confirms the rule governs credit unions' exposure to third-party servicers of consumer auto loans, which touches how a servicing vendor is overseen. Confidence 0.7 because the rule is a concentration limit on loan purchases rather than a servicing-conduct or vendor-examination standard. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (2000 of 2558 words)."
+}

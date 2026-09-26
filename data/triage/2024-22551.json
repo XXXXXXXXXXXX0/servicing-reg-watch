@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-22551",
+  "relevant": false,
+  "confidence": 0.93,
+  "change_type": "guidance",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB Circular 2024-05 on obtaining affirmative consent before charging overdraft fees on ATM and one-time debit transactions.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Overdraft opt-in under Reg E is a deposit-account topic, excluded by the relevance test. Stage A: title, abstract and metadata only; full text not read."
+}

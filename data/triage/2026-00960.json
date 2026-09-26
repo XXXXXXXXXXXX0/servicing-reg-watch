@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-00960",
+  "relevant": false,
+  "confidence": 0.97,
+  "change_type": "final_rule",
+  "effective_date": "2028-06-12",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC announces OMB approval and a June 12, 2028 compliance date for multilingual Wireless Emergency Alert templates.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Emergency alerting for carriers; unrelated to lending. Stage A: title, abstract and metadata only; full text not read."
+}

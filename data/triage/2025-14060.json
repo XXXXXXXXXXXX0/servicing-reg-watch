@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-14060",
+  "relevant": false,
+  "confidence": 0.88,
+  "change_type": "other",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "OCC, Federal Reserve and FDIC request comment under EGRPRA on banking operations, capital and CRA regulations, and on all their final rules as of July 25, 2025, to identify outdated or unnecessary requirements.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Periodic regulatory review asking for comment; proposes no text and changes no obligation. Prefilter dropped it (no match). Stage A: title, abstract and metadata only; full text not read."
+}

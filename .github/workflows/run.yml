@@ -1,0 +1,52 @@
+name: run
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 12 * * 1-5"   # weekdays 12:00 UTC
+
+permissions:
+  contents: read
+
+jobs:
+  offline:
+    name: Offline tests (fixtures, no network)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt -r requirements-api.txt
+      - run: python -m pytest -q
+      - run: python -m pipeline.inventory --check
+      - run: python -m pipeline.run --offline --with-fixture-triage --data-dir "$RUNNER_TEMP/offline/data" --records-dir "$RUNNER_TEMP/offline/records"
+
+  live:
+    name: Live ingest -> records
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    needs: offline
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GOVINFO_API_KEY: ${{ secrets.GOVINFO_API_KEY }}
+      MODEL: ${{ vars.MODEL || 'claude-sonnet-5' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt -r requirements-api.txt
+      - name: Run pipeline (API triage only if the ANTHROPIC_API_KEY secret is set)
+        run: |
+          if [ -n "$ANTHROPIC_API_KEY" ]; then TRIAGE=api; else TRIAGE=none; fi
+          python -m pipeline.run --triage "$TRIAGE"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pipeline-output
+          path: |
+            data/
+            records/

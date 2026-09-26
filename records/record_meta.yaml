@@ -1,0 +1,236 @@
+# Operational metadata for change records (v1.1).
+#
+# The model's triage outputs in data/triage/ are never edited. This file holds what
+# the records add on top of them; `python -m pipeline.records annotate` applies it to
+# records/<doc_id>.md, and `python -m pipeline.records check` validates it.
+#
+# supersedes / superseded_by: links between a record and a later (or earlier) Federal
+# Register document that withdraws, finalizes, disapproves, vacates, amends or corrects
+# it. relation is one of: withdrawal, final_rule, disapproval, vacatur (these close or
+# reverse the earlier record), amends, correction (the earlier record stays open).
+# Links are made only where the other document is in the ingested store
+# (data/raw/federal_register.jsonl.gz); each note says where the link is stated.
+#
+# change_type: the v1.1 change type for the record, where it differs from the v1 triage
+# output (which stays as it was). `interpretation` means control validation: check
+# existing controls against the stated interpretation (pipeline/triage_prompt.md).
+# change_type_reason says which v1.1 category applies.
+#
+# behavior_classes_primary / behavior_classes_secondary: the v1.1 split of the record's
+# classes. Primary: the document changes or clarifies what the agent must do; these drive
+# routing and review. Secondary: touched without changing the agent's obligations; context
+# only. Re-tagging splits the model's v1 classes and adds or drops none (checked); for a
+# proposal, primary is what the proposal would change. tagging_note explains a record
+# with no primary class.
+#
+# review: a human review override of the model's answer (decision relevant or
+# not_relevant, reviewer, date, reason). A not_relevant decision fills the record's
+# sign-off and closes it. A relevant decision on a document the model called not
+# relevant creates its record from committed metadata, with record fields from the
+# review. Every override is also logged in records/REVIEW_LOG.md.
+
+records:
+  2024-22962:
+    review:
+      decision: not_relevant
+      reviewer: Angela
+      date: 2026-09-26
+      reason: "Guidance limited to medical debt, a non-loan debt type."
+    behavior_classes_primary: [NEGOTIATION.TREATMENT]
+    behavior_classes_secondary: [PAYMENT.FEES, DISCLOSURE.REQUIRED]
+    change_type: interpretation
+    change_type_reason: "Advisory opinion (ACTION line) restating FDCPA and Regulation F provisions for medical debt"
+    superseded_by:
+      - doc_id: 2024-27791
+        relation: amends
+        note: "revises the opinion's date of applicability to January 2, 2025"
+      - doc_id: 2025-08286
+        relation: withdrawal
+        note: "item 3 of the withdrawal list cites this opinion (89 FR 80715)"
+  2024-27791:
+    review:
+      decision: not_relevant
+      reviewer: Angela
+      date: 2026-09-26
+      reason: "Revises only the applicability date of the medical-debt advisory opinion 2024-22962, closed as not relevant (guidance limited to medical debt, a non-loan debt type); closed to match that override."
+    behavior_classes_primary: []
+    behavior_classes_secondary: [PAYMENT.FEES, NEGOTIATION.TREATMENT]
+    tagging_note: "No primary class: the document only revises the advisory opinion's applicability date and states the opinion creates no binding obligation."
+    change_type: interpretation
+    change_type_reason: "Advisory opinion (ACTION line: revision of date of applicability)"
+    supersedes:
+      - doc_id: 2024-22962
+        relation: amends
+        note: "revises that opinion's date of applicability"
+    superseded_by:
+      - doc_id: 2025-08286
+        relation: withdrawal
+        note: "withdraws the advisory opinion (89 FR 80715) whose date this document revised"
+  2025-08286:
+    behavior_classes_primary: [PAYMENT.FEES, NEGOTIATION.TREATMENT, DISPUTES.CREDIT_REPORTING, RECOVERY.REPOSSESSION, DATA.PRIVACY_SECURITY, STOP.TRIGGERS, DISCLOSURE.REQUIRED]
+    behavior_classes_secondary: []
+    supersedes:
+      - doc_id: 2024-22962
+        relation: withdrawal
+        note: "item 3 of the withdrawal list"
+      - doc_id: 2024-27791
+        relation: withdrawal
+        note: "withdrawing the opinion also ends its revised applicability date"
+  2024-28690:
+    behavior_classes_primary: [DATA.PRIVACY_SECURITY]
+    behavior_classes_secondary: [IDENTITY.RIGHT_PARTY]
+    superseded_by:
+      - doc_id: 2025-08644
+        relation: withdrawal
+        note: "withdraws the proposed rule published at 89 FR 101402"
+  2025-08644:
+    behavior_classes_primary: []
+    behavior_classes_secondary: [IDENTITY.RIGHT_PARTY, DATA.PRIVACY_SECURITY]
+    tagging_note: "No primary class: withdrawing a proposal changes no current obligation. The closure is routed through the superseded record 2024-28690."
+    supersedes:
+      - doc_id: 2024-28690
+        relation: withdrawal
+  2025-00633:
+    behavior_classes_primary: [NEGOTIATION.TREATMENT]
+    behavior_classes_secondary: [PAYMENT.FEES, DISCLOSURE.REQUIRED]
+    superseded_by:
+      - doc_id: 2025-08645
+        relation: withdrawal
+        note: "withdraws the proposed rule published at 90 FR 3566"
+  2025-08645:
+    behavior_classes_primary: []
+    behavior_classes_secondary: [PAYMENT.FEES, NEGOTIATION.TREATMENT]
+    tagging_note: "No primary class: withdrawing a proposal changes no current obligation. The closure is routed through the superseded record 2025-00633."
+    supersedes:
+      - doc_id: 2025-00633
+        relation: withdrawal
+  2025-19864:
+    behavior_classes_primary: [NEGOTIATION.TREATMENT]
+    behavior_classes_secondary: []
+    superseded_by:
+      - doc_id: C1-2025-19864
+        relation: correction
+        note: "corrects the proposed amendatory text (91 FR 9191)"
+      - doc_id: 2026-07804
+        relation: final_rule
+        note: "final rule cites this proposal (90 FR 50901)"
+  C1-2025-19864:
+    behavior_classes_primary: []
+    behavior_classes_secondary: [NEGOTIATION.TREATMENT]
+    tagging_note: "No primary class: the correction conforms the printed proposal text, with no substantive change; see 2025-19864 and 2026-07804."
+    supersedes:
+      - doc_id: 2025-19864
+        relation: correction
+    superseded_by:
+      - doc_id: 2026-07804
+        relation: final_rule
+        note: "final rule cites these corrections (91 FR 9191)"
+  2026-07804:
+    behavior_classes_primary: [NEGOTIATION.TREATMENT]
+    behavior_classes_secondary: []
+    supersedes:
+      - doc_id: 2025-19864
+        relation: final_rule
+      - doc_id: C1-2025-19864
+        relation: final_rule
+  2026-05797:
+    behavior_classes_primary: [VENDOR.GOVERNANCE]
+    behavior_classes_secondary: []
+    superseded_by:
+      - doc_id: 2026-16029
+        relation: final_rule
+        note: "final rule cites this proposal (91 FR 14484)"
+  2026-16029:
+    behavior_classes_primary: [VENDOR.GOVERNANCE]
+    behavior_classes_secondary: []
+    supersedes:
+      - doc_id: 2026-05797
+        relation: final_rule
+  2024-30824:
+    behavior_classes_primary: [NEGOTIATION.TREATMENT]
+    behavior_classes_secondary: [DATA.PRIVACY_SECURITY, INSURANCE.CLAIMS]
+    superseded_by:
+      - doc_id: C1-2024-30824
+        relation: correction
+        note: "no later withdrawal or vacatur of this rule is in the ingested store"
+  C1-2024-30824:
+    behavior_classes_primary: []
+    behavior_classes_secondary: [NEGOTIATION.TREATMENT, DATA.PRIVACY_SECURITY]
+    tagging_note: "No primary class: the correction fixes a misprinted year in the DATES section; the obligations are tagged on 2024-30824."
+    supersedes:
+      - doc_id: 2024-30824
+        relation: correction
+  2024-24093:
+    behavior_classes_primary: [RECOVERY.REPOSSESSION, INSURANCE.CLAIMS, NEGOTIATION.TREATMENT, VENDOR.GOVERNANCE]
+    behavior_classes_secondary: [PAYMENT.FEES, DISPUTES.CREDIT_REPORTING]
+    change_type: interpretation
+    change_type_reason: "Supervisory findings (ACTION line: Supervisory highlights)"
+  2024-30758:
+    behavior_classes_primary: [NEGOTIATION.TREATMENT, ACCOUNT.MODIFICATION, STOP.TRIGGERS]
+    behavior_classes_secondary: [DISCLOSURE.REQUIRED, PAYMENT.AUTHORIZATION]
+    change_type: interpretation
+    change_type_reason: "Supervisory findings (ACTION line: Supervisory highlights)"
+  2024-31670:
+    behavior_classes_primary: [DISPUTES.CREDIT_REPORTING, PAYMENT.AUTHORIZATION]
+    behavior_classes_secondary: [STOP.TRIGGERS]
+    change_type: interpretation
+    change_type_reason: "Supervisory findings (ACTION line: Supervisory Highlights)"
+  2025-19671:
+    behavior_classes_primary: [DISPUTES.CREDIT_REPORTING]
+    behavior_classes_secondary: []
+    change_type: interpretation
+    change_type_reason: "Interpretive rule (ACTION line) stating how existing FCRA preemption applies; no rule text changed"
+  2024-23605:
+    behavior_classes_primary: [CONTACT.CONSENT, STOP.TRIGGERS]
+    behavior_classes_secondary: []
+  2024-29292:
+    review:
+      decision: not_relevant
+      reviewer: Angela
+      date: 2026-09-26
+      reason: "Not relevant under v1.1: advance notice of proposed rulemaking with no proposed text. On the STATUS.md watch list as a signal of future identity-theft block obligations under Regulation V."
+    behavior_classes_primary: []
+    behavior_classes_secondary: [DISPUTES.CREDIT_REPORTING]
+    tagging_note: "No primary class: an advance notice with no proposed text changes nothing the agent must do."
+  2026-18852:
+    behavior_classes_primary: [VENDOR.GOVERNANCE]
+    behavior_classes_secondary: [DATA.PRIVACY_SECURITY]
+  2026-18859:
+    behavior_classes_primary: [VENDOR.GOVERNANCE]
+    behavior_classes_secondary: []
+  2025-22490:
+    review:
+      decision: relevant
+      reviewer: Angela
+      date: 2026-09-26
+      reason: "Change in an obligation's legal status: breach-response guidance moved out of 12 CFR 748 into a Letter to Credit Unions with its text unchanged (v1.1 legal-status rule). Change type interpretation; required action control validation."
+      record:
+        affected_register_rows: [BANKSEC-GUIDE-001, NCUA-CYBER-001]
+        what_changed: "NCUA proposes removing Appendix B to 12 CFR part 748 (Guidance on Response Programs for Unauthorized Access to Member Information and Member Notice, issued June 2005) from the CFR and publishing the same content as guidance in a Letter to Credit Unions. NCUA says Appendix B is guidance for the response programs its regulation requires, that its CFR placement may confuse credit unions about its nonbinding status, and that the change alters no substantive compliance obligation. Comments were due February 9, 2026. The companion proposal 2025-22489 does the same for Appendix A (Guidelines for Safeguarding Member Information)."
+        compliant_agent_must_now: "No change until final, and no agent behavior change if adopted: the response-program requirement stays in NCUA's regulation. Control validation: check that credit union clients' incident-response and member-notice controls, and any servicing-provider contract terms, that cite 12 CFR 748 Appendix B still hold against the same content once it is reissued as a Letter to Credit Unions, and re-cite them to the new source."
+        open_questions_for_deploying_team:
+          - "Which credit union client contracts, incident-response procedures or member-notice templates cite 12 CFR 748 Appendix B by name?"
+          - "Once the content is a Letter to Credit Unions, NCUA can revise it without notice and comment. How will changes to the letter be tracked, given it will not appear in eCFR?"
+          - "Register gap: no row cites 12 CFR 748 Appendix B itself. Should BANKSEC-GUIDE-001 or NCUA-CYBER-001 be extended, or a row added, once the letter is issued?"
+    change_type: interpretation
+    change_type_reason: "Change in an obligation's legal status (moved out of the CFR into guidance, text unchanged); human review override"
+    behavior_classes_primary: [DATA.PRIVACY_SECURITY]
+    behavior_classes_secondary: []
+  2025-22489:
+    review:
+      decision: relevant
+      reviewer: Angela
+      date: 2026-09-26
+      reason: "Change in an obligation's legal status: the safeguarding guidelines move out of 12 CFR 748 (Appendix A) into a Letter to Credit Unions without substantive change (v1.1 legal-status rule; same as 2025-22490). Change type interpretation; required action control validation."
+      record:
+        affected_register_rows: [BANKSEC-GUIDE-001]
+        what_changed: "NCUA proposes removing Appendix A to 12 CFR part 748 (Guidelines for Safeguarding Member Information) from the CFR and providing its content through a Letter to Credit Unions. NCUA says Appendix A was issued to meet its statutory duty under the Gramm-Leach-Bliley Act to set standards for federally insured credit unions to protect the security and confidentiality of member information, and that the proposal removes nonbinding guidelines but would retain them in another format without substantive change. Comments were due February 9, 2026 (docket NCUA-2025-1304). The companion proposal 2025-22490 does the same for Appendix B (response programs and member notice)."
+        compliant_agent_must_now: "No change until final, and no agent behavior change if adopted: the proposal removes only the appendix of guidelines. Control validation: check that credit union clients' information-security program controls, and any servicing-provider contract terms, that cite 12 CFR 748 Appendix A still hold against the same content once it is reissued as a Letter to Credit Unions, and re-cite them to the new source."
+        open_questions_for_deploying_team:
+          - "Which credit union client contracts, security-program documents or vendor questionnaires cite 12 CFR 748 Appendix A by name?"
+          - "Once the content is a Letter to Credit Unions, NCUA can revise it without notice and comment. How will changes to the letter be tracked, given it will not appear in eCFR?"
+          - "Register row BANKSEC-GUIDE-001 cites '12 CFR part 748 & app. A (NCUA)'. Should its citation change once the letter is issued?"
+    change_type: interpretation
+    change_type_reason: "Change in an obligation's legal status (moved out of the CFR into guidance, without substantive change); human review override"
+    behavior_classes_primary: [DATA.PRIVACY_SECURITY]
+    behavior_classes_secondary: []

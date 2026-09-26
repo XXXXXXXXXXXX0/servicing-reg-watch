@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-22819",
+  "relevant": false,
+  "confidence": 0.97,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC bureaus seek comment refreshing the record on incarcerated people's communications services reporting templates.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Inmate calling services reporting; unrelated to consumer lending. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

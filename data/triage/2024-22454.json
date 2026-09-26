@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-22454",
+  "relevant": false,
+  "confidence": 0.95,
+  "change_type": "other",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC open meeting agenda for September 26, 2024, including a robocall blocking and mitigation item for carriers.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Meeting notice; items adopted are published separately. The robocall item concerns carrier blocking duties. Stage A: title, abstract and metadata only; full text not read."
+}

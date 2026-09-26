@@ -1,0 +1,103 @@
+# Florida state-layer rows (BUILD_SPEC 6.3). All rows status: verify.
+rows:
+  - id: FL-FCCPA-001
+    law: "Florida Consumer Collection Practices Act"
+    citation: "Fla. Stat. 559.72(17)"
+    source_url: "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0559/Sections/0559.72.html"
+    agency: state
+    jurisdiction: US-FL
+    applies_to: [first_party_creditors, third_party_collectors]
+    tier: 1
+    behavior_classes: [CONTACT.TIMING]
+    constraint: "Do not communicate with the debtor between 9 p.m. and 8 a.m. in the debtor's time zone without the debtor's prior consent. The Act reaches 'any person', including first-party lenders."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+
+  - id: FL-FCCPA-002
+    law: "Florida Consumer Collection Practices Act"
+    citation: "Fla. Stat. 559.72(7)"
+    source_url: "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0559/Sections/0559.72.html"
+    agency: state
+    jurisdiction: US-FL
+    applies_to: [first_party_creditors, third_party_collectors]
+    tier: 1
+    behavior_classes: [CONTACT.FREQUENCY]
+    constraint: "Do not willfully communicate with the debtor or the debtor's family with a frequency that can reasonably be expected to harass."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+
+  - id: FL-FCCPA-003
+    law: "Florida Consumer Collection Practices Act"
+    citation: "Fla. Stat. 559.72(18)"
+    source_url: "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0559/Sections/0559.72.html"
+    agency: state
+    jurisdiction: US-FL
+    applies_to: [first_party_creditors, third_party_collectors]
+    tier: 1
+    behavior_classes: [STOP.TRIGGERS]
+    constraint: "Do not communicate with a debtor if the person knows the debtor is represented by an attorney for the debt and knows, or can readily find out, the attorney's name and address, subject to the statute's exceptions."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+
+  - id: FL-FCCPA-004
+    law: "Florida Consumer Collection Practices Act"
+    citation: "Fla. Stat. 559.72(5)"
+    source_url: "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0559/Sections/0559.72.html"
+    agency: state
+    jurisdiction: US-FL
+    applies_to: [first_party_creditors, third_party_collectors]
+    tier: 1
+    behavior_classes: [IDENTITY.RIGHT_PARTY]
+    constraint: "Do not disclose information affecting the debtor's reputation for creditworthiness to a person other than the debtor or the debtor's family, with knowledge that the person has no legitimate business need for it."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+
+  - id: FL-REC-001
+    law: "Florida Security of Communications Act"
+    citation: "Fla. Stat. 934.03"
+    source_url: "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0934/Sections/0934.03.html"
+    agency: state
+    jurisdiction: US-FL
+    applies_to: [all_persons]
+    tier: 1
+    behavior_classes: [CONTACT.RECORDING]
+    constraint: "All-party consent. Intercepting or recording a wire or oral communication needs the prior consent of all parties. Disclose recording at the start of the call."
+    change_source: [manual]
+    provenance: added_by_analysis
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+
+  - id: FL-UCC9-001
+    law: "UCC Article 9 (Florida)"
+    citation: "Fla. Stat. 679.609, 679.611"
+    source_url: "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0600-0699/0679/Sections/0679.609.html"
+    agency: state
+    jurisdiction: US-FL
+    applies_to: [secured_parties]
+    tier: 2
+    behavior_classes: [RECOVERY.REPOSSESSION]
+    constraint: "Self-help repossession only without breach of the peace. Reasonable authenticated notification before disposition of collateral."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
