@@ -487,7 +487,7 @@ def test_no_secrets_in_tracked_files():
 
 
 # ------------------------------------------------------------ record metadata
-_RECORD = "# Change record: {d}\n\n| Change type | proposed_rule |\n\nBehavior classes: `PAYMENT.FEES`\n\n## Triage\n\n- Relevant: True\n\n## Reviewer sign-off\n\n- Reviewer:\n- Notes:\n"
+_RECORD = "# Change record: {d}\n\n| Change type | proposed_rule |\n\nBehavior classes: `PAYMENT.FEES`\n\n## What a compliant agent must now do\n\nX.\n\n## Triage\n\n- Relevant: True\n\n## Reviewer sign-off\n\n- Reviewer:\n- Notes:\n"
 
 
 def _meta_dir(tmp_path, meta):
@@ -519,3 +519,14 @@ def test_record_supersession_links(tmp_path):
     errs = records.check_meta(tmp_path, store)
     assert any("not mirrored" in e for e in errs) and any("unknown relation" in e for e in errs)
     assert any("not in the ingested store" in e for e in errs)
+
+
+def test_record_change_type_interpretation(tmp_path):
+    from pipeline import records
+    _meta_dir(tmp_path, {"P-1": {"change_type": "interpretation", "change_type_reason": "Supervisory findings"}})
+    records.annotate(tmp_path)
+    text = (tmp_path / "P-1.md").read_text()
+    assert "| Change type | interpretation |" in text and "| Required action | Control validation" in text
+    assert "| Change type basis | Supervisory findings |" in text
+    assert text.count(records.INTERPRETATION_NOTE) == 1
+    assert records.annotate(tmp_path)["annotated"] == []  # idempotent

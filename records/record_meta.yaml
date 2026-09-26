@@ -10,9 +10,16 @@
 # reverse the earlier record), amends, correction (the earlier record stays open).
 # Links are made only where the other document is in the ingested store
 # (data/raw/federal_register.jsonl.gz); each note says where the link is stated.
+#
+# change_type: the v1.1 change type for the record, where it differs from the v1 triage
+# output (which stays as it was). `interpretation` means control validation: check
+# existing controls against the stated interpretation (pipeline/triage_prompt.md).
+# change_type_reason says which v1.1 category applies.
 
 records:
   2024-22962:
+    change_type: interpretation
+    change_type_reason: "Advisory opinion (ACTION line) restating FDCPA and Regulation F provisions for medical debt"
     superseded_by:
       - doc_id: 2024-27791
         relation: amends
@@ -21,6 +28,8 @@ records:
         relation: withdrawal
         note: "item 3 of the withdrawal list cites this opinion (89 FR 80715)"
   2024-27791:
+    change_type: interpretation
+    change_type_reason: "Advisory opinion (ACTION line: revision of date of applicability)"
     supersedes:
       - doc_id: 2024-22962
         relation: amends
@@ -95,3 +104,15 @@ records:
     supersedes:
       - doc_id: 2024-30824
         relation: correction
+  2024-24093:
+    change_type: interpretation
+    change_type_reason: "Supervisory findings (ACTION line: Supervisory highlights)"
+  2024-30758:
+    change_type: interpretation
+    change_type_reason: "Supervisory findings (ACTION line: Supervisory highlights)"
+  2024-31670:
+    change_type: interpretation
+    change_type_reason: "Supervisory findings (ACTION line: Supervisory Highlights)"
+  2025-19671:
+    change_type: interpretation
+    change_type_reason: "Interpretive rule (ACTION line) stating how existing FCRA preemption applies; no rule text changed"

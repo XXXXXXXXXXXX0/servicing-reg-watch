@@ -141,17 +141,22 @@ nothing else: no prose, no code fences.
   - `final_rule`: final or interim final rule, including a rule that delays an
     effective date.
   - `proposed_rule`: NPRM, ANPR, or request for comment on regulatory text.
-  - `guidance`: advisory opinion, interpretive rule, policy statement, bulletin,
-    circular, FAQ, or interagency guidance.
+  - `guidance`: bulletin, circular, FAQ, or interagency guidance that sets new
+    expectations, including proposed guidance with text. (v1.1: advisory opinions,
+    interpretive rules and policy statements that interpret an existing obligation
+    are `interpretation`.)
   - `withdrawal`: withdrawal or rescission of guidance, of a proposed rule, or of a
     prior rule or policy.
-  - `enforcement_signal`: consent order, enforcement action notice, or supervisory
-    findings.
-  - `interpretation` (v1.1): a document that changes only an obligation's legal
+  - `enforcement_signal`: consent order or enforcement action notice. (v1.1:
+    supervisory findings are `interpretation`.)
+  - `interpretation` (v1.1): a document that states how an existing obligation
+    applies without changing its text: supervisory findings (including Supervisory
+    Highlights), advisory opinions, interpretive rules, policy statements, and
+    guidance that only restates existing law. Also a change in an obligation's legal
     status (codified, moved out of the CFR into guidance or back, or removed with its
-    content kept), or guidance that only restates existing law. The required action
-    is **control validation**: check existing controls against the stated
-    interpretation. It is not an agent behavior change unless validation finds a gap.
+    content kept). The required action is **control validation**: check existing
+    controls against the stated interpretation. It is not an agent behavior change
+    unless validation finds a gap; say so in `compliant_agent_must_now`.
   - `other`: anything else.
 - `effective_date`: `YYYY-MM-DD` taken from the document (`effective_on` or its DATES
   section). `null` if the document states none. Do not infer one.

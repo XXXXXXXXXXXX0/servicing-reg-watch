@@ -5,7 +5,7 @@ overwritten.
 
 records/record_meta.yaml holds what the records add on top of the model's
 triage output, which is never edited: links to later or earlier documents
-(supersedes / superseded_by). `annotate` applies it to the record files; `run`
+(supersedes / superseded_by) and the v1.1 change type. `annotate` applies it to the record files; `run`
 calls it after writing records.
 
     python -m pipeline.records [--data-dir DIR] [--records-dir DIR]
@@ -42,6 +42,10 @@ RELATION_EFFECT = {
     "amends": "amends",        # e.g. revised applicability date; record stays open
     "correction": "amends",    # FR correction document
 }
+CONTROL_VALIDATION = ("Control validation: check existing controls against the stated interpretation. "
+                      "No agent behavior change unless validation finds a gap.")
+INTERPRETATION_NOTE = ("> Change type is `interpretation`: validate existing controls against the text below. "
+                       "Change agent behavior only where validation finds a gap.")
 
 
 def _md_escape(s) -> str:
@@ -150,7 +154,26 @@ def _replace_section(text: str, heading: str, body: list[str], before: str) -> s
     return text.replace(f"{before}\n", f"{block}\n{before}\n", 1)
 
 
-def apply_meta(text: str, meta: dict, records_dir: Path) -> str:
+def _v1_change_type(doc_id: str) -> str | None:
+    path = data_paths()["triage"] / f"{doc_id}.json"
+    return read_json(path).get("change_type") if path.exists() else None
+
+
+def apply_meta(text: str, meta: dict, records_dir: Path, doc_id: str | None = None) -> str:
+    if meta.get("change_type"):
+        ct = meta["change_type"]
+        v1 = _v1_change_type(doc_id) if doc_id else None
+        rows = f"| Change type | {ct}" + (f" (v1 triage output: {v1})" if v1 and v1 != ct else "") + " |"
+        if ct == "interpretation":
+            rows += f"\n| Required action | {CONTROL_VALIDATION} |"
+        if meta.get("change_type_reason"):
+            rows += f"\n| Change type basis | {_md_escape(meta['change_type_reason'])} |"
+        text = re.sub(r"^\| Change type \|.*\|\n(?:\| (?:Required action|Change type basis) \|.*\|\n)*",
+                      lambda _: rows + "\n", text, count=1, flags=re.MULTILINE)
+        heading = "## What a compliant agent must now do\n\n"
+        text = text.replace(heading + INTERPRETATION_NOTE + "\n\n", heading)
+        if ct == "interpretation":
+            text = text.replace(heading, heading + INTERPRETATION_NOTE + "\n\n", 1)
     if "supersedes" in meta or "superseded_by" in meta:
         text = _replace_section(text, "## Supersession", _link_lines(meta, records_dir), "## Triage")
     return text
@@ -169,7 +192,7 @@ def annotate(records_dir: Path | None = None) -> dict:
         if SIGNED_OFF.search(text):
             signed.append(doc_id)
             continue
-        new = apply_meta(text, meta, records_dir)
+        new = apply_meta(text, meta, records_dir, doc_id)
         if new != text:
             path.write_text(new)
             changed.append(doc_id)
