@@ -31,6 +31,7 @@
 
 records:
   2024-22962:
+    v1_2_scope: {product_lines: [servicing, collections, recovery], product_lines_basis: primary, segments: [bank, credit_union, captive, specialty_lender], segments_unclear: [], segments_source: register_rows, priority: standard}
     review:
       decision: not_relevant
       reviewer: Angela
@@ -48,6 +49,7 @@ records:
         relation: withdrawal
         note: "item 3 of the withdrawal list cites this opinion (89 FR 80715)"
   2024-27791:
+    v1_2_scope: {product_lines: [servicing, collections, recovery], product_lines_basis: secondary, segments: [bank, credit_union, captive, specialty_lender], segments_unclear: [], segments_source: register_rows, priority: standard}
     review:
       decision: not_relevant
       reviewer: Angela
@@ -67,6 +69,7 @@ records:
         relation: withdrawal
         note: "withdraws the advisory opinion (89 FR 80715) whose date this document revised"
   2025-08286:
+    v1_2_scope: {product_lines: [servicing, collections, recovery, insurance_claims, disputes, compliance_audit], product_lines_basis: primary, segments: [bank, credit_union, captive, specialty_lender], segments_unclear: [], segments_source: register_rows, priority: high}
     behavior_classes_primary: [PAYMENT.FEES, NEGOTIATION.TREATMENT, DISPUTES.CREDIT_REPORTING, RECOVERY.REPOSSESSION, DATA.PRIVACY_SECURITY, STOP.TRIGGERS, DISCLOSURE.REQUIRED]
     behavior_classes_secondary: []
     supersedes:
@@ -77,6 +80,7 @@ records:
         relation: withdrawal
         note: "withdrawing the opinion also ends its revised applicability date"
   2024-28690:
+    v1_2_scope: {product_lines: [compliance_audit], product_lines_basis: primary, segments: [], segments_unclear: [bank, credit_union, captive, specialty_lender], segments_source: none, priority: standard}
     behavior_classes_primary: [DATA.PRIVACY_SECURITY]
     behavior_classes_secondary: [IDENTITY.RIGHT_PARTY]
     superseded_by:
@@ -84,6 +88,7 @@ records:
         relation: withdrawal
         note: "withdraws the proposed rule published at 89 FR 101402"
   2025-08644:
+    v1_2_scope: {product_lines: [servicing, collections, recovery, insurance_claims, disputes, compliance_audit], product_lines_basis: secondary, segments: [], segments_unclear: [bank, credit_union, captive, specialty_lender], segments_source: none, priority: standard}
     behavior_classes_primary: []
     behavior_classes_secondary: [IDENTITY.RIGHT_PARTY, DATA.PRIVACY_SECURITY]
     tagging_note: "No primary class: withdrawing a proposal changes no current obligation. The closure is routed through the superseded record 2024-28690."
@@ -91,6 +96,7 @@ records:
       - doc_id: 2024-28690
         relation: withdrawal
   2025-00633:
+    v1_2_scope: {product_lines: [servicing, collections, recovery], product_lines_basis: primary, segments: [bank, credit_union, captive, specialty_lender], segments_unclear: [], segments_source: register_rows, priority: standard}
     behavior_classes_primary: [NEGOTIATION.TREATMENT]
     behavior_classes_secondary: [PAYMENT.FEES, DISCLOSURE.REQUIRED]
     superseded_by:
@@ -98,6 +104,7 @@ records:
         relation: withdrawal
         note: "withdraws the proposed rule published at 90 FR 3566"
   2025-08645:
+    v1_2_scope: {product_lines: [servicing, collections, recovery], product_lines_basis: secondary, segments: [bank, credit_union, captive, specialty_lender], segments_unclear: [], segments_source: register_rows, priority: standard}
     behavior_classes_primary: []
     behavior_classes_secondary: [PAYMENT.FEES, NEGOTIATION.TREATMENT]
     tagging_note: "No primary class: withdrawing a proposal changes no current obligation. The closure is routed through the superseded record 2025-00633."
@@ -105,6 +112,7 @@ records:
       - doc_id: 2025-00633
         relation: withdrawal
   2025-19864:
+    v1_2_scope: {product_lines: [servicing, collections, recovery], product_lines_basis: primary, segments: [bank, credit_union, captive, specialty_lender], segments_unclear: [], segments_source: register_rows, priority: standard}
     behavior_classes_primary: [NEGOTIATION.TREATMENT]
     behavior_classes_secondary: []
     superseded_by:
@@ -115,6 +123,7 @@ records:
         relation: final_rule
         note: "final rule cites this proposal (90 FR 50901)"
   C1-2025-19864:
+    v1_2_scope: {product_lines: [servicing, collections, recovery], product_lines_basis: secondary, segments: [bank, credit_union, captive, specialty_lender], segments_unclear: [], segments_source: register_rows, priority: standard}
     behavior_classes_primary: []
     behavior_classes_secondary: [NEGOTIATION.TREATMENT]
     tagging_note: "No primary class: the correction conforms the printed proposal text, with no substantive change; see 2025-19864 and 2026-07804."
@@ -126,6 +135,7 @@ records:
         relation: final_rule
         note: "final rule cites these corrections (91 FR 9191)"
   2026-07804:
+    v1_2_scope: {product_lines: [servicing, collections, recovery], product_lines_basis: primary, segments: [bank, credit_union, captive, specialty_lender], segments_unclear: [], segments_source: register_rows, priority: standard}
     behavior_classes_primary: [NEGOTIATION.TREATMENT]
     behavior_classes_secondary: []
     supersedes:
@@ -134,6 +144,7 @@ records:
       - doc_id: C1-2025-19864
         relation: final_rule
   2026-05797:
+    v1_2_scope: {product_lines: [compliance_audit], product_lines_basis: primary, segments: [credit_union], segments_unclear: [], segments_source: agency, priority: standard}
     behavior_classes_primary: [VENDOR.GOVERNANCE]
     behavior_classes_secondary: []
     superseded_by:
@@ -141,12 +152,14 @@ records:
         relation: final_rule
         note: "final rule cites this proposal (91 FR 14484)"
   2026-16029:
+    v1_2_scope: {product_lines: [compliance_audit], product_lines_basis: primary, segments: [credit_union], segments_unclear: [], segments_source: agency, priority: standard}
     behavior_classes_primary: [VENDOR.GOVERNANCE]
     behavior_classes_secondary: []
     supersedes:
       - doc_id: 2026-05797
         relation: final_rule
   2024-30824:
+    v1_2_scope: {product_lines: [servicing, collections, recovery], product_lines_basis: primary, segments: [], segments_unclear: [bank, credit_union, captive, specialty_lender], segments_source: none, priority: standard}
     behavior_classes_primary: [NEGOTIATION.TREATMENT]
     behavior_classes_secondary: [DATA.PRIVACY_SECURITY, INSURANCE.CLAIMS]
     superseded_by:
@@ -154,6 +167,7 @@ records:
         relation: correction
         note: "no later withdrawal or vacatur of this rule is in the ingested store"
   C1-2024-30824:
+    v1_2_scope: {product_lines: [servicing, collections, recovery, compliance_audit], product_lines_basis: secondary, segments: [], segments_unclear: [bank, credit_union, captive, specialty_lender], segments_source: none, priority: standard}
     behavior_classes_primary: []
     behavior_classes_secondary: [NEGOTIATION.TREATMENT, DATA.PRIVACY_SECURITY]
     tagging_note: "No primary class: the correction fixes a misprinted year in the DATES section; the obligations are tagged on 2024-30824."
@@ -161,29 +175,35 @@ records:
       - doc_id: 2024-30824
         relation: correction
   2024-24093:
+    v1_2_scope: {product_lines: [servicing, collections, recovery, insurance_claims, compliance_audit], product_lines_basis: primary, segments: [bank, credit_union, captive, specialty_lender], segments_unclear: [], segments_source: register_rows, priority: standard}
     behavior_classes_primary: [RECOVERY.REPOSSESSION, INSURANCE.CLAIMS, NEGOTIATION.TREATMENT, VENDOR.GOVERNANCE]
     behavior_classes_secondary: [PAYMENT.FEES, DISPUTES.CREDIT_REPORTING]
     change_type: interpretation
     change_type_reason: "Supervisory findings (ACTION line: Supervisory highlights)"
   2024-30758:
+    v1_2_scope: {product_lines: [servicing, collections, recovery, disputes], product_lines_basis: primary, segments: [bank, credit_union, captive, specialty_lender], segments_unclear: [], segments_source: register_rows, priority: high}
     behavior_classes_primary: [NEGOTIATION.TREATMENT, ACCOUNT.MODIFICATION, STOP.TRIGGERS]
     behavior_classes_secondary: [DISCLOSURE.REQUIRED, PAYMENT.AUTHORIZATION]
     change_type: interpretation
     change_type_reason: "Supervisory findings (ACTION line: Supervisory highlights)"
   2024-31670:
+    v1_2_scope: {product_lines: [servicing, collections, recovery, disputes], product_lines_basis: primary, segments: [bank, credit_union, captive, specialty_lender], segments_unclear: [], segments_source: register_rows, priority: high}
     behavior_classes_primary: [DISPUTES.CREDIT_REPORTING, PAYMENT.AUTHORIZATION]
     behavior_classes_secondary: [STOP.TRIGGERS]
     change_type: interpretation
     change_type_reason: "Supervisory findings (ACTION line: Supervisory Highlights)"
   2025-19671:
+    v1_2_scope: {product_lines: [collections, disputes], product_lines_basis: primary, segments: [bank, credit_union, captive, specialty_lender], segments_unclear: [], segments_source: register_rows, priority: standard}
     behavior_classes_primary: [DISPUTES.CREDIT_REPORTING]
     behavior_classes_secondary: []
     change_type: interpretation
     change_type_reason: "Interpretive rule (ACTION line) stating how existing FCRA preemption applies; no rule text changed"
   2024-23605:
+    v1_2_scope: {product_lines: [servicing, collections, recovery, insurance_claims, disputes], product_lines_basis: primary, segments: [bank, credit_union, captive, specialty_lender], segments_unclear: [], segments_source: register_rows, priority: high}
     behavior_classes_primary: [CONTACT.CONSENT, STOP.TRIGGERS]
     behavior_classes_secondary: []
   2024-29292:
+    v1_2_scope: {product_lines: [collections, disputes], product_lines_basis: secondary, segments: [bank, credit_union, captive, specialty_lender], segments_unclear: [], segments_source: register_rows, priority: standard}
     review:
       decision: not_relevant
       reviewer: Angela
@@ -193,12 +213,15 @@ records:
     behavior_classes_secondary: [DISPUTES.CREDIT_REPORTING]
     tagging_note: "No primary class: an advance notice with no proposed text changes nothing the agent must do."
   2026-18852:
+    v1_2_scope: {product_lines: [compliance_audit], product_lines_basis: primary, segments: [bank], segments_unclear: [], segments_source: register_rows, priority: standard}
     behavior_classes_primary: [VENDOR.GOVERNANCE]
     behavior_classes_secondary: [DATA.PRIVACY_SECURITY]
   2026-18859:
+    v1_2_scope: {product_lines: [compliance_audit], product_lines_basis: primary, segments: [bank], segments_unclear: [], segments_source: register_rows, priority: standard}
     behavior_classes_primary: [VENDOR.GOVERNANCE]
     behavior_classes_secondary: []
   2025-22490:
+    v1_2_scope: {product_lines: [compliance_audit], product_lines_basis: primary, segments: [bank, credit_union], segments_unclear: [], segments_source: register_rows, priority: standard}
     review:
       decision: relevant
       reviewer: Angela
@@ -217,6 +240,7 @@ records:
     behavior_classes_primary: [DATA.PRIVACY_SECURITY]
     behavior_classes_secondary: []
   2025-22489:
+    v1_2_scope: {product_lines: [compliance_audit], product_lines_basis: primary, segments: [bank, credit_union], segments_unclear: [], segments_source: register_rows, priority: standard}
     review:
       decision: relevant
       reviewer: Angela

@@ -19,3 +19,13 @@ and `python -m pipeline.records check` validates it.
   Register document in the ingested store. A later withdrawal, final rule, disapproval or
   vacatur closes or reverses the earlier record. An amendment or correction leaves it open.
   Each record's "Supersession" section shows the links and the record status.
+
+## Product lines, segments and priority (v1.2)
+
+`annotate` computes each record's product lines (from its primary behavior classes via
+`taxonomy/product_lines.yaml`), segments (from its affected register rows via
+`taxonomy/segments.yaml`, or the issuing agency when no row is affected) and priority
+(rule in `taxonomy/product_lines.yaml`). The values are written to `record_meta.yaml`
+(`v1_2_scope`) and to the Document table of unsigned records. Signed records are not
+edited: their values appear only in `record_meta.yaml` and the generated indexes
+`BY_PRODUCT_LINE.md` and `BY_SEGMENT.md`. `REVIEW_QUEUE.md` is sorted by priority, then product line.

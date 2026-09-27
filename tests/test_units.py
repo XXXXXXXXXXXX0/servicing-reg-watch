@@ -595,3 +595,47 @@ def test_review_overrides(tmp_path):
     assert "Primary behavior classes (drive routing and review): `DATA.PRIVACY_SECURITY`" in created
     assert not records.SIGNED_OFF.search(created)  # confirmed relevant; still awaits sign-off
     assert records.annotate(tmp_path)["annotated"] == []
+
+
+def test_v1_2_priority_rule():
+    from pipeline.common import priority_for
+    assert priority_for(["CONTACT.TIMING"]) == "high" and priority_for(["PAYMENT.FEES"]) == "high"
+    assert priority_for(["DISPUTES.ERROR_RESOLUTION"]) == "high"  # fixed statutory deadlines on every dispute
+    assert priority_for(["INSURANCE.CLAIMS", "VENDOR.GOVERNANCE"]) == "standard"
+    assert priority_for([]) == "standard"
+
+
+def test_v1_2_record_scope_indexes_and_queue_sort(tmp_path):
+    """Scope goes into record_meta.yaml and unsigned records; a signed record is left
+    byte-identical; indexes list both; the queue sorts by priority then product line."""
+    from pipeline import records
+    from pipeline.common import load_segments
+    meta = {"P-1": {"behavior_classes_primary": ["INSURANCE.CLAIMS"]},
+            "W-2": {"behavior_classes_primary": ["CONTACT.CONSENT"],
+                    "review": {"decision": "not_relevant", "reviewer": "R", "date": "2026-01-01", "reason": "x"}}}
+    _meta_dir(tmp_path, meta)
+    for d in ("P-1", "W-2"):
+        (tmp_path / f"{d}.md").write_text((tmp_path / f"{d}.md").read_text().replace(
+            "| Change type |", "## Document\n\n| Field | Value |\n|---|---|\n| Change type |"))
+    records.annotate(tmp_path)  # signs and closes W-2
+    signed = (tmp_path / "W-2.md").read_text()
+    records.annotate(tmp_path)
+    assert (tmp_path / "W-2.md").read_text() == signed and "(v1.2)" not in signed
+    scope = records.load_record_meta(tmp_path)
+    assert scope["W-2"][records.SCOPE_KEY]["priority"] == "high"
+    assert scope["P-1"][records.SCOPE_KEY]["product_lines"] == ["insurance_claims"]
+    text = (tmp_path / "P-1.md").read_text()
+    assert "| Product lines (v1.2) | insurance_claims |" in text and "| Priority (v1.2) | standard |" in text
+    assert "[W-2](W-2.md)" in (tmp_path / "BY_PRODUCT_LINE.md").read_text()
+    assert "## bank" in (tmp_path / "BY_SEGMENT.md").read_text()
+    # agency fallback when no register row is affected
+    s = records.compute_scope({}, {}, {}, ["national-credit-union-administration"], load_segments())
+    assert s["segments"] == ["credit_union"] and s["segments_source"] == "agency"
+    item = {"html_url": "u", "title": "T", "type": "Rule", "publication_date": "2026", "route_reason": "relevant",
+            "relevant": True, "confidence": 0.9}
+    review = [{**item, "doc_id": d} for d in ("A", "B", "C")]
+    scopes = {"A": {**s, "priority": "standard", "product_lines": ["servicing"]},
+              "B": {**s, "priority": "high", "product_lines": ["disputes"]},
+              "C": {**s, "priority": "high", "product_lines": ["servicing"]}}
+    rows = [l for l in records.render_queue_index(review, 0, scopes).splitlines() if l.startswith("| [")]
+    assert [r[3] for r in rows] == ["C", "B", "A"]

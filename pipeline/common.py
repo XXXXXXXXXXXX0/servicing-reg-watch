@@ -92,6 +92,14 @@ def product_lines_for(classes) -> list[str]:
     return [line for line in pl["order"] if line in hit]
 
 
+def priority_for(primary_classes) -> str:
+    """'high' if any primary class matches the priority rule in product_lines.yaml, else 'standard'."""
+    pats = load_product_lines()["priority"]["high_classes"]
+    def hit(c):
+        return any(c.startswith(p[:-1]) if p.endswith(".*") else c == p for p in pats)
+    return "high" if any(hit(c) for c in primary_classes) else "standard"
+
+
 def load_segments() -> dict:
     """taxonomy/segments.yaml (v1.2): customer segments and the rules that map rows to them."""
     return yaml.safe_load(SEGMENTS_PATH.read_text())

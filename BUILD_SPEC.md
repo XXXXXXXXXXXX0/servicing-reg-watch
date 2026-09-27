@@ -142,6 +142,7 @@ Selection criteria: law reaches lenders collecting their own debts; stricter tha
 - What a compliant agent must now do
 - Questions the deploying team must answer: owning config/script, approver, rollout sequence, test evidence required
 - Triage confidence and reviewer sign-off field
+- v1.2: product lines, segments and priority (high when a primary class runs on every contact or transaction, or is DISPUTES.ERROR_RESOLUTION; rule in `taxonomy/product_lines.yaml`); indexes `records/BY_PRODUCT_LINE.md`, `records/BY_SEGMENT.md`; REVIEW_QUEUE.md sorted by priority, then product line. Signed records are not edited.
 - v1.1: `supersedes` / `superseded_by` links, so a later withdrawal, final rule, disapproval or vacatur closes or reverses the earlier record (`records/record_meta.yaml`; the model's triage output is not edited)
 
 ## 9. Deployment adapter (empty interface)

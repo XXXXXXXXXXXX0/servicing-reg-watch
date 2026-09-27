@@ -77,13 +77,18 @@ def fetch_chunk(client, agency, start, end, manifest):
     yield from results
 
 
-def ingest(client, start: dt.date, end: dt.date, data_dir=None, today: dt.date | None = None) -> dict:
+def ingest(client, start: dt.date, end: dt.date, data_dir=None, today: dt.date | None = None,
+           agencies: list[str] | None = None) -> dict:
     """Ingest the window, serving from the committed store where possible.
 
     The store (data/raw/federal_register.jsonl.gz) holds every document ever
     fetched. An agency-month is served from it, with no request, when the
     manifest shows that month was fetched completely after it had ended. Open
     months (the current one, or one fetched before it ended) are queried again.
+
+    `agencies` (v1.2) limits requests to those agencies: every other agency is
+    served from the store as it stands, open months included, with no request.
+    An empty list rebuilds the runtime raw JSON from the store alone.
     """
     paths = data_paths(data_dir)
     today = today or dt.date.today()
@@ -99,7 +104,8 @@ def ingest(client, start: dt.date, end: dt.date, data_dir=None, today: dt.date |
         for cs, ce in month_chunks(start, end):
             key = (agency, cs.isoformat(), ce.isoformat())
             m = months.get(key)
-            if m and m["complete"] and m["end"] < m["fetched_on"]:
+            store_only = agencies is not None and agency not in agencies
+            if store_only or (m and m["complete"] and m["end"] < m["fetched_on"]):
                 found = [r["document"] for r in store.values()
                          if agency in r.get("matched_agency_queries", [])
                          and key[1] <= r["document"].get("publication_date", "") <= key[2]]
@@ -132,7 +138,8 @@ def ingest(client, start: dt.date, end: dt.date, data_dir=None, today: dt.date |
             "offline_fixture": bool(getattr(client, "offline", False)),
             "document": doc,
         })
-    window_months = [months[(a, cs.isoformat(), ce.isoformat())]
+    missing = {"reported_count": 0, "retrieved": 0, "complete": False}  # never fetched (store-only run)
+    window_months = [months.get((a, cs.isoformat(), ce.isoformat()), {**missing, "agency": a})
                      for a in config.AGENCIES for cs, ce in month_chunks(start, end)]
     per_agency = {}
     for c in window_months:
@@ -156,7 +163,8 @@ def ingest(client, start: dt.date, end: dt.date, data_dir=None, today: dt.date |
         "chunks": manifest_chunks,  # sub-chunks queried in this run
         "month_chunks": sorted(months.values(), key=lambda m: (m["agency"], m["start"], m["end"])),
     }
-    write_json(paths["manifest"], manifest)
+    if agencies != []:  # a store-only rebuild fetched nothing and leaves the committed manifest alone
+        write_json(paths["manifest"], manifest)
     return manifest
 
 
@@ -221,6 +229,8 @@ def main(argv=None):
     ap.add_argument("--start", type=dt.date.fromisoformat)
     ap.add_argument("--end", type=dt.date.fromisoformat)
     ap.add_argument("--data-dir")
+    ap.add_argument("--agency", action="append", help="request only this agency (repeatable); others served from the store")
+    ap.add_argument("--store-only", action="store_true", help="make no requests: rebuild raw JSON from the store")
     ap.add_argument("--include-eval", action="store_true", help="text: also the eval sample (eval/labels.csv)")
     args = ap.parse_args(argv)
     client = make_client(args.offline)
@@ -230,7 +240,8 @@ def main(argv=None):
         return 0
     start, end = default_window()
     start, end = args.start or start, args.end or end
-    m = ingest(client, start, end, args.data_dir)
+    agencies = [] if args.store_only else args.agency
+    m = ingest(client, start, end, args.data_dir, agencies=agencies)
     print(f"ingest {m['window']['start']}..{m['window']['end']}: {m['unique_documents']} unique documents")
     for agency, s in m["per_agency"].items():
         flag = "" if s["incomplete_chunks"] == 0 else f"  INCOMPLETE CHUNKS: {s['incomplete_chunks']}"

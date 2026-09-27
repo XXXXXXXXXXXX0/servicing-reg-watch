@@ -42,3 +42,14 @@ class_product_lines:
   RECOVERY.REPOSSESSION: [recovery]
   INSURANCE.CLAIMS: [insurance_claims]
   VENDOR.GOVERNANCE: [compliance_audit]
+
+# Review priority of a change record (v1.2). A record is `high` when any of its
+# PRIMARY behavior classes matches `high_classes` (a trailing ".*" matches every
+# class with that prefix); otherwise `standard`.
+priority:
+  definition: >-
+    High when a primary behavior class runs on every contact or transaction:
+    CONTACT.*, DISCLOSURE.REQUIRED, IDENTITY.RIGHT_PARTY, STOP.TRIGGERS, PAYMENT.*.
+    DISPUTES.ERROR_RESOLUTION is also high: billing-error and EFT error resolution
+    carry fixed statutory deadlines on every dispute. Otherwise standard.
+  high_classes: [CONTACT.*, DISCLOSURE.REQUIRED, IDENTITY.RIGHT_PARTY, STOP.TRIGGERS, PAYMENT.*, DISPUTES.ERROR_RESOLUTION]

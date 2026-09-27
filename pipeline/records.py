@@ -23,7 +23,8 @@ from pathlib import Path
 
 import yaml
 
-from .common import RECORDS_DIR, data_paths, load_register, read_json, read_jsonl_gz
+from .common import (RECORDS_DIR, data_paths, load_product_lines, load_register, load_segments, priority_for,
+                     product_lines_for, read_json, read_jsonl_gz, row_segments)
 from .triage import class_tags
 
 STANDARD_QUESTIONS = [
@@ -273,6 +274,171 @@ def _patch_queue(records_dir: Path, meta: dict) -> None:
     path.write_text("\n".join(lines) + "\n")
 
 
+
+# ------------------------------------------------ v1.2 scope: lines, segments, priority
+SCOPE_KEY = "v1_2_scope"
+SCOPE_LABELS = ("Product lines (v1.2)", "Segments (v1.2)", "Priority (v1.2)")
+# Agency fallback for records with no affected register row.
+AGENCY_SEGMENTS = {"comptroller-of-the-currency": "bank", "federal-deposit-insurance-corporation": "bank",
+                   "federal-reserve-system": "bank", "national-credit-union-administration": "credit_union"}
+INDEX_FILES = ("REVIEW_QUEUE.md", "REVIEW_LOG.md", "README.md", "BY_PRODUCT_LINE.md", "BY_SEGMENT.md")
+
+
+def _store_docs() -> dict:
+    return {r["document"]["document_number"]: r["document"] for r in read_jsonl_gz(data_paths()["fr_store"])}
+
+
+def compute_scope(triage: dict | None, meta: dict, rows_by_id: dict, agencies: list[str], seg_spec: dict) -> dict:
+    """Product lines, segments and priority for one record or queue item.
+
+    Classes: the record_meta v1.1 primary/secondary split if present, else the triage
+    output. Product lines come from primary classes (from secondary, flagged, when a
+    record has no primary class). Segments: union over the affected register rows
+    (binds, and unclear where no row binds); with no row, the agency fallback."""
+    t = triage or {}
+    if "behavior_classes_primary" in meta or "behavior_classes_secondary" in meta:
+        primary, secondary = meta.get("behavior_classes_primary", []), meta.get("behavior_classes_secondary", [])
+    else:
+        primary, secondary = class_tags(t)
+    lines, basis = product_lines_for(primary), "primary"
+    if not lines and secondary:
+        lines, basis = product_lines_for(secondary), "secondary"
+    rec = (meta.get("review") or {}).get("record") or {}
+    rows = rec.get("affected_register_rows", t.get("affected_register_rows", []))
+    binds, unclear = [], []
+    for rid in rows:
+        if rid in rows_by_id:
+            b, u = row_segments(rows_by_id[rid], seg_spec)
+            binds += b
+            unclear += u
+    order = seg_spec["order"]
+    source = "register_rows"
+    if not rows:
+        binds = [AGENCY_SEGMENTS[a] for a in agencies if a in AGENCY_SEGMENTS]
+        source = "agency" if binds else "none"
+        unclear = [] if binds else list(order)
+    binds = [s for s in order if s in set(binds)]
+    unclear = [s for s in order if s in set(unclear) and s not in binds]
+    return {"product_lines": lines, "product_lines_basis": basis, "segments": binds, "segments_unclear": unclear,
+            "segments_source": source, "priority": priority_for(primary)}
+
+
+def _scope_flow(scope: dict) -> str:
+    def lst(v):
+        return "[" + ", ".join(v) + "]"
+    return ("{" + f"product_lines: {lst(scope['product_lines'])}, product_lines_basis: {scope['product_lines_basis']}, "
+            f"segments: {lst(scope['segments'])}, segments_unclear: {lst(scope['segments_unclear'])}, "
+            f"segments_source: {scope['segments_source']}, priority: {scope['priority']}" + "}")
+
+
+def write_scope_meta(records_dir: Path, scopes: dict) -> None:
+    """Write each record's computed scope into record_meta.yaml as a one-line
+    `v1_2_scope` entry (text edit, so comments and layout are kept). Records not yet
+    in the file get an entry appended."""
+    path = records_dir / META_FILE
+    text = path.read_text() if path.exists() else "records:\n"
+    for doc_id, scope in scopes.items():
+        line = f"    {SCOPE_KEY}: {_scope_flow(scope)}\n"
+        head = re.compile(rf"^  {re.escape(doc_id)}:[ \t]*\n", re.MULTILINE)
+        old = re.compile(rf"(^  {re.escape(doc_id)}:[ \t]*\n)    {SCOPE_KEY}: .*\n", re.MULTILINE)
+        if old.search(text):
+            text = old.sub(lambda m: m.group(1) + line, text, count=1)
+        elif head.search(text):
+            text = head.sub(lambda m: m.group(0) + line, text, count=1)
+        else:
+            text = text.rstrip("\n") + f"\n  {doc_id}:\n{line}"
+    path.write_text(text)
+
+
+def _scope_cells(scope: dict) -> tuple[str, str, str]:
+    lines = ", ".join(scope["product_lines"]) or "none"
+    if scope["product_lines"] and scope["product_lines_basis"] == "secondary":
+        lines += " (from secondary classes; no primary class)"
+    segs = ", ".join(scope["segments"])
+    if scope["segments_unclear"]:
+        segs += ("; " if segs else "") + "unclear: " + ", ".join(scope["segments_unclear"])
+    segs += {"agency": " (from agency; no register row)", "none": " (no register row)"}.get(scope["segments_source"], "")
+    return lines, segs or "none", scope["priority"]
+
+
+def apply_scope(text: str, scope: dict) -> str:
+    """Put the three v1.2 rows at the end of the record's Document table."""
+    text = re.sub(r"^\| (?:" + "|".join(re.escape(x) for x in SCOPE_LABELS) + r") \|.*\|\n", "", text, flags=re.MULTILINE)
+    rows = "".join(f"| {label} | {_md_escape(v)} |\n" for label, v in zip(SCOPE_LABELS, _scope_cells(scope)))
+    m = re.search(r"^## Document\n\n(?:\|.*\|\n)+", text, re.MULTILINE)
+    return text[:m.end()] + rows + text[m.end():] if m else text
+
+
+def record_status(meta: dict, signed: bool) -> str:
+    review = meta.get("review") or {}
+    if review.get("decision") == "not_relevant":
+        return "closed (human review: not relevant)"
+    closing = [x for x in meta.get("superseded_by", []) if RELATION_EFFECT[x["relation"]] in ("closes", "reverses")]
+    if closing:
+        return "; ".join(f"closed by {x['doc_id']} ({x['relation']})" for x in closing)
+    return "signed" if signed else "open"
+
+
+def render_indexes(records_dir: Path, scopes: dict, statuses: dict, titles: dict) -> dict[str, str]:
+    pl, seg = load_product_lines(), load_segments()
+    pri = {"high": 0, "standard": 1}
+
+    def row(d):
+        s = scopes[d]
+        lines, segs, _ = _scope_cells(s)
+        return (f"| [{d}]({d}.md) | {_md_escape(titles.get(d, ''))} | {s['priority']} | {_md_escape(lines)} | "
+                f"{_md_escape(segs)} | {_md_escape(statuses[d])} |")
+
+    head = ["| Record | Title | Priority | Product lines | Segments | Status |", "|---|---|---|---|---|---|"]
+    note = ("<!-- GENERATED by `python -m pipeline.records` (v1.2). Do not edit by hand. -->", "",
+            f"Priority rule: {pl['priority']['definition']}", "",
+            "Values come from `v1_2_scope` in record_meta.yaml. Signed records are not edited; their values appear only "
+            "here and in record_meta.yaml.", "")
+    by_line = ["# Change records by product line", "", *note]
+    for line in pl["order"]:
+        ids = sorted((d for d in scopes if line in scopes[d]["product_lines"]), key=lambda d: (pri[scopes[d]["priority"]], d))
+        by_line += [f"## {line} ({len(ids)})", "", pl["product_lines"][line]["description"], ""]
+        by_line += (head + [row(d) for d in ids]) if ids else ["No records."]
+        by_line.append("")
+    none = sorted(d for d in scopes if not scopes[d]["product_lines"])
+    by_line += [f"## No product line ({len(none)})", "", "Records with no behavior class.", ""]
+    by_line += (head + [row(d) for d in none]) if none else ["No records."]
+    by_seg = ["# Change records by customer segment", "", *note,
+              "A record binds a segment when one of its affected register rows binds it (taxonomy/segments.yaml). "
+              "With no affected row, the issuing agency is used where it settles the segment.", ""]
+    for s in seg["order"]:
+        b = sorted((d for d in scopes if s in scopes[d]["segments"]), key=lambda d: (pri[scopes[d]["priority"]], d))
+        u = sorted((d for d in scopes if s in scopes[d]["segments_unclear"]), key=lambda d: (pri[scopes[d]["priority"]], d))
+        by_seg += [f"## {s}", "", seg["segments"][s]["description"], "", f"### Binds ({len(b)})", ""]
+        by_seg += (head + [row(d) for d in b]) if b else ["No records."]
+        by_seg += ["", f"### Unclear ({len(u)})", ""]
+        by_seg += (head + [row(d) for d in u]) if u else ["No records."]
+        by_seg.append("")
+    return {"BY_PRODUCT_LINE.md": "\n".join(by_line).rstrip() + "\n", "BY_SEGMENT.md": "\n".join(by_seg).rstrip() + "\n"}
+
+
+def record_ids(records_dir: Path) -> list[str]:
+    return sorted(p.stem for p in records_dir.glob("*.md") if p.name not in INDEX_FILES)
+
+
+def scope_all(records_dir: Path) -> dict:
+    """Compute scope for every record file, write it to record_meta.yaml, and regenerate the indexes."""
+    rows_by_id, seg_spec, store = {r["id"]: r for r in load_register()}, load_segments(), _store_docs()
+    meta = load_record_meta(records_dir)
+    scopes, statuses, titles = {}, {}, {}
+    for d in record_ids(records_dir):
+        m = meta.get(d, {})
+        doc = store.get(d, {})
+        agencies = [a.get("slug") for a in doc.get("agencies", []) if a.get("slug")]
+        scopes[d] = compute_scope(_v1_output(d), m, rows_by_id, agencies, seg_spec)
+        statuses[d] = record_status(m, bool(SIGNED_OFF.search((records_dir / f"{d}.md").read_text())))
+        titles[d] = doc.get("title", "")
+    write_scope_meta(records_dir, scopes)
+    for name, text in render_indexes(records_dir, scopes, statuses, titles).items():
+        (records_dir / name).write_text(text)
+    return scopes
+
+
 def annotate(records_dir: Path | None = None) -> dict:
     """Apply record_meta.yaml to existing record files. Signed records are left alone."""
     records_dir = Path(records_dir or RECORDS_DIR)
@@ -287,11 +453,18 @@ def annotate(records_dir: Path | None = None) -> dict:
                 continue
             path.write_text(text)
             created.append(doc_id)
+    scopes = scope_all(records_dir)
+    all_meta = load_record_meta(records_dir)
+    for doc_id in record_ids(records_dir):
+        meta = all_meta.get(doc_id, {})
+        path = records_dir / f"{doc_id}.md"
         text = path.read_text()
         if SIGNED_OFF.search(text):
             signed.append(doc_id)
             continue
         new = apply_meta(text, meta, records_dir, doc_id)
+        if not SIGNED_OFF.search(new):  # a record signed off (e.g. by a review override) is never given v1.2 rows
+            new = apply_scope(new, scopes[doc_id])
         if new != text:
             path.write_text(new)
             changed.append(doc_id)
@@ -331,19 +504,49 @@ def check_meta(records_dir: Path | None = None, store_path: Path | None = None) 
     return errors
 
 
-def render_queue_index(review: list[dict], closed_count: int) -> str:
+def render_queue_index(review: list[dict], closed_count: int, scopes: dict | None = None) -> str:
+    """REVIEW_QUEUE.md. v1.2: sorted by priority (high first), then first product line in
+    canonical order (items with none last), then the router's order."""
+    scopes = scopes or {}
+    order = load_product_lines()["order"]
+
+    def key(ix):
+        i, item = ix
+        s = scopes.get(item["doc_id"]) or {}
+        lines = s.get("product_lines") or []
+        return (s.get("priority") != "high", order.index(lines[0]) if lines else len(order), i)
+
     out = ["# Review queue", "",
            f"{len(review)} documents awaiting human review; {closed_count} auto-closed "
            "(relevant=false, confidence ≥ 0.85; listed in data/queue/auto_closed.json).", "",
-           "| Document | Title | Type | Published | Route reason | Relevant | Confidence | Record |",
-           "|---|---|---|---|---|---|---|---|"]
-    for i in review:
+           "Sorted by priority, then product line (v1.2). Priority rule: taxonomy/product_lines.yaml; "
+           "by product line and segment: [BY_PRODUCT_LINE.md](BY_PRODUCT_LINE.md), [BY_SEGMENT.md](BY_SEGMENT.md).", "",
+           "| Document | Title | Priority | Product lines | Segments | Type | Published | Route reason | Relevant | Confidence | Record |",
+           "|---|---|---|---|---|---|---|---|---|---|---|"]
+    for _, i in sorted(enumerate(review), key=key):
+        s = scopes.get(i["doc_id"])
+        lines, segs, pri = _scope_cells(s) if s else ("—", "—", "—")
         rec = f"[record]({i['doc_id']}.md)" if i["route_reason"] == "relevant" else "—"
         conf = "—" if i["confidence"] is None else f"{i['confidence']:.2f}"
         rel = "—" if i["relevant"] is None else str(i["relevant"])
-        out.append(f"| [{i['doc_id']}]({i['html_url']}) | {_md_escape(i['title'])} | {i['type']} | "
-                   f"{i['publication_date']} | {i['route_reason']} | {rel} | {conf} | {rec} |")
+        out.append(f"| [{i['doc_id']}]({i['html_url']}) | {_md_escape(i['title'])} | {pri} | {_md_escape(lines)} | "
+                   f"{_md_escape(segs)} | {i['type']} | {i['publication_date']} | {i['route_reason']} | {rel} | {conf} | {rec} |")
     return "\n".join(out) + "\n"
+
+
+def queue_scopes(review: list[dict], records_dir: Path) -> dict:
+    """Scope per queue item: the record's v1_2_scope, else computed from its triage output."""
+    meta = load_record_meta(records_dir)
+    rows_by_id, seg_spec, store = {r["id"]: r for r in load_register()}, load_segments(), _store_docs()
+    out = {}
+    for item in review:
+        d = item["doc_id"]
+        if SCOPE_KEY in meta.get(d, {}):
+            out[d] = meta[d][SCOPE_KEY]
+        else:
+            agencies = [a.get("slug") for a in store.get(d, {}).get("agencies", []) if a.get("slug")]
+            out[d] = compute_scope(_v1_output(d), meta.get(d, {}), rows_by_id, agencies, seg_spec)
+    return out
 
 
 def run(data_dir=None, records_dir: Path | None = None) -> dict:
@@ -368,9 +571,10 @@ def run(data_dir=None, records_dir: Path | None = None) -> dict:
         diff = read_json(diff_path) if diff_path.exists() else None
         target.write_text(render_record(packet, triage, diff, rows_by_id))
         written.append(doc_id)
-    (records_dir / "REVIEW_QUEUE.md").write_text(render_queue_index(review, len(closed)))
-    return {"records_written": len(written), "signed_records_preserved": kept_signed,
-            "annotate": annotate(records_dir)}
+    ann = annotate(records_dir)
+    (records_dir / "REVIEW_QUEUE.md").write_text(render_queue_index(review, len(closed), queue_scopes(review, records_dir)))
+    _patch_queue(records_dir, load_record_meta(records_dir))
+    return {"records_written": len(written), "signed_records_preserved": kept_signed, "annotate": ann}
 
 
 def main(argv=None):
