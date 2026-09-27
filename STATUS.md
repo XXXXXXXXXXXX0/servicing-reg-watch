@@ -8,13 +8,10 @@ Branch: `claude/eloquent-goodall-jas2zw`. v1.2 complete; register pre-check revi
 - Records: 2024-30824 and C1-2024-30824 closed by the vacatur (external link); 2024-22962 meta notes its May 12, 2025 withdrawal (FR 2025-08286).
 - Congressional disapproval check (`pipeline/cra.py`, pipeline step 1b after ingest): GovInfo PLAW collection, window 2024-09-23..2026-09-24: 305 public laws, 23 CRA disapprovals (all confirmed by "no force or effect" text).
 - Matches in the store: P.L. 119-10 -> 2024-29699 (linked in meta; record already closed, signed); P.L. 119-11 -> 2024-27836 (CFPB digital payment apps larger participants; no change record, auto-closed at triage); P.L. 119-19 -> 2024-21560 (OCC bank merger rule; no change record).
-
 - README.md rewritten as a memo (about 2,500 words, counts from repo files); detail moved to `docs/DETAILS.md`; CLAUDE.md rule: run tests with CI's optional packages before pushing.
 
 ## Data files (committed)
-- Store: FR metadata (3,683 docs), manifest, eCFR, GovInfo, `data/raw/primary/` (+22 public laws: text `PLAW-*.htm.gz` and `PLAW-*.summary.json.gz`). The PLAW listing is fetched each run, not saved.
-- Runtime: `data/cra/disapprovals.json`.
-
+- Store: FR metadata (3,683 docs), manifest, eCFR, GovInfo, `data/raw/primary/` (+22 public laws: text `PLAW-*.htm.gz` and `PLAW-*.summary.json.gz`). The PLAW listing is fetched each run, not saved. Runtime: `data/cra/disapprovals.json`.
 ## Open issues
 - Court vacaturs remain uncovered by any automated check (2024-30824 was linked by hand).
 - The disapproval check reports unlinked matches; linking and closing stay a reviewed step (BUILD_SPEC Section 2).
