@@ -65,7 +65,7 @@ Derived from the regulations and public product descriptions. Not any vendor's i
 - INSURANCE.CLAIMS — total loss, GAP, appraisal-clause deadlines, lien release, collateral protection insurance, add-on refunds
 - VENDOR.GOVERNANCE — how bank and credit union customers examine an AI vendor
 
-**v1.2 scope expansion (after the v1 eval; not measured by it).** Product lines (`taxonomy/product_lines.yaml`): servicing, collections, recovery, insurance_claims, disputes (including chargebacks), compliance_audit; each behavior class maps to one or more lines.
+**v1.2 scope expansion (after the v1 eval; not measured by it).** Product lines (`taxonomy/product_lines.yaml`): servicing, collections, recovery, insurance_claims, disputes (including chargebacks), compliance_audit; each behavior class maps to one or more lines. Customer segments (`taxonomy/segments.yaml`): bank, credit_union, captive, specialty_lender; each register row is mapped to binds / not_bound / unclear per segment from its `applies_to` and `jurisdiction`, never by guessing (shown in INVENTORY.md).
 
 ## 6. Inventory
 Provenance key: **S** = named on Salient's public pages; **T** = named in a third-party description of Salient; **A** = added by analysis.

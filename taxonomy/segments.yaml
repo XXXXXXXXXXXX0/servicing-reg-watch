@@ -1,0 +1,61 @@
+# Customer segments (v1.2 scope expansion): which kinds of lender a register row binds.
+#
+# Derived by rule from each row's `applies_to` and `jurisdiction`, plus explicit
+# per-row overrides with a reason (pipeline/common.py: segment_map). Every row gets
+# one value per segment: binds | not_bound | unclear. `unclear` is used whenever the
+# register does not settle the question; it is never resolved by guessing.
+# Combining several applies_to entities: a segment binds if any entity binds it;
+# otherwise it is unclear if any entity leaves it unclear; otherwise not_bound.
+version: 1
+segments:
+  bank:
+    description: "National banks, state member and nonmember banks, savings associations (OCC, Fed, FDIC supervised)."
+  credit_union:
+    description: "Federally insured credit unions (NCUA supervised)."
+  captive:
+    description: "Captive finance companies owned by a vehicle manufacturer (nonbank)."
+  specialty_lender:
+    description: "Specialty and nonbank consumer lenders, including subprime and independent auto finance companies."
+
+order: [bank, credit_union, captive, specialty_lender]
+
+# applies_to entity -> value for each segment (segments not listed: not_bound).
+entity_rules:
+  all_callers: {all: binds, reason: "TCPA reaches callers generally."}
+  all_persons: {all: binds, reason: "Applies without entity limitation."}
+  creditors: {all: binds, reason: "Every segment extends consumer credit."}
+  first_party_creditors: {all: binds, reason: "Every segment collects its own debts."}
+  secured_parties: {all: binds, reason: "Every segment holds security interests in financed vehicles."}
+  furnishers: {all: binds, reason: "Every segment furnishes to consumer reporting agencies."}
+  covered_persons: {all: binds, reason: "CFPA covered persons include banks, credit unions and nonbank lenders."}
+  financial_institutions: {all: binds, reason: "Reg E / GLBA duties reach every segment in the covered role."}
+  ach_originators: {all: binds, reason: "Every segment that takes ACH payments originates entries under the Nacha Rules."}
+  third_party_collectors:
+    all: unclear
+    reason: "FDCPA binds a lender only when it acts as a debt collector (e.g. debt obtained in default, false-name exception); otherwise it binds the lender's collection vendors."
+  post_default_servicers:
+    all: unclear
+    reason: "FDCPA binds a lender only when it acts as a debt collector (e.g. debt obtained in default, false-name exception); otherwise it binds the lender's collection vendors."
+  nonbank_financial_companies:
+    bank: not_bound
+    credit_union: unclear
+    captive: binds
+    specialty_lender: binds
+    reason: "FTC Act jurisdiction excludes banks; its reach to state-chartered credit unions has not been researched."
+  banks: {bank: binds, reason: "Row applies to banks."}
+  credit_unions: {credit_union: binds, reason: "Row applies to credit unions."}
+  bank_service_providers: {all: not_bound, reason: "Binds the vendor, not the lender."}
+  service_providers: {all: unclear, reason: "Binds the vendor; which customer segments require it has not been researched."}
+  merchants_payment_processors: {all: unclear, reason: "Binds entities handling card data; which customer segments require it has not been researched."}
+  bot_operators: {all: unclear, reason: "Binds persons using bots in covered communications; coverage of servicing contacts has not been researched."}
+  deployers: {all: unclear, reason: "Binds deployers of high-risk AI systems; coverage of servicing agents has not been researched."}
+
+# Applied after entity_rules: state law rows do not settle whether they bind
+# federally chartered institutions.
+state_rule:
+  bank: unclear
+  credit_union: unclear
+  reason: "State law: federal-charter preemption for national banks and federal credit unions has not been researched (state-chartered institutions are bound)."
+
+# Per-row overrides: {row_id: {segment: value, reason: "..."}}
+row_overrides: {}

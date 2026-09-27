@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent
 REGISTER_DIR = ROOT / "register"
 TAXONOMY_PATH = ROOT / "taxonomy" / "behaviors.yaml"
 PRODUCT_LINES_PATH = ROOT / "taxonomy" / "product_lines.yaml"
+SEGMENTS_PATH = ROOT / "taxonomy" / "segments.yaml"
 SCHEMA_PATH = ROOT / "pipeline" / "triage_schema.json"
 PROMPT_PATH = ROOT / "pipeline" / "triage_prompt.md"
 FIXTURES_DIR = ROOT / "fixtures"
@@ -89,6 +90,43 @@ def product_lines_for(classes) -> list[str]:
     pl = load_product_lines()
     hit = {line for c in classes for line in pl["class_product_lines"].get(c, [])}
     return [line for line in pl["order"] if line in hit]
+
+
+def load_segments() -> dict:
+    """taxonomy/segments.yaml (v1.2): customer segments and the rules that map rows to them."""
+    return yaml.safe_load(SEGMENTS_PATH.read_text())
+
+
+SEGMENT_VALUES = ("binds", "unclear", "not_bound")  # strongest first
+
+
+def segment_map(row: dict, spec: dict | None = None) -> dict:
+    """{segment: {"value": binds|unclear|not_bound, "reason": str}} for a register row,
+    from its applies_to entities, the state rule and any per-row override."""
+    spec = spec or load_segments()
+    out = {}
+    for seg in spec["order"]:
+        best, reason = "not_bound", "No applies_to entity binds this segment."
+        for e in row.get("applies_to") or []:
+            rule = spec["entity_rules"].get(e, {})
+            v = rule.get(seg, rule.get("all", "not_bound"))
+            if SEGMENT_VALUES.index(v) < SEGMENT_VALUES.index(best):
+                best, reason = v, f"{e}: {rule.get('reason', '')}"
+        out[seg] = {"value": best, "reason": reason}
+    if str(row.get("jurisdiction", "")).startswith("US-") or row.get("jurisdiction") == "multi-state":
+        for seg, v in spec["state_rule"].items():
+            if seg in out and out[seg]["value"] == "binds":
+                out[seg] = {"value": v, "reason": spec["state_rule"]["reason"]}
+    for seg, v in (spec.get("row_overrides") or {}).get(row.get("id"), {}).items():
+        if seg in out:
+            out[seg] = {"value": v, "reason": spec["row_overrides"][row["id"]].get("reason", "row override")}
+    return out
+
+
+def row_segments(row: dict, spec: dict | None = None) -> tuple[list[str], list[str]]:
+    """(segments the row binds, segments unclear), in canonical order."""
+    m = segment_map(row, spec)
+    return ([s for s, v in m.items() if v["value"] == "binds"], [s for s, v in m.items() if v["value"] == "unclear"])
 
 
 def register_files() -> list[Path]:

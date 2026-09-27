@@ -67,6 +67,20 @@ def test_product_lines_map_every_class():
     assert product_lines_for(["INSURANCE.CLAIMS", "CONTACT.TIMING"])[0] == "servicing"
 
 
+def test_segment_map_rules():
+    from pipeline.common import load_segments, load_taxonomy, row_segments, segment_map
+    spec, entities = load_segments(), set(load_taxonomy()["covered_entities"])
+    assert set(spec["entity_rules"]) <= entities
+    rows = {r["id"]: r for r in load_register()}
+    assert all(e in spec["entity_rules"] for r in rows.values() for e in r["applies_to"])
+    assert all(v["value"] in ("binds", "unclear", "not_bound") and v["reason"]
+               for r in rows.values() for v in segment_map(r, spec).values())
+    assert row_segments(rows["REGF-FREQ-001"], spec) == ([], spec["order"])       # FDCPA: unclear, not guessed
+    assert row_segments(rows["FTC5-001"], spec) == (["captive", "specialty_lender"], ["credit_union"])
+    assert row_segments(rows["CA-ROSENTHAL-001"], spec)[1] == ["bank", "credit_union"]  # state rule
+    assert row_segments(rows["NCUA-CYBER-001"], spec) == (["credit_union"], [])
+
+
 def test_xml_to_lines():
     xml = "<DIV8><HEAD>§ 1 Head.</HEAD><P>(a) One <I>two</I>.</P><P>(b)  Three</P></DIV8>"
     assert xml_to_lines(xml) == ["§ 1 Head.", "(a) One two.", "(b) Three"]

@@ -12,7 +12,7 @@ import re
 import sys
 from collections import defaultdict
 
-from .common import REGISTER_DIR, load_backlog, load_register, load_taxonomy
+from .common import REGISTER_DIR, load_backlog, load_register, load_segments, load_taxonomy, row_segments
 
 INVENTORY_PATH = REGISTER_DIR / "INVENTORY.md"
 REQUIRED = ["id", "law", "citation", "source_url", "agency", "jurisdiction", "applies_to", "tier",
@@ -86,8 +86,14 @@ def _cell(v) -> str:
     return str(v if v is not None else "—").replace("|", "\\|").replace("\n", " ")
 
 
+def _segments_cell(row: dict, spec: dict) -> str:
+    binds, unclear = row_segments(row, spec)
+    return ", ".join(binds) + ("; " if binds and unclear else "") + (f"unclear: {', '.join(unclear)}" if unclear else "") or "none"
+
+
 def render(rows: list[dict], backlog: list[dict]) -> str:
     tax = load_taxonomy()
+    seg = load_segments()
     out = [
         "# Register inventory",
         "",
@@ -108,12 +114,13 @@ def render(rows: list[dict], backlog: list[dict]) -> str:
     ]
     for tier, label in ((1, "Tier 1: modeled, triaged, evaluated"), (2, "Tier 2: inventoried and monitored")):
         out += [f"## {label}", "",
-                "| ID | Law | Citation | Jurisdiction | Behavior classes | Change source | Prov | Status | Effective |",
-                "|---|---|---|---|---|---|---|---|---|"]
+                "| ID | Law | Citation | Jurisdiction | Behavior classes | Segments (v1.2) | Change source | Prov | Status | Effective |",
+                "|---|---|---|---|---|---|---|---|---|---|"]
         for r in sorted((r for r in rows if r["tier"] == tier and r["status"] != "unresearched"), key=lambda r: (r["jurisdiction"] != "federal", r["jurisdiction"], r["id"])):
             out.append("| " + " | ".join([
                 f"[{r['id']}]({r['source_url']})", _cell(r["law"]), _cell(r["citation"]), r["jurisdiction"],
                 ", ".join(r["behavior_classes"]) + (" (+ all conduct)" if r.get("cross_cutting") else ""),
+                _segments_cell(r, seg),
                 " + ".join(as_list(r["change_source"])), PROVENANCE[r["provenance"]], r["status"],
                 _cell(r.get("effective_date")),
             ]) + " |")
@@ -126,6 +133,15 @@ def render(rows: list[dict], backlog: list[dict]) -> str:
     for c in tax["behavior_classes"]:
         ids = sorted(by_class.get(c, []))
         out.append(f"| {c} | {', '.join(ids) or '**none**'} | {len(ids)} |")
+    out += ["", "## Coverage by customer segment (v1.2)", "",
+            "Derived from `applies_to` and `jurisdiction` by the rules in `taxonomy/segments.yaml`. "
+            "`unclear` means the register does not settle whether the row binds that segment.", "",
+            "| Segment | Rows that bind it | Binds | Unclear |", "|---|---|---|---|"]
+    maps = {r["id"]: row_segments(r, seg) for r in rows}
+    for s in seg["order"]:
+        b = sorted(i for i, (bi, _) in maps.items() if s in bi)
+        u = [i for i, (_, un) in maps.items() if s in un]
+        out.append(f"| {s} | {', '.join(b) or '**none**'} | {len(b)} | {len(u)} |")
     pending = sorted((r for r in rows if r["status"] == "unresearched" or r["jurisdiction"] == "multi-state"),
                      key=lambda r: r["id"])
     out += ["", "## Coverage map: state research pending", "",
