@@ -85,13 +85,14 @@ Total loss, GAP claims, appraisal-clause deadlines, lien release, collateral pro
 | [2024-24093](2024-24093.md) | Supervisory Highlights: Special Edition Auto Finance | standard | servicing, collections, recovery, insurance_claims, compliance_audit | bank, credit_union, captive, specialty_lender | open |
 | [2025-08644](2025-08644.md) | Protecting Americans From Harmful Data Broker Practices (Regulation V); Withdrawal of Proposed Rule | standard | servicing, collections, recovery, insurance_claims, disputes, compliance_audit (from secondary classes; no primary class) | unclear: bank, credit_union, captive, specialty_lender (no register row) | open |
 
-## disputes (7)
+## disputes (8)
 
 Credit-reporting disputes, billing-error and EFT error resolution, card chargebacks, claims and defenses on dealer-originated contracts.
 
 | Record | Title | Priority | Product lines | Segments | Status |
 |---|---|---|---|---|---|
 | [2024-23605](2024-23605.md) | Strengthening the Ability of Consumers To Stop Robocalls | high | servicing, collections, recovery, insurance_claims, disputes | bank, credit_union, captive, specialty_lender | open |
+| [2024-29699](2024-29699.md) | Overdraft Lending: Very Large Financial Institutions | high | disputes | bank, credit_union; unclear: captive, specialty_lender | closed (human review: relevant as published; closed) |
 | [2024-30758](2024-30758.md) | Supervisory Highlights: Special Edition Student Lending | high | servicing, collections, recovery, disputes | bank, credit_union, captive, specialty_lender | open |
 | [2024-31670](2024-31670.md) | Supervisory Highlights, Issue 37 (Winter 2024) | high | servicing, collections, recovery, disputes | bank, credit_union, captive, specialty_lender | open |
 | [2025-08286](2025-08286.md) | Interpretive Rules, Policy Statements, and Advisory Opinions; Withdrawal | high | servicing, collections, recovery, insurance_claims, disputes, compliance_audit | bank, credit_union, captive, specialty_lender | open |
@@ -99,7 +100,7 @@ Credit-reporting disputes, billing-error and EFT error resolution, card chargeba
 | [2025-08644](2025-08644.md) | Protecting Americans From Harmful Data Broker Practices (Regulation V); Withdrawal of Proposed Rule | standard | servicing, collections, recovery, insurance_claims, disputes, compliance_audit (from secondary classes; no primary class) | unclear: bank, credit_union, captive, specialty_lender (no register row) | open |
 | [2025-19671](2025-19671.md) | Fair Credit Reporting Act; Preemption of State Laws | standard | collections, disputes | bank, credit_union, captive, specialty_lender | open |
 
-## compliance_audit (11)
+## compliance_audit (13)
 
 Regulatory audit: data protection, recordkeeping, recording and AI disclosure controls, vendor examination by bank and credit-union customers.
 
@@ -111,7 +112,9 @@ Regulatory audit: data protection, recordkeeping, recording and AI disclosure co
 | [2025-08644](2025-08644.md) | Protecting Americans From Harmful Data Broker Practices (Regulation V); Withdrawal of Proposed Rule | standard | servicing, collections, recovery, insurance_claims, disputes, compliance_audit (from secondary classes; no primary class) | unclear: bank, credit_union, captive, specialty_lender (no register row) | open |
 | [2025-22489](2025-22489.md) | Guidelines for Safeguarding Member Information | standard | compliance_audit | bank, credit_union | open |
 | [2025-22490](2025-22490.md) | Guidance on Response Programs for Unauthorized Access to Member Information and Member Notice | standard | compliance_audit | bank, credit_union | open |
+| [2026-04761](2026-04761.md) | Records Preservation Program and Appendices-Record Retention Guidelines; Catastrophic Act Preparedness Guidelines | standard | compliance_audit | credit_union (from agency; no register row) | closed by 2026-12058 (final_rule) |
 | [2026-05797](2026-05797.md) | Third-Party Servicing of Indirect Vehicle Loans | standard | compliance_audit | credit_union (from agency; no register row) | closed by 2026-16029 (final_rule) |
+| [2026-12058](2026-12058.md) | Records Preservation Program and Appendices-Record Retention Guidelines; Catastrophic Act Preparedness Guidelines | standard | compliance_audit | credit_union (from agency; no register row) | open |
 | [2026-16029](2026-16029.md) | Third-Party Servicing of Indirect Vehicle Loans | standard | compliance_audit | credit_union (from agency; no register row) | open |
 | [2026-18852](2026-18852.md) | Proposed Third-Party Risk Management Guide for Traditional Community Banking Organizations | standard | compliance_audit | bank | open |
 | [2026-18859](2026-18859.md) | Proposed Third-Party Risk Management Guidance | standard | compliance_audit | bank | open |

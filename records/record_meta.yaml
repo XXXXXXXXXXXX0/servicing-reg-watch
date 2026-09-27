@@ -182,6 +182,12 @@ records:
     change_type_reason: "Supervisory findings (ACTION line: Supervisory highlights)"
   2024-30758:
     v1_2_scope: {product_lines: [servicing, collections, recovery, disputes], product_lines_basis: primary, segments: [bank, credit_union, captive, specialty_lender], segments_unclear: [], segments_source: register_rows, priority: high}
+    classes_added_by_review:
+      primary: [DISPUTES.CLAIMS_DEFENSES]
+      reviewer: Angela
+      date: 2026-09-27
+      reason: "v1.2 class conflict (eval/v1_2_conflicts.md): findings that servicers deceptively told borrowers whose contracts carry the holder notice that they could not assert claims and defenses against the holder. Added through record_meta.yaml only; the record file is not edited."
+    v1_2_scope: {product_lines: [servicing, collections, recovery, disputes], product_lines_basis: primary, segments: [bank, credit_union, captive, specialty_lender], segments_unclear: [], segments_source: register_rows, priority: high}
     behavior_classes_primary: [NEGOTIATION.TREATMENT, ACCOUNT.MODIFICATION, STOP.TRIGGERS]
     behavior_classes_secondary: [DISCLOSURE.REQUIRED, PAYMENT.AUTHORIZATION]
     change_type: interpretation
@@ -258,3 +264,81 @@ records:
     change_type_reason: "Change in an obligation's legal status (moved out of the CFR into guidance, without substantive change); human review override"
     behavior_classes_primary: [DATA.PRIVACY_SECURITY]
     behavior_classes_secondary: []
+  # ------------------------------------------------ v1.2 human review (2026-09-27)
+  2024-29699:
+    v1_2_scope: {product_lines: [disputes], product_lines_basis: primary, segments: [bank, credit_union], segments_unclear: [captive, specialty_lender], segments_source: register_rows, priority: high}
+    review:
+      decision: relevant
+      reviewer: Angela
+      date: 2026-09-27
+      reason: "Relevant as published under the v1.2 scope: the rule extended card dispute rights (Regulation Z claims and defenses and billing-error resolution) to overdraft credit at very large banks and credit unions. v1.2 scope expansion; the v1 eval label (N) and scores are unchanged."
+      close:
+        reason: "reported disapproved by Congress in 2025 under the Congressional Review Act; not confirmed from committed data"
+      record:
+        affected_register_rows: [REGZ-CLAIMS-001, REGZ-BILLERR-001]
+        what_changed: "CFPB final rule (89 FR 106768; effective October 1, 2025 as published) amending Regulations E and Z so that overdraft credit from very large financial institutions (over $10 billion in assets) is consumer credit under Regulation Z unless the fee only recovers estimated costs and losses (new 12 CFR 1026.62; changes to 1026.1-1026.4, 1026.42, 1026.60, the Regulation Z commentary, and 1005.10(e)(1) and its commentary). Above-breakeven overdraft credit accessed by a hybrid debit-credit card is brought under the credit card provisions, including the cardholder's right to assert claims and defenses against the card issuer (1026.12(c)) and billing-error resolution (1026.13). The committed eCFR store shows 12 CFR 1026.62 text in effect on 2025-10-01; no later document in the store disapproves or removes the rule."
+        compliant_agent_must_now: "No agent change while the record is closed. If the rule is confirmed in force at a bank or credit union client over $10 billion, an agent handling disputes on above-breakeven overdraft credit would route them through Regulation Z billing-error and claims-and-defenses procedures, and must not require automatic repayment as a condition of that credit (1005.10(e)(1))."
+        open_questions_for_deploying_team:
+          - "Is the rule in force? It is reported disapproved under the Congressional Review Act in 2025, but no committed document confirms that, and the committed eCFR text shows 12 CFR 1026.62 added on 2025-10-01."
+          - "Which bank and credit union clients exceed $10 billion in assets and offer overdraft credit through accounts the agent services?"
+    change_type: final_rule
+    change_type_reason: "Final rule as published; human review override"
+    behavior_classes_primary: [DISPUTES.CLAIMS_DEFENSES, DISPUTES.ERROR_RESOLUTION]
+    behavior_classes_secondary: [PAYMENT.AUTHORIZATION]
+  2025-00565:
+    review:
+      decision: not_relevant
+      reviewer: Angela
+      date: 2026-09-27
+      reason: "Concerns which payment apps and wallets Regulation E covers; those obligations bind wallet providers, not the vendor's lender customers. Closed (review-queue item; no change record)."
+  2025-08646:
+    review:
+      decision: not_relevant
+      reviewer: Angela
+      date: 2026-09-27
+      reason: "Withdraws 2025-00565, which concerns which payment apps and wallets Regulation E covers; those obligations bind wallet providers, not the vendor's lender customers. Closed (review-queue item; no change record)."
+  2026-04761:
+    v1_2_scope: {product_lines: [compliance_audit], product_lines_basis: primary, segments: [credit_union], segments_unclear: [], segments_source: agency, priority: standard}
+    review:
+      decision: relevant
+      reviewer: Angela
+      date: 2026-09-27
+      reason: "v1.1 legal-status rule: the proposed rewrite of 12 CFR 749 removes Appendix A (Record Retention Guidelines) from the CFR. Relevant, change type interpretation, primary RECORDS.RETENTION."
+      record:
+        affected_register_rows: []
+        what_changed: "NCUA proposes to rewrite 12 CFR part 749 as a vital records preservation program, update its definitions, add an expectation that a credit union oversee any third-party service provider maintaining its vital records, and remove Appendix A (Record Retention Guidelines, suggested retention periods for credit union records) and Appendix B (Catastrophic Act Preparedness Guidelines) from the CFR. NCUA states the appendices were nonbinding but were followed as requirements; other records preservation requirements are not superseded."
+        compliant_agent_must_now: "No change until final (finalized by 2026-12058). Control validation: identify credit union client retention schedules for call recordings, disclosures and payment records that rely on Appendix A, and re-base them on the retention rules that bind them (e.g. 12 CFR 1005.13, 1026.25, 1002.12)."
+        open_questions_for_deploying_team:
+          - "Which credit union clients' retention schedules cite 12 CFR 749 Appendix A?"
+          - "Register gap: no row covers 12 CFR 749. Should one be added for the vital records program and its third-party oversight sentence?"
+    change_type: interpretation
+    change_type_reason: "Change in legal status: record retention guidance removed from the CFR (v1.1 legal-status rule); human review override"
+    behavior_classes_primary: [RECORDS.RETENTION]
+    behavior_classes_secondary: [VENDOR.GOVERNANCE]
+    superseded_by:
+      - doc_id: 2026-12058
+        relation: final_rule
+        note: "final rule adopting the proposal mostly as proposed"
+  2026-12058:
+    v1_2_scope: {product_lines: [compliance_audit], product_lines_basis: primary, segments: [credit_union], segments_unclear: [], segments_source: agency, priority: standard}
+    review:
+      decision: relevant
+      reviewer: Angela
+      date: 2026-09-27
+      reason: "v1.1 legal-status rule: the final rewrite of 12 CFR 749 repeals Appendix A (Record Retention Guidelines) from the CFR and removes 12 CFR 703.105(d), which required reports to be kept per Appendix A. Relevant, change type interpretation, primary RECORDS.RETENTION."
+      record:
+        affected_register_rows: []
+        what_changed: "NCUA final rule, effective July 16, 2026, replacing 12 CFR part 749 with a vital records preservation program: 749.1 defines vital records (e.g. current share, deposit and loan balances by member); 749.2 requires a written program with a storage and destruction schedule and a records preservation log in any format; 749.3 requires oversight of any third-party service provider maintaining vital records; 749.4-749.5 allow any accurate, reproducible format. Appendix A (Record Retention Guidelines) and Appendix B are repealed from the CFR, and 12 CFR 703.105(d) is removed. 749.0(b): other records preservation requirements are not superseded."
+        compliant_agent_must_now: "No agent behavior change. Control validation from July 16, 2026: credit union client retention schedules that relied on the repealed Appendix A must rest on the retention rules that bind them (e.g. 12 CFR 1005.13, 1026.25, 1002.12, and 1006.100 where collection rules apply); if the deployment maintains any credit union vital records (e.g. loan balance lists), expect 749.3 oversight."
+        open_questions_for_deploying_team:
+          - "Which credit union clients' retention schedules or vendor contracts cite 12 CFR 749 Appendix A or 703.105(d)?"
+          - "Does the deployment maintain any credit union vital records, bringing it under 749.3 oversight?"
+          - "Register gap: no row covers 12 CFR 749."
+    change_type: interpretation
+    change_type_reason: "Change in legal status: record retention guidance removed from the CFR (v1.1 legal-status rule); human review override"
+    behavior_classes_primary: [RECORDS.RETENTION]
+    behavior_classes_secondary: [VENDOR.GOVERNANCE]
+    supersedes:
+      - doc_id: 2026-04761
+        relation: final_rule
+        note: "adopts the proposal mostly as proposed"

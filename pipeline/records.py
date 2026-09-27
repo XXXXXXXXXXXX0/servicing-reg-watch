@@ -195,16 +195,23 @@ def _review_lines(review: dict, v1: dict | None) -> list[str]:
         model = "no triage output"
     decision = {"relevant": "relevant: change record created or kept",
                 "not_relevant": "not relevant: record closed"}[review["decision"]]
+    close = review.get("close")
+    if close:
+        decision = "relevant as published: change record created, then closed by human review"
     return ["## Human review override", "",
             f"- Model answer (unchanged in data/triage/): {model}",
             f"- Reviewer decision: {decision}",
             f"- Reason: {review['reason']}",
+            *([f"- Closed: {close['reason']}"] if close else []),
             f"- Reviewed by {review['reviewer']} on {review['date']}",
             "- Logged in [REVIEW_LOG.md](REVIEW_LOG.md). The v1 eval scores are not affected.", ""]
 
 
 def _sign_off(text: str, review: dict) -> str:
     box = "- Decision: [ ] Confirm relevant, implement  [x] Not relevant, close  [ ] Escalate to counsel"
+    if review.get("close"):  # relevant as published, closed for a stated reason (e.g. rule no longer in force)
+        box = "- Decision: [ ] Confirm relevant, implement  [ ] Not relevant, close  [ ] Escalate to counsel  [x] Relevant; closed by review"
+        review = {**review, "reason": review["close"]["reason"]}
     text = re.sub(r"^- Decision:.*$", lambda _: box, text, count=1, flags=re.MULTILINE)
     text = re.sub(r"^- Reviewer:[ \t]*$", lambda _: f"- Reviewer: {review['reviewer']}", text, count=1, flags=re.MULTILINE)
     text = re.sub(r"^- Date:[ \t]*$", lambda _: f"- Date: {review['date']}", text, count=1, flags=re.MULTILINE)
@@ -252,7 +259,7 @@ def apply_meta(text: str, meta: dict, records_dir: Path, doc_id: str | None = No
     if meta.get("review"):
         text = _replace_section(text, "## Human review override",
                                 _review_lines(meta["review"], _v1_output(doc_id) if doc_id else None), "## Reviewer sign-off")
-        if meta["review"]["decision"] == "not_relevant":
+        if meta["review"]["decision"] == "not_relevant" or meta["review"].get("close"):
             text = _sign_off(text, meta["review"])
     return text
 
@@ -268,8 +275,10 @@ def _patch_queue(records_dir: Path, meta: dict) -> None:
             review = m.get("review")
             if review and line.startswith(f"| [{doc_id}]("):
                 cells = line.split(" | ")
-                cells[-1] = (f"[record]({doc_id}.md), human review: relevant |" if review["decision"] == "relevant"
-                             else f"[record]({doc_id}.md), human review: not relevant, closed |")
+                rec = f"[record]({doc_id}.md), " if (records_dir / f"{doc_id}.md").exists() else ""
+                outcome = ("relevant, closed" if review.get("close") else "relevant") if review["decision"] == "relevant" \
+                    else "not relevant, closed"
+                cells[-1] = f"{rec}human review: {outcome} |"
                 lines[i] = " | ".join(cells)
     path.write_text("\n".join(lines) + "\n")
 
@@ -300,6 +309,9 @@ def compute_scope(triage: dict | None, meta: dict, rows_by_id: dict, agencies: l
         primary, secondary = meta.get("behavior_classes_primary", []), meta.get("behavior_classes_secondary", [])
     else:
         primary, secondary = class_tags(t)
+    # v1.2 review additions (record_meta `classes_added_by_review`): count toward scope only.
+    added = meta.get("classes_added_by_review") or {}
+    primary = primary + [c for c in added.get("primary", []) if c not in primary]
     lines, basis = product_lines_for(primary), "primary"
     if not lines and secondary:
         lines, basis = product_lines_for(secondary), "secondary"
@@ -373,6 +385,8 @@ def record_status(meta: dict, signed: bool) -> str:
     review = meta.get("review") or {}
     if review.get("decision") == "not_relevant":
         return "closed (human review: not relevant)"
+    if review.get("close"):
+        return "closed (human review: relevant as published; closed)"
     closing = [x for x in meta.get("superseded_by", []) if RELATION_EFFECT[x["relation"]] in ("closes", "reverses")]
     if closing:
         return "; ".join(f"closed by {x['doc_id']} ({x['relation']})" for x in closing)
@@ -488,6 +502,10 @@ def check_meta(records_dir: Path | None = None, store_path: Path | None = None) 
             out = triage_dir / f"{doc_id}.json"
             v1 = read_json(out) if out.exists() else None
             # Re-tagging splits the model's classes; it adds and drops none. Review overrides are exempt.
+            added = m.get("classes_added_by_review") or {}
+            for c in added.get("primary", []):
+                if c in set(p) | set(sec):
+                    errors.append(f"{doc_id}: class added by review {c} is already tagged")
             if v1 and v1.get("relevant") and not m.get("review") and set(p) | set(sec) != set(class_tags(v1)[0] + class_tags(v1)[1]):
                 errors.append(f"{doc_id}: primary + secondary {sorted(set(p) | set(sec))} differ from the triage "
                               f"output's classes {sorted(set(class_tags(v1)[0] + class_tags(v1)[1]))}")

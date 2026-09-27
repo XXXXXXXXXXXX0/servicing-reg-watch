@@ -46,3 +46,9 @@
   UDAAP-PAYOFF-001 and UDAAP-INS-001.
 - The remaining hits (FCC, capital, AML, fee rules and others) were incidental uses of
   the search terms.
+
+## Resolution by human review (2026-09-27; `records/REVIEW_LOG.md`)
+
+- 2024-29699: relevant as published; record created, then closed by review (reported disapproved under the Congressional Review Act in 2025; not confirmed from committed data). On the watch list. Eval label N unchanged.
+- 2025-00565, 2025-08646: not relevant (obligations bind wallet providers, not lender customers); closed.
+- 2024-30758: DISPUTES.CLAIMS_DEFENSES added as a primary class in record_meta.yaml only.

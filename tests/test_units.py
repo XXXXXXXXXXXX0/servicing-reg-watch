@@ -659,3 +659,26 @@ def test_v1_2_record_scope_indexes_and_queue_sort(tmp_path):
               "C": {**s, "priority": "high", "product_lines": ["servicing"]}}
     rows = [l for l in records.render_queue_index(review, 0, scopes).splitlines() if l.startswith("| [")]
     assert [r[3] for r in rows] == ["C", "B", "A"]
+
+
+def test_v1_2_review_close_queue_only_and_added_classes(tmp_path):
+    """A relevant review with `close` creates then signs the record; a not_relevant review
+    of a queue item with no record patches the queue only; review-added classes count
+    toward scope without touching the record file."""
+    import yaml
+    from pipeline import records
+    real = records.load_record_meta()
+    meta = {"2025-22490": {**real["2025-22490"], "review": {**real["2025-22490"]["review"], "close": {"reason": "Rule gone."}}},
+            "Q-1": {"review": {"decision": "not_relevant", "reviewer": "R", "date": "2026-01-01", "reason": "Wallets."}},
+            "P-1": {"classes_added_by_review": {"primary": ["DISPUTES.CLAIMS_DEFENSES"]}}}
+    _meta_dir(tmp_path, meta)
+    (tmp_path / "record_meta.yaml").write_text(yaml.safe_dump({"records": meta}))
+    (tmp_path / "REVIEW_QUEUE.md").write_text("| [Q-1](u) | T | Rule | 2026 | not_relevant_low_confidence | False | 0.80 | — |\n")
+    before = (tmp_path / "P-1.md").read_text()
+    records.annotate(tmp_path)
+    created = (tmp_path / "2025-22490.md").read_text()
+    assert records.SIGNED_OFF.search(created) and "[x] Relevant; closed by review" in created and "- Closed: Rule gone." in created
+    assert "| human review: not relevant, closed |" in (tmp_path / "REVIEW_QUEUE.md").read_text()
+    scope = records.load_record_meta(tmp_path)["P-1"][records.SCOPE_KEY]
+    assert "disputes" in scope["product_lines"]
+    assert "DISPUTES.CLAIMS_DEFENSES" not in (tmp_path / "P-1.md").read_text().replace(before, "")

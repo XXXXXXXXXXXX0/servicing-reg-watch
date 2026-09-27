@@ -12,11 +12,12 @@ A record binds a segment when one of its affected register rows binds it (taxono
 
 National banks, state member and nonmember banks, savings associations (OCC, Fed, FDIC supervised).
 
-### Binds (18)
+### Binds (19)
 
 | Record | Title | Priority | Product lines | Segments | Status |
 |---|---|---|---|---|---|
 | [2024-23605](2024-23605.md) | Strengthening the Ability of Consumers To Stop Robocalls | high | servicing, collections, recovery, insurance_claims, disputes | bank, credit_union, captive, specialty_lender | open |
+| [2024-29699](2024-29699.md) | Overdraft Lending: Very Large Financial Institutions | high | disputes | bank, credit_union; unclear: captive, specialty_lender | closed (human review: relevant as published; closed) |
 | [2024-30758](2024-30758.md) | Supervisory Highlights: Special Edition Student Lending | high | servicing, collections, recovery, disputes | bank, credit_union, captive, specialty_lender | open |
 | [2024-31670](2024-31670.md) | Supervisory Highlights, Issue 37 (Winter 2024) | high | servicing, collections, recovery, disputes | bank, credit_union, captive, specialty_lender | open |
 | [2025-08286](2025-08286.md) | Interpretive Rules, Policy Statements, and Advisory Opinions; Withdrawal | high | servicing, collections, recovery, insurance_claims, disputes, compliance_audit | bank, credit_union, captive, specialty_lender | open |
@@ -48,11 +49,12 @@ National banks, state member and nonmember banks, savings associations (OCC, Fed
 
 Federally insured credit unions (NCUA supervised).
 
-### Binds (18)
+### Binds (21)
 
 | Record | Title | Priority | Product lines | Segments | Status |
 |---|---|---|---|---|---|
 | [2024-23605](2024-23605.md) | Strengthening the Ability of Consumers To Stop Robocalls | high | servicing, collections, recovery, insurance_claims, disputes | bank, credit_union, captive, specialty_lender | open |
+| [2024-29699](2024-29699.md) | Overdraft Lending: Very Large Financial Institutions | high | disputes | bank, credit_union; unclear: captive, specialty_lender | closed (human review: relevant as published; closed) |
 | [2024-30758](2024-30758.md) | Supervisory Highlights: Special Edition Student Lending | high | servicing, collections, recovery, disputes | bank, credit_union, captive, specialty_lender | open |
 | [2024-31670](2024-31670.md) | Supervisory Highlights, Issue 37 (Winter 2024) | high | servicing, collections, recovery, disputes | bank, credit_union, captive, specialty_lender | open |
 | [2025-08286](2025-08286.md) | Interpretive Rules, Policy Statements, and Advisory Opinions; Withdrawal | high | servicing, collections, recovery, insurance_claims, disputes, compliance_audit | bank, credit_union, captive, specialty_lender | open |
@@ -66,8 +68,10 @@ Federally insured credit unions (NCUA supervised).
 | [2025-19864](2025-19864.md) | Equal Credit Opportunity Act (Regulation B) | standard | servicing, collections, recovery | bank, credit_union, captive, specialty_lender | closed by 2026-07804 (final_rule) |
 | [2025-22489](2025-22489.md) | Guidelines for Safeguarding Member Information | standard | compliance_audit | bank, credit_union | open |
 | [2025-22490](2025-22490.md) | Guidance on Response Programs for Unauthorized Access to Member Information and Member Notice | standard | compliance_audit | bank, credit_union | open |
+| [2026-04761](2026-04761.md) | Records Preservation Program and Appendices-Record Retention Guidelines; Catastrophic Act Preparedness Guidelines | standard | compliance_audit | credit_union (from agency; no register row) | closed by 2026-12058 (final_rule) |
 | [2026-05797](2026-05797.md) | Third-Party Servicing of Indirect Vehicle Loans | standard | compliance_audit | credit_union (from agency; no register row) | closed by 2026-16029 (final_rule) |
 | [2026-07804](2026-07804.md) | Equal Credit Opportunity Act (Regulation B) | standard | servicing, collections, recovery | bank, credit_union, captive, specialty_lender | open |
+| [2026-12058](2026-12058.md) | Records Preservation Program and Appendices-Record Retention Guidelines; Catastrophic Act Preparedness Guidelines | standard | compliance_audit | credit_union (from agency; no register row) | open |
 | [2026-16029](2026-16029.md) | Third-Party Servicing of Indirect Vehicle Loans | standard | compliance_audit | credit_union (from agency; no register row) | open |
 | [C1-2025-19864](C1-2025-19864.md) | Equal Credit Opportunity Act (Regulation B) | standard | servicing, collections, recovery (from secondary classes; no primary class) | bank, credit_union, captive, specialty_lender | closed by 2026-07804 (final_rule) |
 
@@ -103,10 +107,11 @@ Captive finance companies owned by a vehicle manufacturer (nonbank).
 | [2026-07804](2026-07804.md) | Equal Credit Opportunity Act (Regulation B) | standard | servicing, collections, recovery | bank, credit_union, captive, specialty_lender | open |
 | [C1-2025-19864](C1-2025-19864.md) | Equal Credit Opportunity Act (Regulation B) | standard | servicing, collections, recovery (from secondary classes; no primary class) | bank, credit_union, captive, specialty_lender | closed by 2026-07804 (final_rule) |
 
-### Unclear (4)
+### Unclear (5)
 
 | Record | Title | Priority | Product lines | Segments | Status |
 |---|---|---|---|---|---|
+| [2024-29699](2024-29699.md) | Overdraft Lending: Very Large Financial Institutions | high | disputes | bank, credit_union; unclear: captive, specialty_lender | closed (human review: relevant as published; closed) |
 | [2024-28690](2024-28690.md) | Protecting Americans From Harmful Data Broker Practices (Regulation V) | standard | compliance_audit | unclear: bank, credit_union, captive, specialty_lender (no register row) | closed by 2025-08644 (withdrawal) |
 | [2024-30824](2024-30824.md) | Prohibition on Creditors and Consumer Reporting Agencies Concerning Medical Information (Regulation V) | standard | servicing, collections, recovery | unclear: bank, credit_union, captive, specialty_lender (no register row) | open |
 | [2025-08644](2025-08644.md) | Protecting Americans From Harmful Data Broker Practices (Regulation V); Withdrawal of Proposed Rule | standard | servicing, collections, recovery, insurance_claims, disputes, compliance_audit (from secondary classes; no primary class) | unclear: bank, credit_union, captive, specialty_lender (no register row) | open |
@@ -135,10 +140,11 @@ Specialty and nonbank consumer lenders, including subprime and independent auto 
 | [2026-07804](2026-07804.md) | Equal Credit Opportunity Act (Regulation B) | standard | servicing, collections, recovery | bank, credit_union, captive, specialty_lender | open |
 | [C1-2025-19864](C1-2025-19864.md) | Equal Credit Opportunity Act (Regulation B) | standard | servicing, collections, recovery (from secondary classes; no primary class) | bank, credit_union, captive, specialty_lender | closed by 2026-07804 (final_rule) |
 
-### Unclear (4)
+### Unclear (5)
 
 | Record | Title | Priority | Product lines | Segments | Status |
 |---|---|---|---|---|---|
+| [2024-29699](2024-29699.md) | Overdraft Lending: Very Large Financial Institutions | high | disputes | bank, credit_union; unclear: captive, specialty_lender | closed (human review: relevant as published; closed) |
 | [2024-28690](2024-28690.md) | Protecting Americans From Harmful Data Broker Practices (Regulation V) | standard | compliance_audit | unclear: bank, credit_union, captive, specialty_lender (no register row) | closed by 2025-08644 (withdrawal) |
 | [2024-30824](2024-30824.md) | Prohibition on Creditors and Consumer Reporting Agencies Concerning Medical Information (Regulation V) | standard | servicing, collections, recovery | unclear: bank, credit_union, captive, specialty_lender (no register row) | open |
 | [2025-08644](2025-08644.md) | Protecting Americans From Harmful Data Broker Practices (Regulation V); Withdrawal of Proposed Rule | standard | servicing, collections, recovery, insurance_claims, disputes, compliance_audit (from secondary classes; no primary class) | unclear: bank, credit_union, captive, specialty_lender (no register row) | open |
