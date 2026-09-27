@@ -79,6 +79,9 @@ def validate_rows(rows: list[dict]) -> list[str]:
                 errors.append(f"{where}: unknown change_source {s}")
         if "ecfr" in srcs and not r.get("ecfr"):
             errors.append(f"{where}: change_source includes ecfr but no ecfr part given")
+    # Pre-check fields (machine_check, preemption, federal_interaction): pipeline/verify.py
+    from .verify import validate as validate_checks
+    errors += validate_checks(rows)
     return errors
 
 

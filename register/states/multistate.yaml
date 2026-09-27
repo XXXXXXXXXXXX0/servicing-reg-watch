@@ -23,6 +23,16 @@ rows:
     effective_date: null
     last_checked: null
     notes: "Rules vary by state. The citation is a federal supervisory publication (UDAAP findings), not a state law; state primary sources are still unresearched. applies_to is provisional pending research."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/govinfo/2022-09690.htm.gz
+      note: 'The finding is sec. 2.1.3 (''Overcharging for Add-on Products''): servicers engaged in unfair practices by failing to request refunds of unearned GAP fees from third-party administrators and apply them after repossession, which inflated deficiency balances. The row''s constraint still says the wording was ''not yet read''; it can be updated to cite sec. 2.1.3.'
+    federal_interaction:
+    - row: UDAAP-INS-001
+      stricter: different_scope
+      note: Same federal supervisory theme (FR Doc. 2024-24093 secs. 2.4.6, 2.4.9); no state law is identified in this row.
 
   - id: INS-APPRAISAL-001
     law: "Appraisal-clause deadlines (total-loss valuation disputes)"
@@ -41,6 +51,7 @@ rows:
     effective_date: null
     last_checked: null
     notes: "Rules vary by state. applies_to is provisional pending research."
+    federal_interaction_note: 'Unresearched: no state primary source identified, so no federal interaction assessed.'
 
   - id: INS-LIEN-001
     law: "Lien release timing laws"
@@ -59,6 +70,7 @@ rows:
     effective_date: null
     last_checked: null
     notes: "Rules vary by state. applies_to is provisional pending research."
+    federal_interaction_note: 'Unresearched: no state primary source identified, so no federal interaction assessed.'
 
   - id: INS-CPI-001
     law: "Collateral protection insurance rules"
@@ -77,6 +89,7 @@ rows:
     effective_date: null
     last_checked: null
     notes: "Rules vary by state. applies_to is provisional pending research."
+    federal_interaction_note: 'Unresearched: no state primary source identified, so no federal interaction assessed.'
 
   - id: STATE-CREDITRPT-001
     law: "State credit reporting and furnishing laws"
@@ -95,6 +108,7 @@ rows:
     effective_date: null
     last_checked: null
     notes: "Raised as a register gap in record 2025-19671. That CFPB interpretive rule (FR Doc. 2025-19671) says 15 USC 1681t(b)(1)(E) and (F) broadly preempt such state laws. It also acknowledges that courts decide preemption and that several circuits read the clause narrowly. No state statute is cited in the committed text for CA, FL, MA or TX. Research item in register/research_backlog.yaml."
+    federal_interaction_note: 'Unresearched: no state primary source identified, so no federal interaction assessed.'
 
 
   # v1.2 scope expansion: state rows left unresearched (no primary source identified).
@@ -115,6 +129,7 @@ rows:
     effective_date: null
     last_checked: null
     notes: "v1.2. Payoff quotes are a named vendor servicing task."
+    federal_interaction_note: 'Unresearched: no state primary source identified, so no federal interaction assessed.'
 
   - id: STATE-TOTALLOSS-001
     law: "Total-loss claim handling and settlement laws"
@@ -133,3 +148,4 @@ rows:
     effective_date: null
     last_checked: null
     notes: "v1.2. Total loss is a named vendor insurance-claims task."
+    federal_interaction_note: 'Unresearched: no state primary source identified, so no federal interaction assessed.'

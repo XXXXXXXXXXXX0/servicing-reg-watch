@@ -16,6 +16,17 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/fl/559.72.htm.gz
+      - data/raw/primary/fl/559.55.htm.gz
+      note: 559.72(17) excludes e-mail sent to an e-mail address that otherwise complies, and lets the caller presume the time zone of the area code called.
+    federal_interaction:
+    - row: REGF-TIME-001
+      stricter: different_scope
+      note: 'Same hours; reaches any person, including first-party creditors; only the debtor''s prior consent lifts it. Fla. Stat. 559.552: where the Act and the FDCPA conflict, ''the provision which is more protective of the consumer or debtor shall prevail''.'
 
   - id: FL-FCCPA-002
     law: "Florida Consumer Collection Practices Act"
@@ -33,6 +44,15 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/fl/559.72.htm.gz
+    federal_interaction:
+    - row: REGF-FREQ-001
+      stricter: different_scope
+      note: Reaches first-party creditors and the debtor's family; harassment standard with no numeric cap.
 
   - id: FL-FCCPA-003
     law: "Florida Consumer Collection Practices Act"
@@ -50,6 +70,16 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/fl/559.72.htm.gz
+      note: 'Exceptions in 559.72(18): the attorney fails to respond within 30 days, the attorney consents, or the debtor initiates the communication.'
+    federal_interaction:
+    - row: REGF-STOP-002
+      stricter: unclear
+      note: 'Reaches first-party creditors. A fixed 30-day attorney response period (federal: ''a reasonable period of time'') and a debtor-initiated exception with no federal counterpart; whether it is stricter depends on the facts.'
 
   - id: FL-FCCPA-004
     law: "Florida Consumer Collection Practices Act"
@@ -67,6 +97,20 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: mismatch
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/fl/559.72.htm.gz
+      mismatches:
+      - row_says: Do not disclose information affecting the debtor's reputation for creditworthiness to a person other than the debtor or the debtor's family, with knowledge that the person has no legitimate business need for it.
+        source_cite: Fla. Stat. 559.72(5)
+        source_says: Disclose to a person other than the debtor or her or his family information affecting the debtor's reputation, whether or not for credit worthiness, with knowledge or reason to know that the other person does not have a legitimate business need for the information or that the information is false.
+      note: 'The statute is broader than the row on three points: reputation ''whether or not for credit worthiness'', ''knowledge or reason to know'', and information known to be false.'
+    federal_interaction:
+    - row: REGF-IDENT-001
+      stricter: different_scope
+      note: Reaches first-party creditors; for FDCPA collectors the federal third-party ban (any communication about the debt) is broader.
 
   - id: FL-REC-001
     law: "Florida Security of Communications Act"
@@ -84,6 +128,13 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/fl/934.03.htm.gz
+      note: 'All-party consent exception at 934.03(2)(d): lawful ''when all of the parties to the communication have given prior consent''.'
+    federal_interaction_note: No federal recording-consent row in the register (the federal wiretap statute is not modeled), so there is no federal row to compare.
 
   - id: FL-UCC9-001
     law: "UCC Article 9 (Florida)"
@@ -101,3 +152,17 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/fl/679.609.htm.gz
+      - data/raw/primary/fl/679.611.htm.gz
+      note: Florida's text now says 'signed notification' where the row says 'authenticated'.
+    federal_interaction:
+    - row: SCRA-REPO-001
+      stricter: different_scope
+      note: SCRA court-order requirement applies on top for covered servicemembers.
+    - row: BK-STAY-001
+      stricter: different_scope
+      note: Repossession and disposition are stayed once a petition is filed.

@@ -18,3 +18,13 @@ rows:
     effective_date: null
     last_checked: null
     notes: "Status in flux (BUILD_SPEC). The effective date was delayed by 2025 legislation and may have been changed or amended again. Do not rely on any date until checked."
+    machine_check:
+      result: not_checkable
+      date: '2026-09-27'
+      reason: source blocked
+      sources:
+      - 'not fetched: https://leg.colorado.gov/bills/sb24-205 (leg.colorado.gov denied by the session''s network policy on 2026-09-27)'
+    federal_interaction:
+    - row: TCPA-AIVOICE-001
+      stricter: different_scope
+      note: Disclosure duty (row wording, not checked) versus TCPA consent for AI-voice calls.

@@ -269,6 +269,26 @@ def test_inventory_regenerates_from_yaml():
     assert inventory.main(["--check"]) == 0
 
 
+def test_precheck_fields_validated_and_report_current():
+    from pipeline import verify
+    rows = load_register()
+    # every verify row carries a machine check; the check never changes status
+    assert all(r.get("machine_check") for r in rows if r["status"] == "verify")
+    assert all(r.get("preemption") for r in rows if r["jurisdiction"] == "federal")
+    row = next(r for r in rows if r["id"] == "REGF-FREQ-001")
+    assert verify.validate([{**row, "machine_check": {"result": "mismatch", "date": "2026-09-27"}}]) != []
+    assert verify.validate([{**row, "machine_check": {"result": "verified", "date": "2026-09-27"}}]) != []
+    assert verify.validate([{**row, "preemption": {"type": "floor"}}]) != []  # needs quote and citation
+    assert verify.main(["report", "--check"]) == 0
+
+
+def test_precheck_sources_read_from_store_without_network():
+    from pipeline import verify
+    spec = verify.load_sources()
+    text, store = verify.fetch_source(None, "ecfr-12-1006.104", spec["sources"]["ecfr-12-1006.104"], str(spec["ecfr_date"]))
+    assert "Relation to State laws" in text and Path(store).exists()
+
+
 # --------------------------------------------------------------------- eval
 def test_eval_scores_fixture_labels(offline_run, tmp_path):
     import run_eval

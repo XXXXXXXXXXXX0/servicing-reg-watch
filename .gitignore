@@ -14,6 +14,11 @@ data/raw/ecfr/*
 !data/raw/fr_search/
 data/raw/fr_search/*
 !data/raw/fr_search/*.json.gz
+# Primary text for the register pre-check (U.S. Code, state sites, public laws).
+!data/raw/primary/
+data/raw/primary/**/*.*
+!data/raw/primary/**/
+!data/raw/primary/**/*.htm.gz
 # In-session triage output is committed (it cannot be regenerated without redoing the work).
 !data/triage/
 data/triage/_rejected/

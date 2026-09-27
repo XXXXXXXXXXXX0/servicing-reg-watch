@@ -34,6 +34,20 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title47-section227.htm.gz
+      - data/raw/ecfr/2026-09-24_title-47.xml_part-64_section-64.1200.gz
+      note: 47 USC 227(b)(1)(A)(iii) and (B); 47 CFR 64.1200(a)(1)-(3) confirmed. The residential-line consent exemptions are the numerical limits in 64.1200(a)(3)(ii)-(v).
+    preemption:
+      type: mixed
+      citation: 47 USC 227(f)(1)
+      quote: Except for the standards prescribed under subsection (d) and subject to paragraph (2) of this subsection, nothing in this section or in the regulations prescribed under this section shall preempt any State law that imposes more restrictive intrastate requirements or regulations on, or which prohibits- ... (B) the use of automatic telephone dialing systems; (C) the use of artificial or prerecorded voice messages; or (D) the making of telephone solicitations.
+      sources:
+      - data/raw/primary/uscode/title47-section227.htm.gz
+      note: Saves more restrictive state rules on intrastate calls; the text does not address state rules on interstate calls, and the subsection (d) technical standards are excluded from the savings clause. 47 CFR 64.1200 has no separate state-law provision.
 
   - id: TCPA-AIVOICE-001
     law: "Telephone Consumer Protection Act"
@@ -52,6 +66,21 @@ rows:
     effective_date: 2024-02-08
     last_checked: null
     notes: "BUILD_SPEC flags this citation as 'verify cite'. Effective date assumes a declaratory ruling is effective on release; confirm."
+    machine_check:
+      result: not_checkable
+      date: '2026-09-27'
+      reason: source blocked
+      sources:
+      - 'not fetched: https://docs.fcc.gov/public/attachments/FCC-24-17A1.pdf (docs.fcc.gov denied by the session''s network policy on 2026-09-27)'
+      - data/raw/govinfo/2024-19028.htm.gz
+      note: The ruling (docs.fcc.gov) could not be fetched. The FCC's own notice FR Doc. 2024-19028 (89 FR 73321, CG Docket No. 23-362) states 'the AI Declaratory Ruling in which the Commission found that AI and other technologies that generate human voices fall within the TCPA', which supports the constraint; it does not state the document number FCC 24-17 or the release date, so the citation stays unconfirmed.
+    preemption:
+      type: mixed
+      citation: 47 USC 227(f)(1)
+      quote: Except for the standards prescribed under subsection (d) and subject to paragraph (2) of this subsection, nothing in this section or in the regulations prescribed under this section shall preempt any State law that imposes more restrictive intrastate requirements or regulations on, or which prohibits- ... (B) the use of automatic telephone dialing systems; (C) the use of artificial or prerecorded voice messages; or (D) the making of telephone solicitations.
+      sources:
+      - data/raw/primary/uscode/title47-section227.htm.gz
+      note: Saves more restrictive state rules on intrastate calls; the text does not address state rules on interstate calls, and the subsection (d) technical standards are excluded from the savings clause. 47 CFR 64.1200 has no separate state-law provision.
 
   - id: TCPA-REVOKE-001
     law: "Telephone Consumer Protection Act"
@@ -71,6 +100,20 @@ rows:
     effective_date: 2025-04-11
     last_checked: null
     notes: "The FCC delayed the provision that applies a revocation to unrelated calls and texts from the same caller ('revoke-all'). Check its current effective date against the latest FCC order."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-47.xml_part-64_section-64.1200.gz
+      - data/raw/govinfo/2024-23605.htm.gz
+      note: 'Paragraph numbers confirmed: 64.1200(a)(10) (any reasonable method; honor within 10 business days), (a)(11) (other means: rebuttable presumption), (a)(12) (one-time confirmation text). The 5-minute point is a presumption: a confirmation text sent within five minutes is presumed within consent; a later one needs a showing that the delay was reasonable. The eCFR text as of 2026-09-24 contains no provision applying a revocation to unrelated calls and texts (''revoke-all''), consistent with the row''s note that it was delayed.'
+    preemption:
+      type: mixed
+      citation: 47 USC 227(f)(1)
+      quote: Except for the standards prescribed under subsection (d) and subject to paragraph (2) of this subsection, nothing in this section or in the regulations prescribed under this section shall preempt any State law that imposes more restrictive intrastate requirements or regulations on, or which prohibits- ... (B) the use of automatic telephone dialing systems; (C) the use of artificial or prerecorded voice messages; or (D) the making of telephone solicitations.
+      sources:
+      - data/raw/primary/uscode/title47-section227.htm.gz
+      note: Saves more restrictive state rules on intrastate calls; the text does not address state rules on interstate calls, and the subsection (d) technical standards are excluded from the savings clause. 47 CFR 64.1200 has no separate state-law provision.
 
   # ------------------------------------------------------ FDCPA / Reg F (Tier 1)
   - id: REGF-TIME-001
@@ -90,6 +133,21 @@ rows:
     status: verify
     effective_date: 2021-11-30
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section1692c.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.6.gz
+      note: 'The presumption wording follows 15 USC 1692c(a)(1) (''shall assume that the convenient time ... is after 8 o''clock antemeridian and before 9 o''clock postmeridian''); 1006.6(b)(1)(i) states it the other way (''a time before 8:00 a.m. and after 9:00 p.m. ... is inconvenient''). Exceptions for consent or court permission: 1006.6(b)(4).'
+    preemption:
+      type: floor
+      citation: 12 CFR 1006.104; 15 USC 1692n
+      quote: For purposes of this section, a State law is not inconsistent with the Act or the corresponding provisions of this part if the protection such law affords any consumer is greater than the protection provided by the Act or the corresponding provisions of this part.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.104.gz
+      - data/raw/primary/uscode/title15-section1692n.htm.gz
+      note: 'Section number confirmed from the fetched text: 12 CFR 1006.104 (Relation to State laws).'
 
   - id: REGF-TIME-002
     law: "FDCPA / Regulation F"
@@ -108,6 +166,20 @@ rows:
     status: verify
     effective_date: 2021-11-30
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section1692c.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.6.gz
+    preemption:
+      type: floor
+      citation: 12 CFR 1006.104; 15 USC 1692n
+      quote: For purposes of this section, a State law is not inconsistent with the Act or the corresponding provisions of this part if the protection such law affords any consumer is greater than the protection provided by the Act or the corresponding provisions of this part.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.104.gz
+      - data/raw/primary/uscode/title15-section1692n.htm.gz
+      note: 'Section number confirmed from the fetched text: 12 CFR 1006.104 (Relation to State laws).'
 
   - id: REGF-FREQ-001
     law: "FDCPA / Regulation F"
@@ -126,6 +198,20 @@ rows:
     status: verify
     effective_date: 2021-11-30
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.14.gz
+      note: '1006.14(b)(2): presumed compliance / violation turns on calls placed to a particular person about a particular debt: more than seven within seven consecutive days, or any within seven days after a telephone conversation. Excluded from the count (1006.14(b)(3)): calls with the person''s prior consent given directly within the prior seven days, calls not connected to the dialed number, and calls to the persons in 1006.6(d)(1)(ii)-(vi).'
+    preemption:
+      type: floor
+      citation: 12 CFR 1006.104; 15 USC 1692n
+      quote: For purposes of this section, a State law is not inconsistent with the Act or the corresponding provisions of this part if the protection such law affords any consumer is greater than the protection provided by the Act or the corresponding provisions of this part.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.104.gz
+      - data/raw/primary/uscode/title15-section1692n.htm.gz
+      note: 'Section number confirmed from the fetched text: 12 CFR 1006.104 (Relation to State laws).'
 
   - id: REGF-MEDIA-001
     law: "FDCPA / Regulation F"
@@ -144,6 +230,20 @@ rows:
     status: verify
     effective_date: 2021-11-30
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.14.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.6.gz
+    preemption:
+      type: floor
+      citation: 12 CFR 1006.104; 15 USC 1692n
+      quote: For purposes of this section, a State law is not inconsistent with the Act or the corresponding provisions of this part if the protection such law affords any consumer is greater than the protection provided by the Act or the corresponding provisions of this part.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.104.gz
+      - data/raw/primary/uscode/title15-section1692n.htm.gz
+      note: 'Section number confirmed from the fetched text: 12 CFR 1006.104 (Relation to State laws).'
 
   - id: REGF-DISC-001
     law: "FDCPA / Regulation F"
@@ -162,6 +262,21 @@ rows:
     status: verify
     effective_date: 2021-11-30
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section1692g.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.34.gz
+      note: 1006.34(a)(1) also allows the validation information to be given orally in the initial communication.
+    preemption:
+      type: floor
+      citation: 12 CFR 1006.104; 15 USC 1692n
+      quote: For purposes of this section, a State law is not inconsistent with the Act or the corresponding provisions of this part if the protection such law affords any consumer is greater than the protection provided by the Act or the corresponding provisions of this part.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.104.gz
+      - data/raw/primary/uscode/title15-section1692n.htm.gz
+      note: 'Section number confirmed from the fetched text: 12 CFR 1006.104 (Relation to State laws).'
 
   - id: REGF-DISC-002
     law: "FDCPA / Regulation F"
@@ -180,6 +295,22 @@ rows:
     status: verify
     effective_date: 2021-11-30
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section1692e.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.18.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.2.gz
+      note: The only exception in 1006.18(e)(3) is a formal pleading. A limited-content message is outside the rule because it is not a 'communication' (1006.2(d), (j)); it is still an 'attempt to communicate' (1006.2(b)). If the initial communication is oral, the disclosure must be repeated in the initial written communication (1006.18(e)(1)).
+    preemption:
+      type: floor
+      citation: 12 CFR 1006.104; 15 USC 1692n
+      quote: For purposes of this section, a State law is not inconsistent with the Act or the corresponding provisions of this part if the protection such law affords any consumer is greater than the protection provided by the Act or the corresponding provisions of this part.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.104.gz
+      - data/raw/primary/uscode/title15-section1692n.htm.gz
+      note: 'Section number confirmed from the fetched text: 12 CFR 1006.104 (Relation to State laws).'
 
   - id: REGF-IDENT-001
     law: "FDCPA / Regulation F"
@@ -198,6 +329,24 @@ rows:
     status: verify
     effective_date: 2021-11-30
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section1692b.htm.gz
+      - data/raw/primary/uscode/title15-section1692c.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.6.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.10.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.2.gz
+      note: '1006.2(b) makes leaving a limited-content message an ''attempt to communicate'', so time, place and call-frequency limits (1006.6(b), 1006.14(b)) still apply to it. Location contacts: at most once per person unless requested or the earlier answer is believed wrong (1006.10(c)).'
+    preemption:
+      type: floor
+      citation: 12 CFR 1006.104; 15 USC 1692n
+      quote: For purposes of this section, a State law is not inconsistent with the Act or the corresponding provisions of this part if the protection such law affords any consumer is greater than the protection provided by the Act or the corresponding provisions of this part.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.104.gz
+      - data/raw/primary/uscode/title15-section1692n.htm.gz
+      note: 'Section number confirmed from the fetched text: 12 CFR 1006.104 (Relation to State laws).'
 
   - id: REGF-STOP-001
     law: "FDCPA / Regulation F"
@@ -216,6 +365,20 @@ rows:
     status: verify
     effective_date: 2021-11-30
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section1692c.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.6.gz
+    preemption:
+      type: floor
+      citation: 12 CFR 1006.104; 15 USC 1692n
+      quote: For purposes of this section, a State law is not inconsistent with the Act or the corresponding provisions of this part if the protection such law affords any consumer is greater than the protection provided by the Act or the corresponding provisions of this part.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.104.gz
+      - data/raw/primary/uscode/title15-section1692n.htm.gz
+      note: 'Section number confirmed from the fetched text: 12 CFR 1006.104 (Relation to State laws).'
 
   - id: REGF-STOP-002
     law: "FDCPA / Regulation F"
@@ -234,6 +397,21 @@ rows:
     status: verify
     effective_date: 2021-11-30
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section1692c.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.6.gz
+      note: 'The row omits a condition that narrows the rule: it applies only if the collector also ''knows, or can readily ascertain, the attorney''s name and address'' (1006.6(b)(2)). The row as written is stricter than the rule.'
+    preemption:
+      type: floor
+      citation: 12 CFR 1006.104; 15 USC 1692n
+      quote: For purposes of this section, a State law is not inconsistent with the Act or the corresponding provisions of this part if the protection such law affords any consumer is greater than the protection provided by the Act or the corresponding provisions of this part.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.104.gz
+      - data/raw/primary/uscode/title15-section1692n.htm.gz
+      note: 'Section number confirmed from the fetched text: 12 CFR 1006.104 (Relation to State laws).'
 
   - id: REGF-STOP-003
     law: "FDCPA / Regulation F"
@@ -252,6 +430,25 @@ rows:
     status: verify
     effective_date: 2021-11-30
     last_checked: null
+    machine_check:
+      result: mismatch
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section1692g.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.38.gz
+      mismatches:
+      - row_says: After a timely dispute (or a request for original-creditor information) during the validation period, stop collecting the debt until verification (or the requested information) has been provided.
+        source_cite: 12 CFR 1006.38(c)
+        source_says: 'Upon receipt of a request for the name and address of the original creditor submitted by the consumer in writing within the validation period, a debt collector must cease collection of the debt until the debt collector:'
+      note: 'Citation mismatch: the row cites 12 CFR 1006.38(d), which covers disputes only; the original-creditor rule is 1006.38(c). 15 USC 1692g(b) covers both. Both paragraphs require the dispute or request ''in writing'' (1006.38(d)(2): ''a dispute submitted by the consumer in writing within the validation period''); the row omits that, which makes it stricter, not weaker.'
+    preemption:
+      type: floor
+      citation: 12 CFR 1006.104; 15 USC 1692n
+      quote: For purposes of this section, a State law is not inconsistent with the Act or the corresponding provisions of this part if the protection such law affords any consumer is greater than the protection provided by the Act or the corresponding provisions of this part.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.104.gz
+      - data/raw/primary/uscode/title15-section1692n.htm.gz
+      note: 'Section number confirmed from the fetched text: 12 CFR 1006.104 (Relation to State laws).'
 
   - id: REGF-FEES-001
     law: "FDCPA / Regulation F"
@@ -271,6 +468,21 @@ rows:
     effective_date: 2021-11-30
     last_checked: null
     notes: "CFPB issued an advisory opinion on pay-to-pay fees in 2022. Check whether it was among the guidance documents CFPB withdrew in 2025 before citing it."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section1692f.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.22.gz
+      note: The row's note about the 2022 pay-to-pay advisory opinion is not checked here; the rule text itself does not mention convenience fees ('any amount' includes any interest, fee, charge, or expense incidental to the principal obligation).
+    preemption:
+      type: floor
+      citation: 12 CFR 1006.104; 15 USC 1692n
+      quote: For purposes of this section, a State law is not inconsistent with the Act or the corresponding provisions of this part if the protection such law affords any consumer is greater than the protection provided by the Act or the corresponding provisions of this part.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.104.gz
+      - data/raw/primary/uscode/title15-section1692n.htm.gz
+      note: 'Section number confirmed from the fetched text: 12 CFR 1006.104 (Relation to State laws).'
 
   # ------------------------------------------------------------- UDAAP / FTC (T1)
   - id: UDAAP-001
@@ -290,6 +502,19 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title12-section5531.htm.gz
+      - data/raw/primary/uscode/title12-section5536.htm.gz
+      note: '''Must not exploit a consumer''s lack of understanding'' tracks the abusiveness standard in 5531(d)(2)(A); the agent-behavior sentences are the row''s application, not statutory text.'
+    preemption:
+      type: floor
+      citation: 12 USC 5551(a)(2)
+      quote: For purposes of this subsection, a statute, regulation, order, or interpretation in effect in any State is not inconsistent with the provisions of this title if the protection that such statute, regulation, order, or interpretation affords to consumers is greater than the protection provided under this title.
+      sources:
+      - data/raw/primary/uscode/title12-section5551.htm.gz
 
   - id: FTC5-001
     law: "FTC Act Section 5"
@@ -309,6 +534,17 @@ rows:
     effective_date: null
     last_checked: null
     notes: "Provenance per BUILD_SPEC: FTC named as regulator."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section45.htm.gz
+      note: 45(a)(2) also excludes savings and loan institutions and Federal credit unions from FTC Section 5 enforcement, not only banks.
+    preemption:
+      type: none_stated
+      sources:
+      - data/raw/primary/uscode/title15-section45.htm.gz
+      note: No provision on relation to state law in the fetched text of 15 USC 45; any preemption would be by conflict under the Supremacy Clause, which this register does not resolve.
 
   # ------------------------------------------------------------- EFTA / Reg E (T1)
   - id: REGE-PREAUTH-001
@@ -328,6 +564,20 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section1693e.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1005_section-1005.10.gz
+    preemption:
+      type: floor
+      citation: 15 USC 1693q; 12 CFR 1005.12(b)
+      quote: A State law is not inconsistent with this subchapter if the protection such law affords any consumer is greater than the protection afforded by this subchapter.
+      sources:
+      - data/raw/primary/uscode/title15-section1693q.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1005_section-1005.12.gz
+      note: 'Section number confirmed from the fetched text: 12 CFR 1005.12(b) (Preemption of inconsistent state laws). 1005.12(b)(2) lists what is inconsistent, e.g. a state law that allows longer error-investigation periods (1005.12(b)(2)(iii)).'
 
   - id: REGE-PREAUTH-002
     law: "EFTA / Regulation E"
@@ -346,6 +596,21 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section1693k.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1005_section-1005.10.gz
+      note: 'The listed exceptions are credit under an overdraft credit plan or to maintain a minimum balance (1005.10(e)(1)). The eCFR text as of 2026-09-24 still carries the sentence ''This exception also does not apply to covered overdraft credit extended by very large financial institutions as those terms are defined in Regulation Z, 12 CFR 1026.62'', added by FR Doc. 2024-29699, which P.L. 119-10 disapproved (see record 2024-29699): an eCFR lag.'
+    preemption:
+      type: floor
+      citation: 15 USC 1693q; 12 CFR 1005.12(b)
+      quote: A State law is not inconsistent with this subchapter if the protection such law affords any consumer is greater than the protection afforded by this subchapter.
+      sources:
+      - data/raw/primary/uscode/title15-section1693q.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1005_section-1005.12.gz
+      note: 'Section number confirmed from the fetched text: 12 CFR 1005.12(b) (Preemption of inconsistent state laws). 1005.12(b)(2) lists what is inconsistent, e.g. a state law that allows longer error-investigation periods (1005.12(b)(2)(iii)).'
 
   # ------------------------------------------------------------------ Nacha (T1)
   - id: NACHA-TEL-001
@@ -365,6 +630,14 @@ rows:
     effective_date: null
     last_checked: null
     notes: "The rulebook is licensed, not public; source_url is Nacha's rules page. Recent amendments changed recurring TEL entries; confirm against the current rulebook."
+    machine_check:
+      result: not_checkable
+      date: '2026-09-27'
+      reason: proprietary rulebook (not checkable per reviewer instruction)
+      sources: []
+    preemption:
+      type: not_applicable
+      note: Private network or industry rules, not a statute or regulation.
 
   - id: NACHA-WEB-001
     law: "Nacha Operating Rules (WEB entries)"
@@ -382,6 +655,14 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: not_checkable
+      date: '2026-09-27'
+      reason: proprietary rulebook (not checkable per reviewer instruction)
+      sources: []
+    preemption:
+      type: not_applicable
+      note: Private network or industry rules, not a statute or regulation.
 
   - id: NACHA-FRAUD-001
     law: "Nacha Operating Rules (fraud monitoring)"
@@ -400,6 +681,14 @@ rows:
     effective_date: null
     last_checked: null
     notes: "Confirm the amendment name, phase dates, and which participant types each phase reaches."
+    machine_check:
+      result: not_checkable
+      date: '2026-09-27'
+      reason: proprietary rulebook (not checkable per reviewer instruction)
+      sources: []
+    preemption:
+      type: not_applicable
+      note: Private network or industry rules, not a statute or regulation.
 
   # ------------------------------------------------------------- Bankruptcy (T1)
   - id: BK-STAY-001
@@ -418,6 +707,17 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title11-section362.htm.gz
+      note: The stay arises on the filing of the petition (362(a)), not on notice; acts taken after filing but before notice are still within the stay. Exceptions are in 362(b); limits for repeat filers in 362(c)(3)-(4).
+    preemption:
+      type: none_stated
+      sources:
+      - data/raw/primary/uscode/title11-section362.htm.gz
+      note: No provision on relation to state law in the fetched text of 11 USC 362; any preemption would be by conflict under the Supremacy Clause, which this register does not resolve.
 
   - id: BK-DISCH-001
     law: "Bankruptcy Code (discharge injunction)"
@@ -435,6 +735,16 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title11-section524.htm.gz
+    preemption:
+      type: none_stated
+      sources:
+      - data/raw/primary/uscode/title11-section524.htm.gz
+      note: No provision on relation to state law in the fetched text of 11 USC 524; any preemption would be by conflict under the Supremacy Clause, which this register does not resolve.
 
   # =============================================================== Tier 2
   - id: FCRA-DIRECT-001
@@ -454,6 +764,19 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section1681s-2.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1022_section-1022.43.gz
+      note: 'Deadline in 1022.43(e)(3): before the period a consumer reporting agency would have under 15 USC 1681i(a)(1), i.e. 30 days, which that section allows to be extended.'
+    preemption:
+      type: express_preemption
+      citation: 15 USC 1681t(b)(1)(F)
+      quote: No requirement or prohibition may be imposed under the laws of any State- (1) with respect to any subject matter regulated under- ... (F) section 1681s-2 of this title, relating to the responsibilities of persons who furnish information to consumer reporting agencies, except that this paragraph shall not apply- (i) with respect to section 54A(a) of chapter 93 of the Massachusetts Annotated Laws (as in effect on September 30, 1996); or (ii) with respect to section 1785.25(a) of the California Civil Code (as in effect on September 30, 1996);
+      sources:
+      - data/raw/primary/uscode/title15-section1681t.htm.gz
 
   - id: FCRA-ACCURACY-001
     law: "FCRA / Regulation V"
@@ -472,6 +795,18 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section1681s-2.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1022_section-1022.42.gz
+    preemption:
+      type: express_preemption
+      citation: 15 USC 1681t(b)(1)(F)
+      quote: No requirement or prohibition may be imposed under the laws of any State- (1) with respect to any subject matter regulated under- ... (F) section 1681s-2 of this title, relating to the responsibilities of persons who furnish information to consumer reporting agencies, except that this paragraph shall not apply- (i) with respect to section 54A(a) of chapter 93 of the Massachusetts Annotated Laws (as in effect on September 30, 1996); or (ii) with respect to section 1785.25(a) of the California Civil Code (as in effect on September 30, 1996);
+      sources:
+      - data/raw/primary/uscode/title15-section1681t.htm.gz
 
   # v1.1 register gaps raised by change records (2024-28690, 2025-08644, 2024-30824,
   # 2026-05797, 2026-16029). Citations are taken only from committed Federal Register
@@ -494,6 +829,19 @@ rows:
     effective_date: null
     last_checked: null
     notes: "Raised as a register gap in records 2024-28690 and 2025-08644. The source document is a proposed rule that was withdrawn (2025-08644); it is cited only for its statement of the statute, which the withdrawal does not affect. The constraint paraphrases the permissible-purpose wording in that document; check it against the U.S. Code."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section1681b.htm.gz
+      note: 'Checked against the U.S. Code, as the row''s note asks: 1681b(a)(3)(A) and 1681b(f) wording confirmed.'
+    preemption:
+      type: floor
+      citation: 15 USC 1681t(a)
+      quote: Except as provided in subsections (b) and (c), this subchapter does not annul, alter, affect, or exempt any person subject to the provisions of this subchapter from complying with the laws of any State with respect to the collection, distribution, or use of any information on consumers, or for the prevention or mitigation of identity theft, except to the extent that those laws are inconsistent with any provision of this subchapter, and then only to the extent of the inconsistency.
+      sources:
+      - data/raw/primary/uscode/title15-section1681t.htm.gz
+      note: 'Inconsistency test only: unlike the FDCPA and EFTA, 1681t(a) has no sentence saying more protective state law is not inconsistent. The cited provision is not among the subjects 1681t(b) expressly preempts.'
 
   - id: FCRA-MEDINFO-001
     law: "FCRA / Regulation V: creditor prohibition on obtaining or using medical information"
@@ -513,6 +861,24 @@ rows:
     effective_date: null
     last_checked: null
     notes: "Raised as a register gap in record 2024-30824. FR Doc. 2024-30824 removes the financial information exception in 1022.30(d) and revises 1022.30(c) and (e), stated effective March 17, 2025 (the printed year is corrected by C1-2024-30824). No later withdrawal or vacatur of that rule is in the ingested store; check current eCFR text of 1022.30 before relying on which exceptions apply."
+    machine_check:
+      result: mismatch
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section1681b.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1022_section-1022.30.gz
+      mismatches:
+      - row_says: The permitted exceptions are in 12 CFR 1022.30(d)-(e).
+        source_cite: 12 CFR 1022.30(d) (eCFR as of 2026-09-24)
+        source_says: (d) [Reserved]
+      note: 'eCFR shows 1022.30 as amended by FR Doc. 2024-30824 (90 FR 3372), version dated 2025-03-17: the financial information exception in (d) is removed and the specific exceptions are in (e). The statute and the general prohibition in 1022.30(b)(1) match the row. Needs a decision: see the report on whether FR Doc. 2024-30824 remains in force.'
+    preemption:
+      type: floor
+      citation: 15 USC 1681t(a)
+      quote: Except as provided in subsections (b) and (c), this subchapter does not annul, alter, affect, or exempt any person subject to the provisions of this subchapter from complying with the laws of any State with respect to the collection, distribution, or use of any information on consumers, or for the prevention or mitigation of identity theft, except to the extent that those laws are inconsistent with any provision of this subchapter, and then only to the extent of the inconsistency.
+      sources:
+      - data/raw/primary/uscode/title15-section1681t.htm.gz
+      note: 'Inconsistency test only: unlike the FDCPA and EFTA, 1681t(a) has no sentence saying more protective state law is not inconsistent. The cited provision is not among the subjects 1681t(b) expressly preempts.'
 
   - id: NCUA-INDIRECT-001
     law: "NCUA third-party servicing of indirect vehicle loans (regulatory limits removed)"
@@ -531,6 +897,17 @@ rows:
     effective_date: 2026-09-08
     last_checked: null
     notes: "Raised as a register gap in records 2026-05797 (proposal) and 2026-16029 (final rule). The row records a removal: it tells a deploying team that the cap no longer applies and that oversight rests on the credit union's own policies."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/govinfo/2026-16029.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-701_section-701.21.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-741_section-741.203.gz
+      note: FR Doc. 2026-16029 states the former limits (50 percent of net worth, 100 percent after 30 months) and the September 8, 2026 effective date. eCFR as of 2026-09-24 shows no indirect-vehicle servicing limit in 701.21 and no paragraph (c) in 741.203 (amended at 91 FR 50680).
+    preemption:
+      type: not_applicable
+      note: The row records the removal of a federal limit; no federal requirement remains to preempt or be preempted.
 
   - id: REGB-001
     law: "ECOA / Regulation B"
@@ -549,6 +926,20 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section1691.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1002_section-1002.4.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1002_section-1002.2.gz
+    preemption:
+      type: floor
+      citation: 12 CFR 1002.11(a); 15 USC 1691d(f)
+      quote: Except as otherwise provided in this section, this part alters, affects, or preempts only those state laws that are inconsistent with the Act and this part and then only to the extent of the inconsistency. A state law is not inconsistent if it is more protective of an applicant.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1002_section-1002.11.gz
+      - data/raw/primary/uscode/title15-section1691d.htm.gz
 
   - id: REGZ-MOD-001
     law: "TILA / Regulation Z"
@@ -567,6 +958,24 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: mismatch
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1026_section-1026.20.gz
+      mismatches:
+      - row_says: Listed changes such as workout agreements for delinquency or default are not refinancings.
+        source_cite: 12 CFR 1026.20(a)(4)
+        source_says: A change in the payment schedule or a change in collateral requirements as a result of the consumer's default or delinquency, unless the rate is increased, or the new amount financed exceeds the unpaid balance plus earned finance charge and premiums for continuation of insurance of the types described in § 1026.4(d).
+      note: 'The row drops the condition that makes a default workout a refinancing: a rate increase, or a new amount financed above the unpaid balance plus earned finance charge and insurance premiums. An agent that raises the rate in a workout would create a refinancing needing new disclosures.'
+    preemption:
+      type: floor
+      citation: 12 CFR 1026.28(a)(1); 15 USC 1610(a)(1)
+      quote: A State law is inconsistent if it requires a creditor to make disclosures or take actions that contradict the requirements of the Federal law.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1026_section-1026.28.gz
+      - data/raw/primary/uscode/title15-section1610.htm.gz
+      note: 'Contradiction test: state requirements that do not contradict the federal disclosure rules stand. There is no general greater-protection sentence.'
 
   - id: SCRA-RATE-001
     law: "Servicemembers Civil Relief Act"
@@ -584,6 +993,18 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title50-section3937.htm.gz
+      note: For mortgages the cap runs during service and one year after (3937(a)(1)(A)); interest above 6 percent is forgiven, not deferred (3937(a)(2)); the servicemember may give notice up to 180 days after service ends (3937(b)(1)(A)); a creditor may use Defense Manpower Data Center information instead (3937(b)(1)(B)).
+    preemption:
+      type: none_stated
+      sources:
+      - data/raw/primary/uscode/title50-section3912.htm.gz
+      - data/raw/primary/uscode/title50-section3937.htm.gz
+      note: No provision on relation to state law in the fetched text of 50 USC 3912 and 3937; any preemption would be by conflict under the Supremacy Clause, which this register does not resolve.
 
   - id: SCRA-REPO-001
     law: "Servicemembers Civil Relief Act"
@@ -601,6 +1022,18 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title50-section3952.htm.gz
+      note: 3952(a)(1) bars rescission, termination or repossession without a court order 'after a servicemember enters military service' for a breach occurring before or during service; 3952(b) makes a knowing violation a misdemeanor.
+    preemption:
+      type: none_stated
+      sources:
+      - data/raw/primary/uscode/title50-section3912.htm.gz
+      - data/raw/primary/uscode/title50-section3952.htm.gz
+      note: No provision on relation to state law in the fetched text of 50 USC 3912 and 3952; any preemption would be by conflict under the Supremacy Clause, which this register does not resolve.
 
   - id: GLBA-REGP-001
     law: "GLBA / Regulation P"
@@ -619,6 +1052,21 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section6802.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1016_section-1016.4.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1016_section-1016.10.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1016_section-1016.13.gz
+    preemption:
+      type: floor
+      citation: 15 USC 6807(b); 12 CFR 1016.17(b)
+      quote: For purposes of this section, a State statute, regulation, order, or interpretation is not inconsistent with the provisions of this subchapter if the protection such statute, regulation, order, or interpretation affords any person is greater than the protection provided under this subchapter and the amendments made by this subchapter, as determined by the Bureau of Consumer Financial Protection, ...
+      sources:
+      - data/raw/primary/uscode/title15-section6807.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1016_section-1016.17.gz
 
   - id: FTC-SAFE-001
     law: "FTC Safeguards Rule"
@@ -638,6 +1086,19 @@ rows:
     effective_date: 2024-05-13
     last_checked: null
     notes: "effective_date refers to the notification-event amendment (314.4(j))."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-16.xml_part-314_section-314.4.gz
+      note: 314.4(f) (oversee service providers) and 314.4(j)(1) (at least 500 consumers; as soon as possible and no later than 30 days after discovery) confirmed. The effective_date (2024-05-13) is not in the fetched text and was not checked.
+    preemption:
+      type: floor
+      citation: 15 USC 6807(b)
+      quote: For purposes of this section, a State statute, regulation, order, or interpretation is not inconsistent with the provisions of this subchapter if the protection such statute, regulation, order, or interpretation affords any person is greater than the protection provided under this subchapter and the amendments made by this subchapter, as determined by the Bureau of Consumer Financial Protection, ...
+      sources:
+      - data/raw/primary/uscode/title15-section6807.htm.gz
+      note: The cited standards are issued under GLBA title V subtitle A (15 USC 6801(b), 6805(b)), to which 6807 applies; the fetched regulation text has no separate state-law provision.
 
   - id: BANKSEC-GUIDE-001
     law: "Interagency Guidelines Establishing Information Security Standards; NCUA security program"
@@ -655,6 +1116,23 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_appendix-Appendix_B_to_Part_30_part-30.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_appendix-Appendix_B_to_Part_364_part-364.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_appendix-Appendix_D-2_to_Part_208_part-208.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-748_section-748.0.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_appendix-Appendix_A_to_Part_748_part-748.gz
+      note: All four appendices are in eCFR as of 2026-09-24, each with a section headed 'Oversee Service Provider Arrangements'. NCUA proposed moving 748 Appendix A out of the CFR (FR Doc. 2025-22489, record open); it is still in eCFR.
+    preemption:
+      type: floor
+      citation: 15 USC 6807(b)
+      quote: For purposes of this section, a State statute, regulation, order, or interpretation is not inconsistent with the provisions of this subchapter if the protection such statute, regulation, order, or interpretation affords any person is greater than the protection provided under this subchapter and the amendments made by this subchapter, as determined by the Bureau of Consumer Financial Protection, ...
+      sources:
+      - data/raw/primary/uscode/title15-section6807.htm.gz
+      note: The cited standards are issued under GLBA title V subtitle A (15 USC 6801(b), 6805(b)), to which 6807 applies; the fetched regulation text has no separate state-law provision.
 
   - id: BANKSEC-INCIDENT-001
     law: "Computer-Security Incident Notification Rule"
@@ -673,6 +1151,21 @@ rows:
     effective_date: 2022-05-01
     last_checked: null
     notes: "effective_date is the compliance date; confirm."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-53.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-225_subpart-N.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-304_subpart-C.gz
+      note: '12 CFR 53.4(a): notify ''as soon as possible'' when an incident has materially disrupted or degraded, or is reasonably likely to, covered services ''for four or more hours''; same four-hour provision found in 225 subpart N and 304 subpart C. The compliance date (effective_date 2022-05-01) is not in the fetched text and was not checked.'
+    preemption:
+      type: none_stated
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-53.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-225_subpart-N.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-304_subpart-C.gz
+      note: No provision on relation to state law in the fetched text of 12 CFR part 53, part 225 subpart N and part 304 subpart C; any preemption would be by conflict under the Supremacy Clause, which this register does not resolve.
 
   - id: NCUA-CYBER-001
     law: "NCUA cyber incident notification"
@@ -690,6 +1183,17 @@ rows:
     status: verify
     effective_date: 2023-09-01
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-748_section-748.1.gz
+      note: '748.1(c): notice no later than 72 hours after the credit union reasonably believes a reportable cyber incident occurred, or within 72 hours of being notified by a third party, whichever is sooner.'
+    preemption:
+      type: none_stated
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-748_section-748.1.gz
+      note: No provision on relation to state law in the fetched text of 12 CFR 748.1; any preemption would be by conflict under the Supremacy Clause, which this register does not resolve.
 
   - id: ESIGN-001
     law: "E-SIGN Act"
@@ -707,6 +1211,17 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/uscode/title15-section7001.htm.gz
+    preemption:
+      type: express_preemption
+      citation: 15 USC 7002(a)
+      quote: A State statute, regulation, or other rule of law may modify, limit, or supersede the provisions of section 7001 of this title with respect to State law only if such statute, regulation, or rule of law- (1) constitutes an enactment or adoption of the Uniform Electronic Transactions Act ... or (2)(A) specifies the alternative procedures or requirements for the use or acceptance (or both) of electronic records or electronic signatures ... if ... consistent with this subchapter ...
+      sources:
+      - data/raw/primary/uscode/title15-section7002.htm.gz
 
   - id: TPRM-001
     law: "Interagency Guidance on Third-Party Relationships: Risk Management"
@@ -725,6 +1240,15 @@ rows:
     effective_date: 2023-06-09
     last_checked: null
     notes: "BUILD_SPEC flags the FR cite as 'verify'. source_url is the OCC bulletin that transmitted the guidance (OCC Bulletin 2023-17, verify). Guidance has no effective date; the date shown is publication."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/govinfo/2023-12340.htm.gz
+      note: 'Citation confirmed: FR Doc. 2023-12340, 88 FR 37920-37937 (June 9, 2023), issued by the Board, FDIC and OCC; the life-cycle stages (planning, due diligence and third-party selection, contract negotiation, ongoing monitoring, termination) match. The document says ''The guidance is final as of June 6, 2023''; the row''s effective_date is the publication date (2023-06-09). The OCC bulletin (source_url) could not be fetched.'
+    preemption:
+      type: not_applicable
+      note: Supervisory guidance, not a statute or regulation.
 
   - id: MRM-001
     law: "Model risk management guidance"
@@ -743,6 +1267,16 @@ rows:
     effective_date: 2011-04-04
     last_checked: null
     notes: "Supervisory guidance is issued outside the Federal Register. Check for later revision or rescission."
+    machine_check:
+      result: not_checkable
+      date: '2026-09-27'
+      reason: source blocked
+      sources:
+      - 'not fetched: https://www.federalreserve.gov/supervisionreg/srletters/sr1107.htm (www.federalreserve.gov denied by the session''s network policy on 2026-09-27)'
+      note: SR 11-7 (federalreserve.gov) and OCC Bulletin 2011-12 (occ.gov) could not be fetched; the row's note asks for a check for later revision or rescission, which is still open.
+    preemption:
+      type: not_applicable
+      note: Supervisory guidance, not a statute or regulation.
 
   - id: SOC2-001
     law: "SOC 2 (AICPA Trust Services Criteria)"
@@ -761,6 +1295,15 @@ rows:
     effective_date: null
     last_checked: null
     notes: "Industry standard, not law. 'federal' here means not state-specific."
+    machine_check:
+      result: not_checkable
+      date: '2026-09-27'
+      reason: source blocked; industry standard
+      sources:
+      - 'not fetched: https://www.aicpa-cima.com/resources/landing/system-and-organization-controls-soc-suite-of-services (www.aicpa-cima.com denied by the session''s network policy on 2026-09-27)'
+    preemption:
+      type: not_applicable
+      note: Private network or industry rules, not a statute or regulation.
 
   - id: PCI-001
     law: "PCI DSS"
@@ -779,6 +1322,14 @@ rows:
     effective_date: 2025-03-31
     last_checked: null
     notes: "Industry standard, not law. effective_date is when the v4.x future-dated requirements took effect; confirm."
+    machine_check:
+      result: not_checkable
+      date: '2026-09-27'
+      reason: proprietary standard (not checkable per reviewer instruction)
+      sources: []
+    preemption:
+      type: not_applicable
+      note: Private network or industry rules, not a statute or regulation.
 
   # =================================================================== v1.2 rows
   # v1.2 scope expansion (after the v1 eval; not measured by it). Every CFR
@@ -808,6 +1359,19 @@ rows:
     effective_date: null
     last_checked: null
     notes: "v1.2. TILA is named on the vendor's pages; card chargebacks are a named vendor line. 1026.13(i) routes credit incident to an EFT under an overdraft or minimum-balance agreement to Regulation E error resolution."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1026_section-1026.13.gz
+      note: 1026.13(b) requires a written notice; 1026.13(d)(1) bars automatic-payment deduction only if the notice is received up to 3 business days before the scheduled payment date.
+    preemption:
+      type: express_preemption
+      citation: 12 CFR 1026.28(a)(2)(i)
+      quote: State law requirements are inconsistent with the requirements contained in sections 161 (Correction of billing errors) or 162 (Regulation of credit reports) of the Act and the implementing provisions of this part and are preempted if they provide rights, responsibilities, or procedures for consumers or creditors that are different from those required by the Federal law.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1026_section-1026.28.gz
+      note: 'Exception in the same paragraph: a state law letting a consumer inquire after the federal billing-error notice period has expired is not preempted.'
 
   - id: REGZ-CLAIMS-001
     law: "TILA / Regulation Z (card claims and defenses)"
@@ -827,6 +1391,18 @@ rows:
     effective_date: null
     last_checked: null
     notes: "v1.2."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1026_section-1026.12.gz
+    preemption:
+      type: floor
+      citation: 12 CFR 1026.28(a)(2)(ii)
+      quote: State law requirements are inconsistent with the requirements contained in chapter 4 (Credit billing) of the Act (other than section 161 or 162) and the implementing provisions of this part and are preempted if the creditor cannot comply with state law without violating Federal law.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1026_section-1026.28.gz
+      note: 1026.12(c) implements TILA section 170 (chapter 4), so only a state law that cannot be complied with alongside it is preempted.
 
   - id: REGE-ERR-001
     law: "EFTA / Regulation E (error resolution)"
@@ -846,6 +1422,19 @@ rows:
     effective_date: null
     last_checked: null
     notes: "v1.2. Debit card chargebacks run through this process for the consumer's institution."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1005_section-1005.11.gz
+    preemption:
+      type: floor
+      citation: 15 USC 1693q; 12 CFR 1005.12(b)
+      quote: A State law is not inconsistent with this subchapter if the protection such law affords any consumer is greater than the protection afforded by this subchapter.
+      sources:
+      - data/raw/primary/uscode/title15-section1693q.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1005_section-1005.12.gz
+      note: 'Section number confirmed from the fetched text: 12 CFR 1005.12(b) (Preemption of inconsistent state laws). 1005.12(b)(2) lists what is inconsistent, e.g. a state law that allows longer error-investigation periods (1005.12(b)(2)(iii)).'
 
   - id: CARDNET-CHARGEBACK-001
     law: "Card network chargeback rules"
@@ -864,6 +1453,9 @@ rows:
     effective_date: null
     last_checked: null
     notes: "v1.2. Private network rules, not public law; not in eCFR."
+    preemption:
+      type: not_applicable
+      note: Unresearched; private network rules.
 
   # ---------------------------------------------------- Military Lending Act
   - id: MLA-COVERED-001
@@ -884,6 +1476,21 @@ rows:
     effective_date: null
     last_checked: null
     notes: "v1.2. 10 USC 987 is the part's authority line."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-32.xml_part-232_section-232.3.gz
+      - data/raw/ecfr/2026-09-24_title-32.xml_part-232_section-232.5.gz
+      note: 232.3(g)(1), 232.5(b)(2)(i)(B) and 232.3(f)(2)(ii) confirmed. The statement that refinances are not excluded is the row's reading of 232.3(f)(2)(ii) ('expressly intended to finance the purchase of a motor vehicle'), not text in the rule.
+    preemption:
+      type: floor
+      citation: 10 USC 987(d)(1); 32 CFR 232.7(a)
+      quote: 10 U.S.C. 987 as implemented by this part preempts any State or Federal law, rule or regulation, including any State usury law, to the extent such law, rule or regulation is inconsistent with this part, except that any such law, rule or regulation is not preempted by this part to the extent that it provides protection to a covered borrower greater than those protections provided by 10 U.S.C. 987 and this part.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-32.xml_part-232_section-232.7.gz
+      - data/raw/primary/uscode/title10-section987.htm.gz
+      note: 'Section number confirmed from the fetched text: 32 CFR 232.7 (Preemption). 232.7(b) also bars a state from authorizing higher rates for covered borrowers or waiving state protections because of military or nonresident status.'
 
   - id: MLA-TERMS-001
     law: "Military Lending Act (terms and limitations)"
@@ -903,6 +1510,21 @@ rows:
     effective_date: null
     last_checked: null
     notes: "v1.2."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-32.xml_part-232_section-232.4.gz
+      - data/raw/ecfr/2026-09-24_title-32.xml_part-232_section-232.8.gz
+      note: 232.8(f) (vehicle title as security) is not in the row; it excludes banks, savings associations and credit unions from 'creditor' for that paragraph.
+    preemption:
+      type: floor
+      citation: 10 USC 987(d)(1); 32 CFR 232.7(a)
+      quote: 10 U.S.C. 987 as implemented by this part preempts any State or Federal law, rule or regulation, including any State usury law, to the extent such law, rule or regulation is inconsistent with this part, except that any such law, rule or regulation is not preempted by this part to the extent that it provides protection to a covered borrower greater than those protections provided by 10 U.S.C. 987 and this part.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-32.xml_part-232_section-232.7.gz
+      - data/raw/primary/uscode/title10-section987.htm.gz
+      note: 'Section number confirmed from the fetched text: 32 CFR 232.7 (Preemption). 232.7(b) also bars a state from authorizing higher rates for covered borrowers or waiving state protections because of military or nonresident status.'
 
   - id: MLA-DISC-001
     law: "Military Lending Act (mandatory disclosures)"
@@ -922,6 +1544,19 @@ rows:
     effective_date: null
     last_checked: null
     notes: "v1.2. Oral disclosure duty is directly relevant to voice agents handling refinances."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-32.xml_part-232_section-232.6.gz
+    preemption:
+      type: floor
+      citation: 10 USC 987(d)(1); 32 CFR 232.7(a)
+      quote: 10 U.S.C. 987 as implemented by this part preempts any State or Federal law, rule or regulation, including any State usury law, to the extent such law, rule or regulation is inconsistent with this part, except that any such law, rule or regulation is not preempted by this part to the extent that it provides protection to a covered borrower greater than those protections provided by 10 U.S.C. 987 and this part.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-32.xml_part-232_section-232.7.gz
+      - data/raw/primary/uscode/title10-section987.htm.gz
+      note: 'Section number confirmed from the fetched text: 32 CFR 232.7 (Preemption). 232.7(b) also bars a state from authorizing higher rates for covered borrowers or waiving state protections because of military or nonresident status.'
 
   # ------------------------------------------------ Identity theft Red Flags
   - id: REDFLAG-FTC-001
@@ -942,6 +1577,17 @@ rows:
     effective_date: null
     last_checked: null
     notes: "v1.2. Scope per 681.1(a): entities subject to FTC FCRA enforcement under 15 USC 1681s(a)(1). 15 USC 1681m(e) is the part's authority line."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-16.xml_part-681_section-681.1.gz
+    preemption:
+      type: express_preemption
+      citation: 15 USC 1681t(b)(5)(F)
+      quote: No requirement or prohibition may be imposed under the laws of any State- ... (5) with respect to the conduct required by the specific provisions of- ... (F) subsections (e), (f), and (g) of section 1681m of this title;
+      sources:
+      - data/raw/primary/uscode/title15-section1681t.htm.gz
 
   - id: REDFLAG-BANK-001
     law: "FCRA Identity Theft Red Flags (bank and credit union agencies)"
@@ -960,6 +1606,20 @@ rows:
     effective_date: null
     last_checked: null
     notes: "v1.2. 12 CFR 717.90 covers federal credit unions only; which rule covers state-chartered credit unions was not confirmed. Scope paragraphs (a) of each section confirmed."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-41_section-41.90.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-222_section-222.90.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-334_section-334.90.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-717_section-717.90.gz
+    preemption:
+      type: express_preemption
+      citation: 15 USC 1681t(b)(5)(F)
+      quote: No requirement or prohibition may be imposed under the laws of any State- ... (5) with respect to the conduct required by the specific provisions of- ... (F) subsections (e), (f), and (g) of section 1681m of this title;
+      sources:
+      - data/raw/primary/uscode/title15-section1681t.htm.gz
 
   # ----------------------------------------------------------- FTC Holder Rule
   - id: HOLDER-001
@@ -980,6 +1640,18 @@ rows:
     effective_date: null
     last_checked: null
     notes: "v1.2."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-16.xml_part-433_section-433.2.gz
+      - data/raw/ecfr/2026-09-24_title-16.xml_part-433_section-433.1.gz
+    preemption:
+      type: none_stated
+      sources:
+      - data/raw/ecfr/2026-09-24_title-16.xml_part-433_section-433.1.gz
+      - data/raw/ecfr/2026-09-24_title-16.xml_part-433_section-433.2.gz
+      note: No provision on relation to state law in the fetched text of 16 CFR 433.1-433.2; any preemption would be by conflict under the Supremacy Clause, which this register does not resolve.
 
   # ------------------------------------------------- Recordkeeping and retention
   - id: REGF-RECORDS-001
@@ -1000,6 +1672,19 @@ rows:
     effective_date: null
     last_checked: null
     notes: "v1.2."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.100.gz
+    preemption:
+      type: floor
+      citation: 12 CFR 1006.104; 15 USC 1692n
+      quote: For purposes of this section, a State law is not inconsistent with the Act or the corresponding provisions of this part if the protection such law affords any consumer is greater than the protection provided by the Act or the corresponding provisions of this part.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1006_section-1006.104.gz
+      - data/raw/primary/uscode/title15-section1692n.htm.gz
+      note: 'Section number confirmed from the fetched text: 12 CFR 1006.104 (Relation to State laws).'
 
   - id: REGZ-RECORDS-001
     law: "TILA / Regulation Z (record retention)"
@@ -1019,6 +1704,19 @@ rows:
     effective_date: null
     last_checked: null
     notes: "v1.2."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1026_section-1026.25.gz
+    preemption:
+      type: floor
+      citation: 12 CFR 1026.28(a)(1); 15 USC 1610(a)(1)
+      quote: A State law is inconsistent if it requires a creditor to make disclosures or take actions that contradict the requirements of the Federal law.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1026_section-1026.28.gz
+      - data/raw/primary/uscode/title15-section1610.htm.gz
+      note: 'Contradiction test: state requirements that do not contradict the federal disclosure rules stand. There is no general greater-protection sentence.'
 
   - id: REGE-RECORDS-001
     law: "EFTA / Regulation E (record retention)"
@@ -1038,6 +1736,20 @@ rows:
     effective_date: null
     last_checked: null
     notes: "v1.2."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1005_section-1005.13.gz
+      note: '''Including payment authorizations'' is the row''s application: 1005.13(b)(1) covers evidence of compliance with the Act and the part, which includes 1005.10(b).'
+    preemption:
+      type: floor
+      citation: 15 USC 1693q; 12 CFR 1005.12(b)
+      quote: A State law is not inconsistent with this subchapter if the protection such law affords any consumer is greater than the protection afforded by this subchapter.
+      sources:
+      - data/raw/primary/uscode/title15-section1693q.htm.gz
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1005_section-1005.12.gz
+      note: 'Section number confirmed from the fetched text: 12 CFR 1005.12(b) (Preemption of inconsistent state laws). 1005.12(b)(2) lists what is inconsistent, e.g. a state law that allows longer error-investigation periods (1005.12(b)(2)(iii)).'
 
   - id: REGB-RECORDS-001
     law: "ECOA / Regulation B (record retention)"
@@ -1057,6 +1769,49 @@ rows:
     effective_date: null
     last_checked: null
     notes: "v1.2."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1002_section-1002.12.gz
+    preemption:
+      type: floor
+      citation: 12 CFR 1002.11(a); 15 USC 1691d(f)
+      quote: Except as otherwise provided in this section, this part alters, affects, or preempts only those state laws that are inconsistent with the Act and this part and then only to the extent of the inconsistency. A state law is not inconsistent if it is more protective of an applicant.
+      sources:
+      - data/raw/ecfr/2026-09-24_title-12.xml_part-1002_section-1002.11.gz
+      - data/raw/primary/uscode/title15-section1691d.htm.gz
+
+  - id: NCUA-RECORDS-001
+    law: "NCUA vital records preservation program (record retention guidelines removed)"
+    citation: "12 CFR 749.0-749.5, as revised by NCUA final rule, 91 FR 36073 (June 16, 2026), FR Doc. 2026-12058, effective July 16, 2026"
+    source_url: "https://www.govinfo.gov/content/pkg/FR-2026-06-16/html/2026-12058.htm"
+    agency: NCUA
+    jurisdiction: federal
+    applies_to: [credit_unions]
+    tier: 2
+    behavior_classes: [RECORDS.RETENTION]
+    constraint: "A federally insured credit union's board must keep a written vital records preservation program with designated staff, a schedule for storing and destroying vital records, and a records preservation log, and must keep duplicate vital records at a vital records center (749.2(a)). Vital records are the current versions of the records needed to restore vital member services: member share, deposit and loan balances as of the most recent business day, and month-end financial report, bank reconcilements and list of accounts, insurance policies and investments, plus emergency contacts (749.1). A credit union using a third-party service provider for its records must oversee it (749.3). Records other NCUA rules require may be kept in any format that accurately reflects them, stays accessible and can be reproduced, with equipment or software for examiner access (749.5). The part does not supersede records preservation requirements under other law (749.0(b)). The rule removed Appendix A (Record Retention Guidelines) and 12 CFR 703.105(d), so the CFR no longer suggests retention periods for credit union records."
+    change_source: [federal_register]
+    provenance: added_by_analysis
+    provenance_url: null
+    status: verify
+    effective_date: 2026-07-16
+    last_checked: null
+    notes: "Added 2026-09-27 on human review of record 2026-12058 (register gap for 12 CFR 749). Cited only to the committed Federal Register text (data/raw/govinfo/2026-12058.htm.gz); 12 CFR 749 is not a tracked eCFR part."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/govinfo/2026-12058.htm.gz
+      note: Row drafted from the same committed text, so this check confirms transcription only; it is not an independent source. The eCFR text of part 749 as of 2026-09-24 (fetched for this check) shows the same sections and no Appendix A.
+    preemption:
+      type: floor
+      citation: 12 CFR 749.0(b) (as revised by FR Doc. 2026-12058)
+      quote: This part does not supersede records preservation requirements that may apply to a credit union pursuant to other law or regulation.
+      sources:
+      - data/raw/govinfo/2026-12058.htm.gz
+      note: A savings clause for other records-preservation requirements, state law included; not a general relation-to-state-law provision.
 
   # --------------------------------- Insurance claims and payoff: UDAAP hooks
   - id: UDAAP-PAYOFF-001
@@ -1076,6 +1831,19 @@ rows:
     effective_date: null
     last_checked: null
     notes: "v1.2. Supervisory findings, not a rule; the sections named were confirmed in the committed GovInfo text of 2024-24093. No payoff-quote timing rule was found in committed federal material; state payoff rules are STATE-PAYOFF-001 (unresearched)."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/govinfo/2024-24093.htm.gz
+      - data/raw/primary/uscode/title12-section5531.htm.gz
+      note: Sec. 2.3.2 and sec. 2.4.6 both report unfair acts or practices. Sec. 2.3.2 notes the servicers' own policy of title documentation within two business days.
+    preemption:
+      type: floor
+      citation: 12 USC 5551(a)(2)
+      quote: For purposes of this subsection, a statute, regulation, order, or interpretation in effect in any State is not inconsistent with the provisions of this title if the protection that such statute, regulation, order, or interpretation affords to consumers is greater than the protection provided under this title.
+      sources:
+      - data/raw/primary/uscode/title12-section5551.htm.gz
 
   - id: UDAAP-INS-001
     law: "Consumer Financial Protection Act (UDAAP): GAP and total-loss handling"
@@ -1094,3 +1862,20 @@ rows:
     effective_date: null
     last_checked: null
     notes: "v1.2. Supervisory findings, not a rule; sections confirmed in the committed GovInfo text of 2024-24093. Overlaps INS-GAP-001 (Issue 26). Appraisal-clause deadlines: INS-APPRAISAL-001 (unresearched)."
+    machine_check:
+      result: mismatch
+      date: '2026-09-27'
+      sources:
+      - data/raw/govinfo/2024-24093.htm.gz
+      - data/raw/primary/uscode/title12-section5531.htm.gz
+      mismatches:
+      - row_says: 'Supervisory findings of unfair practices: financing GAP products void on salvage-title vehicles (sec. 2.4.2)'
+        source_cite: FR Doc. 2024-24093, sec. 2.4.2
+        source_says: Examiners found that auto servicers engaged in abusive acts or practices by taking unreasonable advantage of consumers' lack of understanding of material risks, costs, or conditions by suspending title check procedures for certain originating dealers and then financing GAP products that were void due to loss events recorded on the vehicles' title histories.
+      note: Sec. 2.4.6 and sec. 2.4.9 are unfair findings, as the row says; sec. 2.4.2 is an abusiveness finding (12 USC 5531(d)(2)(A)).
+    preemption:
+      type: floor
+      citation: 12 USC 5551(a)(2)
+      quote: For purposes of this subsection, a statute, regulation, order, or interpretation in effect in any State is not inconsistent with the provisions of this title if the protection that such statute, regulation, order, or interpretation affords to consumers is greater than the protection provided under this title.
+      sources:
+      - data/raw/primary/uscode/title12-section5551.htm.gz

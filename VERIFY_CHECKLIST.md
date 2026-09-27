@@ -1,8 +1,8 @@
 # Register verification checklist
 
-Every register row with `status: verify` (84 of 91 rows), taken from `register/federal.yaml` and `register/states/*.yaml` on 2026-09-27. The 7 `unresearched` rows are not listed: they have no citation to check (see `register/INVENTORY.md`, "Coverage map: state research pending").
+Every register row with `status: verify` (85 of 92 rows), taken from `register/federal.yaml` and `register/states/*.yaml` on 2026-09-27. The 7 `unresearched` rows are not listed: they have no citation to check (see `register/INVENTORY.md`, "Coverage map: state research pending").
 
-Most rows were drafted from working knowledge of the law without the primary text open; the three v1.1 gap rows (FCRA-PERMPURP-001, FCRA-MEDINFO-001, NCUA-INDIRECT-001) were cited from committed Federal Register text, but their statute and eCFR text has not been read. The 15 v1.2 `verify` rows (notes start "v1.2.") had their CFR citations confirmed against eCFR text as of 2026-09-24 (cached in `data/raw/ecfr/2026-09-24_*.gz`) and their FR citations against committed GovInfo text; their constraint wording has not been checked by a person. None has been checked against its source.
+Most rows were drafted from working knowledge of the law without the primary text open; the three v1.1 gap rows (FCRA-PERMPURP-001, FCRA-MEDINFO-001, NCUA-INDIRECT-001) were cited from committed Federal Register text, but their statute and eCFR text has not been read. The 15 v1.2 `verify` rows (notes start "v1.2.") had their CFR citations confirmed against eCFR text as of 2026-09-24 (cached in `data/raw/ecfr/2026-09-24_*.gz`) and their FR citations against committed GovInfo text; their constraint wording has not been checked by a person. None has been checked against its source by a person. A machine pre-check (2026-09-27) compared every row with its fetched primary text; results are in each row's `machine_check` field and in `register/VERIFICATION_REPORT.md`, and they do not change any row's status.
 
 For each row:
 1. Open the source URL and confirm the citation points at the provision the row describes (a citation marked "(verify cite)" is known to be uncertain).
@@ -72,6 +72,7 @@ This file is a snapshot. If rows are added or change status, regenerate it from 
 | [ ] | REGZ-RECORDS-001 | TILA / Regulation Z (record retention) | 12 CFR 1026.25(a) | <https://www.ecfr.gov/current/title-12/section-1026.25> |
 | [ ] | REGE-RECORDS-001 | EFTA / Regulation E (record retention) | 12 CFR 1005.13(b) | <https://www.ecfr.gov/current/title-12/section-1005.13> |
 | [ ] | REGB-RECORDS-001 | ECOA / Regulation B (record retention) | 12 CFR 1002.12(b) | <https://www.ecfr.gov/current/title-12/section-1002.12> |
+| [ ] | NCUA-RECORDS-001 | NCUA vital records preservation program (record retention guidelines removed) | 12 CFR 749.0-749.5, as revised by FR Doc. 2026-12058 | <https://www.govinfo.gov/content/pkg/FR-2026-06-16/html/2026-12058.htm> |
 | [ ] | UDAAP-PAYOFF-001 | Consumer Financial Protection Act (UDAAP): payoff and title delivery | 12 USC 5531, as applied in CFPB Supervisory Highlights, Special Edition Auto Finance, 89 FR 83842 (Oct. 18, 2024), FR Doc. 2024-24093, secs. 2.3.2 and 2.4.6 | <https://www.federalregister.gov/documents/2024/10/18/2024-24093/supervisory-highlights-special-edition-auto-finance> |
 | [ ] | UDAAP-INS-001 | Consumer Financial Protection Act (UDAAP): GAP and total-loss handling | 12 USC 5531, as applied in CFPB Supervisory Highlights, Special Edition Auto Finance, 89 FR 83842 (Oct. 18, 2024), FR Doc. 2024-24093, secs. 2.4.2, 2.4.6 and 2.4.9 | <https://www.federalregister.gov/documents/2024/10/18/2024-24093/supervisory-highlights-special-edition-auto-finance> |
 

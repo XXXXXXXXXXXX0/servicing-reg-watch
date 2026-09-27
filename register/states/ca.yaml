@@ -17,6 +17,36 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: mismatch
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/ca/CIV-1788.17.htm.gz
+      - data/raw/primary/ca/CIV-1788.2.htm.gz
+      mismatches:
+      - row_says: Section 1788.17 requires them to comply with FDCPA 1692b-1692j, which carries the federal timing, third-party, disclosure and cease rules to first-party lenders in California.
+        source_cite: Cal. Civ. Code 1788.17
+        source_says: However, subsection (11) of Section 1692e and Section 1692g shall not apply to any person specified in paragraphs (A) and (B) of subsection (6) of Section 1692a of Title 15 of the United States Code or that person's principal.
+      note: '15 USC 1692a(6)(A)-(B) are a creditor''s officers and employees collecting in the creditor''s name and affiliated collectors; ''that person''s principal'' is the creditor. So first-party creditors are not bound by the debt-collector disclosure (1692e(11)) or validation (1692g) through 1788.17. 1788.2(c) confirmed: ''debt collector'' includes a person collecting ''on behalf of that person or others''. 1788.17 also fixes the federal references ''as they read January 1, 2001'', so it incorporates the FDCPA statute, not Regulation F (e.g. not the 7-in-7 call presumption). Section amended by Stats. 2024, ch. 522 (SB 1286), effective January 1, 2025 (''covered debt'').'
+    federal_interaction:
+    - row: REGF-TIME-001
+      stricter: different_scope
+      note: Extends the 1692c(a)(1) time and place rule (statute as of 2001) to first-party creditors, which Regulation F does not reach; same 8 a.m. to 9 p.m. presumption.
+    - row: REGF-IDENT-001
+      stricter: different_scope
+      note: Extends 1692b and 1692c(b) third-party limits to first-party creditors.
+    - row: REGF-STOP-001
+      stricter: different_scope
+      note: Extends the 1692c(c) cease rule to first-party creditors.
+    - row: REGF-DISC-001
+      stricter: not_stricter
+      note: 1692g validation does not apply to first-party creditors through 1788.17.
+    - row: REGF-DISC-002
+      stricter: not_stricter
+      note: 1692e(11) disclosure does not apply to first-party creditors through 1788.17.
+    - row: REGF-FREQ-001
+      stricter: not_stricter
+      note: Incorporates the statute (1692d(5)), not the Regulation F 7-in-7 presumption.
 
   - id: CA-ROSENTHAL-002
     law: "Rosenthal Fair Debt Collection Practices Act"
@@ -34,6 +64,16 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/ca/CIV-1788.11.htm.gz
+      note: 1788.11(e) reaches communication 'by telephone or in person'.
+    federal_interaction:
+    - row: REGF-FREQ-001
+      stricter: different_scope
+      note: Reaches first-party creditors; a harassment standard ('unreasonable' frequency) with no numeric cap or presumption.
 
   - id: CA-ROSENTHAL-003
     law: "Rosenthal Fair Debt Collection Practices Act"
@@ -51,6 +91,16 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/ca/CIV-1788.14.htm.gz
+      note: 'The trigger in 1788.14(c) is narrower than the row says: written notice from the debtor''s attorney that includes the attorney''s name and address and a request that communications go to the attorney. Statements of account, attorney approval and responses to the debtor''s own inquiries are excepted. The row as written is stricter than the statute.'
+    federal_interaction:
+    - row: REGF-STOP-002
+      stricter: different_scope
+      note: Reaches first-party creditors but needs written notice from the attorney; the federal rule (and 1692c(a)(2) via 1788.17 for collectors) turns on knowledge of representation.
 
   - id: CA-REC-001
     law: "California Invasion of Privacy Act (recording)"
@@ -68,6 +118,14 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/ca/PEN-632.htm.gz
+      - data/raw/primary/ca/PEN-632.7.htm.gz
+      note: '''Disclose recording at the start of the call'' is operating practice to obtain consent, not statutory text. 632 covers confidential communications; 632.7 covers communications involving cellular or cordless phones, confidential or not.'
+    federal_interaction_note: No federal recording-consent row in the register (the federal wiretap statute is not modeled), so there is no federal row to compare.
 
   - id: CA-AIDISC-001
     law: "California BOT Disclosure Law"
@@ -86,6 +144,19 @@ rows:
     effective_date: 2019-07-01
     last_checked: null
     notes: "The statute is framed around 'online' communication. Whether it reaches outbound voice calls is an open question for counsel."
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/ca/BPC-17940.htm.gz
+      - data/raw/primary/ca/BPC-17941.htm.gz
+      - data/raw/primary/ca/BPC-17942.htm.gz
+      - data/raw/primary/ca/BPC-17943.htm.gz
+      note: 17941(a) adds 'for the purpose of knowingly deceiving the person about the content of the communication', and also covers influencing a vote. 'Bot' is 'an automated online account' (17940(a)); 'online' means a public-facing website, web application or digital application (17940(b)). Operative July 1, 2019 (17943).
+    federal_interaction:
+    - row: TCPA-AIVOICE-001
+      stricter: different_scope
+      note: 'Disclosure duty for online bots; the TCPA row concerns consent for AI-voice calls. Neither displaces the other (17942(a): duties are cumulative).'
 
   - id: CA-REPO-001
     law: "Rees-Levering Motor Vehicle Sales and Finance Act"
@@ -103,6 +174,20 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/ca/CIV-2983.2.htm.gz
+      - data/raw/primary/ca/CIV-2983.3.htm.gz
+      note: '2983.2(a): deficiency liability requires the notice to be given within 60 days of repossession or surrender. 2983.3(a)(2): a bankruptcy filing is not a default and cannot be the basis for acceleration or repossession.'
+    federal_interaction:
+    - row: BK-STAY-001
+      stricter: different_scope
+      note: Adds pre-disposition notice and reinstatement rights; the stay applies on top once a petition is filed.
+    - row: SCRA-REPO-001
+      stricter: different_scope
+      note: Adds state notice duties; the SCRA court-order requirement applies on top for covered servicemembers.
 
   - id: CA-UCC9-001
     law: "UCC Article 9 (California)"
@@ -120,3 +205,19 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/ca/COM-9609.htm.gz
+      - data/raw/primary/ca/COM-9611.htm.gz
+      - data/raw/primary/ca/COM-9614.htm.gz
+      - data/raw/primary/ca/COM-9615.htm.gz
+      note: California's text now says 'signed notification' where the row says 'authenticated'.
+    federal_interaction:
+    - row: SCRA-REPO-001
+      stricter: different_scope
+      note: State self-help and notice rules; SCRA court-order requirement applies on top for covered servicemembers.
+    - row: BK-STAY-001
+      stricter: different_scope
+      note: Repossession and disposition are stayed once a petition is filed.

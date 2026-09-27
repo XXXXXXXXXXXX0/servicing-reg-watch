@@ -17,6 +17,17 @@ rows:
     effective_date: null
     last_checked: null
     notes: "Third-party collectors are regulated separately (209 CMR 18.00); not yet modeled."
+    machine_check:
+      result: not_checkable
+      date: '2026-09-27'
+      reason: source blocked
+      sources:
+      - 'not fetched: https://www.mass.gov/regulations/940-CMR-700-debt-collection-regulations (www.mass.gov answered 403 (''Not allowed'') to automated requests on 2026-09-27)'
+      note: www.mass.gov returns 'Not allowed' (HTTP 403) to automated requests; 940 CMR 7.00 is not on malegislature.gov. The two-calls-in-seven-days limit is unconfirmed.
+    federal_interaction:
+    - row: REGF-FREQ-001
+      stricter: stricter
+      note: 'Per the row''s wording (not checked): two calls per seven days per debt versus the Regulation F seven-in-seven presumption, and it reaches first-party creditors. 12 CFR 1006.104 allows more protective state law.'
 
   - id: MA-940CMR-002
     law: "Massachusetts AG Debt Collection Regulations (creditors)"
@@ -34,6 +45,19 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: not_checkable
+      date: '2026-09-27'
+      reason: source blocked
+      sources:
+      - 'not fetched: https://www.mass.gov/regulations/940-CMR-700-debt-collection-regulations (www.mass.gov answered 403 (''Not allowed'') to automated requests on 2026-09-27)'
+    federal_interaction:
+    - row: REGF-TIME-001
+      stricter: unclear
+      note: Paragraph text not extracted; mass.gov blocked.
+    - row: REGF-IDENT-001
+      stricter: unclear
+      note: Paragraph text not extracted; mass.gov blocked.
 
   - id: MA-REC-001
     law: "Massachusetts Wiretap Act"
@@ -51,11 +75,18 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/ma/c272-s99.htm.gz
+      note: 'Section 99(B)(4): ''interception'' means to secretly hear or secretly record ... by any person other than a person given prior authority by all parties.'
+    federal_interaction_note: No federal recording-consent row in the register (the federal wiretap statute is not modeled), so there is no federal row to compare.
 
   - id: MA-CURE-001
     law: "Massachusetts Motor Vehicle Retail Installment Sales Act (right to cure)"
     citation: "M.G.L. c. 255B, § 20A"
-    source_url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXX/Chapter255B/Section20A"
+    source_url: "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter255B/Section20A"
     agency: state
     jurisdiction: US-MA
     applies_to: [creditors, secured_parties]
@@ -68,11 +99,24 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/ma/c255B-s20A.htm.gz
+      note: '20A(c)-(d): written notice given 10 or more days after default; 21-day cure period during which the creditor may not accelerate or take possession because of that default. No notice is needed for a later default after three cures (20A(b)). The row''s source_url returned 404; corrected to the Part III, Title IV path.'
+    federal_interaction:
+    - row: SCRA-REPO-001
+      stricter: different_scope
+      note: Adds a pre-repossession cure notice, which no federal row requires; SCRA and the bankruptcy stay apply on top.
+    - row: BK-STAY-001
+      stricter: different_scope
+      note: Repossession is stayed once a petition is filed, whatever the cure period.
 
   - id: MA-DEFICIENCY-001
     law: "Massachusetts Motor Vehicle Retail Installment Sales Act (deficiency)"
     citation: "M.G.L. c. 255B, § 20B"
-    source_url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXX/Chapter255B/Section20B"
+    source_url: "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter255B/Section20B"
     agency: state
     jurisdiction: US-MA
     applies_to: [creditors, secured_parties]
@@ -85,6 +129,16 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/ma/c255B-s20B.htm.gz
+      note: 'Threshold confirmed: no deficiency if the unpaid balance was $2,000 or less (20B(d)); at $2,000 or more, the deficiency is the unpaid balance less the collateral''s fair market value, plus reasonable repossession and storage costs (20B(e)(1)). The row''s source_url returned 404; corrected to the Part III, Title IV path.'
+    federal_interaction:
+    - row: UDAAP-PAYOFF-001
+      stricter: different_scope
+      note: UDAAP-PAYOFF-001 concerns unearned add-on refunds that inflate deficiency balances; the state rule caps the deficiency itself.
 
   - id: MA-UCC9-001
     law: "UCC Article 9 (Massachusetts)"
@@ -102,3 +156,19 @@ rows:
     status: verify
     effective_date: null
     last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/ma/c106-s9-609.htm.gz
+      - data/raw/primary/ma/c106-s9-611.htm.gz
+    federal_interaction:
+    - row: SCRA-REPO-001
+      stricter: different_scope
+      note: SCRA court-order requirement applies on top for covered servicemembers.
+    - row: BK-STAY-001
+      stricter: different_scope
+      note: Repossession and disposition are stayed once a petition is filed.
+    - row: MA-CURE-001
+      stricter: different_scope
+      note: 'State row, not federal: c. 255B 20B(d) displaces Article 9 where they differ for covered motor vehicle transactions.'
