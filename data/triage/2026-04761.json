@@ -1,18 +1,19 @@
 {
   "doc_id": "2026-04761",
-  "relevant": true,
-  "confidence": 0.5,
+  "relevant": false,
+  "confidence": 0.75,
   "change_type": "proposed_rule",
   "effective_date": null,
   "affected_register_rows": [],
-  "behavior_classes_primary": [
-    "RECORDS.RETENTION"
+  "behavior_classes_primary": [],
+  "behavior_classes_secondary": [
+    "RECORDS.RETENTION",
+    "VENDOR.GOVERNANCE"
   ],
-  "behavior_classes_secondary": [],
-  "what_changed": "NCUA proposes to simplify 12 CFR part 749 (records preservation program), update its definitions and remove its appendices, which include record retention guidelines.",
-  "compliant_agent_must_now": "No change until final; if adopted, credit unions' record retention guidelines in the part 749 appendices would no longer appear in the CFR.",
+  "what_changed": "NCUA proposes to rewrite 12 CFR part 749 as a vital records preservation program (records needed to restore vital member services after a catastrophic act, such as a current list of share, deposit and loan balances), update definitions, remove Appendix A (suggested record retention guidelines) and Appendix B (catastrophic act preparedness guidelines), and state that a credit union using a third-party service provider to maintain vital records must oversee it.",
+  "compliant_agent_must_now": "No change.",
   "open_questions_for_deploying_team": [
-    "Do any credit union clients' retention schedules for call recordings, disclosures or payment records rely on the part 749 appendix guidelines?"
+    "Does the servicing deployment hold any credit union client's vital records (e.g., current loan balance lists) so that the proposed third-party oversight expectation in 749.3 would reach it?"
   ],
-  "rationale": "Under the v1.2 record-retention addition, removing credit union record retention guidelines from the CFR could be a legal-status change to a retention expectation; whether the appendices reach loan or member-contact records is not stated in the abstract. Low confidence; needs full text. Register gap: no row covers NCUA part 749. Stage A: title, abstract and metadata only; full text not read."
+  "rationale": "Full text shows part 749 concerns disaster-recovery copies of vital records, and Appendix A was nonbinding guidance; the proposal states other retention requirements are unaffected, so no retention period for borrower contact, disclosure or payment records changes. The third-party oversight sentence reaches only providers that maintain vital records, which a servicing agent normally does not; confidence kept below the auto-close line for that reason. Stage B: read SUMMARY, SUPPLEMENTARY INFORMATION and proposed regulatory text from the saved GovInfo full text (about 4,000 of 9,913 words, by keyword search for the rest)."
 }

@@ -323,6 +323,10 @@ def test_eval_reports_stage_b_changes(tmp_path):
     assert run_eval.main(["--labels", str(ROOT / "eval" / "labels.csv"), "--triage-dir", str(triage),
                           "--data-dir", str(tmp_path), "--out", str(out)]) == 0
     assert "changed the Stage A relevance answer for 2 of 3" in out.read_text()
+    # v1.2 documents are excluded from the v1 counts
+    (triage / "_v1_2_docs.json").write_text(json.dumps({"doc_ids": ["B", "D"]}))
+    assert run_eval.stage_b_summary(triage) == {"stage_a_total": 2, "stage_b_reads": 2, "to_relevant": 1,
+                                                "to_not_relevant": 0, "other_fields_changed": 1}
 
 
 def test_clopper_pearson_known_values():

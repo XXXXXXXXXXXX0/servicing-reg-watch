@@ -146,8 +146,13 @@ def stage_b_summary(triage_dir: Path) -> dict | None:
     path = Path(triage_dir) / "_stage_b.jsonl"
     if not path.exists():
         return None
+    # Documents first triaged in v1.2 (data/triage/_v1_2_docs.json) are not part of the v1 run.
+    v12_path = Path(triage_dir) / "_v1_2_docs.json"
+    v12 = set(json.loads(v12_path.read_text())["doc_ids"]) if v12_path.exists() else set()
     rows = [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
-    stage_a = [json.loads(f.read_text()) for f in (Path(triage_dir).parent / "triage_stage_a").glob("*.json")]
+    rows = [r for r in rows if r["doc_id"] not in v12]
+    stage_a = [json.loads(f.read_text()) for f in (Path(triage_dir).parent / "triage_stage_a").glob("*.json")
+               if f.stem not in v12]
     return {
         "stage_a_total": len(stage_a),
         "stage_b_reads": len(rows),

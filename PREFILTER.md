@@ -125,10 +125,18 @@ Decisions for the 30 sampled documents are computed by `classify` from each docu
 
 Recompute with `python eval/select_sample.py --manifest-only` (reads `data/raw/federal_register.jsonl.gz`; no network). All 30 sampled documents are in the store. Current result: 16 keep (A 10, B 5, C 1) and 14 drop (excluded 7, no_match 7).
 
-## Results on the full ingest (2024-09-23 to 2026-09-24, 2,203 documents)
+## Results on the full ingest (2024-09-23 to 2026-09-24)
+
+### v1.2 (3,683 documents: the 2,203 below plus 1,480 Defense Department documents)
+
+- Kept 206: A (CFR part) 102, B (CFPB type) 35, C (keyword) 69. Counting every match regardless of order: A 102, B 77, C 115.
+- New since v1.1: 5, all on v1.2 keywords: FDIC 2024-22565 and 2024-27097 ("recordkeeping"), NCUA 2026-04761 and 2026-12058 ("record retention"), NCUA 2026-00591 ("appraisal"). The new rule-A parts matched no stored document.
+- Defense Department: 1,481 documents (one also carries a tracked agency and went through the normal rules: `no_match`). None cites 32 CFR 232 or uses an MLA keyword, so none is kept: 924 dropped as `no_match_dod_scope`, 517 PRA notices and 39 Privacy Act notices excluded. 9 of the 924 matched another keyword (4 "appraisal" in performance-review-board notices, 3 "servicemember" in SCRA housing-price and gamete-storage notices, 1 "debt collection" in a civil-penalty adjustment, 1 "deficiency" in a DFARS definition); none concerns consumer lending.
+- Excluded as administrative 1,608: PRA information collection 1,289, FCC spectrum/broadcast/licensing 138, Privacy Act SORN 97, Sunshine Act 81, agency organization 3. Dropped as `no_match`: 945.
+
+### v1.1 (2,203 documents, seven agencies)
 
 - Kept 201: A (CFR part) 102, B (CFPB type) 35, C (keyword) 64. The reason is the first rule that matched. Counting every match regardless of order: A 102, B 77, C 107.
 - Excluded as administrative 1,052: PRA information collection 772, FCC spectrum/broadcast/licensing 138, Sunshine Act 81, Privacy Act SORN 58, agency organization 3.
 - Dropped as `no_match`: 950.
 - 36 excluded documents also matched a keep rule. None matched rule A. Two were CFPB Privacy Act notices whose "rescission" is of a records system, not of guidance. The rest were keyword hits in paperwork notices, meeting notices and two FCC satellite and internet rules.
-

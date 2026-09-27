@@ -1,0 +1,10 @@
+{
+  "note": "Documents first triaged in the v1.2 scope expansion (after the v1 eval; not measured by it). eval/run_eval.py excludes them from the v1 Stage A/B counts.",
+  "doc_ids": [
+    "2024-22565",
+    "2024-27097",
+    "2026-00591",
+    "2026-04761",
+    "2026-12058"
+  ]
+}
