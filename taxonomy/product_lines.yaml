@@ -42,6 +42,9 @@ class_product_lines:
   RECOVERY.REPOSSESSION: [recovery]
   INSURANCE.CLAIMS: [insurance_claims]
   VENDOR.GOVERNANCE: [compliance_audit]
+  DISPUTES.ERROR_RESOLUTION: [disputes]
+  DISPUTES.CLAIMS_DEFENSES: [disputes]
+  RECORDS.RETENTION: [compliance_audit]
 
 # Review priority of a change record (v1.2). A record is `high` when any of its
 # PRIMARY behavior classes matches `high_classes` (a trailing ".*" matches every

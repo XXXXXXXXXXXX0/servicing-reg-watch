@@ -31,6 +31,7 @@ The document's own `cfr_references` metadata includes one of these parts. If the
 - 12 CFR 30 (OCC), 208 (Fed), 225 (Fed), 364 (FDIC), 748 (NCUA): bank and credit union information-security standards, security programs and incident notification
 - 12 CFR 53 (OCC) and 304 (FDIC): computer-security incident notification
 - 12 CFR 1090 (CFPB): larger-participant rules, which bring nonbank auto lenders, collectors and payment companies under CFPB supervision
+- v1.2: 32 CFR 232 (Military Lending Act); 16 CFR 681 (FTC identity-theft Red Flags); 16 CFR 433 (FTC Holder Rule); 12 CFR 41 (OCC), 222 (Fed), 334 (FDIC), 717 (NCUA): the bank and credit union agencies' FCRA parts, which hold their Red Flags rules (41.90, 222.90, 334.90, 717.90). Billing-error (12 CFR 1026.13), EFT error-resolution (1005.11) and record-retention sections (1006.100, 1026.25, 1005.13, 1002.12) sit in parts already listed.
 
 **Why:** these are the parts that hold the register's federal rules, plus the parts that decide who is supervised for them. A document that amends one of them changes rule text that a servicing agent follows, or changes who has to follow it. It is kept whatever its title says. The list is a minimum, and the prefilter leans toward keeping: parts are added freely and removed only with a stated reason.
 
@@ -72,6 +73,24 @@ debt collection; debt collector; servicing; servicer; delinquen*; loan modificat
 | Nacha | NACHA-TEL-001, NACHA-WEB-001 (Nacha Operating Rules) |
 | SOC 2 (case-sensitive) | SOC2-001 |
 | PCI DSS (case-sensitive) | PCI-001 |
+
+**Added in v1.2 scope expansion** (after the v1 eval; not measured by it). Each closes a gap for a vendor business line added in v1.2:
+
+| Keyword | Gap it closes |
+|---|---|
+| chargeback, billing error, error resolution, claims and defenses | Disputes line: REGZ-BILLERR-001, REGZ-CLAIMS-001, REGE-ERR-001, CARDNET-CHARGEBACK-001 |
+| holder rule | HOLDER-001 (dealer-originated contracts) |
+| Military Lending Act, covered borrower | MLA-COVERED-001, MLA-TERMS-001, MLA-DISC-001 |
+| red flags, identity theft program, identity theft prevention program | REDFLAG-FTC-001, REDFLAG-BANK-001 |
+| record retention, recordkeeping | REGF-RECORDS-001, REGZ-RECORDS-001, REGE-RECORDS-001, REGB-RECORDS-001 |
+| payoff, hardship, promise to pay | Servicing and collections tasks named by the vendor (payoff quotes, hardship screening, promises to pay); UDAAP-PAYOFF-001, STATE-PAYOFF-001 |
+| appraisal | Appraisal-clause deadlines (INS-APPRAISAL-001). Also matches mortgage appraisal items, which triage rules out. |
+
+### Defense Department documents (v1.2)
+
+The Defense Department (`defense-department`) was added as an ingest agency for the Military Lending Act. Its documents (DoD-only, i.e. no other tracked agency joined them) are kept **only** on rule A for 32 CFR 232, or on the MLA keywords "Military Lending Act", "covered borrower" and "limitations on terms of consumer credit". Every other DoD document is dropped with reason `no_match_dod_scope`, even when it matches another rule-A part or keyword.
+
+**Why:** almost all DoD Federal Register volume (acquisition rules, personnel, health programs, base notices) has nothing to do with consumer lending, but hits generic keywords such as "servicemember", "service provider" or "information security". The MLA is the only DoD-administered obligation in the register.
 
 ## 3. Drop everything else (`no_match`)
 

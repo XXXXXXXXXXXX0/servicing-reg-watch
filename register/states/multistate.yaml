@@ -96,3 +96,40 @@ rows:
     last_checked: null
     notes: "Raised as a register gap in record 2025-19671. That CFPB interpretive rule (FR Doc. 2025-19671) says 15 USC 1681t(b)(1)(E) and (F) broadly preempt such state laws. It also acknowledges that courts decide preemption and that several circuits read the clause narrowly. No state statute is cited in the committed text for CA, FL, MA or TX. Research item in register/research_backlog.yaml."
 
+
+  # v1.2 scope expansion: state rows left unresearched (no primary source identified).
+  - id: STATE-PAYOFF-001
+    law: "Payoff statement / payoff quote laws"
+    citation: null
+    source_url: null
+    agency: state
+    jurisdiction: multi-state
+    applies_to: [creditors, secured_parties]
+    tier: 2
+    behavior_classes: [NEGOTIATION.TREATMENT]
+    constraint: "Unresearched. Deadlines and content rules for payoff quotes on vehicle loans vary by state; no constraint is stated until primary sources are identified."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: unresearched
+    effective_date: null
+    last_checked: null
+    notes: "v1.2. Payoff quotes are a named vendor servicing task."
+
+  - id: STATE-TOTALLOSS-001
+    law: "Total-loss claim handling and settlement laws"
+    citation: null
+    source_url: null
+    agency: state
+    jurisdiction: multi-state
+    applies_to: [secured_parties]
+    tier: 2
+    behavior_classes: [INSURANCE.CLAIMS]
+    constraint: "Unresearched. State insurance codes and regulations govern total-loss settlement and payment to lienholders; no constraint is stated until primary sources are identified."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: unresearched
+    effective_date: null
+    last_checked: null
+    notes: "v1.2. Total loss is a named vendor insurance-claims task."

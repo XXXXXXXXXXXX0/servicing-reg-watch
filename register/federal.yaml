@@ -779,3 +779,318 @@ rows:
     effective_date: 2025-03-31
     last_checked: null
     notes: "Industry standard, not law. effective_date is when the v4.x future-dated requirements took effect; confirm."
+
+  # =================================================================== v1.2 rows
+  # v1.2 scope expansion (after the v1 eval; not measured by it). Every CFR
+  # citation below was confirmed against eCFR point-in-time text as of
+  # 2026-09-24, cached in data/raw/ecfr/2026-09-24_*.gz; statutory citations are
+  # used only where that text states them (part authority line or section text).
+  # FR-document citations were confirmed from the committed GovInfo text.
+  # Constraint wording is drafted from that text and stays `status: verify`
+  # until checked by a person.
+
+  # ------------------------------------- Disputes: billing errors, chargebacks
+  - id: REGZ-BILLERR-001
+    law: "TILA / Regulation Z (billing error resolution)"
+    citation: "12 CFR 1026.13"
+    source_url: "https://www.ecfr.gov/current/title-12/section-1026.13"
+    agency: CFPB
+    jurisdiction: federal
+    applies_to: [card_issuers_open_end_creditors]
+    tier: 2
+    behavior_classes: [DISPUTES.ERROR_RESOLUTION, STOP.TRIGGERS, DISPUTES.CREDIT_REPORTING]
+    constraint: "Open-end credit (including credit card) billing errors: a written billing error notice received within 60 days of the first periodic statement showing the error must be acknowledged within 30 days and resolved within 2 complete billing cycles (no later than 90 days). Until resolved, the creditor may not try to collect the disputed amount or related charges, may not deduct it under an automatic payment plan, and may not report it or the account as delinquent (1026.13(d)). An agent taking a dispute must route it into this process and must not demand the disputed amount."
+    change_source: [federal_register, ecfr]
+    ecfr: {title: 12, part: 1026, section: "1026.13"}
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "v1.2. TILA is named on the vendor's pages; card chargebacks are a named vendor line. 1026.13(i) routes credit incident to an EFT under an overdraft or minimum-balance agreement to Regulation E error resolution."
+
+  - id: REGZ-CLAIMS-001
+    law: "TILA / Regulation Z (card claims and defenses)"
+    citation: "12 CFR 1026.12(c)"
+    source_url: "https://www.ecfr.gov/current/title-12/section-1026.12"
+    agency: CFPB
+    jurisdiction: federal
+    applies_to: [card_issuers_open_end_creditors]
+    tier: 2
+    behavior_classes: [DISPUTES.CLAIMS_DEFENSES, DISPUTES.CREDIT_REPORTING]
+    constraint: "When a merchant fails to resolve a dispute over property or services bought with a credit card, the cardholder may assert claims (other than tort) and defenses against the card issuer and withhold payment up to the credit outstanding for that purchase; the issuer may not report the withheld amount as delinquent until the dispute is settled or judgment is rendered. Limits in 1026.12(c)(3) apply (good-faith attempt to resolve; over $50 and in-state or within 100 miles, unless an exclusion applies)."
+    change_source: [federal_register, ecfr]
+    ecfr: {title: 12, part: 1026, section: "1026.12"}
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "v1.2."
+
+  - id: REGE-ERR-001
+    law: "EFTA / Regulation E (error resolution)"
+    citation: "12 CFR 1005.11"
+    source_url: "https://www.ecfr.gov/current/title-12/section-1005.11"
+    agency: CFPB
+    jurisdiction: federal
+    applies_to: [account_holding_institutions]
+    tier: 2
+    behavior_classes: [DISPUTES.ERROR_RESOLUTION]
+    constraint: "An oral or written notice of error (including an unauthorized EFT) received within 60 days of the periodic statement starts the clock: investigate and determine within 10 business days, or within 45 days with provisional credit given within 10 business days (20 business days / 90 days in the cases in 1005.11(c)(3)); report results within 3 business days; correct within 1 business day. An institution may require written confirmation of an oral notice within 10 business days only if it tells the consumer so, and where to send it, during the oral notice. An agent that hears an error assertion on a call is receiving an oral notice."
+    change_source: [federal_register, ecfr]
+    ecfr: {title: 12, part: 1005, section: "1005.11"}
+    provenance: added_by_analysis
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "v1.2. Debit card chargebacks run through this process for the consumer's institution."
+
+  - id: CARDNET-CHARGEBACK-001
+    law: "Card network chargeback rules"
+    citation: null
+    source_url: null
+    agency: industry
+    jurisdiction: federal
+    applies_to: [card_issuers_open_end_creditors]
+    tier: 2
+    behavior_classes: [DISPUTES.ERROR_RESOLUTION]
+    constraint: "Unresearched. Card network rules set chargeback reason codes and filing deadlines between issuer and acquirer; no primary source has been identified or reviewed."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: unresearched
+    effective_date: null
+    last_checked: null
+    notes: "v1.2. Private network rules, not public law; not in eCFR."
+
+  # ---------------------------------------------------- Military Lending Act
+  - id: MLA-COVERED-001
+    law: "Military Lending Act (covered borrower identification)"
+    citation: "10 USC 987; 32 CFR 232.3(g), 232.5"
+    source_url: "https://www.ecfr.gov/current/title-32/part-232"
+    agency: DoD
+    jurisdiction: federal
+    applies_to: [creditors]
+    tier: 2
+    behavior_classes: [STOP.TRIGGERS, IDENTITY.RIGHT_PARTY]
+    constraint: "Covered borrower status (active-duty member or dependent) is fixed when the consumer becomes obligated or opens the account (232.3(g)). A creditor may use the Department's database for a safe-harbor status check (232.5(b)), but may not use it after the transaction to look back at whether the consumer was a covered borrower when it was made (232.5(b)(2)(i)(B)). Consumer credit excludes credit expressly intended to finance a motor vehicle and secured by that vehicle (232.3(f)(2)(ii)), so purchase-money auto loans are generally outside the MLA; refinances and other consumer credit are not."
+    change_source: [federal_register, ecfr]
+    ecfr: {title: 32, part: 232}
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "v1.2. 10 USC 987 is the part's authority line."
+
+  - id: MLA-TERMS-001
+    law: "Military Lending Act (terms and limitations)"
+    citation: "10 USC 987; 32 CFR 232.4(b), 232.8"
+    source_url: "https://www.ecfr.gov/current/title-32/part-232"
+    agency: DoD
+    jurisdiction: federal
+    applies_to: [creditors]
+    tier: 2
+    behavior_classes: [NEGOTIATION.TREATMENT, PAYMENT.AUTHORIZATION, ACCOUNT.MODIFICATION]
+    constraint: "For covered consumer credit: MAPR may not exceed 36 percent (232.4(b)). Unlawful to roll over, renew, refinance or consolidate with the same creditor's own credit (232.8(a), with exceptions); require waiver of legal recourse including SCRA rights (232.8(b)); require arbitration (232.8(c)); require an allotment to repay (232.8(g)); prohibit or penalize prepayment (232.8(h)); or use a check or account access as a condition, except as 232.8(e) permits (e.g., may require an EFT to repay at an MAPR within the cap). Agents offering modifications, refinances or payment methods to covered borrowers must stay inside these limits."
+    change_source: [federal_register, ecfr]
+    ecfr: {title: 32, part: 232}
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "v1.2."
+
+  - id: MLA-DISC-001
+    law: "Military Lending Act (mandatory disclosures)"
+    citation: "10 USC 987; 32 CFR 232.6"
+    source_url: "https://www.ecfr.gov/current/title-32/part-232"
+    agency: DoD
+    jurisdiction: federal
+    applies_to: [creditors]
+    tier: 2
+    behavior_classes: [DISCLOSURE.REQUIRED, ACCOUNT.MODIFICATION]
+    constraint: "Before or at the time a covered borrower becomes obligated, provide the MAPR statement, the Regulation Z disclosures and a clear description of the payment obligation (232.6(a)). The MAPR statement and payment description must be given in writing and also orally (232.6(d)); oral delivery may be in person or by a toll-free number the borrower can call. A refinance or renewal needs new disclosures only when Regulation Z treats it as a new transaction (232.6(e))."
+    change_source: [federal_register, ecfr]
+    ecfr: {title: 32, part: 232}
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "v1.2. Oral disclosure duty is directly relevant to voice agents handling refinances."
+
+  # ------------------------------------------------ Identity theft Red Flags
+  - id: REDFLAG-FTC-001
+    law: "FCRA Identity Theft Red Flags Rule (FTC)"
+    citation: "15 USC 1681m(e); 16 CFR 681.1"
+    source_url: "https://www.ecfr.gov/current/title-16/part-681"
+    agency: FTC
+    jurisdiction: federal
+    applies_to: [nonbank_financial_companies]
+    tier: 2
+    behavior_classes: [IDENTITY.RIGHT_PARTY, DATA.PRIVACY_SECURITY]
+    constraint: "A financial institution or creditor under FTC FCRA enforcement that offers or maintains covered accounts (including automobile loans) must have a written Identity Theft Prevention Program to detect, prevent and mitigate identity theft in connection with opening a covered account or any existing covered account (681.1(d)). Borrower verification by an agent is part of how red flags are detected on existing accounts."
+    change_source: [federal_register, ecfr]
+    ecfr: {title: 16, part: 681}
+    provenance: added_by_analysis
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "v1.2. Scope per 681.1(a): entities subject to FTC FCRA enforcement under 15 USC 1681s(a)(1). 15 USC 1681m(e) is the part's authority line."
+
+  - id: REDFLAG-BANK-001
+    law: "FCRA Identity Theft Red Flags (bank and credit union agencies)"
+    citation: "12 CFR 41.90 (OCC); 12 CFR 222.90 (Fed); 12 CFR 334.90 (FDIC); 12 CFR 717.90 (NCUA)"
+    source_url: "https://www.ecfr.gov/current/title-12/section-41.90"
+    agency: "OCC, FDIC, Fed, NCUA"
+    jurisdiction: federal
+    applies_to: [banks, credit_unions]
+    tier: 2
+    behavior_classes: [IDENTITY.RIGHT_PARTY, DATA.PRIVACY_SECURITY]
+    constraint: "Each covered bank, savings association or federal credit union that offers or maintains covered accounts (e.g. automobile loans, credit card accounts) must develop and implement a written Identity Theft Prevention Program (paragraph (d) of each section) and administer it, including oversight of service provider arrangements (paragraph (e))."
+    change_source: [federal_register]
+    provenance: added_by_analysis
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "v1.2. 12 CFR 717.90 covers federal credit unions only; which rule covers state-chartered credit unions was not confirmed. Scope paragraphs (a) of each section confirmed."
+
+  # ----------------------------------------------------------- FTC Holder Rule
+  - id: HOLDER-001
+    law: "FTC Holder Rule (preservation of consumers' claims and defenses)"
+    citation: "16 CFR 433.2"
+    source_url: "https://www.ecfr.gov/current/title-16/part-433"
+    agency: FTC
+    jurisdiction: federal
+    applies_to: [holders]
+    tier: 2
+    behavior_classes: [DISPUTES.CLAIMS_DEFENSES]
+    constraint: "A seller (e.g. a dealer) may not take or receive a consumer credit contract, or accept purchase-money loan proceeds, unless the contract contains the notice that any holder is subject to all claims and defenses the debtor could assert against the seller, with recovery capped at amounts paid. The rule binds sellers; a holder (bank, credit union, captive or specialty lender that buys the contract) is bound through that contract term. Agents handling disputes on dealer-originated contracts must treat seller-conduct claims as assertable against the holder."
+    change_source: [federal_register, ecfr]
+    ecfr: {title: 16, part: 433}
+    provenance: added_by_analysis
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "v1.2."
+
+  # ------------------------------------------------- Recordkeeping and retention
+  - id: REGF-RECORDS-001
+    law: "FDCPA / Regulation F (record retention)"
+    citation: "12 CFR 1006.100"
+    source_url: "https://www.ecfr.gov/current/title-12/section-1006.100"
+    agency: CFPB
+    jurisdiction: federal
+    applies_to: [third_party_collectors, post_default_servicers]
+    tier: 2
+    behavior_classes: [RECORDS.RETENTION, CONTACT.RECORDING]
+    constraint: "Retain records that are evidence of compliance or noncompliance from the start of collection activity on a debt until three years after the last collection activity on it; if telephone calls are recorded, retain each recording for three years after the call."
+    change_source: [federal_register, ecfr]
+    ecfr: {title: 12, part: 1006}
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "v1.2."
+
+  - id: REGZ-RECORDS-001
+    law: "TILA / Regulation Z (record retention)"
+    citation: "12 CFR 1026.25(a)"
+    source_url: "https://www.ecfr.gov/current/title-12/section-1026.25"
+    agency: CFPB
+    jurisdiction: federal
+    applies_to: [creditors]
+    tier: 2
+    behavior_classes: [RECORDS.RETENTION]
+    constraint: "Retain evidence of compliance with Regulation Z (other than the advertising rules and certain mortgage disclosures) for two years after the date disclosures are required to be made or action is required to be taken."
+    change_source: [federal_register, ecfr]
+    ecfr: {title: 12, part: 1026, section: "1026.25"}
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "v1.2."
+
+  - id: REGE-RECORDS-001
+    law: "EFTA / Regulation E (record retention)"
+    citation: "12 CFR 1005.13(b)"
+    source_url: "https://www.ecfr.gov/current/title-12/section-1005.13"
+    agency: CFPB
+    jurisdiction: federal
+    applies_to: [financial_institutions]
+    tier: 2
+    behavior_classes: [RECORDS.RETENTION]
+    constraint: "Any person subject to the EFTA and Regulation E retains evidence of compliance for at least two years from the date disclosures are required or action is required (including payment authorizations), and longer when on notice of an investigation or enforcement proceeding."
+    change_source: [federal_register, ecfr]
+    ecfr: {title: 12, part: 1005}
+    provenance: added_by_analysis
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "v1.2."
+
+  - id: REGB-RECORDS-001
+    law: "ECOA / Regulation B (record retention)"
+    citation: "12 CFR 1002.12(b)"
+    source_url: "https://www.ecfr.gov/current/title-12/section-1002.12"
+    agency: CFPB
+    jurisdiction: federal
+    applies_to: [creditors]
+    tier: 2
+    behavior_classes: [RECORDS.RETENTION]
+    constraint: "Retain for 25 months (consumer credit) written or recorded information concerning adverse action on an existing account, and any written statement alleging a violation, after notifying the applicant of the adverse action (1002.12(b)(2)); longer when on notice of an investigation or enforcement proceeding (1002.12(b)(4))."
+    change_source: [federal_register, ecfr]
+    ecfr: {title: 12, part: 1002}
+    provenance: added_by_analysis
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "v1.2."
+
+  # --------------------------------- Insurance claims and payoff: UDAAP hooks
+  - id: UDAAP-PAYOFF-001
+    law: "Consumer Financial Protection Act (UDAAP): payoff and title delivery"
+    citation: "12 USC 5531, as applied in CFPB Supervisory Highlights, Special Edition Auto Finance, 89 FR 83842 (Oct. 18, 2024), FR Doc. 2024-24093, secs. 2.3.2 and 2.4.6"
+    source_url: "https://www.federalregister.gov/documents/2024/10/18/2024-24093/supervisory-highlights-special-edition-auto-finance"
+    agency: CFPB
+    jurisdiction: federal
+    applies_to: [covered_persons]
+    tier: 2
+    behavior_classes: [NEGOTIATION.TREATMENT, INSURANCE.CLAIMS]
+    constraint: "Supervisory findings of unfair practices: excessive delay delivering vehicle titles after loan or lease payoff or on request to transfer registration out of state (sec. 2.3.2); failing to ensure refunds of unearned add-on product premiums on early payoff, repossession or total loss, which inflated payoff and deficiency balances (sec. 2.4.6). Payoff quotes should reflect refunds due, and post-payoff title release should be tracked to the lender's stated timeline."
+    change_source: [federal_register]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "v1.2. Supervisory findings, not a rule; the sections named were confirmed in the committed GovInfo text of 2024-24093. No payoff-quote timing rule was found in committed federal material; state payoff rules are STATE-PAYOFF-001 (unresearched)."
+
+  - id: UDAAP-INS-001
+    law: "Consumer Financial Protection Act (UDAAP): GAP and total-loss handling"
+    citation: "12 USC 5531, as applied in CFPB Supervisory Highlights, Special Edition Auto Finance, 89 FR 83842 (Oct. 18, 2024), FR Doc. 2024-24093, secs. 2.4.2, 2.4.6 and 2.4.9"
+    source_url: "https://www.federalregister.gov/documents/2024/10/18/2024-24093/supervisory-highlights-special-edition-auto-finance"
+    agency: CFPB
+    jurisdiction: federal
+    applies_to: [covered_persons]
+    tier: 2
+    behavior_classes: [INSURANCE.CLAIMS, NEGOTIATION.TREATMENT]
+    constraint: "Supervisory findings of unfair practices: financing GAP products void on salvage-title vehicles (sec. 2.4.2); failing to ensure refunds of unearned add-on premiums after total loss or default (sec. 2.4.6); continuing to collect monthly payments for months after a total loss from borrowers covered by a GAP waiver, then miscalculating the refund (sec. 2.4.9). After a reported total loss with GAP coverage, an agent should not press for scheduled payments without checking claim status."
+    change_source: [federal_register]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    notes: "v1.2. Supervisory findings, not a rule; sections confirmed in the committed GovInfo text of 2024-24093. Overlaps INS-GAP-001 (Issue 26). Appraisal-clause deadlines: INS-APPRAISAL-001 (unresearched)."

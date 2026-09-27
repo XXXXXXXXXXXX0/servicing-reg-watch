@@ -38,6 +38,13 @@ behavior_classes:
     description: Total loss, GAP, appraisal-clause deadlines, lien release, collateral protection insurance, add-on refunds.
   VENDOR.GOVERNANCE:
     description: How bank and credit union customers examine an AI vendor.
+  # v1.2 scope expansion (after the v1 eval; not measured by it)
+  DISPUTES.ERROR_RESOLUTION:
+    description: Billing-error and EFT error resolution and card chargebacks (notice windows, investigation deadlines, provisional credit, collection and reporting limits pending resolution).
+  DISPUTES.CLAIMS_DEFENSES:
+    description: Borrower claims and defenses asserted against a card issuer or the holder of a dealer-originated consumer credit contract.
+  RECORDS.RETENTION:
+    description: Recordkeeping and retention of evidence of compliance for collection and credit records, including call recordings.
 
 # Controlled vocabulary for the register's `applies_to` field (who is covered).
 covered_entities:
@@ -60,3 +67,7 @@ covered_entities:
   deployers: Deployers of AI systems (e.g., Colorado SB 24-205 terminology).
   merchants_payment_processors: Entities that store, process or transmit cardholder data.
   all_persons: Statute or rule applies without entity limitation.
+  # v1.2
+  card_issuers_open_end_creditors: Card issuers and creditors on open-end (not home-secured) consumer credit plans (Reg Z 1026.12, 1026.13).
+  account_holding_institutions: Financial institutions that hold consumer asset accounts or issue access devices (Reg E error resolution).
+  holders: Holders of consumer credit contracts that carry the FTC Holder Rule notice (16 CFR 433.2), including assignees of dealer paper.

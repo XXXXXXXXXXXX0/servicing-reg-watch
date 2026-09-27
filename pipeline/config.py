@@ -22,6 +22,9 @@ AGENCIES = [
     "federal-deposit-insurance-corporation",
     "federal-reserve-system",
     "national-credit-union-administration",
+    # v1.2: Military Lending Act (32 CFR 232). The prefilter keeps DoD documents
+    # only on rule A (32 CFR 232) or MLA keywords (PREFILTER.md).
+    "defense-department",
 ]
 
 # Federal Register API condition values -> the `type` string returned in results.
@@ -47,6 +50,10 @@ ECFR_TRACKED = [
     {"title": 12, "part": "1026", "label": "Reg Z"},
     {"title": 47, "part": "64", "section": "64.1200", "label": "TCPA rules"},
     {"title": 16, "part": "314", "label": "FTC Safeguards"},
+    # v1.2
+    {"title": 32, "part": "232", "label": "Military Lending Act"},
+    {"title": 16, "part": "681", "label": "FTC Red Flags"},
+    {"title": 16, "part": "433", "label": "FTC Holder Rule"},
 ]
 
 # Prefilter rule A (PREFILTER.md): a document citing any of these CFR parts is
@@ -56,5 +63,7 @@ ECFR_TRACKED = [
 PREFILTER_CFR_PARTS = {(t["title"], t["part"]) for t in ECFR_TRACKED} | {
     (12, "30"), (12, "208"), (12, "225"), (12, "364"), (12, "748"),
     (12, "53"), (12, "304"), (12, "1090"),
+    # v1.2: identity-theft Red Flags at the bank and credit union agencies (FCRA parts)
+    (12, "41"), (12, "222"), (12, "334"), (12, "717"),
 }
 

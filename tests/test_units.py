@@ -51,6 +51,19 @@ def test_prefilter_rules():
     assert c(_doc("Title", abstract="Third party relationships", agency=cfpb))["keyword_hits"] == ["third-party relationship"]
 
 
+def test_prefilter_v1_2_rules():
+    c, dod = prefilter.classify, "defense-department"
+    assert c(_doc("Anything", cfr=[(32, "232")], agency=dod))["reason"] == "A_cfr_part"
+    assert c(_doc("Anything", cfr=[(16, "433")]))["reason"] == "A_cfr_part"
+    assert c(_doc("Anything", cfr=[(12, "717")]))["reason"] == "A_cfr_part"
+    assert c(_doc("Military Lending Act Guidance", agency=dod))["reason"] == "C_keyword"
+    # DoD documents are kept only on 32 CFR 232 or MLA keywords, whatever else they match
+    assert c(_doc("Servicemember Information Security Program", agency=dod))["reason"] == "no_match_dod_scope"
+    assert c(_doc("Anything", cfr=[(12, "1026")], agency=dod))["reason"] == "no_match_dod_scope"
+    assert c(_doc("Billing Error Resolution for Chargebacks", agency="federal-trade-commission"))["keyword_hits"] == \
+        ["chargeback", "billing error", "error resolution"]
+
+
 def test_prefilter_coverage_reaches_every_row_and_class():
     cov = prefilter.coverage()
     assert cov["unreached_rows"] == [] and cov["unreached_classes"] == []

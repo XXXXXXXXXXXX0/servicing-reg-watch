@@ -30,6 +30,21 @@ entity_rules:
   covered_persons: {all: binds, reason: "CFPA covered persons include banks, credit unions and nonbank lenders."}
   financial_institutions: {all: binds, reason: "Reg E / GLBA duties reach every segment in the covered role."}
   ach_originators: {all: binds, reason: "Every segment that takes ACH payments originates entries under the Nacha Rules."}
+  holders:
+    all: binds
+    reason: "Every segment buys or holds dealer-originated consumer credit contracts; the Holder Rule notice in the contract subjects the holder to the borrower's claims and defenses (16 CFR 433.2 itself binds sellers)."
+  card_issuers_open_end_creditors:
+    bank: binds
+    credit_union: binds
+    captive: unclear
+    specialty_lender: unclear
+    reason: "Banks and credit unions issue cards and open-end plans; a captive or specialty auto lender is bound only if it extends open-end credit or issues cards, which the register does not settle."
+  account_holding_institutions:
+    bank: binds
+    credit_union: binds
+    captive: unclear
+    specialty_lender: unclear
+    reason: "Banks and credit unions hold consumer asset accounts; a captive or specialty lender is bound only if it holds accounts or issues access devices, which the register does not settle."
   third_party_collectors:
     all: unclear
     reason: "FDCPA binds a lender only when it acts as a debt collector (e.g. debt obtained in default, false-name exception); otherwise it binds the lender's collection vendors."

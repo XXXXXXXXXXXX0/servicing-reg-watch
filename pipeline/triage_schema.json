@@ -91,7 +91,10 @@
           "DATA.PRIVACY_SECURITY",
           "RECOVERY.REPOSSESSION",
           "INSURANCE.CLAIMS",
-          "VENDOR.GOVERNANCE"
+          "VENDOR.GOVERNANCE",
+          "DISPUTES.ERROR_RESOLUTION",
+          "DISPUTES.CLAIMS_DEFENSES",
+          "RECORDS.RETENTION"
         ]
       },
       "uniqueItems": true,
@@ -118,7 +121,10 @@
           "DATA.PRIVACY_SECURITY",
           "RECOVERY.REPOSSESSION",
           "INSURANCE.CLAIMS",
-          "VENDOR.GOVERNANCE"
+          "VENDOR.GOVERNANCE",
+          "DISPUTES.ERROR_RESOLUTION",
+          "DISPUTES.CLAIMS_DEFENSES",
+          "RECORDS.RETENTION"
         ]
       },
       "uniqueItems": true,
@@ -145,7 +151,10 @@
           "DATA.PRIVACY_SECURITY",
           "RECOVERY.REPOSSESSION",
           "INSURANCE.CLAIMS",
-          "VENDOR.GOVERNANCE"
+          "VENDOR.GOVERNANCE",
+          "DISPUTES.ERROR_RESOLUTION",
+          "DISPUTES.CLAIMS_DEFENSES",
+          "RECORDS.RETENTION"
         ]
       },
       "uniqueItems": true,

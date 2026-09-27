@@ -25,6 +25,7 @@ from .ingest import load_raw_docs
 
 CFPB = "consumer-financial-protection-bureau"
 FCC = "federal-communications-commission"
+DOD = "defense-department"
 
 # EXCLUDE rules, matched against the title: (reason, pattern, doc types it applies to or None).
 EXCLUDE = [
@@ -70,6 +71,18 @@ COVERAGE_KEYWORDS = [
     "unfair or deceptive", "collection practices", "recording", "wiretap", "bot", "Nacha",
     "SOC 2", "PCI DSS",
 ]
+# v1.2 scope expansion (PREFILTER.md lists the gap each one closes).
+V1_2_KEYWORDS = [
+    "chargeback", "billing error", "error resolution", "Military Lending Act", "covered borrower",
+    "red flags", "identity theft program", "identity theft prevention program", "holder rule",
+    "claims and defenses", "payoff", "hardship", "promise to pay", "appraisal", "record retention",
+    "recordkeeping",
+]
+# Defense Department documents (v1.2) are kept only on rule A for 32 CFR 232 or on
+# these MLA keywords; DoD's other volume (acquisition rules, personnel, TRICARE)
+# never touches consumer lending but hits generic keywords such as "servicemember".
+DOD_CFR_PARTS = {"32 CFR 232"}
+DOD_KEYWORDS = ["Military Lending Act", "covered borrower", "limitations on terms of consumer credit"]
 # Case-sensitive acronyms. Inside "GAP waiver" only GAP is case-sensitive.
 CASE_SENSITIVE = {"ACH", "UDAAP", "GAP waiver", "E-SIGN", "SOC 2", "PCI DSS"}
 
@@ -85,7 +98,7 @@ def _keyword_pattern(term: str) -> re.Pattern:
     return re.compile(rf"\b{body}{tail}", flags)
 
 
-_KEYWORDS = {t: _keyword_pattern(t) for t in KEYWORDS + COVERAGE_KEYWORDS}
+_KEYWORDS = {t: _keyword_pattern(t) for t in KEYWORDS + COVERAGE_KEYWORDS + V1_2_KEYWORDS + DOD_KEYWORDS}
 _EXCLUDE = [(r, re.compile(p, re.IGNORECASE), types) for r, p, types in EXCLUDE]
 _FCC = [re.compile(t, 0 if t in FCC_CASE_SENSITIVE else re.IGNORECASE) for t in FCC_LICENSING]
 
@@ -136,8 +149,20 @@ def classify(doc: dict) -> dict:
     text = " ".join(filter(None, [doc.get("title"), doc.get("abstract")]))
     decision = {"keep": False, "reason": "", "exclude": exclusion(doc), "cfr_hits": _cfr_hits(doc),
                 "cfpb_type": cfpb_type(doc), "keyword_hits": keyword_hits(text)}
+    # A DoD document (the FR lists the parent slug alongside any component) that no other tracked agency joined.
+    dod_only = DOD in _agency_slugs(doc) and not (_agency_slugs(doc) & (set(config.AGENCIES) - {DOD}))
+    if dod_only:
+        cfr = [h for h in decision["cfr_hits"] if h in DOD_CFR_PARTS]
+        kw = [k for k in decision["keyword_hits"] if k in DOD_KEYWORDS]
     if decision["exclude"]:
         decision["reason"] = decision["exclude"]
+    elif dod_only:
+        if cfr:
+            decision.update(keep=True, reason="A_cfr_part")
+        elif kw:
+            decision.update(keep=True, reason="C_keyword")
+        else:
+            decision["reason"] = "no_match_dod_scope"
     elif decision["cfr_hits"]:
         decision.update(keep=True, reason="A_cfr_part")
     elif decision["cfpb_type"]:

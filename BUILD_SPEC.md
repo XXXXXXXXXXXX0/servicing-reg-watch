@@ -16,10 +16,11 @@ Detect regulatory changes relevant to AI agents that service consumer loans (con
 ## 3. Sources
 **Federal Register API** (`https://www.federalregister.gov/api/v1/documents.json`), last 24 months, document types RULE, PRORULE, NOTICE. Agency slugs:
 consumer-financial-protection-bureau, federal-communications-commission, federal-trade-commission, comptroller-of-the-currency, federal-deposit-insurance-corporation, federal-reserve-system, national-credit-union-administration.
+v1.2: defense-department (Military Lending Act, 32 CFR 232), ingested alone (`python -m pipeline.ingest --agency defense-department`) for the committed window 2024-09-23 to 2026-09-24; the prefilter keeps its documents only on 32 CFR 232 or MLA keywords.
 Withdrawals and rescissions of guidance are changes and must be captured.
 
 **eCFR versioner API** (`https://www.ecfr.gov/api/versioner/v1/`) for point-in-time rule text and diffs:
-12 CFR 1005 (Reg E), 1002 (Reg B), 1006 (Reg F), 1016 (Reg P), 1022 (Reg V), 1026 (Reg Z); 47 CFR 64.1200 (TCPA rules); 16 CFR 314 (FTC Safeguards).
+12 CFR 1005 (Reg E), 1002 (Reg B), 1006 (Reg F), 1016 (Reg P), 1022 (Reg V), 1026 (Reg Z); 47 CFR 64.1200 (TCPA rules); 16 CFR 314 (FTC Safeguards). v1.2: 32 CFR 232 (MLA), 16 CFR 681 (Red Flags), 16 CFR 433 (Holder Rule).
 
 **GovInfo** for Federal Register full text (federalregister.gov text URLs redirect to a bot wall): API granule `https://api.govinfo.gov/packages/FR-<publication_date>/granules/<document_number>/htm` with the key from env `GOVINFO_API_KEY` in the `X-Api-Key` header; fallback `https://www.govinfo.gov/content/pkg/FR-<publication_date>/html/<document_number>.htm`. HTML tags are stripped; every response is cached to disk and never refetched.
 
@@ -65,6 +66,10 @@ Derived from the regulations and public product descriptions. Not any vendor's i
 - INSURANCE.CLAIMS — total loss, GAP, appraisal-clause deadlines, lien release, collateral protection insurance, add-on refunds
 - VENDOR.GOVERNANCE — how bank and credit union customers examine an AI vendor
 
+- v1.2: DISPUTES.ERROR_RESOLUTION — billing-error and EFT error resolution, card chargebacks
+- v1.2: DISPUTES.CLAIMS_DEFENSES — claims and defenses against a card issuer or the holder of a dealer-originated contract
+- v1.2: RECORDS.RETENTION — recordkeeping and retention for collection and credit records
+
 **v1.2 scope expansion (after the v1 eval; not measured by it).** Product lines (`taxonomy/product_lines.yaml`): servicing, collections, recovery, insurance_claims, disputes (including chargebacks), compliance_audit; each behavior class maps to one or more lines. Customer segments (`taxonomy/segments.yaml`): bank, credit_union, captive, specialty_lender; each register row is mapped to binds / not_bound / unclear per segment from its `applies_to` and `jurisdiction`, never by guessing (shown in INVENTORY.md).
 
 ## 6. Inventory
@@ -105,6 +110,20 @@ Provenance key: **S** = named on Salient's public pages; **T** = named in a thir
 | Model risk management | SR 11-7; OCC Bulletin 2011-12 | Fed, OCC | VENDOR.GOVERNANCE | manual | A |
 | SOC 2; PCI DSS | AICPA TSC; PCI SSC | industry | VENDOR.GOVERNANCE | manual | T |
 | AI disclosure laws | Cal. Bus. & Prof. Code 17940-17943; Utah AI Policy Act; Colorado SB 24-205 (status in flux) | state | CONTACT.AI_DISCLOSURE | manual | A |
+
+### v1.2 additions (Tier 2; after the v1 eval, not measured by it)
+CFR citations confirmed against eCFR text as of 2026-09-24 before adding; anything unconfirmed is `unresearched`.
+| Law | Citation | Agency | Behavior classes | Prov |
+|---|---|---|---|---|
+| TILA / Reg Z billing errors; card claims and defenses | 12 CFR 1026.13; 1026.12(c) | CFPB | DISPUTES.ERROR_RESOLUTION, DISPUTES.CLAIMS_DEFENSES | S |
+| EFTA / Reg E error resolution | 12 CFR 1005.11 | CFPB | DISPUTES.ERROR_RESOLUTION | A |
+| Card network chargeback rules | unresearched | industry | DISPUTES.ERROR_RESOLUTION | S |
+| Military Lending Act | 10 USC 987; 32 CFR 232.3(g), 232.4(b), 232.5, 232.6, 232.8 | DoD | STOP.TRIGGERS, NEGOTIATION.TREATMENT, DISCLOSURE.REQUIRED, PAYMENT.AUTHORIZATION, ACCOUNT.MODIFICATION | S |
+| Identity-theft Red Flags | 16 CFR 681.1; 12 CFR 41.90, 222.90, 334.90, 717.90 | FTC, OCC, Fed, FDIC, NCUA | IDENTITY.RIGHT_PARTY, DATA.PRIVACY_SECURITY | A |
+| FTC Holder Rule | 16 CFR 433.2 | FTC | DISPUTES.CLAIMS_DEFENSES | A |
+| Record retention | 12 CFR 1006.100, 1026.25(a), 1005.13(b), 1002.12(b) | CFPB | RECORDS.RETENTION | S/A |
+| UDAAP: payoff, title delivery, GAP and total loss (supervisory findings) | 12 USC 5531 as applied in FR Doc. 2024-24093 | CFPB | NEGOTIATION.TREATMENT, INSURANCE.CLAIMS | S |
+| State payoff-quote and total-loss laws | unresearched | state | NEGOTIATION.TREATMENT, INSURANCE.CLAIMS | S |
 
 ### 6.3 State layer (v1: CA, FL, MA, TX; schema scales to all states)
 Selection criteria: law reaches lenders collecting their own debts; stricter than federal on a modeled behavior; large auto lending volume. All rows `status: verify`.

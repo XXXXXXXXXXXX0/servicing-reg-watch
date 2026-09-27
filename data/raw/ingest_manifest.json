@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-09-24T17:38:51+00:00",
+  "fetched_at": "2026-09-27T00:47:11+00:00",
   "offline_fixture": false,
   "window": {
     "start": "2024-09-23",
@@ -12,17 +12,18 @@
     "comptroller-of-the-currency",
     "federal-deposit-insurance-corporation",
     "federal-reserve-system",
-    "national-credit-union-administration"
+    "national-credit-union-administration",
+    "defense-department"
   ],
   "doc_types": [
     "RULE",
     "PRORULE",
     "NOTICE"
   ],
-  "unique_documents": 2203,
-  "stored_documents": 2203,
-  "agency_months_requested": 7,
-  "agency_months_from_store": 168,
+  "unique_documents": 3683,
+  "stored_documents": 3683,
+  "agency_months_requested": 25,
+  "agency_months_from_store": 175,
   "per_agency": {
     "consumer-financial-protection-bureau": {
       "reported": 133,
@@ -65,64 +66,214 @@
       "retrieved": 126,
       "chunks": 25,
       "incomplete_chunks": 0
+    },
+    "defense-department": {
+      "reported": 1481,
+      "retrieved": 1481,
+      "chunks": 25,
+      "incomplete_chunks": 0
     }
   },
   "complete": true,
   "chunks": [
     {
-      "agency": "consumer-financial-protection-bureau",
-      "start": "2026-09-01",
-      "end": "2026-09-24",
-      "reported_count": 0,
-      "retrieved": 0,
+      "agency": "defense-department",
+      "start": "2024-09-23",
+      "end": "2024-09-30",
+      "reported_count": 42,
+      "retrieved": 42,
       "complete": true
     },
     {
-      "agency": "federal-communications-commission",
-      "start": "2026-09-01",
-      "end": "2026-09-24",
-      "reported_count": 32,
-      "retrieved": 32,
+      "agency": "defense-department",
+      "start": "2024-10-01",
+      "end": "2024-10-31",
+      "reported_count": 70,
+      "retrieved": 70,
       "complete": true
     },
     {
-      "agency": "federal-trade-commission",
-      "start": "2026-09-01",
-      "end": "2026-09-24",
+      "agency": "defense-department",
+      "start": "2024-11-01",
+      "end": "2024-11-30",
+      "reported_count": 99,
+      "retrieved": 99,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2024-12-01",
+      "end": "2024-12-31",
+      "reported_count": 98,
+      "retrieved": 98,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-01-01",
+      "end": "2025-01-31",
+      "reported_count": 77,
+      "retrieved": 77,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-02-01",
+      "end": "2025-02-28",
       "reported_count": 8,
       "retrieved": 8,
       "complete": true
     },
     {
-      "agency": "comptroller-of-the-currency",
-      "start": "2026-09-01",
-      "end": "2026-09-24",
-      "reported_count": 6,
-      "retrieved": 6,
+      "agency": "defense-department",
+      "start": "2025-03-01",
+      "end": "2025-03-31",
+      "reported_count": 30,
+      "retrieved": 30,
       "complete": true
     },
     {
-      "agency": "federal-deposit-insurance-corporation",
-      "start": "2026-09-01",
-      "end": "2026-09-24",
-      "reported_count": 14,
-      "retrieved": 14,
+      "agency": "defense-department",
+      "start": "2025-04-01",
+      "end": "2025-04-30",
+      "reported_count": 28,
+      "retrieved": 28,
       "complete": true
     },
     {
-      "agency": "federal-reserve-system",
-      "start": "2026-09-01",
-      "end": "2026-09-24",
-      "reported_count": 19,
-      "retrieved": 19,
+      "agency": "defense-department",
+      "start": "2025-05-01",
+      "end": "2025-05-31",
+      "reported_count": 43,
+      "retrieved": 43,
       "complete": true
     },
     {
-      "agency": "national-credit-union-administration",
+      "agency": "defense-department",
+      "start": "2025-06-01",
+      "end": "2025-06-30",
+      "reported_count": 33,
+      "retrieved": 33,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-07-01",
+      "end": "2025-07-31",
+      "reported_count": 86,
+      "retrieved": 86,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-08-01",
+      "end": "2025-08-31",
+      "reported_count": 47,
+      "retrieved": 47,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-09-01",
+      "end": "2025-09-30",
+      "reported_count": 45,
+      "retrieved": 45,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-10-01",
+      "end": "2025-10-31",
+      "reported_count": 7,
+      "retrieved": 7,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-11-01",
+      "end": "2025-11-30",
+      "reported_count": 77,
+      "retrieved": 77,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-12-01",
+      "end": "2025-12-31",
+      "reported_count": 60,
+      "retrieved": 60,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2026-01-01",
+      "end": "2026-01-31",
+      "reported_count": 154,
+      "retrieved": 154,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2026-02-01",
+      "end": "2026-02-28",
+      "reported_count": 75,
+      "retrieved": 75,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2026-03-01",
+      "end": "2026-03-31",
+      "reported_count": 67,
+      "retrieved": 67,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2026-04-01",
+      "end": "2026-04-30",
+      "reported_count": 43,
+      "retrieved": 43,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2026-05-01",
+      "end": "2026-05-31",
+      "reported_count": 80,
+      "retrieved": 80,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2026-06-01",
+      "end": "2026-06-30",
+      "reported_count": 69,
+      "retrieved": 69,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2026-07-01",
+      "end": "2026-07-31",
+      "reported_count": 62,
+      "retrieved": 62,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2026-08-01",
+      "end": "2026-08-31",
+      "reported_count": 38,
+      "retrieved": 38,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
       "start": "2026-09-01",
       "end": "2026-09-24",
-      "reported_count": 3,
-      "retrieved": 3,
+      "reported_count": 43,
+      "retrieved": 43,
       "complete": true
     }
   ],
@@ -575,6 +726,231 @@
       "fetched_on": "2026-09-24",
       "reported_count": 0,
       "retrieved": 0,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2024-09-23",
+      "end": "2024-09-30",
+      "fetched_on": "2026-09-27",
+      "reported_count": 42,
+      "retrieved": 42,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2024-10-01",
+      "end": "2024-10-31",
+      "fetched_on": "2026-09-27",
+      "reported_count": 70,
+      "retrieved": 70,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2024-11-01",
+      "end": "2024-11-30",
+      "fetched_on": "2026-09-27",
+      "reported_count": 99,
+      "retrieved": 99,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2024-12-01",
+      "end": "2024-12-31",
+      "fetched_on": "2026-09-27",
+      "reported_count": 98,
+      "retrieved": 98,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-01-01",
+      "end": "2025-01-31",
+      "fetched_on": "2026-09-27",
+      "reported_count": 77,
+      "retrieved": 77,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-02-01",
+      "end": "2025-02-28",
+      "fetched_on": "2026-09-27",
+      "reported_count": 8,
+      "retrieved": 8,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-03-01",
+      "end": "2025-03-31",
+      "fetched_on": "2026-09-27",
+      "reported_count": 30,
+      "retrieved": 30,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-04-01",
+      "end": "2025-04-30",
+      "fetched_on": "2026-09-27",
+      "reported_count": 28,
+      "retrieved": 28,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-05-01",
+      "end": "2025-05-31",
+      "fetched_on": "2026-09-27",
+      "reported_count": 43,
+      "retrieved": 43,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-06-01",
+      "end": "2025-06-30",
+      "fetched_on": "2026-09-27",
+      "reported_count": 33,
+      "retrieved": 33,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-07-01",
+      "end": "2025-07-31",
+      "fetched_on": "2026-09-27",
+      "reported_count": 86,
+      "retrieved": 86,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-08-01",
+      "end": "2025-08-31",
+      "fetched_on": "2026-09-27",
+      "reported_count": 47,
+      "retrieved": 47,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-09-01",
+      "end": "2025-09-30",
+      "fetched_on": "2026-09-27",
+      "reported_count": 45,
+      "retrieved": 45,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-10-01",
+      "end": "2025-10-31",
+      "fetched_on": "2026-09-27",
+      "reported_count": 7,
+      "retrieved": 7,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-11-01",
+      "end": "2025-11-30",
+      "fetched_on": "2026-09-27",
+      "reported_count": 77,
+      "retrieved": 77,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2025-12-01",
+      "end": "2025-12-31",
+      "fetched_on": "2026-09-27",
+      "reported_count": 60,
+      "retrieved": 60,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2026-01-01",
+      "end": "2026-01-31",
+      "fetched_on": "2026-09-27",
+      "reported_count": 154,
+      "retrieved": 154,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2026-02-01",
+      "end": "2026-02-28",
+      "fetched_on": "2026-09-27",
+      "reported_count": 75,
+      "retrieved": 75,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2026-03-01",
+      "end": "2026-03-31",
+      "fetched_on": "2026-09-27",
+      "reported_count": 67,
+      "retrieved": 67,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2026-04-01",
+      "end": "2026-04-30",
+      "fetched_on": "2026-09-27",
+      "reported_count": 43,
+      "retrieved": 43,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2026-05-01",
+      "end": "2026-05-31",
+      "fetched_on": "2026-09-27",
+      "reported_count": 80,
+      "retrieved": 80,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2026-06-01",
+      "end": "2026-06-30",
+      "fetched_on": "2026-09-27",
+      "reported_count": 69,
+      "retrieved": 69,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2026-07-01",
+      "end": "2026-07-31",
+      "fetched_on": "2026-09-27",
+      "reported_count": 62,
+      "retrieved": 62,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2026-08-01",
+      "end": "2026-08-31",
+      "fetched_on": "2026-09-27",
+      "reported_count": 38,
+      "retrieved": 38,
+      "complete": true
+    },
+    {
+      "agency": "defense-department",
+      "start": "2026-09-01",
+      "end": "2026-09-24",
+      "fetched_on": "2026-09-27",
+      "reported_count": 43,
+      "retrieved": 43,
       "complete": true
     },
     {
