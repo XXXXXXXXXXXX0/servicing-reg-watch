@@ -65,6 +65,8 @@ Derived from the regulations and public product descriptions. Not any vendor's i
 - INSURANCE.CLAIMS — total loss, GAP, appraisal-clause deadlines, lien release, collateral protection insurance, add-on refunds
 - VENDOR.GOVERNANCE — how bank and credit union customers examine an AI vendor
 
+**v1.2 scope expansion (after the v1 eval; not measured by it).** Product lines (`taxonomy/product_lines.yaml`): servicing, collections, recovery, insurance_claims, disputes (including chargebacks), compliance_audit; each behavior class maps to one or more lines.
+
 ## 6. Inventory
 Provenance key: **S** = named on Salient's public pages; **T** = named in a third-party description of Salient; **A** = added by analysis.
 
@@ -154,7 +156,7 @@ Selection criteria: law reaches lenders collecting their own debts; stricter tha
 ## 11. Repo layout
 ```
 register/federal.yaml  register/states/{ca,fl,ma,tx}.yaml  register/INVENTORY.md (generated)
-taxonomy/behaviors.yaml
+taxonomy/behaviors.yaml  taxonomy/product_lines.yaml (v1.2)
 adapter/deployment_map.template.yaml
 pipeline/{ingest,prefilter,diff,triage,route,records}.py
 fixtures/            # saved sample documents for offline tests

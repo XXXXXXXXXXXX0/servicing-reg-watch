@@ -56,6 +56,17 @@ def test_prefilter_coverage_reaches_every_row_and_class():
     assert cov["unreached_rows"] == [] and cov["unreached_classes"] == []
 
 
+def test_product_lines_map_every_class():
+    from pipeline.common import load_product_lines, product_lines_for
+    pl = load_product_lines()
+    lines, cmap = set(pl["product_lines"]), pl["class_product_lines"]
+    assert set(pl["order"]) == lines
+    assert set(cmap) == set(behavior_class_ids())
+    assert all(v and set(v) <= lines for v in cmap.values())
+    assert lines == {line for v in cmap.values() for line in v}
+    assert product_lines_for(["INSURANCE.CLAIMS", "CONTACT.TIMING"])[0] == "servicing"
+
+
 def test_xml_to_lines():
     xml = "<DIV8><HEAD>§ 1 Head.</HEAD><P>(a) One <I>two</I>.</P><P>(b)  Three</P></DIV8>"
     assert xml_to_lines(xml) == ["§ 1 Head.", "(a) One two.", "(b) Three"]

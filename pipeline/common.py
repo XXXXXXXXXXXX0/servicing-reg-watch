@@ -11,6 +11,7 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 REGISTER_DIR = ROOT / "register"
 TAXONOMY_PATH = ROOT / "taxonomy" / "behaviors.yaml"
+PRODUCT_LINES_PATH = ROOT / "taxonomy" / "product_lines.yaml"
 SCHEMA_PATH = ROOT / "pipeline" / "triage_schema.json"
 PROMPT_PATH = ROOT / "pipeline" / "triage_prompt.md"
 FIXTURES_DIR = ROOT / "fixtures"
@@ -76,6 +77,18 @@ def load_taxonomy() -> dict:
 
 def behavior_class_ids() -> list[str]:
     return list(load_taxonomy()["behavior_classes"].keys())
+
+
+def load_product_lines() -> dict:
+    """taxonomy/product_lines.yaml (v1.2): product lines and the class -> lines map."""
+    return yaml.safe_load(PRODUCT_LINES_PATH.read_text())
+
+
+def product_lines_for(classes) -> list[str]:
+    """Product lines of a set of behavior classes, in the file's canonical order."""
+    pl = load_product_lines()
+    hit = {line for c in classes for line in pl["class_product_lines"].get(c, [])}
+    return [line for line in pl["order"] if line in hit]
 
 
 def register_files() -> list[Path]:
