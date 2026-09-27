@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-19942",
+  "relevant": false,
+  "confidence": 0.93,
+  "change_type": "other",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "Federal Reserve announces expansion of Fedwire Funds Service and National Settlement Service operating hours to 22x6, expected in 2028 or 2029.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Interbank settlement operations; no consumer servicing obligation. Prefilter dropped it (no match). Stage A: title, abstract and metadata only; full text not read."
+}

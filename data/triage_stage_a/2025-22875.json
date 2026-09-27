@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-22875",
+  "relevant": false,
+  "confidence": 0.95,
+  "change_type": "final_rule",
+  "effective_date": "2026-01-01",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "Annual adjustment of the higher-priced mortgage loan appraisal exemption threshold from $33,500 to $34,200.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Mortgage origination appraisal rule, excluded. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

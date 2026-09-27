@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-22813",
+  "relevant": false,
+  "confidence": 0.85,
+  "change_type": "final_rule",
+  "effective_date": "2026-01-01",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "Board and CFPB raise the Consumer Leasing Act/Regulation M exempt-lease threshold (12 CFR 1013.2(e)(1); comment 2(e) in Supplement I to Part 1013, and 12 CFR 213.2(e) for the Board) from $71,900 to $73,400 for 2026 by the annual CPI-W adjustment.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Full text confirms an inflation adjustment to consumer lease coverage; leases are not consumer loans, the register has no Regulation M row, and no servicing conduct changes. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (900 of 4859 words)."
+}

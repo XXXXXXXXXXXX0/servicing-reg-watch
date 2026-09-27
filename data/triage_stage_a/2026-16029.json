@@ -1,0 +1,18 @@
+{
+  "doc_id": "2026-16029",
+  "relevant": true,
+  "confidence": 0.75,
+  "change_type": "final_rule",
+  "effective_date": "2026-09-08",
+  "affected_register_rows": [],
+  "behavior_classes": [
+    "VENDOR.GOVERNANCE"
+  ],
+  "what_changed": "NCUA final rule removing its regulation on third-party servicing of indirect vehicle loans, effective September 8, 2026, in favor of principles-based supervision.",
+  "compliant_agent_must_now": "From September 8, 2026, federally insured credit unions are no longer bound by NCUA's specific third-party servicing rule for indirect vehicle loans; oversight of servicers (including an AI servicing vendor) rests on general safety-and-soundness and vendor due-diligence expectations.",
+  "open_questions_for_deploying_team": [
+    "Register gap: no row covers NCUA's (now removed) third-party servicing rule for indirect vehicle loans. Should a VENDOR.GOVERNANCE row record the removal and what replaces it?",
+    "Which credit union contracts reference the removed rule's limits, and should they be renegotiated?"
+  ],
+  "rationale": "Directly concerns credit unions' use of third-party servicers for auto loans. Register gap: no NCUA third-party servicing row. Stage A: title, abstract and metadata only; full text not read."
+}

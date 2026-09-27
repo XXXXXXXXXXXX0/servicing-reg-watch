@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-27836",
+  "relevant": false,
+  "confidence": 0.85,
+  "change_type": "final_rule",
+  "effective_date": "2025-01-09",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB defines larger participants in a market for general-use digital consumer payment applications (12 CFR 1090), bringing them under CFPB supervision.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Supervision of nonbank payment apps, not lenders, servicers or collectors, and not examination of an AI vendor. Kept by the prefilter on 12 CFR 1090. Stage A: title, abstract and metadata only; full text not read."
+}

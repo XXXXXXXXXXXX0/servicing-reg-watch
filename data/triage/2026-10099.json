@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-10099",
+  "relevant": false,
+  "confidence": 0.95,
+  "change_type": "other",
+  "effective_date": "2026-12-31",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "Federal Reserve adopts a three-year extension with revisions of the FR Y-14A/Q/M capital assessment and stress testing reports.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Bank capital reporting under the PRA; excluded category. Prefilter excluded it as a PRA notice. Stage A: title, abstract and metadata only; full text not read."
+}

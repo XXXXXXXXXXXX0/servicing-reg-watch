@@ -1,0 +1,21 @@
+{
+  "doc_id": "2024-30758",
+  "relevant": true,
+  "confidence": 0.8,
+  "change_type": "enforcement_signal",
+  "effective_date": null,
+  "affected_register_rows": [
+    "UDAAP-001"
+  ],
+  "behavior_classes": [
+    "NEGOTIATION.TREATMENT",
+    "PAYMENT.AUTHORIZATION",
+    "DISPUTES.CREDIT_REPORTING"
+  ],
+  "what_changed": "CFPB Supervisory Highlights special edition (Issue 36) on student lending, covering examinations generally completed in 2024.",
+  "compliant_agent_must_now": "Pending Stage B: the abstract does not state the findings. Student loan servicing findings typically interpret UDAAP as applied to servicer communications, payment handling and repayment options.",
+  "open_questions_for_deploying_team": [
+    "Does the deployment service student loans? Which findings apply to its servicing practices?"
+  ],
+  "rationale": "Supervisory findings on student loan servicing (student loans are consumer loans); the abstract gives no findings, so rows and classes are provisional. Stage A: title, abstract and metadata only; full text not read."
+}

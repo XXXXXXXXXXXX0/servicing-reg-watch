@@ -1,0 +1,19 @@
+{
+  "doc_id": "2026-18859",
+  "relevant": true,
+  "confidence": 0.9,
+  "change_type": "guidance",
+  "effective_date": null,
+  "affected_register_rows": [
+    "TPRM-001"
+  ],
+  "behavior_classes": [
+    "VENDOR.GOVERNANCE"
+  ],
+  "what_changed": "OCC, Federal Reserve, FDIC and NCUA propose new risk-based third-party risk management guidance that would rescind and replace existing third-party risk management guidance.",
+  "compliant_agent_must_now": "No change until final; if adopted, bank and credit union clients would tailor vendor oversight of an AI servicing provider to the assessed risk of the relationship, under guidance that replaces the 2023 interagency guidance.",
+  "open_questions_for_deploying_team": [
+    "Which existing guidance would be rescinded (e.g., the 2023 interagency guidance in TPRM-001), and how would client due-diligence requests change?"
+  ],
+  "rationale": "Proposed interagency guidance replacing the existing third-party risk guidance; directly governs how banks and credit unions examine vendors. Stage A: title, abstract and metadata only; full text not read."
+}

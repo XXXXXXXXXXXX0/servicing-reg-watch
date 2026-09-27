@@ -1,0 +1,165 @@
+# Primary text fetched for the register pre-check (machine_check) and the
+# preemption fields. `python -m pipeline.verify fetch` fetches every source
+# below that is not already in the committed store and writes tag-stripped
+# text to data/verify/ (runtime) for review.
+#
+# Store locations (committed; nothing saved is refetched):
+#   ecfr    -> data/raw/ecfr/<ecfr_date>_title-<t>.xml_<params>.gz (the diff step's store)
+#   govinfo -> data/raw/govinfo/<document_number>.htm.gz (the ingest step's store)
+#   uscode, url -> data/raw/primary/<name>.htm.gz
+#
+# Kinds:
+#   ecfr:    {title, part, section | appendix | subpart}; point-in-time text on ecfr_date
+#   uscode:  {title, section}; uscode.house.gov (prelim edition, as served on the fetch date)
+#   govinfo: {document_number, publication_date}; Federal Register text from GovInfo
+#   url:     {url, name}; state legislature pages and other primary pages
+#   blocked: {url, reason}; not fetched (network check failed); rows resting on it are not_checkable
+
+ecfr_date: 2026-09-24   # eCFR up_to_date_as_of for titles 10-50 on 2026-09-27
+
+sources:
+  # ------------------------------------------------------------------ eCFR
+  ecfr-47-64.1200: {kind: ecfr, title: 47, part: "64", section: "64.1200"}
+  ecfr-12-1006.2: {kind: ecfr, title: 12, part: "1006", section: "1006.2"}
+  ecfr-12-1006.6: {kind: ecfr, title: 12, part: "1006", section: "1006.6"}
+  ecfr-12-1006.10: {kind: ecfr, title: 12, part: "1006", section: "1006.10"}
+  ecfr-12-1006.14: {kind: ecfr, title: 12, part: "1006", section: "1006.14"}
+  ecfr-12-1006.18: {kind: ecfr, title: 12, part: "1006", section: "1006.18"}
+  ecfr-12-1006.22: {kind: ecfr, title: 12, part: "1006", section: "1006.22"}
+  ecfr-12-1006.34: {kind: ecfr, title: 12, part: "1006", section: "1006.34"}
+  ecfr-12-1006.38: {kind: ecfr, title: 12, part: "1006", section: "1006.38"}
+  ecfr-12-1006.100: {kind: ecfr, title: 12, part: "1006", section: "1006.100"}
+  ecfr-12-1006.104: {kind: ecfr, title: 12, part: "1006", section: "1006.104"}
+  ecfr-12-1005.10: {kind: ecfr, title: 12, part: "1005", section: "1005.10"}
+  ecfr-12-1005.11: {kind: ecfr, title: 12, part: "1005", section: "1005.11"}
+  ecfr-12-1005.12: {kind: ecfr, title: 12, part: "1005", section: "1005.12"}
+  ecfr-12-1005.13: {kind: ecfr, title: 12, part: "1005", section: "1005.13"}
+  ecfr-12-1022.30: {kind: ecfr, title: 12, part: "1022", section: "1022.30"}
+  ecfr-12-1022.42: {kind: ecfr, title: 12, part: "1022", section: "1022.42"}
+  ecfr-12-1022.43: {kind: ecfr, title: 12, part: "1022", section: "1022.43"}
+  ecfr-12-1002.2: {kind: ecfr, title: 12, part: "1002", section: "1002.2"}
+  ecfr-12-1002.4: {kind: ecfr, title: 12, part: "1002", section: "1002.4"}
+  ecfr-12-1002.11: {kind: ecfr, title: 12, part: "1002", section: "1002.11"}
+  ecfr-12-1002.12: {kind: ecfr, title: 12, part: "1002", section: "1002.12"}
+  ecfr-12-1026.12: {kind: ecfr, title: 12, part: "1026", section: "1026.12"}
+  ecfr-12-1026.13: {kind: ecfr, title: 12, part: "1026", section: "1026.13"}
+  ecfr-12-1026.20: {kind: ecfr, title: 12, part: "1026", section: "1026.20"}
+  ecfr-12-1026.25: {kind: ecfr, title: 12, part: "1026", section: "1026.25"}
+  ecfr-12-1026.28: {kind: ecfr, title: 12, part: "1026", section: "1026.28"}
+  ecfr-12-1016.13: {kind: ecfr, title: 12, part: "1016", section: "1016.13"}
+  ecfr-12-1016.17: {kind: ecfr, title: 12, part: "1016", section: "1016.17"}
+  ecfr-12-1016.4: {kind: ecfr, title: 12, part: "1016", section: "1016.4"}
+  ecfr-12-1016.10: {kind: ecfr, title: 12, part: "1016", section: "1016.10"}
+  ecfr-16-314.4: {kind: ecfr, title: 16, part: "314", section: "314.4"}
+  ecfr-16-681.1: {kind: ecfr, title: 16, part: "681", section: "681.1"}
+  ecfr-16-433.1: {kind: ecfr, title: 16, part: "433", section: "433.1"}
+  ecfr-16-433.2: {kind: ecfr, title: 16, part: "433", section: "433.2"}
+  ecfr-12-30-appB: {kind: ecfr, title: 12, part: "30", appendix: "Appendix B to Part 30"}
+  ecfr-12-364-appB: {kind: ecfr, title: 12, part: "364", appendix: "Appendix B to Part 364"}
+  ecfr-12-208-appD-2: {kind: ecfr, title: 12, part: "208", appendix: "Appendix D-2 to Part 208"}
+  ecfr-12-748.0: {kind: ecfr, title: 12, part: "748", section: "748.0"}
+  ecfr-12-748.1: {kind: ecfr, title: 12, part: "748", section: "748.1"}
+  ecfr-12-748-appA: {kind: ecfr, title: 12, part: "748", appendix: "Appendix A to Part 748"}
+  ecfr-12-53: {kind: ecfr, title: 12, part: "53"}
+  ecfr-12-225-N: {kind: ecfr, title: 12, part: "225", subpart: "N"}
+  ecfr-12-304-C: {kind: ecfr, title: 12, part: "304", subpart: "C"}
+  ecfr-12-41.90: {kind: ecfr, title: 12, part: "41", section: "41.90"}
+  ecfr-12-222.90: {kind: ecfr, title: 12, part: "222", section: "222.90"}
+  ecfr-12-334.90: {kind: ecfr, title: 12, part: "334", section: "334.90"}
+  ecfr-12-717.90: {kind: ecfr, title: 12, part: "717", section: "717.90"}
+  ecfr-12-701.21: {kind: ecfr, title: 12, part: "701", section: "701.21"}
+  ecfr-12-741.203: {kind: ecfr, title: 12, part: "741", section: "741.203"}
+  ecfr-12-749: {kind: ecfr, title: 12, part: "749"}
+  ecfr-32-232.3: {kind: ecfr, title: 32, part: "232", section: "232.3"}
+  ecfr-32-232.4: {kind: ecfr, title: 32, part: "232", section: "232.4"}
+  ecfr-32-232.5: {kind: ecfr, title: 32, part: "232", section: "232.5"}
+  ecfr-32-232.6: {kind: ecfr, title: 32, part: "232", section: "232.6"}
+  ecfr-32-232.8: {kind: ecfr, title: 32, part: "232", section: "232.8"}
+  ecfr-32-232.7: {kind: ecfr, title: 32, part: "232", section: "232.7"}
+  # ------------------------------------------------------------ U.S. Code
+  usc-47-227: {kind: uscode, title: 47, section: "227"}
+  usc-15-1692b: {kind: uscode, title: 15, section: "1692b"}
+  usc-15-1692c: {kind: uscode, title: 15, section: "1692c"}
+  usc-15-1692e: {kind: uscode, title: 15, section: "1692e"}
+  usc-15-1692f: {kind: uscode, title: 15, section: "1692f"}
+  usc-15-1692g: {kind: uscode, title: 15, section: "1692g"}
+  usc-15-1692n: {kind: uscode, title: 15, section: "1692n"}
+  usc-12-5531: {kind: uscode, title: 12, section: "5531"}
+  usc-12-5536: {kind: uscode, title: 12, section: "5536"}
+  usc-12-5551: {kind: uscode, title: 12, section: "5551"}
+  usc-15-45: {kind: uscode, title: 15, section: "45"}
+  usc-15-1693e: {kind: uscode, title: 15, section: "1693e"}
+  usc-15-1693k: {kind: uscode, title: 15, section: "1693k"}
+  usc-15-1693q: {kind: uscode, title: 15, section: "1693q"}
+  usc-11-362: {kind: uscode, title: 11, section: "362"}
+  usc-11-524: {kind: uscode, title: 11, section: "524"}
+  usc-15-1681b: {kind: uscode, title: 15, section: "1681b"}
+  usc-15-1681m: {kind: uscode, title: 15, section: "1681m"}
+  usc-15-1681s-2: {kind: uscode, title: 15, section: "1681s-2"}
+  usc-15-1681t: {kind: uscode, title: 15, section: "1681t"}
+  usc-15-1691: {kind: uscode, title: 15, section: "1691"}
+  usc-15-1691d: {kind: uscode, title: 15, section: "1691d"}
+  usc-15-1610: {kind: uscode, title: 15, section: "1610"}
+  usc-50-3937: {kind: uscode, title: 50, section: "3937"}
+  usc-50-3952: {kind: uscode, title: 50, section: "3952"}
+  usc-50-3912: {kind: uscode, title: 50, section: "3912"}
+  usc-15-6802: {kind: uscode, title: 15, section: "6802"}
+  usc-15-6807: {kind: uscode, title: 15, section: "6807"}
+  usc-15-7001: {kind: uscode, title: 15, section: "7001"}
+  usc-15-7002: {kind: uscode, title: 15, section: "7002"}
+  usc-10-987: {kind: uscode, title: 10, section: "987"}
+  # ------------------------------------------------ Federal Register (GovInfo)
+  fr-2024-19028: {kind: govinfo, document_number: "2024-19028", publication_date: "2024-09-10"}
+  fr-2024-04587: {kind: govinfo, document_number: "2024-04587", publication_date: "2024-03-05"}
+  fr-2024-23605: {kind: govinfo, document_number: "2024-23605", publication_date: "2024-10-11"}
+  fr-2024-28690: {kind: govinfo, document_number: "2024-28690", publication_date: "2024-12-13"}
+  fr-2024-30824: {kind: govinfo, document_number: "2024-30824", publication_date: "2025-01-14"}
+  fr-2026-16029: {kind: govinfo, document_number: "2026-16029", publication_date: "2026-08-06"}
+  fr-2023-12340: {kind: govinfo, document_number: "2023-12340", publication_date: "2023-06-09"}
+  fr-2024-24093: {kind: govinfo, document_number: "2024-24093", publication_date: "2024-10-18"}
+  fr-2022-09690: {kind: govinfo, document_number: "2022-09690", publication_date: "2022-05-05"}
+  fr-2026-12058: {kind: govinfo, document_number: "2026-12058", publication_date: "2026-06-16"}
+  # --------------------------------------------------- Public laws (GovInfo)
+  plaw-119-10: {kind: url, url: "https://www.govinfo.gov/content/pkg/PLAW-119publ10/html/PLAW-119publ10.htm", name: "govinfo/PLAW-119publ10"}
+  # ------------------------------------------------------------ California
+  ca-civ-1788.2: {kind: url, url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1788.2", name: "ca/CIV-1788.2"}
+  ca-civ-1788.11: {kind: url, url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1788.11", name: "ca/CIV-1788.11"}
+  ca-civ-1788.14: {kind: url, url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1788.14", name: "ca/CIV-1788.14"}
+  ca-civ-1788.17: {kind: url, url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1788.17", name: "ca/CIV-1788.17"}
+  ca-pen-632: {kind: url, url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=PEN&sectionNum=632", name: "ca/PEN-632"}
+  ca-pen-632.7: {kind: url, url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=PEN&sectionNum=632.7", name: "ca/PEN-632.7"}
+  ca-bpc-17940: {kind: url, url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17940", name: "ca/BPC-17940"}
+  ca-bpc-17941: {kind: url, url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17941", name: "ca/BPC-17941"}
+  ca-bpc-17942: {kind: url, url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17942", name: "ca/BPC-17942"}
+  ca-bpc-17943: {kind: url, url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17943", name: "ca/BPC-17943"}
+  ca-civ-2983.2: {kind: url, url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=2983.2", name: "ca/CIV-2983.2"}
+  ca-civ-2983.3: {kind: url, url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=2983.3", name: "ca/CIV-2983.3"}
+  ca-com-9609: {kind: url, url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=COM&sectionNum=9609", name: "ca/COM-9609"}
+  ca-com-9611: {kind: url, url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=COM&sectionNum=9611", name: "ca/COM-9611"}
+  ca-com-9614: {kind: url, url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=COM&sectionNum=9614", name: "ca/COM-9614"}
+  ca-com-9615: {kind: url, url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=COM&sectionNum=9615", name: "ca/COM-9615"}
+  # --------------------------------------------------------------- Florida
+  fl-559.55: {kind: url, url: "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0559/Sections/0559.55.html", name: "fl/559.55"}
+  fl-559.552: {kind: url, url: "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0559/Sections/0559.552.html", name: "fl/559.552"}
+  fl-559.72: {kind: url, url: "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0559/Sections/0559.72.html", name: "fl/559.72"}
+  fl-934.03: {kind: url, url: "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0934/Sections/0934.03.html", name: "fl/934.03"}
+  fl-679.609: {kind: url, url: "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0600-0699/0679/Sections/0679.609.html", name: "fl/679.609"}
+  fl-679.611: {kind: url, url: "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0600-0699/0679/Sections/0679.611.html", name: "fl/679.611"}
+  # ----------------------------------------------------------------- Texas
+  tx-fi-392: {kind: blocked, url: "https://statutes.capitol.texas.gov/Docs/FI/htm/FI.392.htm", reason: "statutes.capitol.texas.gov serves a script shell; the statute text loads from tcss.legis.texas.gov, denied by the session's network policy on 2026-09-27"}
+  tx-pe-16: {kind: blocked, url: "https://statutes.capitol.texas.gov/Docs/PE/htm/PE.16.htm", reason: "statutes.capitol.texas.gov serves a script shell; the statute text loads from tcss.legis.texas.gov, denied by the session's network policy on 2026-09-27"}
+  tx-bc-9: {kind: blocked, url: "https://statutes.capitol.texas.gov/Docs/BC/htm/BC.9.htm", reason: "statutes.capitol.texas.gov serves a script shell; the statute text loads from tcss.legis.texas.gov, denied by the session's network policy on 2026-09-27"}
+  # ---------------------------------------------------------- Massachusetts
+  ma-272-99: {kind: url, url: "https://malegislature.gov/Laws/GeneralLaws/PartIV/TitleI/Chapter272/Section99", name: "ma/c272-s99"}
+  ma-255B-20A: {kind: url, url: "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter255B/Section20A", name: "ma/c255B-s20A"}
+  ma-255B-20B: {kind: url, url: "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter255B/Section20B", name: "ma/c255B-s20B"}
+  ma-106-9-609: {kind: url, url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXV/Chapter106/Article9/Section9-609", name: "ma/c106-s9-609"}
+  ma-106-9-611: {kind: url, url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXV/Chapter106/Article9/Section9-611", name: "ma/c106-s9-611"}
+  ma-940cmr7: {kind: blocked, url: "https://www.mass.gov/regulations/940-CMR-700-debt-collection-regulations", reason: "www.mass.gov answered 403 ('Not allowed') to automated requests on 2026-09-27"}
+  # ----------------------------------------------------- Blocked by egress policy
+  fcc-24-17: {kind: blocked, url: "https://docs.fcc.gov/public/attachments/FCC-24-17A1.pdf", reason: "docs.fcc.gov denied by the session's network policy on 2026-09-27"}
+  occ-2023-17: {kind: blocked, url: "https://www.occ.gov/news-issuances/bulletins/2023/bulletin-2023-17.html", reason: "www.occ.gov denied by the session's network policy on 2026-09-27"}
+  fed-sr11-7: {kind: blocked, url: "https://www.federalreserve.gov/supervisionreg/srletters/sr1107.htm", reason: "www.federalreserve.gov denied by the session's network policy on 2026-09-27"}
+  aicpa-tsc: {kind: blocked, url: "https://www.aicpa-cima.com/resources/landing/system-and-organization-controls-soc-suite-of-services", reason: "www.aicpa-cima.com denied by the session's network policy on 2026-09-27"}
+  co-sb24-205: {kind: blocked, url: "https://leg.colorado.gov/bills/sb24-205", reason: "leg.colorado.gov denied by the session's network policy on 2026-09-27"}
+  ut-13-2-12: {kind: blocked, url: "https://le.utah.gov/xcode/Title13/Chapter2/13-2-S12.html", reason: "le.utah.gov denied by the session's network policy on 2026-09-27"}

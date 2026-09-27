@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-00381",
+  "relevant": false,
+  "confidence": 0.75,
+  "change_type": "withdrawal",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB advisory opinion rescinding its November 2020 advisory opinion that one type of employer-integrated earned wage access product is not 'credit' under TILA/Regulation Z.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Withdrawn guidance concerns whether earned wage access is credit; relevant only if the deployment services earned wage products, which the relevance test's consumer-loan scope does not suggest. Stage A: title, abstract and metadata only; full text not read."
+}

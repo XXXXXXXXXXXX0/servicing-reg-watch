@@ -1,0 +1,50 @@
+# Deployment adapter (BUILD_SPEC Section 9): EMPTY INTERFACE, shipped unfilled.
+#
+# This file is how a real deployment connects the pipeline's behavior classes
+# to its own systems. servicing-reg-watch makes no assumptions about any vendor's
+# internal agents, scripts or configs, so every value below is intentionally
+# blank. The deploying team fills in a copy (deployment_map.yaml, kept in the
+# deployment's own repo, not this one) and owns it.
+#
+# How to fill it in
+# 1. Copy this file to your deployment repo as deployment_map.yaml.
+# 2. For each behavior class, fill in:
+#      owning_system  - the service or component that implements the behavior
+#                       (e.g. the dialer policy service, the payment flow)
+#      config_ref     - where the governing config, prompt or script lives
+#                       (repo path, config key, or document ID)
+#      test_suite_ref - the test suite or eval that proves compliant behavior
+#      approver_role  - the role that approves changes (e.g. Compliance Officer)
+#    A class the deployment does not exercise: set `in_scope: false` and a reason.
+# 3. Change records list affected behavior classes. The four standard questions
+#    in each record (owning config/script, approver, rollout sequence, test
+#    evidence) are answered by looking up those classes here.
+# 4. Keep it current: a filled map that goes stale is worse than an empty one.
+#    Review it whenever a change record is signed off.
+#
+# Nothing in the pipeline reads this file today. A consumer (e.g. a script that
+# pre-fills record answers) would load it and look up each record's classes.
+
+version: 1
+deployment: ""          # name of the deployment this map describes
+maintained_by: ""       # owning team / role
+last_reviewed: null     # YYYY-MM-DD
+
+behavior_classes:
+  CONTACT.TIMING:            {in_scope: null, owning_system: "", config_ref: "", test_suite_ref: "", approver_role: ""}
+  CONTACT.FREQUENCY:         {in_scope: null, owning_system: "", config_ref: "", test_suite_ref: "", approver_role: ""}
+  CONTACT.CONSENT:           {in_scope: null, owning_system: "", config_ref: "", test_suite_ref: "", approver_role: ""}
+  CONTACT.RECORDING:         {in_scope: null, owning_system: "", config_ref: "", test_suite_ref: "", approver_role: ""}
+  CONTACT.AI_DISCLOSURE:     {in_scope: null, owning_system: "", config_ref: "", test_suite_ref: "", approver_role: ""}
+  DISCLOSURE.REQUIRED:       {in_scope: null, owning_system: "", config_ref: "", test_suite_ref: "", approver_role: ""}
+  IDENTITY.RIGHT_PARTY:      {in_scope: null, owning_system: "", config_ref: "", test_suite_ref: "", approver_role: ""}
+  STOP.TRIGGERS:             {in_scope: null, owning_system: "", config_ref: "", test_suite_ref: "", approver_role: ""}
+  PAYMENT.AUTHORIZATION:     {in_scope: null, owning_system: "", config_ref: "", test_suite_ref: "", approver_role: ""}
+  PAYMENT.FEES:              {in_scope: null, owning_system: "", config_ref: "", test_suite_ref: "", approver_role: ""}
+  NEGOTIATION.TREATMENT:     {in_scope: null, owning_system: "", config_ref: "", test_suite_ref: "", approver_role: ""}
+  ACCOUNT.MODIFICATION:      {in_scope: null, owning_system: "", config_ref: "", test_suite_ref: "", approver_role: ""}
+  DISPUTES.CREDIT_REPORTING: {in_scope: null, owning_system: "", config_ref: "", test_suite_ref: "", approver_role: ""}
+  DATA.PRIVACY_SECURITY:     {in_scope: null, owning_system: "", config_ref: "", test_suite_ref: "", approver_role: ""}
+  RECOVERY.REPOSSESSION:     {in_scope: null, owning_system: "", config_ref: "", test_suite_ref: "", approver_role: ""}
+  INSURANCE.CLAIMS:          {in_scope: null, owning_system: "", config_ref: "", test_suite_ref: "", approver_role: ""}
+  VENDOR.GOVERNANCE:         {in_scope: null, owning_system: "", config_ref: "", test_suite_ref: "", approver_role: ""}

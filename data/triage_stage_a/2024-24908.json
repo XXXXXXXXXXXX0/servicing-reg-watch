@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-24908",
+  "relevant": false,
+  "confidence": 0.88,
+  "change_type": "final_rule",
+  "effective_date": "2024-11-06",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC announces the compliance date for the one-to-one prior express written consent rule for telemarketing robocalls and robotexts (47 CFR 64.1200(f)(9)): consent must name a single seller and the calls must be logically associated with the website where consent was given.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Prior express written consent applies to telemarketing and advertising calls only, which the relevance test excludes; servicing and collection calls use prior express consent. The diff confirms the amendment is to the PEWC definition. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

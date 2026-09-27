@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-18766",
+  "relevant": false,
+  "confidence": 0.93,
+  "change_type": "final_rule",
+  "effective_date": "2026-09-14",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "OCC, Federal Reserve and FDIC interim final rule raising the asset threshold for the 18-month exam cycle to under $6 billion.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Examination frequency for banks; no servicing conduct or vendor obligation. Stage A: title, abstract and metadata only; full text not read."
+}

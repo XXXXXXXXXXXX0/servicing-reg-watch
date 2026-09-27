@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-19370",
+  "relevant": false,
+  "confidence": 0.95,
+  "change_type": "final_rule",
+  "effective_date": "2025-12-01",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB finalizes its interim final rule extending Regulation B small business lending (Section 1071) compliance dates; diff shows date changes in 12 CFR 1002.114 and commentary.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Small business lending data (Section 1071), excluded. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

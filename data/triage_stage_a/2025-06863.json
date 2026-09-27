@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-06863",
+  "relevant": false,
+  "confidence": 0.97,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "Federal Reserve proposes changes to the stress capital buffer calculation and capital plan rule.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Bank capital rule, excluded by the relevance test. Stage A: title, abstract and metadata only; full text not read."
+}

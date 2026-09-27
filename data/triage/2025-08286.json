@@ -1,0 +1,32 @@
+{
+  "doc_id": "2025-08286",
+  "relevant": true,
+  "confidence": 0.95,
+  "change_type": "withdrawal",
+  "effective_date": "2025-05-12",
+  "affected_register_rows": [
+    "REGF-FEES-001",
+    "UDAAP-001",
+    "FCRA-ACCURACY-001",
+    "FCRA-DIRECT-001",
+    "REGB-001",
+    "BK-DISCH-001"
+  ],
+  "behavior_classes": [
+    "PAYMENT.FEES",
+    "NEGOTIATION.TREATMENT",
+    "DISPUTES.CREDIT_REPORTING",
+    "RECOVERY.REPOSSESSION",
+    "DATA.PRIVACY_SECURITY",
+    "STOP.TRIGGERS",
+    "DISCLOSURE.REQUIRED"
+  ],
+  "what_changed": "CFPB withdraws 67 guidance documents as of May 12, 2025 (sec. III), stating the guidance 'should not be enforced or otherwise relied upon by the Bureau' while it reviews them, that withdrawal is not necessarily final, and that it will deprioritize enforcement against conduct that does not conform to the guidance. Withdrawn items that bear on consumer-loan servicing include: advisory opinions on Regulation F pay-to-pay fees (87 FR 39733), Regulation F time-barred debt (88 FR 26475), Regulation F medical debt (89 FR 80715), FCRA permissible purposes (87 FR 41243), FCRA name-only matching (86 FR 62468), and Regulation B revocations or unfavorable changes to existing credit (87 FR 30097); the Policy Statement on abusive acts or practices (88 FR 21883); interpretive rules on FCRA preemption (87 FR 41042), state enforcement of the CFPA (87 FR 31940) and exams for servicemember risks (86 FR 32723); Circulars 2022-04 (data security), 2022-07 (reasonable investigation of disputes) and 2024-03 (unenforceable contract terms); Bulletins 2022-04 (mitigating harm from auto repossession), 2023-01 (collection after bankruptcy discharge of certain student loans), 2013-07 (UDAAP in collection of consumer debts), 2014-01 and 2013-09 (furnisher investigations and 'all relevant' information), 2015-07 (in-person collection) and 2013-01 (indirect auto lending under ECOA).",
+  "compliant_agent_must_now": "Lenders, servicers and collectors: the underlying statutes and regulations (FDCPA/Regulation F including 12 CFR 1006.22(b), FCRA/Regulation V, ECOA/Regulation B, CFPA UDAAP, Bankruptcy Code discharge) still apply exactly as written, as do state laws. From May 12, 2025, stop citing the withdrawn CFPB documents as the authority for any control, but do not relax a control merely because its CFPB guidance was withdrawn: courts, state regulators, other federal regulators and private plaintiffs can still apply the same statutory readings, and the CFPB says withdrawal may not be final. Re-map each affected control to its statutory or regulatory source.",
+  "open_questions_for_deploying_team": [
+    "Which agent policies (e.g., no pay-to-pay fees unless expressly authorized, time-barred debt disclosures, repossession-harm mitigation, dispute investigation using 'all relevant information', no collection of discharged debts) currently cite a withdrawn document as their authority?",
+    "Which of those controls will be kept as internal policy regardless of the withdrawal, and who approves any relaxation?",
+    "Do state rows (CA, FL, MA, TX) independently require any of the withdrawn practices?"
+  ],
+  "rationale": "Full text lists every withdrawn document; many interpret servicing obligations in the test (collection fees, time-barred debt, repossession, furnishing disputes, adverse action on existing accounts, bankruptcy discharge). Withdrawal of guidance is a change under the test. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (2521 of 2521 words)."
+}

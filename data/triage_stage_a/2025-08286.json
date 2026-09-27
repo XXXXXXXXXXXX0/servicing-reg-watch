@@ -1,0 +1,19 @@
+{
+  "doc_id": "2025-08286",
+  "relevant": true,
+  "confidence": 0.85,
+  "change_type": "withdrawal",
+  "effective_date": null,
+  "affected_register_rows": [
+    "UDAAP-001"
+  ],
+  "behavior_classes": [
+    "NEGOTIATION.TREATMENT"
+  ],
+  "what_changed": "CFPB withdraws many guidance documents (interpretive rules, policy statements, advisory opinions) issued since 2011, applicable May 12, 2025.",
+  "compliant_agent_must_now": "Pending Stage B: the abstract does not list the withdrawn documents. Any withdrawn item interpreting collection, servicing, payment, furnishing or data duties removes that CFPB interpretation, though the underlying statutes and rules still apply.",
+  "open_questions_for_deploying_team": [
+    "Which withdrawn documents did the deployment's policies cite, and which controls rested only on the withdrawn interpretation?"
+  ],
+  "rationale": "Withdrawal of guidance is a change under the test; the list of withdrawn documents is not in the abstract, so rows and classes are provisional. Stage A: title, abstract and metadata only; full text not read."
+}

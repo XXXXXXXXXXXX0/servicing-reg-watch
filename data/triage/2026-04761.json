@@ -1,0 +1,19 @@
+{
+  "doc_id": "2026-04761",
+  "relevant": false,
+  "confidence": 0.75,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes_primary": [],
+  "behavior_classes_secondary": [
+    "RECORDS.RETENTION",
+    "VENDOR.GOVERNANCE"
+  ],
+  "what_changed": "NCUA proposes to rewrite 12 CFR part 749 as a vital records preservation program (records needed to restore vital member services after a catastrophic act, such as a current list of share, deposit and loan balances), update definitions, remove Appendix A (suggested record retention guidelines) and Appendix B (catastrophic act preparedness guidelines), and state that a credit union using a third-party service provider to maintain vital records must oversee it.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [
+    "Does the servicing deployment hold any credit union client's vital records (e.g., current loan balance lists) so that the proposed third-party oversight expectation in 749.3 would reach it?"
+  ],
+  "rationale": "Full text shows part 749 concerns disaster-recovery copies of vital records, and Appendix A was nonbinding guidance; the proposal states other retention requirements are unaffected, so no retention period for borrower contact, disclosure or payment records changes. The third-party oversight sentence reaches only providers that maintain vital records, which a servicing agent normally does not; confidence kept below the auto-close line for that reason. Stage B: read SUMMARY, SUPPLEMENTARY INFORMATION and proposed regulatory text from the saved GovInfo full text (about 4,000 of 9,913 words, by keyword search for the rest)."
+}

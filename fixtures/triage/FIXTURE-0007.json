@@ -1,0 +1,20 @@
+{
+  "doc_id": "FIXTURE-0007",
+  "relevant": true,
+  "confidence": 0.85,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [
+    "REGE-PREAUTH-001"
+  ],
+  "behavior_classes": [
+    "PAYMENT.AUTHORIZATION"
+  ],
+  "what_changed": "Proposed commentary to 12 CFR 1005.10(b) on authorizing preauthorized transfers by telephone, including through automated voice systems.",
+  "compliant_agent_must_now": "No change until final. If adopted as proposed, recurring-payment authorizations an AI voice agent takes must meet the clarified 'similarly authenticated' standard.",
+  "open_questions_for_deploying_team": [
+    "Does the deployment take recurring ACH authorizations by voice today?",
+    "Should the team comment before the deadline?"
+  ],
+  "rationale": "Proposed rule on a tracked Reg E section that addresses automated voice authorizations. Full-text excerpt confirms the scope."
+}

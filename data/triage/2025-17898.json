@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-17898",
+  "relevant": false,
+  "confidence": 0.88,
+  "change_type": "final_rule",
+  "effective_date": "2025-12-15",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC announces December 15, 2025 as the effective date of 47 CFR 64.1200(o), requiring all voice service providers (not only gateway providers) to block calls from numbers on a reasonable do-not-originate list.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Blocking duty falls on voice providers; a lender or collector is affected only if it spoofs an invalid or inbound-only number, which the diff does not change for callers. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

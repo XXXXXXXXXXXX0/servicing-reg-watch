@@ -1,0 +1,22 @@
+{
+  "doc_id": "2024-24093",
+  "relevant": true,
+  "confidence": 0.85,
+  "change_type": "enforcement_signal",
+  "effective_date": null,
+  "affected_register_rows": [
+    "UDAAP-001",
+    "INS-GAP-001"
+  ],
+  "behavior_classes": [
+    "RECOVERY.REPOSSESSION",
+    "INSURANCE.CLAIMS",
+    "NEGOTIATION.TREATMENT"
+  ],
+  "what_changed": "CFPB Supervisory Highlights special edition (Issue 35) on auto finance, covering examinations completed November 1, 2023 to August 30, 2024.",
+  "compliant_agent_must_now": "Pending Stage B: the abstract does not state the findings. Auto-servicing supervisory findings typically interpret UDAAP as applied to servicing, repossession and add-on product practices.",
+  "open_questions_for_deploying_team": [
+    "Which specific findings (repossession, add-on refunds, payment handling, communications) apply to the deployment's portfolios?"
+  ],
+  "rationale": "CFPB supervisory findings focused on auto finance, which the relevance test counts as clarifying obligations when they interpret servicing conduct. The abstract gives no findings, so rows and classes are provisional. Stage A: title, abstract and metadata only; full text not read."
+}

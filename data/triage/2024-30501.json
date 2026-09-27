@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-30501",
+  "relevant": false,
+  "confidence": 0.97,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC seeks comment on further accessibility performance objectives for interoperable video conferencing services.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Disability access proposal for video conferencing; unrelated to lending. Stage A: title, abstract and metadata only; full text not read."
+}

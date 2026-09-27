@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-17895",
+  "relevant": false,
+  "confidence": 0.97,
+  "change_type": "final_rule",
+  "effective_date": "2025-10-16",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC requires covered text providers to transmit georouting data for 988 Lifeline texts.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Crisis-line routing for carriers; unrelated to lending. Stage A: title, abstract and metadata only; full text not read."
+}

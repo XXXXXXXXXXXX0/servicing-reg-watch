@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-03547",
+  "relevant": false,
+  "confidence": 0.7,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB extends the comment period on its Regulation V data broker proposal (89 FR 101402) from March 3 to April 2, 2025.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Procedural extension; creates or changes no obligation by itself. The underlying proposal is triaged separately (2024-28690). Stage A: title, abstract and metadata only; full text not read."
+}

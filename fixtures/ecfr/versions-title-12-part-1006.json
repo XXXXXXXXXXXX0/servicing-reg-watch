@@ -1,0 +1,58 @@
+{
+ "_synthetic_fixture": true,
+ "content_versions": [
+  {
+   "date": "2021-11-30",
+   "amendment_date": "2021-11-30",
+   "issue_date": "2021-11-30",
+   "identifier": "1006.6",
+   "name": "\u00a7 1006.6 Communications in connection with debt collection.",
+   "part": "1006",
+   "substantive": true,
+   "removed": false,
+   "subpart": null,
+   "title": "12",
+   "type": "section"
+  },
+  {
+   "date": "2021-11-30",
+   "amendment_date": "2021-11-30",
+   "issue_date": "2021-11-30",
+   "identifier": "1006.14",
+   "name": "\u00a7 1006.14 Harassing, oppressive, or abusive conduct.",
+   "part": "1006",
+   "substantive": true,
+   "removed": false,
+   "subpart": null,
+   "title": "12",
+   "type": "section"
+  },
+  {
+   "date": "2025-06-01",
+   "amendment_date": "2025-06-01",
+   "issue_date": "2025-06-01",
+   "identifier": "1006.14",
+   "name": "\u00a7 1006.14 Harassing, oppressive, or abusive conduct.",
+   "part": "1006",
+   "substantive": true,
+   "removed": false,
+   "subpart": null,
+   "title": "12",
+   "type": "section"
+  },
+  {
+   "date": "2025-06-01",
+   "amendment_date": "2025-06-01",
+   "issue_date": "2025-06-01",
+   "identifier": "1006.15",
+   "name": "\u00a7 1006.15 Voice-agent disclosures (synthetic).",
+   "part": "1006",
+   "substantive": true,
+   "removed": false,
+   "subpart": null,
+   "title": "12",
+   "type": "section"
+  }
+ ],
+ "meta": {}
+}

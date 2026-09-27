@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-18603",
+  "relevant": false,
+  "confidence": 0.97,
+  "change_type": "final_rule",
+  "effective_date": "2024-11-25",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC final rule setting NG911 transition duties and deadlines for originating service providers delivering 911 calls.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Telecom network 911 routing rule for carriers; no lender, servicer or collector obligation. Stage A: title, abstract and metadata only; full text not read."
+}

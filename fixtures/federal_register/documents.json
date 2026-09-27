@@ -1,0 +1,680 @@
+{
+ "_synthetic_fixture": "All documents are synthetic test fixtures shaped like Federal Register API results. They are not real Federal Register documents.",
+ "count": 17,
+ "results": [
+  {
+   "document_number": "FIXTURE-0001",
+   "title": "Debt Collection Practices (Regulation F); Call Frequency Amendments",
+   "type": "Rule",
+   "subtype": null,
+   "action": "Final rule.",
+   "abstract": "The Bureau amends the call-frequency presumption in Regulation F to count text messages toward the weekly limit and adds a new section on voice-agent disclosures.",
+   "dates": null,
+   "agencies": [
+    {
+     "slug": "consumer-financial-protection-bureau",
+     "name": "Consumer Financial Protection Bureau",
+     "raw_name": "CONSUMER FINANCIAL PROTECTION BUREAU"
+    }
+   ],
+   "agency_names": [
+    "Consumer Financial Protection Bureau"
+   ],
+   "publication_date": "2025-03-03",
+   "effective_on": "2025-06-01",
+   "signing_date": null,
+   "comments_close_on": null,
+   "cfr_references": [
+    {
+     "title": 12,
+     "part": "1006"
+    }
+   ],
+   "citation": null,
+   "docket_ids": [],
+   "regulation_id_numbers": [],
+   "significant": false,
+   "topics": [],
+   "html_url": "https://example.invalid/fixture/FIXTURE-0001",
+   "pdf_url": null,
+   "raw_text_url": "https://example.invalid/fixture/text/FIXTURE-0001.txt",
+   "full_text_xml_url": null,
+   "json_url": null,
+   "correction_of": null,
+   "corrections": []
+  },
+  {
+   "document_number": "FIXTURE-0002",
+   "title": "Withdrawal of Guidance Documents",
+   "type": "Notice",
+   "subtype": null,
+   "action": "Notice of withdrawal.",
+   "abstract": "The Bureau is withdrawing a set of guidance documents, including advisory opinions addressing debt collection and pay-to-pay convenience fees.",
+   "dates": null,
+   "agencies": [
+    {
+     "slug": "consumer-financial-protection-bureau",
+     "name": "Consumer Financial Protection Bureau",
+     "raw_name": "CONSUMER FINANCIAL PROTECTION BUREAU"
+    }
+   ],
+   "agency_names": [
+    "Consumer Financial Protection Bureau"
+   ],
+   "publication_date": "2025-05-12",
+   "effective_on": null,
+   "signing_date": null,
+   "comments_close_on": null,
+   "cfr_references": [],
+   "citation": null,
+   "docket_ids": [],
+   "regulation_id_numbers": [],
+   "significant": false,
+   "topics": [],
+   "html_url": "https://example.invalid/fixture/FIXTURE-0002",
+   "pdf_url": null,
+   "raw_text_url": "https://example.invalid/fixture/text/FIXTURE-0002.txt",
+   "full_text_xml_url": null,
+   "json_url": null,
+   "correction_of": null,
+   "corrections": []
+  },
+  {
+   "document_number": "FIXTURE-0003",
+   "title": "Protecting Consumers From Unwanted Robocalls and Robotexts; Revocation of Consent",
+   "type": "Rule",
+   "subtype": null,
+   "action": "Final rule; delay of effective date.",
+   "abstract": "The Commission further delays the effective date of the rule requiring callers to treat a revocation of consent as applying to all robocalls and robotexts from that caller.",
+   "dates": null,
+   "agencies": [
+    {
+     "slug": "federal-communications-commission",
+     "name": "Federal Communications Commission",
+     "raw_name": "FEDERAL COMMUNICATIONS COMMISSION"
+    }
+   ],
+   "agency_names": [
+    "Federal Communications Commission"
+   ],
+   "publication_date": "2025-10-06",
+   "effective_on": "2027-04-11",
+   "signing_date": null,
+   "comments_close_on": null,
+   "cfr_references": [
+    {
+     "title": 47,
+     "part": "64"
+    }
+   ],
+   "citation": null,
+   "docket_ids": [],
+   "regulation_id_numbers": [],
+   "significant": false,
+   "topics": [],
+   "html_url": "https://example.invalid/fixture/FIXTURE-0003",
+   "pdf_url": null,
+   "raw_text_url": "https://example.invalid/fixture/text/FIXTURE-0003.txt",
+   "full_text_xml_url": null,
+   "json_url": null,
+   "correction_of": null,
+   "corrections": []
+  },
+  {
+   "document_number": "FIXTURE-0004",
+   "title": "Radio Broadcasting Services; Various Locations",
+   "type": "Rule",
+   "subtype": null,
+   "action": "Final rule.",
+   "abstract": "This document amends the FM Table of Allotments.",
+   "dates": null,
+   "agencies": [
+    {
+     "slug": "federal-communications-commission",
+     "name": "Federal Communications Commission",
+     "raw_name": "FEDERAL COMMUNICATIONS COMMISSION"
+    }
+   ],
+   "agency_names": [
+    "Federal Communications Commission"
+   ],
+   "publication_date": "2025-02-14",
+   "effective_on": "2025-03-17",
+   "signing_date": null,
+   "comments_close_on": null,
+   "cfr_references": [
+    {
+     "title": 47,
+     "part": "73"
+    }
+   ],
+   "citation": null,
+   "docket_ids": [],
+   "regulation_id_numbers": [],
+   "significant": false,
+   "topics": [],
+   "html_url": "https://example.invalid/fixture/FIXTURE-0004",
+   "pdf_url": null,
+   "raw_text_url": null,
+   "full_text_xml_url": null,
+   "json_url": null,
+   "correction_of": null,
+   "corrections": []
+  },
+  {
+   "document_number": "FIXTURE-0005",
+   "title": "Formations of, Acquisitions by, and Mergers of Bank Holding Companies",
+   "type": "Notice",
+   "subtype": null,
+   "action": "Notice.",
+   "abstract": null,
+   "dates": null,
+   "agencies": [
+    {
+     "slug": "federal-reserve-system",
+     "name": "Federal Reserve System",
+     "raw_name": "FEDERAL RESERVE SYSTEM"
+    }
+   ],
+   "agency_names": [
+    "Federal Reserve System"
+   ],
+   "publication_date": "2025-04-02",
+   "effective_on": null,
+   "signing_date": null,
+   "comments_close_on": null,
+   "cfr_references": [],
+   "citation": null,
+   "docket_ids": [],
+   "regulation_id_numbers": [],
+   "significant": false,
+   "topics": [],
+   "html_url": "https://example.invalid/fixture/FIXTURE-0005",
+   "pdf_url": null,
+   "raw_text_url": null,
+   "full_text_xml_url": null,
+   "json_url": null,
+   "correction_of": null,
+   "corrections": []
+  },
+  {
+   "document_number": "FIXTURE-0006",
+   "title": "Mortgage Servicing Rules Under the Real Estate Settlement Procedures Act (Regulation X)",
+   "type": "Proposed Rule",
+   "subtype": null,
+   "action": "Proposed rule.",
+   "abstract": "The Bureau proposes amendments to Regulation X loss mitigation procedures for mortgage servicers.",
+   "dates": null,
+   "agencies": [
+    {
+     "slug": "consumer-financial-protection-bureau",
+     "name": "Consumer Financial Protection Bureau",
+     "raw_name": "CONSUMER FINANCIAL PROTECTION BUREAU"
+    }
+   ],
+   "agency_names": [
+    "Consumer Financial Protection Bureau"
+   ],
+   "publication_date": "2025-07-15",
+   "effective_on": null,
+   "signing_date": null,
+   "comments_close_on": null,
+   "cfr_references": [
+    {
+     "title": 12,
+     "part": "1024"
+    }
+   ],
+   "citation": null,
+   "docket_ids": [],
+   "regulation_id_numbers": [],
+   "significant": false,
+   "topics": [],
+   "html_url": "https://example.invalid/fixture/FIXTURE-0006",
+   "pdf_url": null,
+   "raw_text_url": "https://example.invalid/fixture/text/FIXTURE-0006.txt",
+   "full_text_xml_url": null,
+   "json_url": null,
+   "correction_of": null,
+   "corrections": []
+  },
+  {
+   "document_number": "FIXTURE-0007",
+   "title": "Electronic Fund Transfers (Regulation E); Preauthorized Transfer Authorizations",
+   "type": "Proposed Rule",
+   "subtype": null,
+   "action": "Proposed rule; request for public comment.",
+   "abstract": "The Bureau proposes to clarify how preauthorized electronic fund transfers may be authorized by telephone and through automated systems.",
+   "dates": null,
+   "agencies": [
+    {
+     "slug": "consumer-financial-protection-bureau",
+     "name": "Consumer Financial Protection Bureau",
+     "raw_name": "CONSUMER FINANCIAL PROTECTION BUREAU"
+    }
+   ],
+   "agency_names": [
+    "Consumer Financial Protection Bureau"
+   ],
+   "publication_date": "2025-09-22",
+   "effective_on": null,
+   "signing_date": null,
+   "comments_close_on": null,
+   "cfr_references": [
+    {
+     "title": 12,
+     "part": "1005"
+    }
+   ],
+   "citation": null,
+   "docket_ids": [],
+   "regulation_id_numbers": [],
+   "significant": false,
+   "topics": [],
+   "html_url": "https://example.invalid/fixture/FIXTURE-0007",
+   "pdf_url": null,
+   "raw_text_url": "https://example.invalid/fixture/text/FIXTURE-0007.txt",
+   "full_text_xml_url": null,
+   "json_url": null,
+   "correction_of": null,
+   "corrections": []
+  },
+  {
+   "document_number": "FIXTURE-0008",
+   "title": "Standards for Safeguarding Customer Information",
+   "type": "Rule",
+   "subtype": null,
+   "action": "Final rule; technical amendments.",
+   "abstract": "The Commission makes technical corrections to the Safeguards Rule.",
+   "dates": null,
+   "agencies": [
+    {
+     "slug": "federal-trade-commission",
+     "name": "Federal Trade Commission",
+     "raw_name": "FEDERAL TRADE COMMISSION"
+    }
+   ],
+   "agency_names": [
+    "Federal Trade Commission"
+   ],
+   "publication_date": "2025-01-28",
+   "effective_on": "2025-03-01",
+   "signing_date": null,
+   "comments_close_on": null,
+   "cfr_references": [
+    {
+     "title": 16,
+     "part": "314"
+    }
+   ],
+   "citation": null,
+   "docket_ids": [],
+   "regulation_id_numbers": [],
+   "significant": false,
+   "topics": [],
+   "html_url": "https://example.invalid/fixture/FIXTURE-0008",
+   "pdf_url": null,
+   "raw_text_url": null,
+   "full_text_xml_url": null,
+   "json_url": null,
+   "correction_of": null,
+   "corrections": []
+  },
+  {
+   "document_number": "FIXTURE-0009",
+   "title": "Agency Information Collection Activities: Information Collection Renewal; Comment Request; Fiduciary Activities",
+   "type": "Notice",
+   "subtype": null,
+   "action": "Notice and request for comment.",
+   "abstract": "The OCC is seeking comment on the renewal of an information collection concerning fiduciary activities of national banks.",
+   "dates": null,
+   "agencies": [
+    {
+     "slug": "comptroller-of-the-currency",
+     "name": "Comptroller of the Currency",
+     "raw_name": "COMPTROLLER OF THE CURRENCY"
+    }
+   ],
+   "agency_names": [
+    "Comptroller of the Currency"
+   ],
+   "publication_date": "2025-05-20",
+   "effective_on": null,
+   "signing_date": null,
+   "comments_close_on": null,
+   "cfr_references": [],
+   "citation": null,
+   "docket_ids": [],
+   "regulation_id_numbers": [],
+   "significant": false,
+   "topics": [],
+   "html_url": "https://example.invalid/fixture/FIXTURE-0009",
+   "pdf_url": null,
+   "raw_text_url": null,
+   "full_text_xml_url": null,
+   "json_url": null,
+   "correction_of": null,
+   "corrections": []
+  },
+  {
+   "document_number": "FIXTURE-0010",
+   "title": "Rescission of Statement of Policy on Bank Merger Transactions",
+   "type": "Notice",
+   "subtype": null,
+   "action": "Rescission of statement of policy.",
+   "abstract": "The FDIC is rescinding a statement of policy and reinstating the prior statement.",
+   "dates": null,
+   "agencies": [
+    {
+     "slug": "federal-deposit-insurance-corporation",
+     "name": "Federal Deposit Insurance Corporation",
+     "raw_name": "FEDERAL DEPOSIT INSURANCE CORPORATION"
+    }
+   ],
+   "agency_names": [
+    "Federal Deposit Insurance Corporation"
+   ],
+   "publication_date": "2025-06-10",
+   "effective_on": null,
+   "signing_date": null,
+   "comments_close_on": null,
+   "cfr_references": [],
+   "citation": null,
+   "docket_ids": [],
+   "regulation_id_numbers": [],
+   "significant": false,
+   "topics": [],
+   "html_url": "https://example.invalid/fixture/FIXTURE-0010",
+   "pdf_url": null,
+   "raw_text_url": null,
+   "full_text_xml_url": null,
+   "json_url": null,
+   "correction_of": null,
+   "corrections": []
+  },
+  {
+   "document_number": "FIXTURE-0011",
+   "title": "Cyber Incident Notification Requirements for Federally Insured Credit Unions; Technical Amendments",
+   "type": "Rule",
+   "subtype": null,
+   "action": "Final rule.",
+   "abstract": "The Board makes technical amendments to its incident notification rule.",
+   "dates": null,
+   "agencies": [
+    {
+     "slug": "national-credit-union-administration",
+     "name": "National Credit Union Administration",
+     "raw_name": "NATIONAL CREDIT UNION ADMINISTRATION"
+    }
+   ],
+   "agency_names": [
+    "National Credit Union Administration"
+   ],
+   "publication_date": "2025-08-04",
+   "effective_on": "2025-09-03",
+   "signing_date": null,
+   "comments_close_on": null,
+   "cfr_references": [
+    {
+     "title": 12,
+     "part": "748"
+    }
+   ],
+   "citation": null,
+   "docket_ids": [],
+   "regulation_id_numbers": [],
+   "significant": false,
+   "topics": [],
+   "html_url": "https://example.invalid/fixture/FIXTURE-0011",
+   "pdf_url": null,
+   "raw_text_url": null,
+   "full_text_xml_url": null,
+   "json_url": null,
+   "correction_of": null,
+   "corrections": []
+  },
+  {
+   "document_number": "FIXTURE-0012",
+   "title": "Rules and Regulations Implementing the Telephone Consumer Protection Act; Lead Generator Consent",
+   "type": "Proposed Rule",
+   "subtype": null,
+   "action": "Proposed rule.",
+   "abstract": "The Commission proposes to require that prior express written consent for telemarketing calls be given to one seller at a time.",
+   "dates": null,
+   "agencies": [
+    {
+     "slug": "federal-communications-commission",
+     "name": "Federal Communications Commission",
+     "raw_name": "FEDERAL COMMUNICATIONS COMMISSION"
+    }
+   ],
+   "agency_names": [
+    "Federal Communications Commission"
+   ],
+   "publication_date": "2025-11-17",
+   "effective_on": null,
+   "signing_date": null,
+   "comments_close_on": null,
+   "cfr_references": [
+    {
+     "title": 47,
+     "part": "64"
+    }
+   ],
+   "citation": null,
+   "docket_ids": [],
+   "regulation_id_numbers": [],
+   "significant": false,
+   "topics": [],
+   "html_url": "https://example.invalid/fixture/FIXTURE-0012",
+   "pdf_url": null,
+   "raw_text_url": null,
+   "full_text_xml_url": null,
+   "json_url": null,
+   "correction_of": null,
+   "corrections": []
+  },
+  {
+   "document_number": "FIXTURE-0013",
+   "title": "Early Termination Notices",
+   "type": "Notice",
+   "subtype": null,
+   "action": "Notice.",
+   "abstract": null,
+   "dates": null,
+   "agencies": [
+    {
+     "slug": "federal-trade-commission",
+     "name": "Federal Trade Commission",
+     "raw_name": "FEDERAL TRADE COMMISSION"
+    }
+   ],
+   "agency_names": [
+    "Federal Trade Commission"
+   ],
+   "publication_date": "2025-03-25",
+   "effective_on": null,
+   "signing_date": null,
+   "comments_close_on": null,
+   "cfr_references": [],
+   "citation": null,
+   "docket_ids": [],
+   "regulation_id_numbers": [],
+   "significant": false,
+   "topics": [],
+   "html_url": "https://example.invalid/fixture/FIXTURE-0013",
+   "pdf_url": null,
+   "raw_text_url": null,
+   "full_text_xml_url": null,
+   "json_url": null,
+   "correction_of": null,
+   "corrections": []
+  },
+  {
+   "document_number": "FIXTURE-0014",
+   "title": "Federal Reserve Bank Services: Private Sector Adjustment Factor",
+   "type": "Notice",
+   "subtype": null,
+   "action": "Notice.",
+   "abstract": "The Board has approved the private sector adjustment factor for the coming year.",
+   "dates": null,
+   "agencies": [
+    {
+     "slug": "federal-reserve-system",
+     "name": "Federal Reserve System",
+     "raw_name": "FEDERAL RESERVE SYSTEM"
+    }
+   ],
+   "agency_names": [
+    "Federal Reserve System"
+   ],
+   "publication_date": "2025-12-01",
+   "effective_on": null,
+   "signing_date": null,
+   "comments_close_on": null,
+   "cfr_references": [],
+   "citation": null,
+   "docket_ids": [],
+   "regulation_id_numbers": [],
+   "significant": false,
+   "topics": [],
+   "html_url": "https://example.invalid/fixture/FIXTURE-0014",
+   "pdf_url": null,
+   "raw_text_url": null,
+   "full_text_xml_url": null,
+   "json_url": null,
+   "correction_of": null,
+   "corrections": []
+  },
+  {
+   "document_number": "FIXTURE-0015",
+   "title": "Request for Information on Bank Use of Artificial Intelligence With Third Parties",
+   "type": "Notice",
+   "subtype": null,
+   "action": "Request for information.",
+   "abstract": "The agencies request information on how banks manage third-party relationships involving artificial intelligence, including AI used to communicate with customers.",
+   "dates": null,
+   "agencies": [
+    {
+     "slug": "comptroller-of-the-currency",
+     "name": "Comptroller of the Currency",
+     "raw_name": "COMPTROLLER OF THE CURRENCY"
+    },
+    {
+     "slug": "federal-deposit-insurance-corporation",
+     "name": "Federal Deposit Insurance Corporation",
+     "raw_name": "FEDERAL DEPOSIT INSURANCE CORPORATION"
+    },
+    {
+     "slug": "federal-reserve-system",
+     "name": "Federal Reserve System",
+     "raw_name": "FEDERAL RESERVE SYSTEM"
+    }
+   ],
+   "agency_names": [
+    "Comptroller of the Currency",
+    "Federal Deposit Insurance Corporation",
+    "Federal Reserve System"
+   ],
+   "publication_date": "2026-02-09",
+   "effective_on": null,
+   "signing_date": null,
+   "comments_close_on": null,
+   "cfr_references": [],
+   "citation": null,
+   "docket_ids": [],
+   "regulation_id_numbers": [],
+   "significant": false,
+   "topics": [],
+   "html_url": "https://example.invalid/fixture/FIXTURE-0015",
+   "pdf_url": null,
+   "raw_text_url": null,
+   "full_text_xml_url": null,
+   "json_url": null,
+   "correction_of": null,
+   "corrections": []
+  },
+  {
+   "document_number": "FIXTURE-0016",
+   "title": "Debt Collection Practices (Regulation F); Technical Corrections",
+   "type": "Rule",
+   "subtype": null,
+   "action": "Final rule.",
+   "abstract": "Published outside the fixture window; must not be ingested.",
+   "dates": null,
+   "agencies": [
+    {
+     "slug": "consumer-financial-protection-bureau",
+     "name": "Consumer Financial Protection Bureau",
+     "raw_name": "CONSUMER FINANCIAL PROTECTION BUREAU"
+    }
+   ],
+   "agency_names": [
+    "Consumer Financial Protection Bureau"
+   ],
+   "publication_date": "2024-01-10",
+   "effective_on": "2024-02-09",
+   "signing_date": null,
+   "comments_close_on": null,
+   "cfr_references": [
+    {
+     "title": 12,
+     "part": "1006"
+    }
+   ],
+   "citation": null,
+   "docket_ids": [],
+   "regulation_id_numbers": [],
+   "significant": false,
+   "topics": [],
+   "html_url": "https://example.invalid/fixture/FIXTURE-0016",
+   "pdf_url": null,
+   "raw_text_url": null,
+   "full_text_xml_url": null,
+   "json_url": null,
+   "correction_of": null,
+   "corrections": []
+  },
+  {
+   "document_number": "FIXTURE-0017",
+   "title": "Rules of Practice for Adjudication Proceedings",
+   "type": "Rule",
+   "subtype": null,
+   "action": "Final rule.",
+   "abstract": "The Bureau amends its procedural rules governing hearings.",
+   "dates": null,
+   "agencies": [
+    {
+     "slug": "consumer-financial-protection-bureau",
+     "name": "Consumer Financial Protection Bureau",
+     "raw_name": "CONSUMER FINANCIAL PROTECTION BUREAU"
+    }
+   ],
+   "agency_names": [
+    "Consumer Financial Protection Bureau"
+   ],
+   "publication_date": "2026-03-16",
+   "effective_on": "2026-04-15",
+   "signing_date": null,
+   "comments_close_on": null,
+   "cfr_references": [
+    {
+     "title": 12,
+     "part": "1081"
+    }
+   ],
+   "citation": null,
+   "docket_ids": [],
+   "regulation_id_numbers": [],
+   "significant": false,
+   "topics": [],
+   "html_url": "https://example.invalid/fixture/FIXTURE-0017",
+   "pdf_url": null,
+   "raw_text_url": null,
+   "full_text_xml_url": null,
+   "json_url": null,
+   "correction_of": null,
+   "corrections": []
+  }
+ ]
+}

@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-27458",
+  "relevant": false,
+  "confidence": 0.9,
+  "change_type": "other",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FTC asks OMB to extend PRA clearances for recordkeeping and disclosure requirements in four consumer financial regulations it enforces.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Paperwork Reduction Act clearance renewal; it restates existing collections and creates or changes no obligation. Prefilter excluded it as a PRA notice. Stage A: title, abstract and metadata only; full text not read."
+}

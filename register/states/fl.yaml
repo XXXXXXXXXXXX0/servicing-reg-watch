@@ -1,0 +1,164 @@
+# Florida state-layer rows (BUILD_SPEC 6.3). All rows status: verify.
+rows:
+  - id: FL-FCCPA-001
+    law: "Florida Consumer Collection Practices Act"
+    citation: "Fla. Stat. 559.72(17)"
+    source_url: "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0559/Sections/0559.72.html"
+    agency: state
+    jurisdiction: US-FL
+    applies_to: [first_party_creditors, third_party_collectors]
+    tier: 1
+    behavior_classes: [CONTACT.TIMING]
+    constraint: "Do not communicate with the debtor between 9 p.m. and 8 a.m. in the debtor's time zone without the debtor's prior consent. The Act reaches 'any person', including first-party lenders."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: machine_verified
+    effective_date: null
+    last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/fl/559.72.htm.gz
+      - data/raw/primary/fl/559.55.htm.gz
+      note: 559.72(17) excludes e-mail sent to an e-mail address that otherwise complies, and lets the caller presume the time zone of the area code called.
+    federal_interaction:
+    - row: REGF-TIME-001
+      stricter: different_scope
+      note: 'Same hours; reaches any person, including first-party creditors; only the debtor''s prior consent lifts it. Fla. Stat. 559.552: where the Act and the FDCPA conflict, ''the provision which is more protective of the consumer or debtor shall prevail''.'
+
+  - id: FL-FCCPA-002
+    law: "Florida Consumer Collection Practices Act"
+    citation: "Fla. Stat. 559.72(7)"
+    source_url: "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0559/Sections/0559.72.html"
+    agency: state
+    jurisdiction: US-FL
+    applies_to: [first_party_creditors, third_party_collectors]
+    tier: 1
+    behavior_classes: [CONTACT.FREQUENCY]
+    constraint: "Do not willfully communicate with the debtor or the debtor's family with a frequency that can reasonably be expected to harass."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: machine_verified
+    effective_date: null
+    last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/fl/559.72.htm.gz
+    federal_interaction:
+    - row: REGF-FREQ-001
+      stricter: different_scope
+      note: Reaches first-party creditors and the debtor's family; harassment standard with no numeric cap.
+
+  - id: FL-FCCPA-003
+    law: "Florida Consumer Collection Practices Act"
+    citation: "Fla. Stat. 559.72(18)"
+    source_url: "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0559/Sections/0559.72.html"
+    agency: state
+    jurisdiction: US-FL
+    applies_to: [first_party_creditors, third_party_collectors]
+    tier: 1
+    behavior_classes: [STOP.TRIGGERS]
+    constraint: "Do not communicate with a debtor if the person knows the debtor is represented by an attorney for the debt and knows, or can readily find out, the attorney's name and address, subject to the statute's exceptions."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: machine_verified
+    effective_date: null
+    last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/fl/559.72.htm.gz
+      note: 'Exceptions in 559.72(18): the attorney fails to respond within 30 days, the attorney consents, or the debtor initiates the communication.'
+    federal_interaction:
+    - row: REGF-STOP-002
+      stricter: unclear
+      note: 'Reaches first-party creditors. A fixed 30-day attorney response period (federal: ''a reasonable period of time'') and a debtor-initiated exception with no federal counterpart; whether it is stricter depends on the facts.'
+
+  - id: FL-FCCPA-004
+    law: "Florida Consumer Collection Practices Act"
+    citation: "Fla. Stat. 559.72(5)"
+    source_url: "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0559/Sections/0559.72.html"
+    agency: state
+    jurisdiction: US-FL
+    applies_to: [first_party_creditors, third_party_collectors]
+    tier: 1
+    behavior_classes: [IDENTITY.RIGHT_PARTY]
+    constraint: "Do not disclose to a person other than the debtor or the debtor's family information affecting the debtor's reputation, whether or not for credit worthiness, with knowledge or reason to know that the other person does not have a legitimate business need for the information or that the information is false."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: machine_verified
+    effective_date: null
+    last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/fl/559.72.htm.gz
+      note: 'Re-checked 2026-09-27 after the reviewer''s fix: wording now follows 559.72(5). Earlier result: mismatch (narrower than the statute).'
+    federal_interaction:
+    - row: REGF-IDENT-001
+      stricter: different_scope
+      note: Reaches first-party creditors; for FDCPA collectors the federal third-party ban (any communication about the debt) is broader.
+
+  - id: FL-REC-001
+    law: "Florida Security of Communications Act"
+    citation: "Fla. Stat. 934.03"
+    source_url: "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0934/Sections/0934.03.html"
+    agency: state
+    jurisdiction: US-FL
+    applies_to: [all_persons]
+    tier: 1
+    behavior_classes: [CONTACT.RECORDING]
+    constraint: "All-party consent. Intercepting or recording a wire or oral communication needs the prior consent of all parties. Disclose recording at the start of the call."
+    change_source: [manual]
+    provenance: added_by_analysis
+    provenance_url: null
+    status: machine_verified
+    effective_date: null
+    last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/fl/934.03.htm.gz
+      note: 'All-party consent exception at 934.03(2)(d): lawful ''when all of the parties to the communication have given prior consent''.'
+    federal_interaction_note: No federal recording-consent row in the register (the federal wiretap statute is not modeled), so there is no federal row to compare.
+
+  - id: FL-UCC9-001
+    law: "UCC Article 9 (Florida)"
+    citation: "Fla. Stat. 679.609, 679.611"
+    source_url: "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0600-0699/0679/Sections/0679.609.html"
+    agency: state
+    jurisdiction: US-FL
+    applies_to: [secured_parties]
+    tier: 2
+    behavior_classes: [RECOVERY.REPOSSESSION]
+    constraint: "Self-help repossession only without breach of the peace. Reasonable authenticated notification before disposition of collateral."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: machine_verified
+    effective_date: null
+    last_checked: null
+    machine_check:
+      result: match
+      date: '2026-09-27'
+      sources:
+      - data/raw/primary/fl/679.609.htm.gz
+      - data/raw/primary/fl/679.611.htm.gz
+      note: Florida's text now says 'signed notification' where the row says 'authenticated'.
+    federal_interaction:
+    - row: SCRA-REPO-001
+      stricter: different_scope
+      note: SCRA court-order requirement applies on top for covered servicemembers.
+    - row: BK-STAY-001
+      stricter: different_scope
+      note: Repossession and disposition are stayed once a petition is filed.

@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-30652",
+  "relevant": false,
+  "confidence": 0.97,
+  "change_type": "final_rule",
+  "effective_date": "2025-01-01",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB adjusts the HMDA (Regulation C) asset-size exemption threshold to $58 million.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "HMDA, excluded by the relevance test. Stage A: title, abstract and metadata only; full text not read."
+}

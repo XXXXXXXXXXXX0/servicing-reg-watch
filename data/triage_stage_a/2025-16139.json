@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-16139",
+  "relevant": false,
+  "confidence": 0.88,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB ANPR reconsidering four Section 1033 personal financial data rights issues: consumer representatives, fees, data security and data privacy.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Open banking (Section 1033), excluded by the relevance test. Stage A: title, abstract and metadata only; full text not read."
+}

@@ -1,0 +1,18 @@
+{
+  "doc_id": "2026-05797",
+  "relevant": true,
+  "confidence": 0.75,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [
+    "VENDOR.GOVERNANCE"
+  ],
+  "what_changed": "NCUA proposes removing its regulation on third-party servicing of indirect vehicle loans (12 CFR 701, 741, 746 as cited), described as unnecessarily prescriptive, in favor of principles-based supervision.",
+  "compliant_agent_must_now": "No change until final; if adopted, federally insured credit unions would no longer be bound by NCUA's specific rule on third-party servicers of indirect vehicle loans, and oversight of such servicers (including an AI servicing vendor) would rest on general safety-and-soundness and vendor due-diligence expectations.",
+  "open_questions_for_deploying_team": [
+    "Register gap: no row covers NCUA's third-party servicing rule for indirect vehicle loans. Should a VENDOR.GOVERNANCE row be added citing the current NCUA provision?",
+    "Which credit union clients use the deployment to service indirect vehicle loans, and what limits in the current rule do their contracts reflect?"
+  ],
+  "rationale": "Directly concerns credit unions' use of third-party servicers for auto loans, i.e., how a servicing vendor is overseen. Register gap: no NCUA third-party servicing row. Stage A: title, abstract and metadata only; full text not read."
+}

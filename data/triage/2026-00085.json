@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-00085",
+  "relevant": false,
+  "confidence": 0.95,
+  "change_type": "final_rule",
+  "effective_date": "2026-01-07",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB annual adjustment of asset-size thresholds for the higher-priced mortgage loan escrow exemption (Supplement I to Part 1026, comment 35(b)(2)(iii)).",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Mortgage escrow exemption, excluded. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-00167",
+  "relevant": false,
+  "confidence": 0.9,
+  "change_type": "final_rule",
+  "effective_date": "2025-01-15",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB adjusts maximum civil penalty amounts for inflation (12 CFR 1083).",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Changes penalty ceilings, not any conduct obligation; 'debt collection' hit is the Debt Collection Improvement Act. Stage A: title, abstract and metadata only; full text not read."
+}

@@ -1,0 +1,13 @@
+{
+  "doc_id": "FIXTURE-0006",
+  "relevant": false,
+  "confidence": 0.9,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "Proposed amendments to Regulation X mortgage loss-mitigation procedures.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Mortgage-only servicing rule (12 CFR 1024); hard negative per scope. Abstract is explicit that it covers mortgage servicers."
+}

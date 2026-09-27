@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-13665",
+  "relevant": false,
+  "confidence": 0.9,
+  "change_type": "withdrawal",
+  "effective_date": "2025-07-21",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB withdraws its May 2025 direct final rule that would have rescinded the state official notification procedures.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Intergovernmental notice procedure; no lender or servicer obligation. Stage A: title, abstract and metadata only; full text not read."
+}

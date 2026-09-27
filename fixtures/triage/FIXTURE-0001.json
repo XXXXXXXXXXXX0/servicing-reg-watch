@@ -1,0 +1,21 @@
+{
+  "doc_id": "FIXTURE-0001",
+  "relevant": true,
+  "confidence": 0.97,
+  "change_type": "final_rule",
+  "effective_date": "2025-06-01",
+  "affected_register_rows": [
+    "REGF-FREQ-001"
+  ],
+  "behavior_classes": [
+    "CONTACT.FREQUENCY",
+    "CONTACT.AI_DISCLOSURE"
+  ],
+  "what_changed": "12 CFR 1006.14(b)(2) now counts text messages toward the seven-in-seven presumption (diff: 'places a telephone call' -> 'places a telephone call or sends a text message'). New 12 CFR 1006.15 requires disclosure at the outset of a call that an artificial voice is used.",
+  "compliant_agent_must_now": "From 2025-06-01, third-party collectors: count calls and texts together against the 7-in-7 cap per debt; disclose at the start of every call that the voice is artificial.",
+  "open_questions_for_deploying_team": [
+    "Does the deployment act as a third-party collector or post-default servicer for any portfolio?",
+    "Register gap: add a Reg F row for 1006.15 AI-voice disclosure."
+  ],
+  "rationale": "Final rule amending a tracked Reg F section with an eCFR diff showing the text change. Full-text excerpt confirms the effective date. The AI-disclosure section has no register row yet."
+}

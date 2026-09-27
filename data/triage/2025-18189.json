@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-18189",
+  "relevant": false,
+  "confidence": 0.97,
+  "change_type": "final_rule",
+  "effective_date": "2025-09-19",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC announces the effective date of IPCS annual reporting and 47 CFR 64.6060 amendments after OMB approval.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Inmate calling services reporting; unrelated to lending. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-11280",
+  "relevant": false,
+  "confidence": 0.75,
+  "change_type": "other",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "OCC, Federal Reserve and FDIC request information on actions to mitigate check, ACH, wire and instant payments fraud.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Request for information with no proposed text; creates no obligation now. Near the line because any follow-on action could touch ACH payment authorization. Stage A: title, abstract and metadata only; full text not read."
+}

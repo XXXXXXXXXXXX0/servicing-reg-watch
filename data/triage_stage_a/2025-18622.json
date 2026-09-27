@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-18622",
+  "relevant": false,
+  "confidence": 0.88,
+  "change_type": "final_rule",
+  "effective_date": "2025-10-27",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB rescinds its 2022-2024 amendments to supervisory designation procedures, keeping limited process adjustments (12 CFR 1091).",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Agency procedure for designating nonbanks for supervision; no servicing conduct. Stage A: title, abstract and metadata only; full text not read."
+}

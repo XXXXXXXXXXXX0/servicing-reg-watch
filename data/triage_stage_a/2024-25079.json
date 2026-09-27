@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-25079",
+  "relevant": false,
+  "confidence": 0.88,
+  "change_type": "final_rule",
+  "effective_date": "2025-01-17",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB Section 1033 personal financial data rights final rule: data providers must make consumer data available to consumers and authorized third parties.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Open banking (Section 1033), excluded by the relevance test. Stage A: title, abstract and metadata only; full text not read."
+}

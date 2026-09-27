@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-08345",
+  "relevant": false,
+  "confidence": 0.85,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB proposes rescinding the rule requiring certain nonbanks subject to public agency or court orders to report them to a CFPB registry (12 CFR 1092).",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Registry reporting duty to the CFPB; not servicing conduct or vendor examination. Stage A: title, abstract and metadata only; full text not read."
+}

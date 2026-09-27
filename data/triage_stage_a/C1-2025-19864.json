@@ -1,0 +1,17 @@
+{
+  "doc_id": "C1-2025-19864",
+  "relevant": true,
+  "confidence": 0.55,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [
+    "REGB-001"
+  ],
+  "behavior_classes": [
+    "NEGOTIATION.TREATMENT"
+  ],
+  "what_changed": "Correction to the CFPB Regulation B proposal on disparate impact, discouragement and special purpose credit programs (90 FR 50901); the packet has no abstract.",
+  "compliant_agent_must_now": "No change until final; follows the corrected proposal (2025-19864), which has since been finalized (2026-07804).",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Correction to a proposal triaged relevant at low confidence; the correction's content is not in the packet. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

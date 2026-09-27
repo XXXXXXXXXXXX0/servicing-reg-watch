@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-11241",
+  "relevant": false,
+  "confidence": 0.93,
+  "change_type": "final_rule",
+  "effective_date": "2025-06-18",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB rescinds its procedural rule on how and when its rules are issued (12 CFR 1074).",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Agency procedure only. Stage A: title, abstract and metadata only; full text not read."
+}

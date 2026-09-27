@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-01940",
+  "relevant": false,
+  "confidence": 0.8,
+  "change_type": "enforcement_signal",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FTC proposed consent order with General Motors and OnStar settling alleged unfair or deceptive practices.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "FTC order against an automaker and telematics provider, not a lender, servicer or collector; the abstract does not describe the allegations (possibly consumer data sharing), so confidence stays below the auto-close line. Stage A: title, abstract and metadata only; full text not read."
+}

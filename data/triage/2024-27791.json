@@ -1,0 +1,19 @@
+{
+  "doc_id": "2024-27791",
+  "relevant": true,
+  "confidence": 0.7,
+  "change_type": "guidance",
+  "effective_date": "2025-01-02",
+  "affected_register_rows": [
+    "REGF-FEES-001",
+    "UDAAP-001"
+  ],
+  "behavior_classes": [
+    "PAYMENT.FEES",
+    "NEGOTIATION.TREATMENT"
+  ],
+  "what_changed": "CFPB moves the applicability date of its Regulation F medical debt advisory opinion (89 FR 80715) from December 3, 2024 to January 2, 2025 to allow briefing in pending D.D.C. litigation. The notice states the advisory opinion creates no binding legal obligations and the date change does not affect compliance with the FDCPA as enacted.",
+  "compliant_agent_must_now": "FDCPA debt collectors only: treat the medical debt advisory opinion (2024-22962) as applicable from January 2, 2025 rather than December 3, 2024; the FDCPA duties it describes (12 CFR 1006.18(b)(2)(i), 1006.22(b)) apply regardless of the date.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Date change to an advisory opinion judged relevant at Stage B; relevance follows that opinion. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (390 of 390 words)."
+}

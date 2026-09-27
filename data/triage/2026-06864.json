@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-06864",
+  "relevant": false,
+  "confidence": 0.96,
+  "change_type": "final_rule",
+  "effective_date": "2026-05-11",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC adopts OMB nonprocurement debarment and suspension guidance plus agency-specific rules for its support programs.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "FCC program-participation rules; unrelated to lending. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

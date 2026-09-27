@@ -1,0 +1,20 @@
+{
+  "doc_id": "FIXTURE-0003",
+  "relevant": true,
+  "confidence": 0.9,
+  "change_type": "final_rule",
+  "effective_date": "2027-04-11",
+  "affected_register_rows": [
+    "TCPA-REVOKE-001"
+  ],
+  "behavior_classes": [
+    "CONTACT.CONSENT",
+    "STOP.TRIGGERS"
+  ],
+  "what_changed": "FCC further delayed the effective date of the rule treating a consent revocation as applying to all robocalls and robotexts from the caller.",
+  "compliant_agent_must_now": "Continue honoring revocations within 10 business days for the called purpose. Until 2027-04-11, revocation of one message type need not stop unrelated informational calls, if other law allows.",
+  "open_questions_for_deploying_team": [
+    "Does any state layer require broader opt-out handling that makes the delay moot?"
+  ],
+  "rationale": "Final rule on a tracked TCPA section. eCFR has no after-text yet (pending_effective). Abstract states the delay."
+}

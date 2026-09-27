@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-23986",
+  "relevant": false,
+  "confidence": 0.85,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "OCC proposes raising the asset threshold for its heightened standards guidelines (12 CFR 30 appendix D) from $50 billion to $700 billion, with technical amendments.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Large-bank risk governance standards; near the line only through third-party risk management, which the abstract does not mention. Stage A: title, abstract and metadata only; full text not read."
+}

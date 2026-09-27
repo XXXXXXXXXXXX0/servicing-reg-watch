@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-29699",
+  "relevant": false,
+  "confidence": 0.85,
+  "change_type": "final_rule",
+  "effective_date": "2025-10-01",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB rule treating overdraft credit from very large financial institutions as credit under Regulations Z and E unless the fee only recovers costs (new 12 CFR 1026.62; conforming changes to 1005.10(e)(1) comment and 1026.1-1026.4, 1026.42, 1026.60).",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Overdraft credit on deposit accounts, excluded by the relevance test. The Reg E 1005.10(e)(1) change only extends the compulsory-use rule to covered overdraft credit, not to other consumer loans. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

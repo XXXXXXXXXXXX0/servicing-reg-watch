@@ -1,0 +1,32 @@
+{
+ "_synthetic_fixture": true,
+ "content_versions": [
+  {
+   "date": "2025-04-11",
+   "amendment_date": "2025-04-11",
+   "issue_date": "2025-04-11",
+   "identifier": "64.1200",
+   "name": "\u00a7 64.1200 Delivery restrictions.",
+   "part": "64",
+   "substantive": true,
+   "removed": false,
+   "subpart": null,
+   "title": "47",
+   "type": "section"
+  },
+  {
+   "date": "2025-04-11",
+   "amendment_date": "2025-04-11",
+   "issue_date": "2025-04-11",
+   "identifier": "64.1601",
+   "name": "\u00a7 64.1601 Delivery requirements and privacy restrictions.",
+   "part": "64",
+   "substantive": true,
+   "removed": false,
+   "subpart": null,
+   "title": "47",
+   "type": "section"
+  }
+ ],
+ "meta": {}
+}

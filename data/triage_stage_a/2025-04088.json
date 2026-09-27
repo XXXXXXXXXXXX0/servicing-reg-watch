@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-04088",
+  "relevant": false,
+  "confidence": 0.88,
+  "change_type": "withdrawal",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FDIC withdraws proposals on brokered deposits, corporate governance and risk management guidelines for institutions over $10 billion, and Change in Bank Control Act rules.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Bank deposit, governance and control rules; none governs servicing conduct or vendor examination. Stage A: title, abstract and metadata only; full text not read."
+}

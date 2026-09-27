@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-13919",
+  "relevant": false,
+  "confidence": 0.85,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "Federal Reserve proposes revised AML/CFT program requirements for its supervised banks, aligned with FinCEN's proposal.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "BSA/AML program rules are outside the servicing behaviors in the relevance test. Stage A: title, abstract and metadata only; full text not read."
+}

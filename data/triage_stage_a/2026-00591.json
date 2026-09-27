@@ -1,0 +1,14 @@
+{
+  "doc_id": "2026-00591",
+  "relevant": false,
+  "confidence": 0.85,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes_primary": [],
+  "behavior_classes_secondary": [],
+  "what_changed": "NCUA proposes removing its nondiscrimination regulation in 12 CFR 701 that summarized Fair Housing Act prohibitions for real-estate-related loans, appraisals and advertising; the Fair Housing Act continues to apply to federal credit unions.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "The regulation removed concerns real-estate lending under the Fair Housing Act (mortgage-only), and the abstract states the statute keeps applying, so no consumer-loan servicing obligation changes. The keyword match was 'appraisal' in the housing sense, not an insurance appraisal clause. Stage A: title, abstract and metadata only; full text not read."
+}

@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-02311",
+  "relevant": false,
+  "confidence": 0.93,
+  "change_type": "final_rule",
+  "effective_date": "2026-02-05",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC announces effective dates for Robocall Mitigation Database recertification amendments (47 CFR 64.6305(h)) with a March 1, 2026 initial compliance date.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Duties of RMD filers (voice providers); no caller obligation. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

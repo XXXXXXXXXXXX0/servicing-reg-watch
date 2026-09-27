@@ -1,0 +1,136 @@
+# Texas state-layer rows (BUILD_SPEC 6.3). All rows status: verify.
+rows:
+  - id: TX-TDCA-001
+    law: "Texas Debt Collection Act"
+    citation: "Tex. Fin. Code 392.302(4)"
+    source_url: "https://statutes.capitol.texas.gov/Docs/FI/htm/FI.392.htm#392.302"
+    agency: state
+    jurisdiction: US-TX
+    applies_to: [first_party_creditors, third_party_collectors]
+    tier: 1
+    behavior_classes: [CONTACT.FREQUENCY]
+    constraint: "Do not cause a telephone to ring repeatedly or continuously, or make repeated or continuous calls, with intent to harass a person at the called number. TDCA 'debt collector' includes creditors collecting their own debts."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    machine_check:
+      result: not_checkable
+      date: '2026-09-27'
+      reason: source blocked
+      sources:
+      - 'not fetched: https://statutes.capitol.texas.gov/Docs/FI/htm/FI.392.htm (statutes.capitol.texas.gov serves a script shell; the statute text loads from tcss.legis.texas.gov, denied by the session''s network policy on 2026-09-27)'
+    federal_interaction:
+    - row: REGF-FREQ-001
+      stricter: different_scope
+      note: 'Per the row''s wording (not checked): reaches first-party creditors; intent-to-harass standard with no numeric cap.'
+
+  - id: TX-TDCA-002
+    law: "Texas Debt Collection Act"
+    citation: "Tex. Fin. Code 392.304(a)(5)"
+    source_url: "https://statutes.capitol.texas.gov/Docs/FI/htm/FI.392.htm#392.304"
+    agency: state
+    jurisdiction: US-TX
+    applies_to: [third_party_collectors]
+    tier: 1
+    behavior_classes: [DISCLOSURE.REQUIRED]
+    constraint: "Third-party debt collectors must disclose in communications that they are attempting to collect a debt. This provision does not reach first-party creditors."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    machine_check:
+      result: not_checkable
+      date: '2026-09-27'
+      reason: source blocked
+      sources:
+      - 'not fetched: https://statutes.capitol.texas.gov/Docs/FI/htm/FI.392.htm (statutes.capitol.texas.gov serves a script shell; the statute text loads from tcss.legis.texas.gov, denied by the session''s network policy on 2026-09-27)'
+    federal_interaction:
+    - row: REGF-DISC-002
+      stricter: not_stricter
+      note: 'Per the row''s wording (not checked): third-party collectors only, which the FDCPA disclosure already reaches.'
+
+  - id: TX-TDCA-003
+    law: "Texas Debt Collection Act"
+    citation: "Tex. Fin. Code 392.304(a)(8), (a)(19)"
+    source_url: "https://statutes.capitol.texas.gov/Docs/FI/htm/FI.392.htm#392.304"
+    agency: state
+    jurisdiction: US-TX
+    applies_to: [first_party_creditors, third_party_collectors]
+    tier: 1
+    behavior_classes: [NEGOTIATION.TREATMENT]
+    constraint: "Do not misrepresent the character, extent, or amount of a consumer debt, and do not use any other false representation or deceptive means to collect a debt."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    machine_check:
+      result: not_checkable
+      date: '2026-09-27'
+      reason: source blocked
+      sources:
+      - 'not fetched: https://statutes.capitol.texas.gov/Docs/FI/htm/FI.392.htm (statutes.capitol.texas.gov serves a script shell; the statute text loads from tcss.legis.texas.gov, denied by the session''s network policy on 2026-09-27)'
+    federal_interaction:
+    - row: UDAAP-001
+      stricter: different_scope
+      note: 'Per the row''s wording (not checked): a state misrepresentation ban reaching first-party creditors; 12 USC 5551 allows greater state protection.'
+
+  - id: TX-REC-001
+    law: "Texas wiretap statute"
+    citation: "Tex. Penal Code 16.02"
+    source_url: "https://statutes.capitol.texas.gov/Docs/PE/htm/PE.16.htm#16.02"
+    agency: state
+    jurisdiction: US-TX
+    applies_to: [all_persons]
+    tier: 1
+    behavior_classes: [CONTACT.RECORDING]
+    constraint: "One-party consent: a party to the communication may record it. Multi-state calls still need the rule of the stricter state (e.g., CA, FL, MA)."
+    change_source: [manual]
+    provenance: added_by_analysis
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    machine_check:
+      result: not_checkable
+      date: '2026-09-27'
+      reason: source blocked
+      sources:
+      - 'not fetched: https://statutes.capitol.texas.gov/Docs/PE/htm/PE.16.htm (statutes.capitol.texas.gov serves a script shell; the statute text loads from tcss.legis.texas.gov, denied by the session''s network policy on 2026-09-27)'
+    federal_interaction_note: No federal recording-consent row in the register (the federal wiretap statute is not modeled), so there is no federal row to compare.
+
+  - id: TX-UCC9-001
+    law: "UCC Article 9 (Texas)"
+    citation: "Tex. Bus. & Com. Code 9.609, 9.611"
+    source_url: "https://statutes.capitol.texas.gov/Docs/BC/htm/BC.9.htm#9.609"
+    agency: state
+    jurisdiction: US-TX
+    applies_to: [secured_parties]
+    tier: 2
+    behavior_classes: [RECOVERY.REPOSSESSION]
+    constraint: "Self-help repossession only without breach of the peace. Reasonable authenticated notification before disposition of collateral."
+    change_source: [manual]
+    provenance: salient_stated
+    provenance_url: null
+    status: verify
+    effective_date: null
+    last_checked: null
+    machine_check:
+      result: not_checkable
+      date: '2026-09-27'
+      reason: source blocked
+      sources:
+      - 'not fetched: https://statutes.capitol.texas.gov/Docs/BC/htm/BC.9.htm (statutes.capitol.texas.gov serves a script shell; the statute text loads from tcss.legis.texas.gov, denied by the session''s network policy on 2026-09-27)'
+    federal_interaction:
+    - row: SCRA-REPO-001
+      stricter: different_scope
+      note: SCRA court-order requirement applies on top for covered servicemembers.
+    - row: BK-STAY-001
+      stricter: different_scope
+      note: Repossession and disposition are stayed once a petition is filed.

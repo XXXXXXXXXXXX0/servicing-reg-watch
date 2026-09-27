@@ -1,0 +1,22 @@
+{
+  "doc_id": "2024-31670",
+  "relevant": true,
+  "confidence": 0.85,
+  "change_type": "enforcement_signal",
+  "effective_date": null,
+  "affected_register_rows": [
+    "FCRA-ACCURACY-001",
+    "FCRA-DIRECT-001",
+    "UDAAP-001"
+  ],
+  "behavior_classes": [
+    "DISPUTES.CREDIT_REPORTING",
+    "NEGOTIATION.TREATMENT"
+  ],
+  "what_changed": "CFPB Supervisory Highlights Issue 37 (Winter 2024) reports findings on deposits, furnishing and short-term small-dollar lending from exams completed January 1 to October 1, 2024.",
+  "compliant_agent_must_now": "Pending Stage B: the abstract does not state the findings. Furnishing findings interpret furnisher accuracy and dispute duties; small-dollar lending findings may cover collection and payment practices.",
+  "open_questions_for_deploying_team": [
+    "Which furnishing and small-dollar lending findings match the deployment's dispute-intake and collection practices?"
+  ],
+  "rationale": "Supervisory findings on furnishing and small-dollar lending are within the test as clarifications; the deposits portion is excluded. Findings not visible in the abstract. Stage A: title, abstract and metadata only; full text not read."
+}

@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-17774",
+  "relevant": false,
+  "confidence": 0.75,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC CGB plans to dismiss 24 mooted or outdated petitions filed 2003-2023 in TCPA and robocall dockets (CG 02-278, 05-338, 17-59) unless a party objects by October 15, 2026.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Dismissing petitions leaves the TCPA rules unchanged. Near the line because the abstract does not list the petitions, some of which may concern servicing or collection calls. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

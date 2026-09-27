@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-23275",
+  "relevant": false,
+  "confidence": 0.8,
+  "change_type": "final_rule",
+  "effective_date": "2025-01-01",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "Board and CFPB raise the TILA/Regulation Z exempt-transaction threshold (12 CFR 1026.3(b)(1)(ii); comment 3(b)-3 in Supplement I to Part 1026, and 12 CFR 226.3(b) for the Board) from $69,500 to $71,900 for 2025, by the annual CPI-W adjustment. Loans secured by real property or a principal dwelling and private education loans stay covered regardless of amount.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Full text confirms a mechanical inflation adjustment to TILA coverage; no servicing, contact, payment or disclosure conduct changes. It only moves the size limit above which non-mortgage consumer loans are exempt, which touches servicing only at the margin (e.g., whether a refinancing of a loan near the limit needs new 1026.20(a) disclosures), so confidence stays below the auto-close line. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (1500 of 8123 words)."
+}

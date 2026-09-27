@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-19690",
+  "relevant": false,
+  "confidence": 0.85,
+  "change_type": "withdrawal",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB withdraws its 2023 proposal for a registry of supervised nonbanks using form contracts that waive or limit consumer legal protections.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Withdrawn registry reporting proposal; no servicing conduct obligation was proposed. Stage A: title, abstract and metadata only; full text not read."
+}

@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-30293",
+  "relevant": false,
+  "confidence": 0.93,
+  "change_type": "final_rule",
+  "effective_date": "2025-05-12",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FTC Rule on Unfair or Deceptive Fees (16 CFR 464) requiring total-price disclosure for live-event tickets and short-term lodging.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Scope is limited to live-event tickets and short-term lodging; does not reach loan servicing fees. Stage A: title, abstract and metadata only; full text not read."
+}

@@ -1,0 +1,20 @@
+{
+  "doc_id": "2026-12058",
+  "relevant": false,
+  "confidence": 0.75,
+  "change_type": "final_rule",
+  "effective_date": "2026-07-16",
+  "affected_register_rows": [],
+  "behavior_classes_primary": [],
+  "behavior_classes_secondary": [
+    "RECORDS.RETENTION",
+    "VENDOR.GOVERNANCE"
+  ],
+  "what_changed": "NCUA final rule (effective July 16, 2026) replacing 12 CFR part 749 with a vital records preservation program: 749.1 defines vital records (e.g., current share, deposit and loan balances by member; month-end financial report); 749.2 requires a written program with a storage and destruction schedule and a records preservation log in any format; 749.3 requires oversight of any third-party provider maintaining vital records; 749.4-749.5 allow any accurate, reproducible format. Appendices A and B are repealed, and 12 CFR 703.105(d) is removed. 749.0(b) states other records preservation requirements are not superseded.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [
+    "Does the servicing deployment hold any credit union client's vital records (e.g., current loan balance lists), bringing it under the 749.3 oversight requirement?",
+    "Do any credit union clients' retention schedules for call recordings or payment records still cite the repealed Appendix A?"
+  ],
+  "rationale": "Full text read in full (4,172 words). The rule governs disaster-recovery preservation of vital records and repeals nonbinding retention guidelines; 749.0(b) leaves other retention law in place, so no retention duty for borrower contacts, disclosures or payments changes under the v1.2 record-retention test. Not auto-closed because 749.3 adds a vendor-oversight duty that could reach a provider holding vital records. Stage B: full text read."
+}

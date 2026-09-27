@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-15418",
+  "relevant": false,
+  "confidence": 0.98,
+  "change_type": "other",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC bureaus seek comment on prohibiting importation and marketing of certain foreign-produced drones and surveillance equipment on the Covered List.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Equipment authorization; the 'servicemember' keyword hit is the name of the NDAA. Stage A: title, abstract and metadata only; full text not read."
+}

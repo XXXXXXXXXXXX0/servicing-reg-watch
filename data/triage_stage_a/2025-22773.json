@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-22773",
+  "relevant": false,
+  "confidence": 0.6,
+  "change_type": "final_rule",
+  "effective_date": "2026-01-01",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB annual CPI adjustments to Regulation Z dollar amounts for credit card penalty-fee safe harbors and other card thresholds, HOEPA and qualified mortgage thresholds, effective January 1, 2026.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Mostly mortgage (HOEPA, QM) thresholds, which are excluded; the credit card penalty-fee safe harbor would matter only if the deployment services card accounts. Near the line. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

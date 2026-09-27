@@ -1,0 +1,21 @@
+{
+  "doc_id": "2024-30824",
+  "relevant": true,
+  "confidence": 0.6,
+  "change_type": "final_rule",
+  "effective_date": "2025-03-17",
+  "affected_register_rows": [],
+  "behavior_classes": [
+    "NEGOTIATION.TREATMENT",
+    "DATA.PRIVACY_SECURITY",
+    "INSURANCE.CLAIMS"
+  ],
+  "what_changed": "CFPB amends Regulation V subpart D: adds 12 CFR 1022.3(j) defining 'medical debt information' (debt owed to a health care provider or its agent or assignee, including bills not past due or paid); removes and reserves the financial information exception in 1022.30(d), so creditors may no longer obtain or use medical debt information in any determination of eligibility or continued eligibility for credit unless a 1022.30(e) exception applies; revises the unsolicited-information rule in 1022.30(c) so unsolicited medical information may be used only under an (e) exception (examples: a borrower mentions a hospital debt or a medical condition to a loan officer); revises (e)(1)(viii)-(ix) (debt cancellation, debt suspension and credit insurance triggered by a medical event) and adds (e)(1)(x) (medical information in account transaction data or relating to income, benefits or loan purpose, used no less favorably than comparable non-medical information); adds 1022.38 limiting CRAs from furnishing medical debt information to creditors. Applies to creditors other than dealers excluded by CFPA section 1029. Effective March 17, 2025 (the printed 'March 17, 2024' was corrected by C1-2024-30824).",
+  "compliant_agent_must_now": "Creditors (lenders and servicers deciding on continued eligibility), from March 17, 2025: when an agent evaluates an extension, modification or other continued-eligibility decision, do not request or use a borrower's medical debt information or medical condition except under a 1022.30(e) exception; if a borrower volunteers medical information in conversation, it may be used only under an (e) exception (for example, triggering debt cancellation, debt suspension or credit insurance benefits under (e)(1)(viii)-(ix)), and the agent must not factor the borrower's health, condition or treatment into the decision.",
+  "open_questions_for_deploying_team": [
+    "Register gap: no row covers the FCRA creditor prohibition on obtaining or using medical information (15 U.S.C. 1681b(g)(2); 12 CFR 1022.30). Should one be added under NEGOTIATION.TREATMENT?",
+    "Does the agent record borrower statements about medical conditions or medical bills during hardship conversations, and do any downstream decision rules use them?",
+    "What is the current legal status of this rule? Check for later litigation or rescission before implementing; the packet does not cover events after publication."
+  ],
+  "rationale": "Full text shows the rule governs 'eligibility, or continued eligibility, for credit' and the handling of unsolicited medical information in conversations, which can reach modification and extension decisions in servicing; the preamble centers on underwriting, so whether servicing decisions are 'continued eligibility' determinations is not settled in what was read. Stage A called it not relevant at 0.55; Stage B reverses that but confidence stays below 0.7, so it goes to human review. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (3000 of 105780 words)."
+}

@@ -1,0 +1,23 @@
+{
+  "doc_id": "2024-22962",
+  "relevant": true,
+  "confidence": 0.7,
+  "change_type": "guidance",
+  "effective_date": "2024-12-03",
+  "affected_register_rows": [
+    "REGF-FEES-001",
+    "UDAAP-001"
+  ],
+  "behavior_classes": [
+    "PAYMENT.FEES",
+    "NEGOTIATION.TREATMENT",
+    "DISCLOSURE.REQUIRED"
+  ],
+  "what_changed": "CFPB advisory opinion interpreting FDCPA 807(2)(A)/808(1) and 12 CFR 1006.18(b)(2)(i) and 1006.22(b) for medical debt. Part III.A states that a debt collector may collect only the amount actually owed at each collection attempt after deducting partial payments by the consumer or third parties, and that collecting the original amount after a partial payment is both unfair (1006.22(b)) and a misrepresentation of the amount (1006.18(b)(2)(i)). Part III.B: amounts not owed under federal or state law are not 'permitted by law'. The opinion also says collectors need a reasonable basis to substantiate amounts, treats 1692e(2)(A) and 1692f(1) as strict liability, and interprets 'in default' under 803(6)(F)(iii) for medical debt. Applicable December 3, 2024 (moved to January 2, 2025 by 2024-27791). Withdrawn May 12, 2025 in 2025-08286 (item 3 of that notice).",
+  "compliant_agent_must_now": "FDCPA debt collectors (third-party collectors and post-default servicers) only, from January 2, 2025 until the May 12, 2025 withdrawal: at every collection attempt, state and seek only the current balance net of all partial payments and third-party payments; do not demand amounts that the contract does not expressly authorize or that law bars; keep a reasonable basis (payment records, contract) for the amount stated. After the withdrawal the opinion is no longer CFPB guidance, but 12 CFR 1006.18 and 1006.22(b) still apply as written.",
+  "open_questions_for_deploying_team": [
+    "Does the agent read the live balance (after same-day and third-party payments such as insurance or GAP proceeds) before stating an amount owed on every contact?",
+    "Does the deployment collect any medical debt? If not, is the partial-payment reasoning in part III.A adopted as internal policy for consumer-loan collections?"
+  ],
+  "rationale": "Full text shows the interpretation of 1006.18(b)(2)(i) and 1006.22(b) in part III.A is not specific to medical debt, so it clarifies collector obligations that reach consumer-loan collection. Confidence stays at 0.7 because the opinion is framed around medical debt and was withdrawn in 2025-08286. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (4000 of 11228 words)."
+}

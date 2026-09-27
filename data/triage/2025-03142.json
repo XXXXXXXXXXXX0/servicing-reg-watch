@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-03142",
+  "relevant": false,
+  "confidence": 0.97,
+  "change_type": "final_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC revises incarcerated people's communications services annual report templates and waives the 2025 filing deadline to June 2, 2025.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Inmate calling services reporting; unrelated to consumer lending. Stage A: title, abstract and metadata only; full text not read."
+}

@@ -1,0 +1,15 @@
+{
+  "doc_id": "2025-22489",
+  "relevant": false,
+  "confidence": 0.75,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "NCUA proposes removing Appendix A to 12 CFR part 748 (Guidelines for Safeguarding Member Information, issued under GLBA 15 U.S.C. 6801(b)) from the CFR and republishing its content as a Letter to Credit Unions, stating the appendix is nonbinding guidance for the security program required by 748.0; 748.0 itself is unchanged. Comments due February 9, 2026.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [
+    "If finalized, update the citation in register row BANKSEC-GUIDE-001 (which cites 12 CFR part 748 app. A) to the Letter to Credit Unions."
+  ],
+  "rationale": "Full text shows a relocation of nonbinding guidance with the binding security-program requirement in 12 CFR 748.0 left in place, so no obligation on credit unions or their vendors is created, changed or withdrawn. Stage A marked it relevant at 0.6 pending this check; Stage B reverses that. Not auto-closed because the register citation would need updating. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (1500 of 2689 words)."
+}

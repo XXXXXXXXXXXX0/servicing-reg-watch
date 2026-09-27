@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-24402",
+  "relevant": false,
+  "confidence": 0.95,
+  "change_type": "final_rule",
+  "effective_date": "2025-01-01",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "OCC extends its recovery planning guidelines (12 CFR 30 appendix E) to insured banks with $100 billion or more in assets and adds a testing standard.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Bank recovery planning is in the excluded capital, liquidity and resolution category. Stage A: title, abstract and metadata only; full text not read."
+}

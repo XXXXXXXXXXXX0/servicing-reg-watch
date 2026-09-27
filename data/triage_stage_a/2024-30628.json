@@ -1,0 +1,13 @@
+{
+  "doc_id": "2024-30628",
+  "relevant": false,
+  "confidence": 0.93,
+  "change_type": "final_rule",
+  "effective_date": "2026-03-01",
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB applies TILA ability-to-repay and disclosure rules to residential PACE financing (12 CFR 1026.35, 1026.37, 1026.38, 1026.41, 1026.43 and commentary).",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "PACE financing is a real-property tax-assessment product governed by mortgage-side Regulation Z provisions; excluded. Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

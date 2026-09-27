@@ -1,0 +1,13 @@
+{
+  "doc_id": "2025-15091",
+  "relevant": false,
+  "confidence": 0.65,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "CFPB ANPR on amending the test for larger participants in the consumer debt collection market (12 CFR 1090).",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Would change which nonbank collectors the CFPB supervises, not the collection conduct Regulation F requires; near the line because supervision scope affects exam exposure for collection deployments. Stage A: title, abstract and metadata only; full text not read."
+}

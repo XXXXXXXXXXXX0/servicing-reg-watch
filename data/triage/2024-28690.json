@@ -1,0 +1,19 @@
+{
+  "doc_id": "2024-28690",
+  "relevant": true,
+  "confidence": 0.75,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [
+    "IDENTITY.RIGHT_PARTY",
+    "DATA.PRIVACY_SECURITY"
+  ],
+  "what_changed": "CFPB proposes new 12 CFR 1022.4 (definition of consumer report) and 1022.5 (consumer reporting agency) plus permissible-purpose provisions. Proposed 1022.4(c)(2): information about credit history, credit score, debt payments, or income or financial tier is 'expected to be used' for an FCRA purpose, so data brokers selling it are generally CRAs. Proposed 1022.4(d): a CRA's communication of personal identifiers (name, aliases, age or date of birth, current or former addresses, phone numbers, email addresses, SSN/ITIN) collected to prepare consumer reports is itself a consumer report (so-called credit header data). Other provisions: de-identified data alternatives (1022.4(e)); a separate, conspicuous written-instructions authorization; legitimate-business-need purpose does not cover marketing. Comments were due March 3, 2025. The proposal was withdrawn May 15, 2025 (2025-08644).",
+  "compliant_agent_must_now": "No change until final, and the proposal was withdrawn on May 15, 2025. Had it been adopted as proposed: servicers and collectors that buy borrower contact or location data (phone numbers, addresses, emails) from a CRA's credit-header product would be obtaining consumer reports, so each pull would need an FCRA permissible purpose (e.g., collection of the borrower's account) and FCRA user duties would apply; the agent would have to use such data only for the account-related purpose.",
+  "open_questions_for_deploying_team": [
+    "Register gap: no row covers FCRA user obligations (permissible purpose under 15 U.S.C. 1681b(a)(3)(A) for obtaining consumer reports to review or collect an account). Should one be added under IDENTITY.RIGHT_PARTY or DATA.PRIVACY_SECURITY?",
+    "Which skip-tracing or contact-data vendors does the deployment use, and are any of them CRAs selling credit-header data?"
+  ],
+  "rationale": "Full text (proposed 1022.4(d)) confirms the proposal would reach the location and contact data servicers and collectors use to find and verify borrowers, which is within the test (verifying identity, contacting borrowers, protecting data). Relevance raised from 0.6; register rows cleared because no existing row covers FCRA user duties (register gap). Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (2500 of 63951 words)."
+}

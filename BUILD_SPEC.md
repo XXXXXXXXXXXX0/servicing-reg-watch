@@ -10,15 +10,19 @@ Detect regulatory changes relevant to AI agents that service consumer loans (con
 - No assumptions about any vendor's internal agents, scripts, or configs. Impact maps to **behavior classes** (Section 5), never to named internal workflows.
 - The deployment adapter (Section 9) ships as an empty, documented interface.
 - AI narrows the queue; humans approve. Nothing auto-closes unless the rule in Section 7 allows it.
-- Every register row cites a primary source. State rows and any row marked `verify` carry that status until checked against primary text.
+- Every register row cites a primary source, except rows marked `unresearched`. State rows and any row marked `verify` carry that status until checked against primary text.
+- `unresearched` rows record a known coverage gap where no primary source has been identified yet. They carry `citation: null` and `source_url: null`; citations are never invented to fill them. They are listed in INVENTORY.md under "Coverage map: state research pending".
 
 ## 3. Sources
 **Federal Register API** (`https://www.federalregister.gov/api/v1/documents.json`), last 24 months, document types RULE, PRORULE, NOTICE. Agency slugs:
 consumer-financial-protection-bureau, federal-communications-commission, federal-trade-commission, comptroller-of-the-currency, federal-deposit-insurance-corporation, federal-reserve-system, national-credit-union-administration.
+v1.2: defense-department (Military Lending Act, 32 CFR 232), ingested alone (`python -m pipeline.ingest --agency defense-department`) for the committed window 2024-09-23 to 2026-09-24; the prefilter keeps its documents only on 32 CFR 232 or MLA keywords.
 Withdrawals and rescissions of guidance are changes and must be captured.
 
 **eCFR versioner API** (`https://www.ecfr.gov/api/versioner/v1/`) for point-in-time rule text and diffs:
-12 CFR 1005 (Reg E), 1002 (Reg B), 1006 (Reg F), 1016 (Reg P), 1022 (Reg V), 1026 (Reg Z); 47 CFR 64.1200 (TCPA rules); 16 CFR 314 (FTC Safeguards).
+12 CFR 1005 (Reg E), 1002 (Reg B), 1006 (Reg F), 1016 (Reg P), 1022 (Reg V), 1026 (Reg Z); 47 CFR 64.1200 (TCPA rules); 16 CFR 314 (FTC Safeguards). v1.2: 32 CFR 232 (MLA), 16 CFR 681 (Red Flags), 16 CFR 433 (Holder Rule).
+
+**GovInfo** for Federal Register full text (federalregister.gov text URLs redirect to a bot wall): API granule `https://api.govinfo.gov/packages/FR-<publication_date>/granules/<document_number>/htm` with the key from env `GOVINFO_API_KEY` in the `X-Api-Key` header; fallback `https://www.govinfo.gov/content/pkg/FR-<publication_date>/html/<document_number>.htm`. HTML tags are stripped; every response is cached to disk and never refetched.
 
 **Manual rows** (no Federal Register feed): state law, Nacha Operating Rules, bank supervisory bulletins, industry standards.
 
@@ -26,10 +30,10 @@ Withdrawals and rescissions of guidance are changes and must be captured.
 ```yaml
 id: REGF-FREQ-001
 law: "FDCPA / Regulation F"
-citation: "12 CFR 1006.14(b)"
-source_url: "<primary source>"
+citation: "12 CFR 1006.14(b)"     # null only when status: unresearched
+source_url: "<primary source>"  # null only when status: unresearched
 agency: CFPB
-jurisdiction: federal            # or US-CA, US-FL, US-MA, US-TX
+jurisdiction: federal            # or US-CA, US-FL, US-MA, US-TX; or multi-state (not yet split per state)
 applies_to: [third_party_collectors, post_default_servicers]   # who is covered
 tier: 1                          # 1 = modeled + evaluated; 2 = inventoried + monitored
 behavior_classes: [CONTACT.FREQUENCY]
@@ -37,7 +41,7 @@ constraint: "Presumed violation if >7 call attempts in 7 days, or a call within 
 change_source: federal_register  # or ecfr | manual
 provenance: salient_stated       # salient_stated | third_party_stated | added_by_analysis
 provenance_url: "<page where stated, if any>"
-status: verify                   # verify | verified
+status: verify                   # verify | machine_verified (machine check matched; reviewer accepted) | verified (hand-checked) | unresearched (no primary source identified yet)
 effective_date: 2021-11-30
 last_checked: YYYY-MM-DD
 ```
@@ -61,6 +65,12 @@ Derived from the regulations and public product descriptions. Not any vendor's i
 - RECOVERY.REPOSSESSION — repossession, right-to-cure, disposition notices, deficiency
 - INSURANCE.CLAIMS — total loss, GAP, appraisal-clause deadlines, lien release, collateral protection insurance, add-on refunds
 - VENDOR.GOVERNANCE — how bank and credit union customers examine an AI vendor
+
+- v1.2: DISPUTES.ERROR_RESOLUTION — billing-error and EFT error resolution, card chargebacks
+- v1.2: DISPUTES.CLAIMS_DEFENSES — claims and defenses against a card issuer or the holder of a dealer-originated contract
+- v1.2: RECORDS.RETENTION — recordkeeping and retention for collection and credit records
+
+**v1.2 scope expansion (after the v1 eval; not measured by it).** Product lines (`taxonomy/product_lines.yaml`): servicing, collections, recovery, insurance_claims, disputes (including chargebacks), compliance_audit; each behavior class maps to one or more lines. Customer segments (`taxonomy/segments.yaml`): bank, credit_union, captive, specialty_lender; each register row is mapped to binds / not_bound / unclear per segment from its `applies_to` and `jurisdiction`, never by guessing (shown in INVENTORY.md).
 
 ## 6. Inventory
 Provenance key: **S** = named on Salient's public pages; **T** = named in a third-party description of Salient; **A** = added by analysis.
@@ -101,6 +111,20 @@ Provenance key: **S** = named on Salient's public pages; **T** = named in a thir
 | SOC 2; PCI DSS | AICPA TSC; PCI SSC | industry | VENDOR.GOVERNANCE | manual | T |
 | AI disclosure laws | Cal. Bus. & Prof. Code 17940-17943; Utah AI Policy Act; Colorado SB 24-205 (status in flux) | state | CONTACT.AI_DISCLOSURE | manual | A |
 
+### v1.2 additions (Tier 2; after the v1 eval, not measured by it)
+CFR citations confirmed against eCFR text as of 2026-09-24 before adding; anything unconfirmed is `unresearched`.
+| Law | Citation | Agency | Behavior classes | Prov |
+|---|---|---|---|---|
+| TILA / Reg Z billing errors; card claims and defenses | 12 CFR 1026.13; 1026.12(c) | CFPB | DISPUTES.ERROR_RESOLUTION, DISPUTES.CLAIMS_DEFENSES | S |
+| EFTA / Reg E error resolution | 12 CFR 1005.11 | CFPB | DISPUTES.ERROR_RESOLUTION | A |
+| Card network chargeback rules | unresearched | industry | DISPUTES.ERROR_RESOLUTION | S |
+| Military Lending Act | 10 USC 987; 32 CFR 232.3(g), 232.4(b), 232.5, 232.6, 232.8 | DoD | STOP.TRIGGERS, NEGOTIATION.TREATMENT, DISCLOSURE.REQUIRED, PAYMENT.AUTHORIZATION, ACCOUNT.MODIFICATION | S |
+| Identity-theft Red Flags | 16 CFR 681.1; 12 CFR 41.90, 222.90, 334.90, 717.90 | FTC, OCC, Fed, FDIC, NCUA | IDENTITY.RIGHT_PARTY, DATA.PRIVACY_SECURITY | A |
+| FTC Holder Rule | 16 CFR 433.2 | FTC | DISPUTES.CLAIMS_DEFENSES | A |
+| Record retention | 12 CFR 1006.100, 1026.25(a), 1005.13(b), 1002.12(b) | CFPB | RECORDS.RETENTION | S/A |
+| UDAAP: payoff, title delivery, GAP and total loss (supervisory findings) | 12 USC 5531 as applied in FR Doc. 2024-24093 | CFPB | NEGOTIATION.TREATMENT, INSURANCE.CLAIMS | S |
+| State payoff-quote and total-loss laws | unresearched | state | NEGOTIATION.TREATMENT, INSURANCE.CLAIMS | S |
+
 ### 6.3 State layer (v1: CA, FL, MA, TX; schema scales to all states)
 Selection criteria: law reaches lenders collecting their own debts; stricter than federal on a modeled behavior; large auto lending volume. All rows `status: verify`.
 | State | Collection law | Reaches first-party lenders | Recording consent |
@@ -112,19 +136,22 @@ Selection criteria: law reaches lenders collecting their own debts; stricter tha
 
 ## 7. Pipeline
 1. **Ingest**: pull Federal Register documents for the agencies and window above; store raw JSON + abstract.
-2. **Prefilter**: cheap keyword/CFR-part filter to drop obvious noise; log everything dropped.
+1b. **Congressional disapprovals** (`pipeline/cra.py`): list public laws issued in the window from the GovInfo API (PLAW collection), keep Congressional Review Act disapprovals (5 U.S.C. chapter 8), confirm each from its text and match it to stored documents by FR citation or rule title. eCFR does not reflect a disapproval until the agency publishes a conforming amendment. Matches without a `disapproval` link in `records/record_meta.yaml` are reported for review; the check closes nothing itself. Court vacaturs are not covered.
+2. **Prefilter**: exclude administrative notices, then keep on CFR part (A), CFPB document type (B) or keyword in title/abstract (C); drop the rest and log everything dropped. Rules and reasons: [PREFILTER.md](PREFILTER.md).
 3. **Diff**: for documents amending a tracked CFR part, fetch before/after text from eCFR and compute the section-level diff.
 4. **Triage (LLM)**: model from env `MODEL` (default `claude-sonnet-5`), key from env `ANTHROPIC_API_KEY`. Output must validate against:
 ```json
 {
   "doc_id": "", "relevant": true, "confidence": 0.0,
-  "change_type": "final_rule|proposed_rule|guidance|withdrawal|enforcement_signal|other",
+  "change_type": "final_rule|proposed_rule|guidance|withdrawal|enforcement_signal|interpretation|other",
   "effective_date": null,
-  "affected_register_rows": [], "behavior_classes": [],
+  "affected_register_rows": [],
+  "behavior_classes_primary": [], "behavior_classes_secondary": [],
   "what_changed": "", "compliant_agent_must_now": "",
   "open_questions_for_deploying_team": [], "rationale": ""
 }
 ```
+   v1.1 (derived from v1 eval errors; not yet tested on a fresh eval set): behavior classes are split into primary (the document changes or clarifies what the agent must do; drives routing and review) and secondary (context only). v1 outputs with a single `behavior_classes` list still validate. `interpretation` marks legal-status changes and guidance that only restates existing law; its required action is control validation, not an agent behavior change. Rules: `pipeline/triage_prompt.md`; history: `eval/v1_1_fixes.md`.
 5. **Route**: auto-close only if `relevant=false` and `confidence >= 0.85`. Everything else goes to the human review queue.
 6. **Change record**: one markdown file per relevant document (Section 8).
 
@@ -135,6 +162,8 @@ Selection criteria: law reaches lenders collecting their own debts; stricter tha
 - What a compliant agent must now do
 - Questions the deploying team must answer: owning config/script, approver, rollout sequence, test evidence required
 - Triage confidence and reviewer sign-off field
+- v1.2: product lines, segments and priority (high when a primary class runs on every contact or transaction, or is DISPUTES.ERROR_RESOLUTION; rule in `taxonomy/product_lines.yaml`); indexes `records/BY_PRODUCT_LINE.md`, `records/BY_SEGMENT.md`; REVIEW_QUEUE.md sorted by priority, then product line. Signed records are not edited.
+- v1.1: `supersedes` / `superseded_by` links, so a later withdrawal, final rule, disapproval or vacatur closes or reverses the earlier record (`records/record_meta.yaml`; the model's triage output is not edited)
 
 ## 9. Deployment adapter (empty interface)
 `adapter/deployment_map.template.yaml`: maps each behavior class to `owning_system`, `config_ref`, `test_suite_ref`, `approver_role`. Shipped unfilled with instructions.
@@ -148,7 +177,7 @@ Selection criteria: law reaches lenders collecting their own debts; stricter tha
 ## 11. Repo layout
 ```
 register/federal.yaml  register/states/{ca,fl,ma,tx}.yaml  register/INVENTORY.md (generated)
-taxonomy/behaviors.yaml
+taxonomy/behaviors.yaml  taxonomy/product_lines.yaml (v1.2)
 adapter/deployment_map.template.yaml
 pipeline/{ingest,prefilter,diff,triage,route,records}.py
 fixtures/            # saved sample documents for offline tests
@@ -164,7 +193,7 @@ Problem; design decisions; what is deliberately not automated and why; eval resu
 ## 13. Acceptance criteria
 - Offline run passes against fixtures with no network.
 - Live run ingests all listed agencies for the window and produces triage JSON that validates.
-- Every register row has citation, source_url, provenance, status.
+- Every register row has citation, source_url, provenance, status (citation and source_url are null only for `unresearched` rows).
 - INVENTORY.md regenerates from YAML.
 - Eval script produces results.md from labels.csv.
 - No secrets in the repo.

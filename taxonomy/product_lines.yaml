@@ -1,0 +1,58 @@
+# Product lines (v1.2 scope expansion), mapped many-to-many to behavior classes.
+#
+# Derived from the vendor's public description of what its AI agents automate.
+# This is a reference model, NOT any vendor's internal product structure.
+# Change records get their product lines from their primary behavior classes
+# through this map (pipeline/records.py); the coverage check requires every
+# line to be reached by a register row and a prefilter rule (PREFILTER.md).
+version: 1
+product_lines:
+  servicing:
+    description: "Payments, modifications, payoff quotes, payment arrangements, hardship screening, verification and welcome calls, due-date changes."
+  collections:
+    description: "Contacting delinquent borrowers, promises to pay, settlements and payment plans."
+  recovery:
+    description: "Repossession, right-to-cure and disposition notices, redemption and deficiency payments."
+  insurance_claims:
+    description: "Total loss, GAP claims, appraisal-clause deadlines, lien release, collateral protection insurance, add-on refunds."
+  disputes:
+    description: "Credit-reporting disputes, billing-error and EFT error resolution, card chargebacks, claims and defenses on dealer-originated contracts."
+  compliance_audit:
+    description: "Regulatory audit: data protection, recordkeeping, recording and AI disclosure controls, vendor examination by bank and credit-union customers."
+
+# Order used when sorting by product line (REVIEW_QUEUE.md, indexes).
+order: [servicing, collections, recovery, insurance_claims, disputes, compliance_audit]
+
+# behavior class -> product lines it runs in
+class_product_lines:
+  CONTACT.TIMING: [servicing, collections, recovery, insurance_claims]
+  CONTACT.FREQUENCY: [servicing, collections, recovery, insurance_claims]
+  CONTACT.CONSENT: [servicing, collections, recovery, insurance_claims]
+  CONTACT.RECORDING: [servicing, collections, recovery, insurance_claims, disputes, compliance_audit]
+  CONTACT.AI_DISCLOSURE: [servicing, collections, recovery, insurance_claims, disputes, compliance_audit]
+  DISCLOSURE.REQUIRED: [servicing, collections, recovery, insurance_claims, disputes]
+  IDENTITY.RIGHT_PARTY: [servicing, collections, recovery, insurance_claims, disputes]
+  STOP.TRIGGERS: [servicing, collections, recovery, disputes]
+  PAYMENT.AUTHORIZATION: [servicing, collections, recovery]
+  PAYMENT.FEES: [servicing, collections, recovery]
+  NEGOTIATION.TREATMENT: [servicing, collections, recovery]
+  ACCOUNT.MODIFICATION: [servicing]
+  DISPUTES.CREDIT_REPORTING: [disputes, collections]
+  DATA.PRIVACY_SECURITY: [compliance_audit]
+  RECOVERY.REPOSSESSION: [recovery]
+  INSURANCE.CLAIMS: [insurance_claims]
+  VENDOR.GOVERNANCE: [compliance_audit]
+  DISPUTES.ERROR_RESOLUTION: [disputes]
+  DISPUTES.CLAIMS_DEFENSES: [disputes]
+  RECORDS.RETENTION: [compliance_audit]
+
+# Review priority of a change record (v1.2). A record is `high` when any of its
+# PRIMARY behavior classes matches `high_classes` (a trailing ".*" matches every
+# class with that prefix); otherwise `standard`.
+priority:
+  definition: >-
+    High when a primary behavior class runs on every contact or transaction:
+    CONTACT.*, DISCLOSURE.REQUIRED, IDENTITY.RIGHT_PARTY, STOP.TRIGGERS, PAYMENT.*.
+    DISPUTES.ERROR_RESOLUTION is also high: billing-error and EFT error resolution
+    carry fixed statutory deadlines on every dispute. Otherwise standard.
+  high_classes: [CONTACT.*, DISCLOSURE.REQUIRED, IDENTITY.RIGHT_PARTY, STOP.TRIGGERS, PAYMENT.*, DISPUTES.ERROR_RESOLUTION]

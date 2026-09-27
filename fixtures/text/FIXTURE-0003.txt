@@ -1,0 +1,3 @@
+[SYNTHETIC FIXTURE FULL TEXT]
+SUMMARY: The Commission further delays the effective date of the rule requiring callers to treat a revocation of consent as applying to all robocalls and robotexts from that caller.
+DATES: The delayed effective date is stated in the fixture metadata.

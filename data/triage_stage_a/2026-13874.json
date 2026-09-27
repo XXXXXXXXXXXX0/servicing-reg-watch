@@ -1,0 +1,13 @@
+{
+  "doc_id": "2026-13874",
+  "relevant": false,
+  "confidence": 0.85,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes": [],
+  "what_changed": "FCC proposes Know-Your-Upstream-Provider requirements, STIR/SHAKEN Governance Authority oversight, codified attestation levels and number-to-customer verification mechanisms.",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Duties fall on voice providers; callers are affected only indirectly (their providers may require proof of number rights for A-level attestation). Stage A: title, abstract, metadata and eCFR diff excerpt only; full text not read."
+}

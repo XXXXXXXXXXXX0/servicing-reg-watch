@@ -1,0 +1,16 @@
+{
+  "doc_id": "C1-2024-30824",
+  "relevant": true,
+  "confidence": 0.6,
+  "change_type": "other",
+  "effective_date": "2025-03-17",
+  "affected_register_rows": [],
+  "behavior_classes": [
+    "NEGOTIATION.TREATMENT",
+    "DATA.PRIVACY_SECURITY"
+  ],
+  "what_changed": "Correction to the Regulation V medical information final rule (FR Doc. 2024-30824, 90 FR 3276): the DATES section should read 'March 17, 2025', not 'March 17, 2024'.",
+  "compliant_agent_must_now": "Treat the medical information rule (2024-30824) as effective March 17, 2025; see that record for required behavior.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "Date correction to a rule judged relevant at low confidence in Stage B; relevance follows that rule. Stage B: read SUMMARY, DATES, SUPPLEMENTARY INFORMATION and any regulatory text from the saved GovInfo full text (198 of 198 words)."
+}
