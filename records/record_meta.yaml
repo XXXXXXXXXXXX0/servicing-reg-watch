@@ -10,6 +10,8 @@
 # reverse the earlier record), amends, correction (the earlier record stays open).
 # Links are made only where the other document is in the ingested store
 # (data/raw/federal_register.jsonl.gz); each note says where the link is stated.
+# Exception: a court decision outside the Federal Register (e.g. a vacatur) is linked
+# with external: true and a source naming who established it; it is not in the store.
 #
 # change_type: the v1.1 change type for the record, where it differs from the v1 triage
 # output (which stays as it was). `interpretation` means control validation: check
@@ -166,6 +168,11 @@ records:
       - doc_id: C1-2024-30824
         relation: correction
         note: "no later withdrawal or vacatur of this rule is in the ingested store"
+      - doc_id: "Cornerstone Credit Union League v. CFPB (E.D. Tex., July 11, 2025)"
+        relation: vacatur
+        external: true
+        source: "human review 2026-09-27 (Angela); court decision outside the Federal Register, not in the ingested store and not fetched here"
+        note: "the U.S. District Court for the Eastern District of Texas vacated this rule on July 11, 2025; the pre-rule 12 CFR 1022.30 framework stands and eCFR (still showing the amendments) lags"
   C1-2024-30824:
     v1_2_scope: {product_lines: [servicing, collections, recovery, compliance_audit], product_lines_basis: secondary, segments: [], segments_unclear: [bank, credit_union, captive, specialty_lender], segments_source: none, priority: standard}
     behavior_classes_primary: []
@@ -273,14 +280,15 @@ records:
       date: 2026-09-27
       reason: "Relevant as published under the v1.2 scope: the rule extended card dispute rights (Regulation Z claims and defenses and billing-error resolution) to overdraft credit at very large banks and credit unions. v1.2 scope expansion; the v1 eval label (N) and scores are unchanged."
       close:
-        reason: "disapproved under the Congressional Review Act by S.J.Res. 18, signed into law as P.L. 119-10 (139 Stat. 53) on May 9, 2025: the rule \"shall have no force or effect\" (GovInfo text committed at data/raw/primary/govinfo/PLAW-119publ10.htm.gz). The CFPB states the final rule has no force or effect while the rest of Regulations E and Z remain in force (reviewer's source; consumerfinance.gov not reachable from this environment). eCFR still shows 12 CFR 1026.62, an eCFR lag, not evidence the rule is in force. Confirmed by human review 2026-09-27."
-        confirmed: {reviewer: Angela, date: 2026-09-27}
+        reason: "reported disapproved by Congress in 2025 under the Congressional Review Act; not confirmed from committed data"
+      notes:
+        - "2026-09-27 (Angela): disapproval confirmed. S.J.Res. 18, signed into law as P.L. 119-10 (139 Stat. 53) on May 9, 2025, disapproved the rule: \"such rule shall have no force or effect\" (GovInfo text committed at data/raw/primary/govinfo/PLAW-119publ10.htm.gz). The CFPB states the final rule has no force or effect while the rest of Regulations E and Z remain in force (reviewer's source). eCFR still showing 12 CFR 1026.62 is an eCFR lag. The signed record file is not edited; the confirmation is kept here and in REVIEW_LOG.md."
       record:
         affected_register_rows: [REGZ-CLAIMS-001, REGZ-BILLERR-001]
         what_changed: "CFPB final rule (89 FR 106768; effective October 1, 2025 as published) amending Regulations E and Z so that overdraft credit from very large financial institutions (over $10 billion in assets) is consumer credit under Regulation Z unless the fee only recovers estimated costs and losses (new 12 CFR 1026.62; changes to 1026.1-1026.4, 1026.42, 1026.60, the Regulation Z commentary, and 1005.10(e)(1) and its commentary). Above-breakeven overdraft credit accessed by a hybrid debit-credit card is brought under the credit card provisions, including the cardholder's right to assert claims and defenses against the card issuer (1026.12(c)) and billing-error resolution (1026.13). The committed eCFR store shows 12 CFR 1026.62 text in effect on 2025-10-01; no later document in the store disapproves or removes the rule."
         compliant_agent_must_now: "No agent change while the record is closed. If the rule is confirmed in force at a bank or credit union client over $10 billion, an agent handling disputes on above-breakeven overdraft credit would route them through Regulation Z billing-error and claims-and-defenses procedures, and must not require automatic repayment as a condition of that credit (1005.10(e)(1))."
         open_questions_for_deploying_team:
-          - "Resolved 2026-09-27: the rule is not in force. P.L. 119-10 (S.J.Res. 18, May 9, 2025) disapproved it under the Congressional Review Act; eCFR still showing 12 CFR 1026.62 is an eCFR lag."
+          - "Is the rule in force? It is reported disapproved under the Congressional Review Act in 2025, but no committed document confirms that, and the committed eCFR text shows 12 CFR 1026.62 added on 2025-10-01."
           - "Which bank and credit union clients exceed $10 billion in assets and offer overdraft credit through accounts the agent services?"
     change_type: final_rule
     change_type_reason: "Final rule as published; human review override"

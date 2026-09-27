@@ -41,7 +41,7 @@ constraint: "Presumed violation if >7 call attempts in 7 days, or a call within 
 change_source: federal_register  # or ecfr | manual
 provenance: salient_stated       # salient_stated | third_party_stated | added_by_analysis
 provenance_url: "<page where stated, if any>"
-status: verify                   # verify | verified | unresearched (no primary source identified yet)
+status: verify                   # verify | machine_verified (machine check matched; reviewer accepted) | verified (hand-checked) | unresearched (no primary source identified yet)
 effective_date: 2021-11-30
 last_checked: YYYY-MM-DD
 ```

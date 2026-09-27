@@ -19,7 +19,9 @@ REQUIRED = ["id", "law", "citation", "source_url", "agency", "jurisdiction", "ap
             "behavior_classes", "constraint", "change_source", "provenance", "status"]
 REQUIRED_KEYS_NULLABLE = ["provenance_url", "effective_date", "last_checked"]
 PROVENANCE = {"salient_stated": "S", "third_party_stated": "T", "added_by_analysis": "A"}
-STATUSES = {"verify", "verified", "unresearched"}
+# machine_verified: the row's machine check (pipeline/verify.py) matched fetched primary text and the
+# reviewer accepted it. verified: checked by hand by the reviewer.
+STATUSES = {"verify", "machine_verified", "verified", "unresearched"}
 # Unresearched rows have no primary source yet, so citation and source_url must stay null.
 UNRESEARCHED_NULL = ["citation", "source_url"]
 CHANGE_SOURCES = {"federal_register", "ecfr", "manual"}
@@ -63,6 +65,8 @@ def validate_rows(rows: list[dict]) -> list[str]:
             errors.append(f"{where}: status must be one of {sorted(STATUSES)}")
         if r.get("status") == "verified" and not r.get("last_checked"):
             errors.append(f"{where}: status verified requires last_checked")
+        if r.get("status") == "machine_verified" and (r.get("machine_check") or {}).get("result") != "match":
+            errors.append(f"{where}: status machine_verified requires machine_check result match")
         if r.get("tier") not in (1, 2):
             errors.append(f"{where}: tier must be 1 or 2")
         if not JURIS_RE.match(str(r.get("jurisdiction"))):

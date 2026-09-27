@@ -254,7 +254,7 @@ def test_register_rows_complete_and_valid():
             continue
         assert r["citation"] and r["source_url"].startswith("http")
         if r["jurisdiction"] != "federal" and not r.get("last_checked"):
-            assert r["status"] == "verify"
+            assert r["status"] in ("verify", "machine_verified")
 
 
 def test_unresearched_rows_cannot_carry_citations():
@@ -273,7 +273,12 @@ def test_precheck_fields_validated_and_report_current():
     from pipeline import verify
     rows = load_register()
     # every verify row carries a machine check; the check never changes status
-    assert all(r.get("machine_check") for r in rows if r["status"] == "verify")
+    assert all(r.get("machine_check") for r in rows if r["status"] in ("verify", "machine_verified"))
+    # machine_verified needs a matching machine check; verified needs a hand-check date
+    from pipeline.inventory import validate_rows
+    nc = next(r for r in rows if (r.get("machine_check") or {}).get("result") == "not_checkable")
+    assert validate_rows([{**nc, "status": "machine_verified"}]) != []
+    assert validate_rows([{**nc, "status": "verified", "last_checked": None}]) != []
     assert all(r.get("preemption") for r in rows if r["jurisdiction"] == "federal")
     row = next(r for r in rows if r["id"] == "REGF-FREQ-001")
     assert verify.validate([{**row, "machine_check": {"result": "mismatch", "date": "2026-09-27"}}]) != []

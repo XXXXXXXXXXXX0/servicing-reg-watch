@@ -13,7 +13,7 @@ rows:
     change_source: [manual]
     provenance: salient_stated
     provenance_url: null
-    status: verify
+    status: machine_verified
     effective_date: null
     last_checked: null
     machine_check:
@@ -41,7 +41,7 @@ rows:
     change_source: [manual]
     provenance: salient_stated
     provenance_url: null
-    status: verify
+    status: machine_verified
     effective_date: null
     last_checked: null
     machine_check:
@@ -67,7 +67,7 @@ rows:
     change_source: [manual]
     provenance: salient_stated
     provenance_url: null
-    status: verify
+    status: machine_verified
     effective_date: null
     last_checked: null
     machine_check:
@@ -90,23 +90,19 @@ rows:
     applies_to: [first_party_creditors, third_party_collectors]
     tier: 1
     behavior_classes: [IDENTITY.RIGHT_PARTY]
-    constraint: "Do not disclose information affecting the debtor's reputation for creditworthiness to a person other than the debtor or the debtor's family, with knowledge that the person has no legitimate business need for it."
+    constraint: "Do not disclose to a person other than the debtor or the debtor's family information affecting the debtor's reputation, whether or not for credit worthiness, with knowledge or reason to know that the other person does not have a legitimate business need for the information or that the information is false."
     change_source: [manual]
     provenance: salient_stated
     provenance_url: null
-    status: verify
+    status: machine_verified
     effective_date: null
     last_checked: null
     machine_check:
-      result: mismatch
+      result: match
       date: '2026-09-27'
       sources:
       - data/raw/primary/fl/559.72.htm.gz
-      mismatches:
-      - row_says: Do not disclose information affecting the debtor's reputation for creditworthiness to a person other than the debtor or the debtor's family, with knowledge that the person has no legitimate business need for it.
-        source_cite: Fla. Stat. 559.72(5)
-        source_says: Disclose to a person other than the debtor or her or his family information affecting the debtor's reputation, whether or not for credit worthiness, with knowledge or reason to know that the other person does not have a legitimate business need for the information or that the information is false.
-      note: 'The statute is broader than the row on three points: reputation ''whether or not for credit worthiness'', ''knowledge or reason to know'', and information known to be false.'
+      note: 'Re-checked 2026-09-27 after the reviewer''s fix: wording now follows 559.72(5). Earlier result: mismatch (narrower than the statute).'
     federal_interaction:
     - row: REGF-IDENT-001
       stricter: different_scope
@@ -125,7 +121,7 @@ rows:
     change_source: [manual]
     provenance: added_by_analysis
     provenance_url: null
-    status: verify
+    status: machine_verified
     effective_date: null
     last_checked: null
     machine_check:
@@ -149,7 +145,7 @@ rows:
     change_source: [manual]
     provenance: salient_stated
     provenance_url: null
-    status: verify
+    status: machine_verified
     effective_date: null
     last_checked: null
     machine_check:

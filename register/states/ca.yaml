@@ -10,24 +10,20 @@ rows:
     applies_to: [first_party_creditors, third_party_collectors]
     tier: 1
     behavior_classes: [CONTACT.TIMING, CONTACT.FREQUENCY, DISCLOSURE.REQUIRED, IDENTITY.RIGHT_PARTY, STOP.TRIGGERS]
-    constraint: "Rosenthal's 'debt collector' includes creditors collecting their own consumer debts. Section 1788.17 requires them to comply with FDCPA 1692b-1692j, which carries the federal timing, third-party, disclosure and cease rules to first-party lenders in California."
+    constraint: "Rosenthal's 'debt collector' is any person who regularly engages in debt collection on behalf of that person or others (1788.2(c)), so it includes creditors collecting their own consumer debts. Section 1788.17 requires every debt collector to comply with FDCPA 15 U.S.C. 1692b-1692j and subjects it to 1692k, which carries the federal timing, third-party and cease rules to first-party lenders in California. Section 1788.17 exempts first-party creditors (the persons in 15 U.S.C. 1692a(6)(A)-(B) and their principals) from 1692e(11) and 1692g, and incorporates the FDCPA as it read on January 1, 2001, not Regulation F."
     change_source: [manual]
     provenance: salient_stated
     provenance_url: null
-    status: verify
+    status: machine_verified
     effective_date: null
     last_checked: null
     machine_check:
-      result: mismatch
+      result: match
       date: '2026-09-27'
       sources:
       - data/raw/primary/ca/CIV-1788.17.htm.gz
       - data/raw/primary/ca/CIV-1788.2.htm.gz
-      mismatches:
-      - row_says: Section 1788.17 requires them to comply with FDCPA 1692b-1692j, which carries the federal timing, third-party, disclosure and cease rules to first-party lenders in California.
-        source_cite: Cal. Civ. Code 1788.17
-        source_says: However, subsection (11) of Section 1692e and Section 1692g shall not apply to any person specified in paragraphs (A) and (B) of subsection (6) of Section 1692a of Title 15 of the United States Code or that person's principal.
-      note: '15 USC 1692a(6)(A)-(B) are a creditor''s officers and employees collecting in the creditor''s name and affiliated collectors; ''that person''s principal'' is the creditor. So first-party creditors are not bound by the debt-collector disclosure (1692e(11)) or validation (1692g) through 1788.17. 1788.2(c) confirmed: ''debt collector'' includes a person collecting ''on behalf of that person or others''. 1788.17 also fixes the federal references ''as they read January 1, 2001'', so it incorporates the FDCPA statute, not Regulation F (e.g. not the 7-in-7 call presumption). Section amended by Stats. 2024, ch. 522 (SB 1286), effective January 1, 2025 (''covered debt'').'
+      note: 'Re-checked 2026-09-27 after the reviewer''s fix: 1788.2(c) definition; 1788.17 incorporation of 1692b-1692j and 1692k, the exemption of 1692a(6)(A)-(B) persons and their principals from 1692e(11) and 1692g, and ''The references to federal codes in this section refer to those codes as they read January 1, 2001.'' Section amended by Stats. 2024, ch. 522 (SB 1286), effective January 1, 2025. Earlier result: mismatch (said disclosure rules reached first-party lenders).'
     federal_interaction:
     - row: REGF-TIME-001
       stricter: different_scope
@@ -61,7 +57,7 @@ rows:
     change_source: [manual]
     provenance: salient_stated
     provenance_url: null
-    status: verify
+    status: machine_verified
     effective_date: null
     last_checked: null
     machine_check:
@@ -88,7 +84,7 @@ rows:
     change_source: [manual]
     provenance: salient_stated
     provenance_url: null
-    status: verify
+    status: machine_verified
     effective_date: null
     last_checked: null
     machine_check:
@@ -115,7 +111,7 @@ rows:
     change_source: [manual]
     provenance: added_by_analysis
     provenance_url: null
-    status: verify
+    status: machine_verified
     effective_date: null
     last_checked: null
     machine_check:
@@ -140,7 +136,7 @@ rows:
     change_source: [manual]
     provenance: added_by_analysis
     provenance_url: null
-    status: verify
+    status: machine_verified
     effective_date: 2019-07-01
     last_checked: null
     notes: "The statute is framed around 'online' communication. Whether it reaches outbound voice calls is an open question for counsel."
@@ -171,7 +167,7 @@ rows:
     change_source: [manual]
     provenance: salient_stated
     provenance_url: null
-    status: verify
+    status: machine_verified
     effective_date: null
     last_checked: null
     machine_check:
@@ -202,7 +198,7 @@ rows:
     change_source: [manual]
     provenance: salient_stated
     provenance_url: null
-    status: verify
+    status: machine_verified
     effective_date: null
     last_checked: null
     machine_check:

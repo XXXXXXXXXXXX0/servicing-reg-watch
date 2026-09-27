@@ -19,7 +19,7 @@ rows:
     change_source: [manual]
     provenance: salient_stated
     provenance_url: null
-    status: verify
+    status: machine_verified
     effective_date: null
     last_checked: null
     notes: "Rules vary by state. The citation is a federal supervisory publication (UDAAP findings), not a state law; state primary sources are still unresearched. applies_to is provisional pending research."

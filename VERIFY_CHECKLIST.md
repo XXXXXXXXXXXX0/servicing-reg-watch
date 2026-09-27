@@ -10,6 +10,8 @@ For each row:
 3. Correct the YAML where they differ, then set `status: verified` and `last_checked: <YYYY-MM-DD>` (the validator rejects `verified` without `last_checked`).
 4. Regenerate the inventory: `python -m pipeline.inventory`, and confirm `python -m pipeline.inventory --check` passes.
 
+Status update 2026-09-27: after the reviewer accepted the machine check, 69 rows listed here are `machine_verified`, MA-940CMR-001 is `verified` (hand-checked) and 15 remain `verify`; see `register/VERIFICATION_REPORT.md`.
+
 This file is a snapshot. If rows are added or change status, regenerate it from the YAML rather than editing it by hand.
 
 

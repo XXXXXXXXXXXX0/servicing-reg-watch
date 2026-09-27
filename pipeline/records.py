@@ -514,7 +514,12 @@ def check_meta(records_dir: Path | None = None, store_path: Path | None = None) 
                 other, rel = link.get("doc_id"), link.get("relation")
                 if rel not in RELATION_EFFECT:
                     errors.append(f"{doc_id}: {field} {other}: unknown relation {rel!r}")
-                if other not in known:
+                # A court decision (e.g. a vacatur) is not a Federal Register document: it is marked
+                # external, names its source, and is exempt from the store check.
+                if link.get("external"):
+                    if field != "superseded_by" or not link.get("source"):
+                        errors.append(f"{doc_id}: {field} {other}: external links go in superseded_by and need a source")
+                elif other not in known:
                     errors.append(f"{doc_id}: {field} {other}: not in the ingested store")
                 if other in meta and not any(x["doc_id"] == doc_id and x["relation"] == rel
                                              for x in meta[other].get(mirror, [])):
