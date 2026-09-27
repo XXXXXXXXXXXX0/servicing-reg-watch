@@ -12,7 +12,7 @@ from a file in this repository, linked where it is used.
 what an AI servicing agent does (calls, texts, payments, disputes, repossession, claims),
 and writes a change record for each one: which obligations moved, what a compliant agent
 must now do, and the questions the deploying team must answer before it changes anything.
-A register of 92 obligations (federal, six states and multistate topics) anchors every call to a cited
+A register of 92 obligations (federal, six states and multistate topics) anchors every decision to a cited
 source.
 
 **Results.**
