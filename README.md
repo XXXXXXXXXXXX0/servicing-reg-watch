@@ -1,376 +1,295 @@
 # servicing-reg-watch
 
-**Memo: Regulatory change management for AI loan-servicing agents (v1, with v1.1 fixes)**
+**Turning regulatory changes into specific, human-approved instructions for AI agents across
+loan servicing, collections, recovery, insurance claims, and disputes.**
 
-Built without access to any vendor's systems. Not legal advice.
+Built without access to any vendor's systems. Not legal advice. Every number below is taken
+from a file in this repository, linked where it is used.
 
-Every number in this memo comes from [`eval/results.md`](eval/results.md),
-[`eval/v1_1_fixes.md`](eval/v1_1_fixes.md), [`eval/v1_1_conflicts.md`](eval/v1_1_conflicts.md),
-[`eval/error_analysis.md`](eval/error_analysis.md), [`records/REVIEW_LOG.md`](records/REVIEW_LOG.md),
-[`records/REVIEW_QUEUE.md`](records/REVIEW_QUEUE.md), [`PREFILTER.md`](PREFILTER.md) or the
-committed data under `data/`.
+## Summary
 
-## Problem
+**What this is.** A pipeline that reads the Federal Register, finds the changes that touch
+what an AI servicing agent does (calls, texts, payments, disputes, repossession, claims),
+and writes a change record for each one: which obligations moved, what a compliant agent
+must now do, and the questions the deploying team must answer before it changes anything.
+A register of 92 obligations (federal, six states and multistate topics) anchors every call to a cited
+source.
 
-AI agents that service US consumer loans call and text borrowers, take payments, and handle
-disputes, insurance claims and recovery. Each of those behaviors is governed by rules that
-change. The rules come from the CFPB, FCC, FTC, the bank and credit union regulators, the
-states and Nacha. Changes arrive as final rules, proposals, delays, guidance and, just as
-important, **withdrawals and rescissions of guidance**. A deploying team needs three things:
-to learn about a change quickly, to know which agent behaviors it touches, and to leave an
-audit trail showing that a human decided what to do about it.
+**Results.**
+- **3,683 documents ingested**, 2024-09-23 to 2026-09-24 (eight agencies, including the
+  Defense Department for the Military Lending Act). **206 kept** by the prefilter.
+- **220 triaged** (the 206 plus 14 eval documents the prefilter dropped). **171
+  auto-closed**, **49 routed to human review**, 27 change records written
+  ([`records/REVIEW_QUEUE.md`](records/REVIEW_QUEUE.md)).
+- **v1 eval** on 30 blind-labeled documents (6 relevant, 24 not)
+  ([`eval/results.md`](eval/results.md)): specificity **23/24 (95.8%)**, precision **5/6
+  (83.3%)**, recall **5/6 (83.3%)**. The precision and recall intervals run from 35.9% to
+  99.6%; six positives cannot say more.
 
-## What the system does
+**Judgment calls.**
+- **Humans approve every change.** The pipeline narrows the queue and drafts the
+  instruction; a named person signs it off.
+- **Interpretive guidance routes to control validation**, not behavior change: supervisory
+  findings and interpretive rules mean "check your controls against this reading."
+- **Withdrawn guidance changes enforcement posture, not the law.** The statute still
+  applies, so controls are re-mapped to it, not relaxed.
+
+**Status.** v1 is scored and final. The v1.1 fixes and the v1.2 scope expansion are
+**untested on a fresh eval set**. Register verification
+([`register/VERIFICATION_REPORT.md`](register/VERIFICATION_REPORT.md)): 69
+`machine_verified`, 1 hand-verified, 15 `verify`, 7 `unresearched`.
+
+## What is deliberately not automated, and why
+
+- **Approving a change.** No record is marked done and no register row is changed by the
+  pipeline. *Accountability:* an examiner will ask who decided a rule did or did not apply,
+  and that must be a named person, not a confidence score. *Errors multiply at scale:* one
+  wrong call in an agent's configuration repeats on every borrower contact; a human
+  approval step is the cheapest place to stop it.
+- **Closing anything uncertain.** Only a "not relevant" call at confidence 0.85 or higher is
+  auto-closed. Everything triage calls relevant, everything below the bar, and anything
+  with missing text or invalid output goes to review.
+- **Register verification.** A machine check becomes `machine_verified` only when the
+  reviewer accepts it; `verified` means the reviewer read the source by hand.
+- **Mapping to a deployment.** The adapter
+  ([`adapter/deployment_map.template.yaml`](adapter/deployment_map.template.yaml)) ships
+  empty. Only the deploying team knows which config or script implements a behavior; a
+  guessed mapping is worse than none.
+- **State law and Nacha monitoring.** No feed exists; these rows are `change_source:
+  manual` and need a person watching them.
+
+## Pipeline
 
 ```
-Federal Register API ─► 1 ingest ─► 2 prefilter ─► 3 eCFR diff ─► 4 triage (Stage A, Stage B) ─► 5 route ─► 6 change records
- 7 agencies, 24 months    2,203 docs    201 kept       22 diffed      215 triaged                    168 auto-closed   one record per
- (2024-09-23..2026-09-24)                                                                            47 to review      relevant document
+Federal Register API ─► 1 ingest ─► 1b disapproval check ─► 2 prefilter ─► 3 eCFR diff ─► 4 triage (A, B) ─► 5 route ─────────► 6 records
+ 8 agencies, 24 months   3,683 docs   305 public laws,         206 kept      22 diffed      220 triaged        171 auto-closed    27 change
+ 2024-09-23..2026-09-24               23 CRA disapprovals,     + 14 eval     (72 cite a     Stage B: 37        49 to review       records
+                                      3 match the store        docs the      tracked part)  full-text reads
+                                                               prefilter dropped
 ```
 
-**Two-stage triage.** Every document that reaches triage is screened in **Stage A** from its
-title, abstract, metadata and eCFR diff excerpt. **Stage B** re-reads the saved full text for
-every Stage A "relevant" call and every call with confidence below 0.7: 35 documents. Stage B
-changed the relevance answer for **4 of 35** (2 not relevant to relevant, 2 relevant to not
-relevant). It kept the relevance answer but changed register rows, behavior classes, change
-type or effective date for **12 more**. Stage A answers are kept in `data/triage_stage_a/`;
-the post-Stage-B answers in `data/triage/` are what routing reads and what the eval scores.
+The 14 prefilter-dropped eval documents were triaged only so the eval measures prefilter
+misses. Prefilter rules and results:
+[`PREFILTER.md`](PREFILTER.md). Sources, diff coverage and partial reads:
+[`docs/DETAILS.md`](docs/DETAILS.md).
 
-**Routing.** 215 documents were triaged (201 prefilter survivors plus 14 prefilter-dropped
-eval documents). **168 were auto-closed**: routing closes a document only when triage says
-not relevant *and* confidence is at least 0.85. The other **47 went to the human review
-queue** ([`records/REVIEW_QUEUE.md`](records/REVIEW_QUEUE.md)): all 22 documents triage called
-relevant, plus 25 not-relevant calls below the confidence bar. **Every document triage called
-relevant is routed to human review**; none is closed by the pipeline. Untriaged documents,
-documents with invalid triage output and documents without full text also go to review,
-never to auto-close.
+### Two-stage triage
 
-**Change records.** Each relevant document gets a record in `records/` naming the affected
-register rows and behavior classes, what changed, what a compliant agent must now do, the
-eCFR diff where there is one, and the questions the deploying team must answer (owning
-config or script, approver, rollout sequence, test evidence).
+**Stage A** screens every document from its title, abstract, metadata and eCFR diff.
+**Stage B** re-reads the saved full text for every Stage A "relevant" call and every call
+below 0.7 confidence. In v1 that was 35 documents:
+- Stage B changed the relevance answer on **4 of 35** (2 each way).
+- It kept the answer but corrected register rows, behavior classes, change type or
+  effective date on **12 more**. That is where its value shows: in what the records tell
+  the agent to do.
+- On the eval sample it fixed one error (2024-30824) and caused one (2025-22490), so it
+  did not move relevance accuracy.
+- Stage B reads at most about 4,000 words; 26 of the 35 reads were partial (logged per
+  document).
 
-### What is deliberately not automated, and why
+v1.2 added 2 Stage B reads (both NCUA part 749 documents, full text), for 37.
 
-- **Approving a change stays human.** The pipeline narrows the queue; a person decides. No
-  record is marked done and no register row is changed by the pipeline. Two reasons:
-  - *Accountability.* A regulator or auditor will ask who decided that a rule did or did not
-    apply and on what basis. That has to be a named person with a sign-off, not a
-    confidence score.
-  - *Errors multiply at scale.* One wrong call applied to an agent's configuration repeats
-    on every borrower contact until someone notices. A human approval step is the cheapest
-    place to stop it.
-- **Register verification.** Every researched row ships as `status: verify`. Flipping a row
-  to `verified` requires a person to read the primary source; the validator rejects
-  `verified` without `last_checked`. The rows to check are listed in
-  [`VERIFY_CHECKLIST.md`](VERIFY_CHECKLIST.md).
-- **Unresearched coverage.** Rows with `status: unresearched` record a known gap and carry
-  `citation: null`; the validator rejects a citation on them.
-- **Mapping to a deployment.** The adapter ships empty. Only the deploying team knows which
-  config or script implements a behavior, and a guessed mapping would be worse than none.
-- **State law and Nacha monitoring.** There is no Federal Register feed for these. They are
-  `change_source: manual` rows and need a person watching them.
+### Human review scope
 
-## Human review
+Review covered the **30-document eval set** and the **documents flagged by the v1.1 and
+v1.2 conflict checks** ([`eval/v1_1_conflicts.md`](eval/v1_1_conflicts.md),
+[`eval/v1_2_conflicts.md`](eval/v1_2_conflicts.md)), plus the two new NCUA documents. The
+rest of the 49-document queue is left to the operating team, as it would be in
+production. Reviewer decisions override model outputs **in the operational records only**;
+the model outputs in `data/triage/` and the v1 scores are never edited. Every decision is
+logged with the model's answer, the decision, the reason, the reviewer and the date:
+22 entries in [`records/REVIEW_LOG.md`](records/REVIEW_LOG.md).
 
-- **Reviewer decisions override model outputs in the operational records only.** The model's
-  outputs in `data/triage/` and `data/triage_stage_a/` are never edited, and the v1 eval
-  scores are unchanged. An override is stored as a `review` entry in
-  `records/record_meta.yaml`, applied to the record by `python -m pipeline.records annotate`,
-  and **logged in [`records/REVIEW_LOG.md`](records/REVIEW_LOG.md)** with the model's answer,
-  the reviewer's decision, the reason, the reviewer and the date.
-- **Five overrides so far**, all on 2026-09-26:
+## Product lines, segments and priority (v1.2)
 
-  | Document | Model (v1) | Reviewer decision |
-  |---|---|---|
-  | 2025-22490, NCUA breach-response guidance (eval #12) | Not relevant, 0.75 | Relevant; record created, `interpretation` (open, awaits control-validation sign-off) |
-  | 2025-22489, NCUA safeguarding guidelines | Not relevant, 0.75 | Relevant; record created, `interpretation` (open, awaits control-validation sign-off) |
-  | 2024-22962, CFPB medical-debt advisory opinion (eval #25) | Relevant, 0.70 | Not relevant; record closed |
-  | 2024-27791, applicability-date revision of 2024-22962 | Relevant, 0.70 | Not relevant; record closed to match 2024-22962 |
-  | 2024-29292, CFPB Regulation V ANPR on identity theft and coerced debt | Relevant, 0.75 | Not relevant; record closed; on the watch list |
+- **Six product lines** ([`taxonomy/product_lines.yaml`](taxonomy/product_lines.yaml)):
+  servicing, collections, recovery, insurance claims, disputes, compliance audit, mapped
+  many-to-many to 20 behavior classes.
+- **Four segments** ([`taxonomy/segments.yaml`](taxonomy/segments.yaml)): bank, credit
+  union, captive, specialty lender. Each register row binds, does not bind, or is
+  `unclear` for each segment; `unclear` is never resolved by guessing.
+- **Priority.** A record is `high` when a primary class runs on every contact or
+  transaction (CONTACT.\*, DISCLOSURE.REQUIRED, IDENTITY.RIGHT_PARTY, STOP.TRIGGERS,
+  PAYMENT.\*) or is DISPUTES.ERROR_RESOLUTION (fixed statutory deadlines on every dispute).
+  The queue is sorted by priority, then product line
+  ([`records/BY_PRODUCT_LINE.md`](records/BY_PRODUCT_LINE.md),
+  [`records/BY_SEGMENT.md`](records/BY_SEGMENT.md)).
+- **Scope expansion.** 18 register rows (error resolution, card claims and defenses, the
+  Military Lending Act, Red Flags, the Holder Rule, record retention, payoff and GAP),
+  new prefilter parts and keywords, and a Defense Department ingest.
+- **Result.** **5 new documents kept** (FDIC 2, NCUA 3). **Triage called none relevant:**
+  3 auto-closed; the 2 NCUA part 749 documents (0.75) went to review, where the reviewer
+  judged them relevant as a legal-status change and gave them `interpretation` records.
+  **The Defense Department ingest (1,480 documents) kept none.** None of this is measured
+  by the v1 eval.
 
-- **Scope of v1 human review.** It covered the 30-document eval set (labeled blind, see
-  below) and the documents flagged by the v1.1 conflict check
-  ([`eval/v1_1_conflicts.md`](eval/v1_1_conflicts.md)). The rest of the 47-document queue is
-  left for the operating team, as it would be in production: most records still await
-  sign-off.
-- The v1.1 change-type and class re-tagging (below) is applied to records as metadata in
-  `records/record_meta.yaml`, not as a review override; the model outputs keep their v1
-  values there too.
+## v1 eval
 
-## Sources and data
-
-- **Ingest.** Federal Register API, 7 agencies, rules, proposed rules and notices,
-  2024-09-23 to 2026-09-24: 2,203 documents. Queries run per agency and month;
-  `data/raw/ingest_manifest.json` records reported and retrieved counts for every chunk, so
-  completeness is checkable.
-- **Prefilter** ([`PREFILTER.md`](PREFILTER.md)). The original spec only asked for a "cheap
-  keyword/CFR-part filter to drop obvious noise" and defined no criteria. The rules were
-  designed from the register and the behavior taxonomy:
-  - **Exclusion first.** Administrative notices (Paperwork Reduction Act collections,
-    Sunshine Act meetings, Privacy Act system-of-records notices, agency organization, FCC
-    spectrum/broadcast/licensing) are dropped before any keep rule: 1,052 documents.
-  - **Then keep on any of three rules:** a tracked CFR part in the document's own metadata
-    (A), a CFPB rule or guidance document or guidance withdrawal (B), or a register keyword
-    in the title or abstract (C). 201 kept (A 102, B 35, C 64); 950 dropped as `no_match`.
-  - **Biased toward keeping.** The CFR part list is a floor: parts are added freely and
-    removed only with a stated reason. Hard negatives such as mortgage servicing pass on
-    purpose; separating them is triage's job. A coverage check (enforced by a test) confirms
-    every one of the 73 register rows and 17 behavior classes is reachable by some rule.
-  - Every drop is logged with its reason code to `data/prefilter/dropped.jsonl`.
-- **Full text from GovInfo.** Federal Register full-text pages redirect to a bot wall
-  (`unblock.federalregister.gov`) from this environment, so full text comes from the GovInfo
-  API granule endpoint (key in the `X-Api-Key` header), with the public GovInfo content link
-  as fallback. All 215 documents were fetched; 0 missing.
-- **Cached in the repo.** Fetched data is committed as compressed files under `data/raw/`
-  (`federal_register.jsonl.gz`, `govinfo/*.htm.gz`, `ecfr/*.gz`, `fr_search/*.json.gz`).
-  Every fetch function checks the store first and never refetches what is saved.
-- **Diff coverage.** Of the **72** triaged documents that cite a tracked CFR part:
-  - **22** were diffed against eCFR point-in-time text (the day before vs. the effective date);
-  - **32** are proposed rules, with no codified change to diff yet;
-  - **18** were triaged without a diff: 9 had no matching eCFR version on their effective
-    date, 8 had no effective date in the Federal Register metadata (the pipeline does not
-    guess one), and 1 had a future effective date, so eCFR had no after-text yet.
-- **Long documents are partially read.** Stage B reads at most about 4,000 words of full
-  text. 26 of the 35 Stage B reads were partial. Words read and total words are logged per
-  document in `data/triage/_stage_b.jsonl` and stated in each record's Triage section.
-- **Engineering rules** ([`CLAUDE.md`](CLAUDE.md)): repo-committed caching, no refetching of
-  saved data, no secrets in the repo, logs, URLs or error messages, and no invented
-  citations.
-
-## What testing caught
-
-- **A silent failure that only live data showed.** The offline fixtures had only section
-  versions, so the diff step handled only eCFR *section* versions and passed every test. On
-  the live eCFR API, rules that amend an *appendix*, including the **Official
-  Interpretations** (for example, Supplement I to Part 1026, which carries most annual
-  threshold adjustments), were skipped with no error: those documents simply came back as
-  having no diff. After the fix (fetch appendix versions with the `appendix=` parameter),
-  diffed documents went from **12 to 22**. The same live run found that eCFR `/full` returns
-  406 without a compressed `Accept-Encoding`, and that Federal Register text URLs hit a bot
-  wall.
-- **Register gaps the pipeline surfaced on its own.** Change records raised obligations the
-  register did not hold. Four rows were added in v1.1: FCRA-PERMPURP-001 (permissible
-  purpose), FCRA-MEDINFO-001 (creditor medical-information prohibition), NCUA-INDIRECT-001
-  (removal of NCUA indirect-vehicle third-party servicer limits) and STATE-CREDITRPT-001
-  (state credit reporting laws, `unresearched`). The three cited rows are cited to committed
-  Federal Register text and remain `verify`; their statute and eCFR text has not been read.
-
-## Eval
-
-Protocol (BUILD_SPEC Section 10). 30 documents were drawn by
-[`eval/select_sample.py`](eval/select_sample.py) from **direct Federal Register term
-searches**, independent of the prefilter, with at least 5 prefilter-dropped documents
-required. The labeler filled in `eval/labels.csv` **blind to triage outputs** and to the
-selection manifest. A prefilter drop counts as a "not relevant" prediction, so prefilter
-misses are measured.
-
-**Sample: 6 labeled relevant, 24 labeled not relevant.**
+30 documents were drawn from direct Federal Register term searches, independent of the
+prefilter, with prefilter-dropped documents required; the labeler was blind to triage. A
+prefilter drop counts as "not relevant", so prefilter misses are measured.
 
 | | Labeled relevant | Labeled not relevant |
 |---|---|---|
 | Predicted relevant | TP 5 | FP 1 |
 | Predicted not relevant | FN 1 | TN 23 |
 
-Exact (Clopper-Pearson) two-sided 95% intervals:
-
-| Metric | Raw | Point | 95% interval |
+| Metric | Raw | Point | Exact 95% interval |
 |---|---|---|---|
-| Precision (end to end) | 5/6 | 83.3% | 35.9% to 99.6% |
-| Recall (end to end) | 5/6 | 83.3% | 35.9% to 99.6% |
-| Specificity (end to end) | 23/24 | 95.8% | 78.9% to 99.9% |
+| Specificity | 23/24 | 95.8% | 78.9% to 99.9% |
+| Precision | 5/6 | 83.3% | 35.9% to 99.6% |
+| Recall | 5/6 | 83.3% | 35.9% to 99.6% |
 | Prefilter recall | 6/6 | 100.0% | 54.1% to 100.0% |
 
-Triage alone gives the same counts, because no relevant document was dropped by the prefilter.
+- **Specificity is the only robust number.** One error moves precision or recall by 16.7
+  points.
+- **The prefilter kept all 6 relevant documents**, though it dropped 14 of the 30.
+- **Class tagging over-included:** 12 of 17 model class tags matched a label (mean
+  Jaccard 0.62).
 
-- **Specificity is the most robust measure** here: it rests on 24 negatives, and its interval
-  is the only narrow one. Precision and recall rest on 6 documents each; one error moves
-  either by 16.7 points, and the intervals run from about 36% to nearly 100%.
-- **The prefilter kept all 6 relevant documents**, although **14 of the 30** eval documents
-  were ones it dropped (the manifest, recomputed from committed metadata: 16 keep, 14 drop).
-  Perfect prefilter recall on 6 positives still only supports a lower bound of 54.1%.
-- **Stage B fixed one error and caused one on this sample.** Stage A alone would have given
-  the same counts: Stage B fixed 2024-30824 (not relevant to relevant) and introduced the
-  2025-22490 miss (relevant to not relevant). So Stage B's value does not show in relevance
-  accuracy on this sample. It shows in the **specificity of the change records**: 12 of its
-  35 reads corrected the rows, classes, change type or effective date that the records carry.
-- **Behavior-class tagging over-included secondary classes.** On the 5 true positives, 12 of
-  14 labeled classes were predicted, but only **12 of 17 model tags** matched a label (mean
-  Jaccard 0.62; exact set match 2 of 5). The extra tags were classes a document touches
-  without changing what the agent must do. v1.1 separates **primary** tags (drive routing and
-  review) from **secondary** context tags.
-- Tier agreement was not scored: no labeled document has a tier.
+### Error root causes and v1.1 fixes
 
-## What the eval revealed
-
-Root-cause analysis: [`eval/error_analysis.md`](eval/error_analysis.md). Fixes:
-[`eval/v1_1_fixes.md`](eval/v1_1_fixes.md). Both model errors were gaps in the relevance test
-in `pipeline/triage_prompt.md`, not prefilter drops.
+Both errors were gaps in the relevance test, not prefilter drops
+([`eval/error_analysis.md`](eval/error_analysis.md), [`eval/v1_1_fixes.md`](eval/v1_1_fixes.md)).
 
 | Error | Document | Root cause | v1.1 fix |
 |---|---|---|---|
-| False negative | 2025-22490: NCUA proposal to remove Appendix B (breach-response guidance) from 12 CFR 748 and reissue it as a Letter to Credit Unions. Stage A said relevant (0.6); Stage B reversed it (0.75). | The test covered *withdrawn* guidance but not guidance moved out of the CFR with its text unchanged, so Stage B relied on the document's own "no substantive change" statement. | A change in an obligation's **legal status** (codified, moved out of the CFR into guidance or back, removed) is relevant even if its text is unchanged. It routes as the new change type `interpretation` (control validation). |
-| False positive | 2024-22962: CFPB advisory opinion on medical-debt collection under FDCPA / Regulation F (later withdrawn by 2025-08286). | Advisory opinions counted as clarifying whenever they interpret an obligation in scope, and Regulation F governs loan collectors too. Nothing excluded guidance aimed at a non-loan debt type or guidance that only restates existing law. | Guidance limited to a **non-loan debt type** is not relevant unless it states a rule for consumer-loan collection generally. Guidance that only **restates existing law** routes as `interpretation`, not as a behavior change. |
-| Class over-tagging | 5 true positives, 17 predicted classes vs. 14 labeled | No distinction between classes a document changes and classes it merely touches. | `behavior_classes_primary` and `behavior_classes_secondary` in the prompt, schema and validator; v1 outputs still validate. |
+| False negative | 2025-22490: NCUA moves breach-response guidance out of the CFR, text unchanged | The test covered withdrawn guidance, not guidance moved out of the CFR; Stage B trusted the "no substantive change" statement. | A change in an obligation's **legal status** is relevant even with unchanged text; routes as `interpretation`. |
+| False positive | 2024-22962: CFPB medical-debt advisory opinion (Regulation F) | Nothing excluded guidance aimed at a non-loan debt type. | Guidance limited to a **non-loan debt type** is not relevant; guidance that only restates law routes as `interpretation`. |
+| Class over-tagging | 17 tags vs. 14 labels on 5 true positives | No split between classes changed and classes touched. | **Primary** and **secondary** class tags. |
 
-**The v1.1 clarifications were added after scoring and have not been tested on a fresh eval
-set.** The v1 scores are final and were not changed; relevance triage was not re-run.
-Re-scoring the 30 documents the fixes were derived from would be circular. Other v1.1 rules
-added at the same time: judge a document by its ACTION line and substance rather than its
-Federal Register type label; ask whom a rule binds; treat ANPRs without proposed text as not
-relevant.
+The fixes were written after scoring and **have not been tested on a fresh set**;
+re-scoring the 30 documents they came from would be circular.
 
-**Conflicts** ([`eval/v1_1_conflicts.md`](eval/v1_1_conflicts.md)). All 215 v1 outputs were
-read against the v1.1 rules without re-triaging.
+## Register verification
 
-- **5 relevance conflicts**, each resolved in human review (see the Human review table):
-  2024-22962 and 2024-27791 closed as not relevant (non-loan debt type); 2024-29292 closed as
-  not relevant (ANPR, no proposed text) and put on the watch list; 2025-22490 and 2025-22489
-  given records as `interpretation` (legal-status change).
-- **4 change-type conflicts** on documents that stay relevant: Supervisory Highlights Auto
-  Finance (2024-24093), Student Lending (2024-30758) and Issue 37 (2024-31670), and the CFPB
-  FCRA preemption interpretive rule (2025-19671). Their records now route as `interpretation`;
-  the model outputs keep their v1 type.
-- The same file lists near-the-line documents that v1.1 confirms (for example, FCC
-  call-blocking duties that bind carriers, not callers; regulatory agendas; ANPRs).
+Full detail: [`register/VERIFICATION_REPORT.md`](register/VERIFICATION_REPORT.md).
+`pipeline/verify.py` fetched primary text (eCFR, GovInfo, U.S. Code, state statutes) into
+the committed store and compared each cited row with it; the reviewer then accepted or
+overrode each result.
+
+- **92 rows: 69 `machine_verified`, 1 hand-verified (MA-940CMR-001, whose source site
+  refuses automated requests), 15 `verify`, 7 `unresearched`.**
+- **Six mismatches found.** Five rows were corrected to the fetched text and re-checked
+  as matches:
+  - **CA-ROSENTHAL-001:** the row said the FDCPA's disclosure rules reach first-party
+    lenders in California. Cal. Civ. Code 1788.17 exempts first-party creditors from
+    1692e(11) and 1692g, and incorporates the FDCPA as of January 1, 2001, not
+    Regulation F. Timing, third-party and cease rules do reach them.
+  - REGF-STOP-003 (cited 1006.38(d) only; (c) also applies), REGZ-MOD-001 (conditions of
+    1026.20(a)(4) dropped), UDAAP-INS-001 (an abusiveness finding labeled unfair),
+    FL-FCCPA-004 (narrower than 559.72(5)).
+  - The sixth, **FCRA-MEDINFO-001**, was not a row error: eCFR still shows the vacated 2025
+    medical-information amendment. The reviewer kept the row by override; it stays
+    `verify`.
+- **Preemption, 59 federal rows:** 33 **floor** (stricter state law allowed, e.g.
+  Regulation F, UDAAP, MLA), 6 **express preemption** (FCRA furnisher duties and Red Flags
+  under 15 USC 1681t, E-SIGN, Regulation Z billing-error procedures), 3 **mixed** (TCPA
+  227(f)(1)), 8 with no provision stated, 9 not applicable (private rules, guidance). Of
+  36 state-federal pairs, 1 is stricter (Massachusetts' two-calls-in-seven-days rule),
+  28 differ in scope (mostly by reaching first-party creditors), 4 are not stricter, 3
+  unclear. No automatic conflict resolution is built.
 
 ## Lessons for AI servicing agents
 
-- **Automated dispute handling needs the system of record.** CFPB Supervisory Highlights,
-  Issue 37 (2024-31670) found debt-collector furnishers verifying indirect disputes through
-  **automated systems that checked only their own records**, not their creditor clients'
-  records, and deleting tradelines by default when clients did not respond (FCRA
-  1681s-2(b)(1)). An AI agent that resolves disputes against its own data store repeats that
-  finding at scale.
-- **Withdrawn guidance changes enforcement posture, not the law.** FR 2025-08286 withdrew 67
-  CFPB guidance documents, including Regulation F, FCRA and repossession items. The
-  underlying statutes and regulations still apply as written, and courts, state regulators,
-  other federal regulators and private plaintiffs can still apply the same readings; the
-  CFPB also said the withdrawal may not be final. The record's instruction is to re-map each
-  control to its statutory source, not to relax it.
-
-## Design choices
-
-- **Each document is judged as published.** A later withdrawal, disapproval or vacatur does
-  not rewrite the earlier triage. It is linked instead: records carry `supersedes` and
-  `superseded_by` (in `records/record_meta.yaml`), and a withdrawal, final rule, disapproval
-  or vacatur closes or reverses the earlier record, while an amendment or correction leaves
-  it open. Seven records were closed this way; for example, 2025-08286 closes 2024-22962 and
-  2024-27791.
-- **Interpretations route to control validation, not behavior change.** Supervisory findings,
-  interpretive rules, restating guidance and legal-status changes get change type
-  `interpretation`: the required action is to check existing controls against the stated
-  reading, not to change agent behavior. Supervisory Highlights Issue 37 is the model case: it
-  states no new rule, but it says how examiners read FCRA dispute duties, so the controls
-  should be checked against it. The CFPB guidance withdrawal (2025-08286) is the reverse case:
-  it changes the legal status of guidance without changing the statute, so controls are
-  re-validated against their statutory source rather than removed.
-- **Behavior classes, not workflows.** Impact maps to a public reference taxonomy
-  (`taxonomy/behaviors.yaml`, 17 classes). The pipeline never names or guesses at a vendor's
-  internal agents, scripts or configs.
-- **Fail toward human review.** Only confident "not relevant" calls are auto-closed.
-- **Diffs come from eCFR, not the rule preamble**, and the diff step reports
-  `pending_effective`, `effective_date_unknown` or `no_matching_ecfr_version` rather than
-  guessing a date.
-- **One triage contract, two modes.** `pipeline/triage_prompt.md` is the only statement of the
-  triage instructions, for API mode and in-session mode alike. Both pass the same validator
-  (JSON Schema plus semantic checks); invalid API output goes to `data/triage/_rejected/`,
-  never the queue.
-- **Records are append-safe.** A record whose `Reviewer:` line is filled in is never
-  overwritten by a later run.
-
-## Provenance method
-
-Each register row records **why it is in the register**: `salient_stated` (named on
-Salient's public pages), `third_party_stated` (named in a third-party description of
-Salient), or `added_by_analysis` (added because the regulations reach a modeled behavior).
-`provenance_url` is null wherever the page was not captured. Every row's `source_url` points
-at primary text where one is public (eCFR, uscode.house.gov, state legislature sites, FCC
-documents); for licensed rulebooks such as Nacha and PCI DSS, it points at the publisher's
-page.
+- **Automated dispute handling needs the system of record.** CFPB Supervisory Highlights
+  Issue 37 (2024-31670) found furnishers verifying indirect disputes through **automated
+  systems that checked only their own records**, not their creditor clients', and deleting
+  tradelines by default when clients did not respond. An AI agent that resolves disputes
+  against its own data store repeats that finding at scale.
+- **Guidance withdrawals change enforcement posture, not the law.** FR 2025-08286 withdrew
+  67 CFPB guidance documents. The statutes and regulations still apply, and courts, states,
+  other regulators and private plaintiffs can still apply the same readings. The record
+  says to re-map each control to its statutory source, not to relax it.
+- **Checking against eCFR is necessary but not sufficient.** eCFR lagged two legal events:
+  the **overdraft rule** (2024-29699), disapproved by Congress in P.L. 119-10, still shows
+  as 12 CFR 1026.62; the **medical-information rule** (2024-30824), vacated by a federal
+  court on July 11, 2025 (the reviewer's source; not fetched here), still shows 1022.30(d) as [Reserved]. That led to a
+  **congressional-disapproval check** (`pipeline/cra.py`, step 1b): 305 public laws in the
+  window, 23 Congressional Review Act disapprovals (each confirmed by "no force or effect"
+  text), 3 matching stored documents (2024-29699, 2024-27836, 2024-21560). **Court
+  vacaturs are still not covered**; the 2024-30824 vacatur was linked by hand.
 
 ## Limitations
 
-- **Court decisions are visible only through the agency.** A vacatur or injunction reaches
-  the Federal Register only if the agency publishes a notice (as the FCC did in 2025-16641
-  after the one-to-one consent vacatur). Court dockets are not monitored.
-- **State-varying rules are mapped but unresearched.** Multi-state topics (GAP and add-on
-  refunds, appraisal-clause deadlines, lien release, collateral protection insurance, state
-  credit reporting laws) are register rows with `status: unresearched` or, for GAP, a federal
-  supervisory citation only. **No citation was filled from memory**; the gaps are in
-  `register/research_backlog.yaml` and INVENTORY.md.
-- **Register rows are unverified.** 69 of 73 rows are `verify` and none is `verified`; most
-  were drafted from working knowledge without the primary text open. See
-  [`VERIFY_CHECKLIST.md`](VERIFY_CHECKLIST.md).
-- **Small eval sample.** 6 positives and 24 negatives. The intervals above are the honest
-  summary, and the v1.1 fixes are unmeasured.
-- **How v1 triage was run.** v1 triage (Stage A and Stage B) was performed by Claude in an
-  agent session, following `pipeline/triage_prompt.md` and writing outputs that pass the same
-  validator. It is reproducible with an API key via `pipeline/triage.py`
-  (`python -m pipeline.triage api`, `ANTHROPIC_API_KEY`), but the committed outputs were not
-  produced that way, and a re-run will not match them exactly.
-- **Partial reads.** Stage B read at most about 4,000 words; 26 of 35 reads were partial
-  (logged per document).
-- **Built without access to any vendor's systems.** The deployment adapter
-  (`adapter/deployment_map.template.yaml`) is deliberately empty: connecting behavior classes
-  to real configs, scripts, test suites and approvers needs internal context.
-- **Tier 2 is inventoried, not modeled.** INSURANCE.CLAIMS has only the multi-state rows
-  above.
+- **The original register was written before network access**, from working knowledge.
+  Rows now cite sources, and verification status is as reported above.
+- **State-varying rules are unresearched.** GAP and add-on refunds, appraisal-clause
+  deadlines, lien release, collateral protection insurance, state payoff and credit
+  reporting rules carry `status: unresearched`. No citation was filled in for these rows
+  ([`register/research_backlog.yaml`](register/research_backlog.yaml)).
+- **15 rows could not be checked.** Nacha (3) and PCI DSS are proprietary; the other
+  sources (Texas statutes, Massachusetts regulations, Colorado, Utah, Federal Reserve
+  SR 11-7, AICPA SOC 2) were blocked by this environment's network policy or refused
+  automated requests. One Massachusetts row was then checked by hand.
+- **Small eval:** 6 positives, 24 negatives.
+- **v1.1 and v1.2 are unmeasured** on any held-out set.
+- **How v1 triage was run.** Claude performed Stage A and Stage B in an agent session,
+  following `pipeline/triage_prompt.md` and passing the same validator. It is reproducible
+  via `python -m pipeline.triage api` with an `ANTHROPIC_API_KEY`, but the committed
+  outputs were not produced that way and a re-run will not match exactly.
+- **Built without access to any vendor's systems**, so the adapter is empty and no real
+  agent, script or transcript was tested.
 
-## Watch list and future work
+## Future work
 
-- **FCC onshoring NPRM (FR 2026-07960).** Triaged not relevant (0.80): its proposals bind
-  communications providers' customer-service call centers. But it asks whether to extend some
-  or all of its proposals to **all calls covered by TCPA sections 227(c) and (d) that
-  originate outside the United States**, which include telephone solicitations and
-  artificial or prerecorded-voice calls from foreign call centers. If adopted that way, it
-  would reach lenders' offshore calling. It is in the review queue as a low-confidence
-  not-relevant call.
-- **CFPB coerced-debt ANPR (FR 2024-29292).** Closed as not relevant (no proposed text), but
-  the CFPB states a rulemaking is warranted to bring coerced debt into Regulation V's
-  identity-theft definitions, which signals future **identity-theft block** obligations for
-  furnishers.
-- **The Unified Agenda as an early-warning source.** Regulatory agendas (for example, 2026-16615
-  and 2026-16617) are correctly not relevant as documents, but they list planned actions
-  months ahead. A future step would parse them for register topics and put matches on the
-  watch list.
-- **A larger held-out eval set** to test v1.1: newly drawn and blind-labeled, not the 30
-  documents the fixes came from, with enough positives to narrow the recall interval.
-- Sign off control validation on 2025-22490 and 2025-22489; work the rest of the review queue;
-  verify the register rows.
+- **Interpretations library as a standing control-test suite.** The latest version of each
+  supervisory finding, advisory opinion, policy statement and interpretive rule drives
+  tests run against the agents; withdrawn guidance is kept, marked advisory-only. Requires
+  access to the vendor's agents and transcripts.
+- **Court docket monitoring** (CourtListener) to close the vacatur gap.
+- **A CFPB enforcement-actions feed** for UDAAP readings that never reach the Federal
+  Register.
+- **Wider state coverage and preemption-resolution logic**, starting with the thin areas.
+- **The Unified Agenda as early warning:** parse planned actions for register topics.
+- **A larger held-out eval** covering the v1.2 scope, with enough positives to narrow
+  recall.
 
-## How the adapter plugs into a real deployment
+**Watch list.** The **FCC onshoring NPRM (2026-07960)** asks whether to extend its proposals
+to all TCPA-covered calls originating outside the United States, which would reach
+lenders' offshore calling. The **CFPB coerced-debt advance notice (2024-29292)** signals
+future identity-theft block duties for furnishers.
 
-`adapter/deployment_map.template.yaml` lists every behavior class with blank
-`owning_system`, `config_ref`, `test_suite_ref` and `approver_role`. A deploying team copies
-it into its own repository and fills it in. Each change record names the affected behavior
-classes and asks four standard questions: owning config or script, approver, rollout
-sequence and test evidence. The filled map answers the first two directly and points at the
-evidence for the fourth. Nothing in this repository reads the filled map yet; the next step
-is a small consumer that pre-fills those answers in each record.
+## Implementation notes
+
+- **eCFR diffs.** Diffs compare eCFR point-in-time text (the day before vs. the effective
+  date), not the rule preamble. The step reports `pending_effective`,
+  `effective_date_unknown` or `no_matching_ecfr_version` rather than guessing. A live run
+  showed appendix amendments (including the Official Interpretations) were silently
+  skipped; fetching appendix versions raised diffed documents from 12 to 22.
+- **One triage contract.** `pipeline/triage_prompt.md` is the only statement of the triage
+  instructions for API and in-session mode alike; both pass the same JSON Schema and
+  semantic validator. Invalid output goes to `data/triage/_rejected/`, never the queue.
+- **Append-safe records.** A record whose `Reviewer:` line is filled in is never
+  overwritten; post-signature metadata lives in `records/record_meta.yaml`.
+- **External-source links.** A later withdrawal, disapproval or vacatur does not rewrite an
+  earlier triage; it is linked (`supersedes`, `superseded_by`) and closes or reverses the
+  record. A court decision, which is not a Federal Register document, is linked as an
+  external source.
+- Sources, caching, diff coverage, provenance, what testing caught and the adapter:
+  [`docs/DETAILS.md`](docs/DETAILS.md).
 
 ## Repository map and quick start
 
 | Path | What it is |
 |---|---|
-| `register/federal.yaml`, `register/states/*.yaml` | Register rows (73). `register/INVENTORY.md` is generated from them. |
-| `taxonomy/behaviors.yaml` | 17 behavior classes and the `applies_to` vocabulary. |
-| `pipeline/` | `ingest`, `prefilter`, `diff`, `triage`, `route`, `records`, `inventory`, `run`. |
-| `pipeline/triage_prompt.md`, `pipeline/triage_schema.json` | Triage instructions (v1.1) and output schema. |
+| `register/federal.yaml`, `register/states/*.yaml` | 92 register rows; `INVENTORY.md` and `VERIFICATION_REPORT.md` are generated from them. |
+| `taxonomy/` | Behavior classes, product lines, segments and priority. |
+| `pipeline/` | `ingest`, `cra`, `prefilter`, `diff`, `triage`, `route`, `records`, `inventory`, `verify`, `run`. |
 | `data/raw/`, `data/triage/`, `data/triage_stage_a/` | Committed cache and in-session triage outputs. |
-| `records/` | Change records, `REVIEW_QUEUE.md`, `REVIEW_LOG.md`, `record_meta.yaml`. |
-| `eval/` | Sample selection, blind labels, results, error analysis, v1.1 fixes and conflicts. |
-| `adapter/deployment_map.template.yaml` | Empty deployment adapter interface. |
+| `records/` | Change records, review queue, review log, indexes, `record_meta.yaml`. |
+| `eval/` | Sample selection, blind labels, results, error analysis, fixes and conflicts. |
+| `adapter/` | Empty deployment adapter interface. |
 | `fixtures/` | **Synthetic** API responses and triage outputs for offline tests. |
 
 ```bash
-pip install -r requirements.txt                 # + requirements-api.txt for API triage
-python -m pytest -q                             # offline; sockets are blocked in tests
+pip install -r requirements.txt -r requirements-api.txt   # same packages as CI
+python -m pytest -q                                       # offline; sockets are blocked in tests
 python -m pipeline.run --offline --with-fixture-triage --data-dir /tmp/srw/data --records-dir /tmp/srw/records
 
-python -m pipeline.run                          # live: ingest → prefilter → text → diff → triage inputs → route → records
-python -m pipeline.triage api                   # API-mode triage (ANTHROPIC_API_KEY)
-python -m pipeline.triage validate              # check triage JSON against the schema and register
-python -m pipeline.records annotate             # apply record_meta.yaml (supersession, v1.1 tags, reviews)
-python eval/run_eval.py                         # regenerate eval/results.md
+python -m pipeline.run                # live: ingest → disapproval check → prefilter → text → diff → triage inputs → route → records
+python -m pipeline.triage api         # API-mode triage (ANTHROPIC_API_KEY)
+python -m pipeline.records annotate   # apply record_meta.yaml (supersession, tags, reviews)
+python -m pipeline.verify report      # regenerate register/VERIFICATION_REPORT.md
+python eval/run_eval.py               # regenerate eval/results.md
 ```

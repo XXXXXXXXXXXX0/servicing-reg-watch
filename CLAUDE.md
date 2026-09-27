@@ -26,3 +26,4 @@ Read BUILD_SPEC.md before changing anything. These rules apply to all work in th
 - Commit and push after each step.
 - Never start background watchers or polling loops. Before ending a session, stop all background tasks and confirm none are running.
 - End with a summary of under 15 lines.
+- Before pushing, run the test suite with the same optional packages CI installs, so tests skipped locally cannot fail only in CI.
