@@ -105,7 +105,8 @@ Routing as `interpretation` (control validation, not a behavior change):
 
 **Not relevant unless it also meets that test:**
 - mortgage-only rules (Regulation X, mortgage origination);
-- deposit-account and overdraft rules;
+- deposit-account and overdraft rules (v1.2: except dispute and error-resolution obligations that bind bank and
+  credit-union customers; see the v1.2 section below);
 - open banking (Section 1033);
 - small business lending data (Section 1071);
 - HMDA;
@@ -123,6 +124,34 @@ the test.
 
 When the document is clearly outside scope, say so. When the packet does not settle
 the question, do not guess; lower your confidence.
+
+### v1.2 scope expansion, after the v1 eval; not measured by it
+
+_v1.2 widens scope to the vendor's named business lines. The v1 eval (labels and scores
+in `eval/`) was run before these rules and does not measure them._ Where a rule here and
+an earlier sentence in this section disagree, the rule here wins.
+
+Also relevant (added to the test above):
+- **Disputes, including card chargebacks.** Dispute and chargeback obligations that bind
+  bank and credit-union customers are relevant even though they arise under card or
+  deposit-account rules: billing-error resolution (Regulation Z, 12 CFR 1026.13), card
+  claims and defenses (1026.12(c)), EFT error resolution including debit card disputes
+  (Regulation E, 12 CFR 1005.11), and card chargeback handling. The deposit-account
+  exclusion below no longer removes these.
+- **Claims and defenses on dealer-originated contracts** (FTC Holder Rule, 16 CFR 433).
+- **Record retention**: retaining records of contacts, disclosures and payments
+  (e.g., 12 CFR 1006.100, 1026.25, 1005.13, 1002.12).
+- **Payoff quotes and title or lien release after payoff.**
+- For clarity, already within the test: Military Lending Act duties for covered
+  borrowers (32 CFR 232) and identity-theft Red Flags programs used in borrower
+  verification (16 CFR 681; 12 CFR 41.90, 222.90, 334.90, 717.90).
+
+Still not relevant under v1.2: deposit-account and overdraft rules that do not change a
+dispute or error-resolution obligation (for example fees, overdraft pricing, account
+opening). The other exclusions below are unchanged.
+
+Behavior classes for these: `DISPUTES.ERROR_RESOLUTION`, `DISPUTES.CLAIMS_DEFENSES`,
+`RECORDS.RETENTION` (see `taxonomy/behaviors.yaml`).
 
 ## Fields
 
