@@ -3,7 +3,7 @@
     python -m pipeline.run --offline [--data-dir DIR] [--records-dir DIR] [--with-fixture-triage]
     python -m pipeline.run [--triage api|none]           # live
 
-Steps: ingest -> prefilter -> fetch text for survivors -> diff -> triage inputs
+Steps: ingest -> congressional disapproval check (pipeline/cra.py) -> prefilter -> fetch text for survivors -> diff -> triage inputs
 -> [triage] -> validate -> route -> records.
 
 Offline mode answers every request from fixtures/ with a fixed window and
@@ -19,7 +19,7 @@ import shutil
 import sys
 from pathlib import Path
 
-from . import diff, ingest, prefilter, records, route, triage
+from . import cra, diff, ingest, prefilter, records, route, triage
 from .common import FIXTURES_DIR, data_paths, read_json
 from .sources import make_client
 
@@ -48,6 +48,8 @@ def main(argv=None):
 
     m = ingest.ingest(client, start, end, args.data_dir, today)
     print(f"[1 ingest] {m['unique_documents']} documents, {start}..{end}, complete={m['complete']}")
+    c = cra.run(client, args.data_dir, start, end, Path(args.records_dir) if args.records_dir else None)
+    print(f"[1b disapprovals] {c}")
     s = prefilter.run(args.data_dir)
     print(f"[2 prefilter] kept {s['kept']}, dropped {s['dropped']} (logged)")
     t = ingest.fetch_texts(client, args.data_dir)

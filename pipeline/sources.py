@@ -115,6 +115,17 @@ class LiveClient:
     def get_text(self, url, params=None):
         return self._get(url, params).text
 
+    def get_govinfo(self, path: str, params=None, as_json: bool = True):
+        """GovInfo API request (e.g. published/..., packages/<id>/summary) with the key from
+        GOVINFO_API_KEY in the X-Api-Key header (never in the URL, never logged). Raises
+        TextUnavailable when the key is not set."""
+        key = os.environ.get(config.GOVINFO_KEY_ENV)
+        if not key:
+            raise TextUnavailable(f"{config.GOVINFO_KEY_ENV} not set")
+        url = path if path.startswith("https://") else f"{config.GOVINFO_API}/{path.lstrip('/')}"
+        resp = self._get(url, params, headers={"X-Api-Key": key})
+        return resp.json() if as_json else resp.text
+
     def get_document_html(self, doc: dict) -> tuple[str, str]:
         """Fetch a document's full-text HTML from GovInfo. Returns (html, route).
 
@@ -215,6 +226,14 @@ class FixtureClient:
         if url.startswith(config.ECFR_API):
             return json.loads(self._ecfr(url, params))
         raise NotFound(url)
+
+    def get_govinfo(self, path: str, params=None, as_json: bool = True):
+        """Fixture stand-in for the GovInfo API: fixtures/govinfo/<path with / as _>[.json]."""
+        name = re.sub(r"[^A-Za-z0-9.-]+", "_", path.split("?")[0].strip("/"))
+        f = self.root / "govinfo" / (name + (".json" if as_json else ".htm"))
+        if not f.exists():
+            raise NotFound(path)
+        return json.loads(f.read_text()) if as_json else f.read_text()
 
     def get_document_html(self, doc: dict) -> tuple[str, str]:
         """Fixture stand-in for GovInfo: fixtures/text/<document_number>.txt."""

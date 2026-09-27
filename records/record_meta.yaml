@@ -39,6 +39,8 @@ records:
       reviewer: Angela
       date: 2026-09-26
       reason: "Guidance limited to medical debt, a non-loan debt type."
+      notes:
+        - "2026-09-27 (Angela): the advisory opinion was withdrawn by Federal Register notice 2025-08286 as of May 12, 2025 (item 3 of its withdrawal list; linked under superseded_by)."
     behavior_classes_primary: [NEGOTIATION.TREATMENT]
     behavior_classes_secondary: [PAYMENT.FEES, DISCLOSURE.REQUIRED]
     change_type: interpretation
@@ -181,6 +183,12 @@ records:
     supersedes:
       - doc_id: 2024-30824
         relation: correction
+    superseded_by:
+      - doc_id: "Cornerstone Credit Union League v. CFPB (E.D. Tex., July 11, 2025)"
+        relation: vacatur
+        external: true
+        source: "human review 2026-09-27 (Angela); court decision outside the Federal Register, not in the ingested store"
+        note: "closed together with 2024-30824: a correction to a vacated rule has no independent force"
   2024-24093:
     v1_2_scope: {product_lines: [servicing, collections, recovery, insurance_claims, compliance_audit], product_lines_basis: primary, segments: [bank, credit_union, captive, specialty_lender], segments_unclear: [], segments_source: register_rows, priority: standard}
     behavior_classes_primary: [RECOVERY.REPOSSESSION, INSURANCE.CLAIMS, NEGOTIATION.TREATMENT, VENDOR.GOVERNANCE]
@@ -294,6 +302,12 @@ records:
     change_type_reason: "Final rule as published; human review override"
     behavior_classes_primary: [DISPUTES.CLAIMS_DEFENSES, DISPUTES.ERROR_RESOLUTION]
     behavior_classes_secondary: [PAYMENT.AUTHORIZATION]
+    superseded_by:
+      - doc_id: "P.L. 119-10"
+        relation: disapproval
+        external: true
+        source: "GovInfo PLAW-119publ10 (139 Stat. 53, May 9, 2025), text in data/raw/primary/govinfo/PLAW-119publ10.htm.gz; found by pipeline.cra"
+        note: "S.J.Res. 18 disapproves the rule (89 Fed. Reg. 106768) under the Congressional Review Act; \"such rule shall have no force or effect\". Linked in metadata only: the record is signed and already closed."
   2025-00565:
     review:
       decision: not_relevant

@@ -136,6 +136,7 @@ Selection criteria: law reaches lenders collecting their own debts; stricter tha
 
 ## 7. Pipeline
 1. **Ingest**: pull Federal Register documents for the agencies and window above; store raw JSON + abstract.
+1b. **Congressional disapprovals** (`pipeline/cra.py`): list public laws issued in the window from the GovInfo API (PLAW collection), keep Congressional Review Act disapprovals (5 U.S.C. chapter 8), confirm each from its text and match it to stored documents by FR citation or rule title. eCFR does not reflect a disapproval until the agency publishes a conforming amendment. Matches without a `disapproval` link in `records/record_meta.yaml` are reported for review; the check closes nothing itself. Court vacaturs are not covered.
 2. **Prefilter**: exclude administrative notices, then keep on CFR part (A), CFPB document type (B) or keyword in title/abstract (C); drop the rest and log everything dropped. Rules and reasons: [PREFILTER.md](PREFILTER.md).
 3. **Diff**: for documents amending a tracked CFR part, fetch before/after text from eCFR and compute the section-level diff.
 4. **Triage (LLM)**: model from env `MODEL` (default `claude-sonnet-5`), key from env `ANTHROPIC_API_KEY`. Output must validate against:

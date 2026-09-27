@@ -707,3 +707,45 @@ def test_v1_2_review_close_queue_only_and_added_classes(tmp_path):
     scope = records.load_record_meta(tmp_path)["P-1"][records.SCOPE_KEY]
     assert "disputes" in scope["product_lines"]
     assert "DISPUTES.CLAIMS_DEFENSES" not in (tmp_path / "P-1.md").read_text().replace(before, "")
+
+
+# ------------------------------------------------ congressional disapprovals
+def test_cra_check_finds_disapproval_and_matches_store(tmp_path):
+    from pipeline import cra
+    from pipeline.common import write_jsonl_gz
+    data = tmp_path / "data"
+    write_jsonl_gz(data / "raw" / "federal_register.jsonl.gz", [
+        {"document": {"document_number": "2024-29699", "title": "Overdraft Lending: Very Large Financial Institutions",
+                      "citation": "89 FR 106768", "type": "Rule", "publication_date": "2024-12-30"}},
+        {"document": {"document_number": "2024-00001", "title": "Unrelated", "citation": "89 FR 1", "type": "Rule"}}])
+    text = ("<pre>Public Law 119-10 That Congress disapproves the final rule submitted by the Bureau of Consumer "
+            "Financial Protection relating to ``Overdraft Lending: Very Large Financial Institutions'' "
+            "(89 Fed. Reg. 106768 (December 30, 2024)), and such rule shall have no force or effect.</pre>")
+
+    class Stub:
+        calls = []
+
+        def get_govinfo(self, path, params=None, as_json=True):
+            self.calls.append(path)
+            if path.startswith("published/"):
+                return {"packages": [
+                    {"packageId": "PLAW-119publ10", "docClass": "PUBLIC", "dateIssued": "2025-05-09",
+                     "title": 'Joint resolution disapproving the rule submitted by the Bureau of Consumer Financial '
+                              'Protection relating to "Overdraft Lending: Very Large Financial Institutions".'},
+                    {"packageId": "PLAW-119publ78", "docClass": "PUBLIC", "dateIssued": "2026-02-18",
+                     "title": "Joint resolution disapproving the action of the District of Columbia Council"}]}
+            if path.endswith("/summary"):
+                return {"references": [{"collectionCode": "STATUTE", "contents": [{"title": "139", "pages": ["53"]}]}]}
+            return text
+
+    import datetime as dt
+    stub = Stub()
+    res = cra.run(stub, data, dt.date(2024, 9, 23), dt.date(2026, 9, 24), tmp_path / "records")
+    assert res["disapprovals"] == 1 and res["matched"] == {"P.L. 119-10": ["2024-29699"]}
+    law = json.loads((data / "cra" / "disapprovals.json").read_text())["disapprovals"][0]
+    assert law["statute"] == "139 Stat. 53" and law["no_force_or_effect"]
+    assert law["matches"][0]["matched_by"] == ["fr_citation", "title"] and law["matches"][0]["record"] == "no_record"
+    # candidate law text and summary are cached; a second run requests only the listing
+    before = len(stub.calls)
+    cra.run(stub, data, dt.date(2024, 9, 23), dt.date(2026, 9, 24), tmp_path / "records")
+    assert stub.calls[before:] == ["published/2024-09-23/2026-09-24"]

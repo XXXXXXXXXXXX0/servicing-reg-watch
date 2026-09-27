@@ -25,7 +25,7 @@ Payments, modifications, payoff quotes, payment arrangements, hardship screening
 | [2025-08645](2025-08645.md) | Prohibited Terms and Conditions in Agreements for Consumer Financial Products or Services (Regulation AA); Withdrawal of Proposed Rule | standard | servicing, collections, recovery (from secondary classes; no primary class) | bank, credit_union, captive, specialty_lender | open |
 | [2025-19864](2025-19864.md) | Equal Credit Opportunity Act (Regulation B) | standard | servicing, collections, recovery | bank, credit_union, captive, specialty_lender | closed by 2026-07804 (final_rule) |
 | [2026-07804](2026-07804.md) | Equal Credit Opportunity Act (Regulation B) | standard | servicing, collections, recovery | bank, credit_union, captive, specialty_lender | open |
-| [C1-2024-30824](C1-2024-30824.md) | Prohibition on Creditors and Consumer Reporting Agencies Concerning Medical Information (Regulation V) | standard | servicing, collections, recovery, compliance_audit (from secondary classes; no primary class) | unclear: bank, credit_union, captive, specialty_lender (no register row) | open |
+| [C1-2024-30824](C1-2024-30824.md) | Prohibition on Creditors and Consumer Reporting Agencies Concerning Medical Information (Regulation V) | standard | servicing, collections, recovery, compliance_audit (from secondary classes; no primary class) | unclear: bank, credit_union, captive, specialty_lender (no register row) | closed by Cornerstone Credit Union League v. CFPB (E.D. Tex., July 11, 2025) (vacatur) |
 | [C1-2025-19864](C1-2025-19864.md) | Equal Credit Opportunity Act (Regulation B) | standard | servicing, collections, recovery (from secondary classes; no primary class) | bank, credit_union, captive, specialty_lender | closed by 2026-07804 (final_rule) |
 
 ## collections (17)
@@ -49,7 +49,7 @@ Contacting delinquent borrowers, promises to pay, settlements and payment plans.
 | [2025-19671](2025-19671.md) | Fair Credit Reporting Act; Preemption of State Laws | standard | collections, disputes | bank, credit_union, captive, specialty_lender | open |
 | [2025-19864](2025-19864.md) | Equal Credit Opportunity Act (Regulation B) | standard | servicing, collections, recovery | bank, credit_union, captive, specialty_lender | closed by 2026-07804 (final_rule) |
 | [2026-07804](2026-07804.md) | Equal Credit Opportunity Act (Regulation B) | standard | servicing, collections, recovery | bank, credit_union, captive, specialty_lender | open |
-| [C1-2024-30824](C1-2024-30824.md) | Prohibition on Creditors and Consumer Reporting Agencies Concerning Medical Information (Regulation V) | standard | servicing, collections, recovery, compliance_audit (from secondary classes; no primary class) | unclear: bank, credit_union, captive, specialty_lender (no register row) | open |
+| [C1-2024-30824](C1-2024-30824.md) | Prohibition on Creditors and Consumer Reporting Agencies Concerning Medical Information (Regulation V) | standard | servicing, collections, recovery, compliance_audit (from secondary classes; no primary class) | unclear: bank, credit_union, captive, specialty_lender (no register row) | closed by Cornerstone Credit Union League v. CFPB (E.D. Tex., July 11, 2025) (vacatur) |
 | [C1-2025-19864](C1-2025-19864.md) | Equal Credit Opportunity Act (Regulation B) | standard | servicing, collections, recovery (from secondary classes; no primary class) | bank, credit_union, captive, specialty_lender | closed by 2026-07804 (final_rule) |
 
 ## recovery (15)
@@ -71,7 +71,7 @@ Repossession, right-to-cure and disposition notices, redemption and deficiency p
 | [2025-08645](2025-08645.md) | Prohibited Terms and Conditions in Agreements for Consumer Financial Products or Services (Regulation AA); Withdrawal of Proposed Rule | standard | servicing, collections, recovery (from secondary classes; no primary class) | bank, credit_union, captive, specialty_lender | open |
 | [2025-19864](2025-19864.md) | Equal Credit Opportunity Act (Regulation B) | standard | servicing, collections, recovery | bank, credit_union, captive, specialty_lender | closed by 2026-07804 (final_rule) |
 | [2026-07804](2026-07804.md) | Equal Credit Opportunity Act (Regulation B) | standard | servicing, collections, recovery | bank, credit_union, captive, specialty_lender | open |
-| [C1-2024-30824](C1-2024-30824.md) | Prohibition on Creditors and Consumer Reporting Agencies Concerning Medical Information (Regulation V) | standard | servicing, collections, recovery, compliance_audit (from secondary classes; no primary class) | unclear: bank, credit_union, captive, specialty_lender (no register row) | open |
+| [C1-2024-30824](C1-2024-30824.md) | Prohibition on Creditors and Consumer Reporting Agencies Concerning Medical Information (Regulation V) | standard | servicing, collections, recovery, compliance_audit (from secondary classes; no primary class) | unclear: bank, credit_union, captive, specialty_lender (no register row) | closed by Cornerstone Credit Union League v. CFPB (E.D. Tex., July 11, 2025) (vacatur) |
 | [C1-2025-19864](C1-2025-19864.md) | Equal Credit Opportunity Act (Regulation B) | standard | servicing, collections, recovery (from secondary classes; no primary class) | bank, credit_union, captive, specialty_lender | closed by 2026-07804 (final_rule) |
 
 ## insurance_claims (4)
@@ -118,7 +118,7 @@ Regulatory audit: data protection, recordkeeping, recording and AI disclosure co
 | [2026-16029](2026-16029.md) | Third-Party Servicing of Indirect Vehicle Loans | standard | compliance_audit | credit_union (from agency; no register row) | open |
 | [2026-18852](2026-18852.md) | Proposed Third-Party Risk Management Guide for Traditional Community Banking Organizations | standard | compliance_audit | bank | open |
 | [2026-18859](2026-18859.md) | Proposed Third-Party Risk Management Guidance | standard | compliance_audit | bank | open |
-| [C1-2024-30824](C1-2024-30824.md) | Prohibition on Creditors and Consumer Reporting Agencies Concerning Medical Information (Regulation V) | standard | servicing, collections, recovery, compliance_audit (from secondary classes; no primary class) | unclear: bank, credit_union, captive, specialty_lender (no register row) | open |
+| [C1-2024-30824](C1-2024-30824.md) | Prohibition on Creditors and Consumer Reporting Agencies Concerning Medical Information (Regulation V) | standard | servicing, collections, recovery, compliance_audit (from secondary classes; no primary class) | unclear: bank, credit_union, captive, specialty_lender (no register row) | closed by Cornerstone Credit Union League v. CFPB (E.D. Tex., July 11, 2025) (vacatur) |
 
 ## No product line (0)
 
