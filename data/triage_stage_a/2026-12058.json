@@ -1,0 +1,18 @@
+{
+  "doc_id": "2026-12058",
+  "relevant": true,
+  "confidence": 0.5,
+  "change_type": "final_rule",
+  "effective_date": "2026-07-16",
+  "affected_register_rows": [],
+  "behavior_classes_primary": [
+    "RECORDS.RETENTION"
+  ],
+  "behavior_classes_secondary": [],
+  "what_changed": "NCUA final rule, mostly as proposed in 2026-04761, clarifying the purpose of 12 CFR part 749, updating definitions and removing references to recommendations and guidance; effective July 16, 2026.",
+  "compliant_agent_must_now": "Credit union clients' records preservation programs follow the revised part 749 from July 16, 2026; whether any retention period for loan or member-contact records changed is not stated in the abstract.",
+  "open_questions_for_deploying_team": [
+    "Do credit union clients' retention schedules for call recordings, disclosures or payment records cite the removed part 749 guidance?"
+  ],
+  "rationale": "Same subject as 2026-04761, now final. Relevance depends on whether the removed guidance set retention for records a servicing agent creates; the abstract does not say. Register gap: no row covers NCUA part 749. Stage A: title, abstract and metadata only; full text not read."
+}

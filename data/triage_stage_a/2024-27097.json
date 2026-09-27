@@ -1,0 +1,14 @@
+{
+  "doc_id": "2024-27097",
+  "relevant": false,
+  "confidence": 0.95,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes_primary": [],
+  "behavior_classes_secondary": [],
+  "what_changed": "FDIC extends to January 16, 2025 the comment period on its proposed custodial deposit account recordkeeping rule (2024-22565).",
+  "compliant_agent_must_now": "No change.",
+  "open_questions_for_deploying_team": [],
+  "rationale": "A comment-period extension for a deposit-insurance recordkeeping proposal that is itself outside scope. Stage A: title, abstract and metadata only; full text not read."
+}

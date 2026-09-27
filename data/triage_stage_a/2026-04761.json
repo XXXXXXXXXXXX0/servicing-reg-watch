@@ -1,0 +1,18 @@
+{
+  "doc_id": "2026-04761",
+  "relevant": true,
+  "confidence": 0.5,
+  "change_type": "proposed_rule",
+  "effective_date": null,
+  "affected_register_rows": [],
+  "behavior_classes_primary": [
+    "RECORDS.RETENTION"
+  ],
+  "behavior_classes_secondary": [],
+  "what_changed": "NCUA proposes to simplify 12 CFR part 749 (records preservation program), update its definitions and remove its appendices, which include record retention guidelines.",
+  "compliant_agent_must_now": "No change until final; if adopted, credit unions' record retention guidelines in the part 749 appendices would no longer appear in the CFR.",
+  "open_questions_for_deploying_team": [
+    "Do any credit union clients' retention schedules for call recordings, disclosures or payment records rely on the part 749 appendix guidelines?"
+  ],
+  "rationale": "Under the v1.2 record-retention addition, removing credit union record retention guidelines from the CFR could be a legal-status change to a retention expectation; whether the appendices reach loan or member-contact records is not stated in the abstract. Low confidence; needs full text. Register gap: no row covers NCUA part 749. Stage A: title, abstract and metadata only; full text not read."
+}
