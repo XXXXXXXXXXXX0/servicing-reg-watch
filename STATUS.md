@@ -9,6 +9,7 @@ Branch: `claude/eloquent-goodall-jas2zw`. v1.2 scope expansion in progress (plan
 - v1.2 step 3: `v1_2_scope` on all 24 records (record_meta.yaml; 21 unsigned record files); BY_PRODUCT_LINE.md, BY_SEGMENT.md; queue sorted by priority, then line. 3 signed records left untouched: changing a signed record, even with metadata, is a post-approval change.
 - v1.2 step 4: 18 register rows (15 verify, citations confirmed from eCFR 2026-09-24 / GovInfo text; 3 unresearched: CARDNET-CHARGEBACK-001, STATE-PAYOFF-001, STATE-TOTALLOSS-001); classes DISPUTES.ERROR_RESOLUTION, DISPUTES.CLAIMS_DEFENSES, RECORDS.RETENTION; rule A +7 parts, rule C +16 keywords; DoD ingested (1,481 docs), kept only on 32 CFR 232 / MLA keywords: 0 kept.
 - v1.2 step 5: triage_prompt.md v1.2 section (disputes/chargebacks, Holder Rule, record retention, payoff/title release; deposit exclusion narrowed). eval/v1_2_conflicts.md: 3 relevance conflicts (2024-29699 eval doc, auto-closed; 2025-00565; 2025-08646), 1 class conflict (2024-30758). v1 outputs and eval unchanged.
+- v1.2 step 6: coverage test covers product lines and segments (6/6, 4/4 reached). Thin: insurance_claims (3 cited, 4 unresearched), bank/CU (most rows unclear), captive/specialty (no row binds either alone). PREFILTER.md.
 
 ## Data files (committed)
 - `data/raw/federal_register.jsonl.gz` (3,683 docs, +DoD), `ingest_manifest.json`, 14 new `data/raw/ecfr/2026-09-24_*.gz`. `data/triage*`: unchanged so far.
@@ -18,4 +19,4 @@ Branch: `claude/eloquent-goodall-jas2zw`. v1.2 scope expansion in progress (plan
 - 44 of 47 review-queue documents open. Watch: 2024-29292 (Reg V ANPR), 2026-07960 (FCC onshoring NPRM).
 
 ## Next step
-- v1.2 step 6: coverage check for product lines and segments; thin areas.
+- v1.2 step 7: prefilter rerun; triage newly kept documents (Stage A, Stage B); report by product line.

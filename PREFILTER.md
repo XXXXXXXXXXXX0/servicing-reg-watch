@@ -100,11 +100,24 @@ Anything not excluded and not kept is dropped and logged.
 
 ## Coverage check
 
-`python -m pipeline.prefilter coverage`, enforced by `tests/test_units.py::test_prefilter_coverage_reaches_every_row_and_class`, confirms two things:
+`python -m pipeline.prefilter coverage`, enforced by `tests/test_units.py::test_prefilter_coverage_reaches_every_row_and_class`, confirms:
 - every register row is reachable through a rule-A part in its citation, or a rule-C keyword in its law name, citation or constraint;
-- every behavior class in `taxonomy/behaviors.yaml` is reachable through its register rows or a keyword in its own description.
+- every behavior class in `taxonomy/behaviors.yaml` is reachable through its register rows or a keyword in its own description;
+- v1.2: every product line (`taxonomy/product_lines.yaml`) is reached by at least one register row whose classes map to it and that a rule reaches; every customer segment (`taxonomy/segments.yaml`) is reached by at least one row that **binds** it (`unclear` does not count) and that a rule reaches.
 
-With the keywords added above, all 73 register rows and all 17 behavior classes are reached. The four v1.1 gap rows (FCRA-PERMPURP-001, FCRA-MEDINFO-001, NCUA-INDIRECT-001, STATE-CREDITRPT-001) are reached by rule A (12 CFR 1022) or existing keywords such as "credit reporting", "servicing", "servicer" and "furnisher"; no keyword was added for them. Before the additions, 14 rows were not reached (listed in the table above). No behavior class was unreached.
+Current result: all 91 register rows, 20 behavior classes, 6 product lines and 4 segments are reached. The 18 v1.2 rows are reached by the new rule-A parts (32 CFR 232, 16 CFR 681 and 433, 12 CFR 41/222/334/717), parts already listed (12 CFR 1005, 1006, 1026, 1002) or the v1.2 keywords (chargeback, payoff, total loss). History: before the v1.1 coverage keywords, 14 rows were not reached; no behavior class was ever unreached.
+
+### Thin areas (v1.2 report)
+
+The command also reports thin areas. A product line is thin when fewer than 3 cited rows, or no more cited than unresearched rows, carry a class that maps to that line only (a line with no such class is judged on all its rows). A segment is thin when fewer than 3 cited rows bind it, more rows are unclear for it than bind it, or no row binds it alone.
+
+| Area | Finding | What would close it |
+|---|---|---|
+| insurance_claims | Only 3 cited rows carry INSURANCE.CLAIMS (INS-GAP-001, UDAAP-PAYOFF-001, UDAAP-INS-001, all supervisory findings); 4 are unresearched state rows (appraisal clause, lien release, CPI, total loss). No federal rule governs these; the obligations are state law. | State research (register/research_backlog.yaml). |
+| bank, credit_union | 38 and 37 cited rows bind them, but 47 and 50 rows are unclear: the 11 Reg F rows (bind a lender only when it acts as a debt collector), vendor-side rows, and state-law rows (federal-charter preemption not researched). | Preemption research for national banks and federal credit unions; a per-deployment decision on whether the lender acts as a debt collector. |
+| captive, specialty_lender | No register row binds either segment alone: every row that binds a captive also binds a specialty lender, and most bind all four segments. The register has no captive-specific obligation (none was found in federal law). | None needed unless a captive-specific source is identified. |
+| servicing | Passes the threshold, but only 3 cited rows are servicing-specific (ACCOUNT.MODIFICATION: REGZ-MOD-001, MLA-TERMS-001, MLA-DISC-001); payoff quotes rest on one supervisory row (UDAAP-PAYOFF-001) and an unresearched state row (STATE-PAYOFF-001). | State payoff-quote research. |
+| collections | Has no class of its own (all its classes are shared with servicing or recovery); judged on 60 cited rows, not thin. | — |
 
 ## Eval manifest (`eval/sample_manifest.csv`)
 

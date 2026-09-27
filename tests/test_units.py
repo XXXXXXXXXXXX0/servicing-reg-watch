@@ -67,6 +67,9 @@ def test_prefilter_v1_2_rules():
 def test_prefilter_coverage_reaches_every_row_and_class():
     cov = prefilter.coverage()
     assert cov["unreached_rows"] == [] and cov["unreached_classes"] == []
+    # v1.2: every product line and segment has a register row and a prefilter rule reaching it
+    assert cov["unreached_product_lines"] == [] and cov["unreached_segments"] == []
+    assert all(v["rows"] and v["rules"] for v in {**cov["product_lines"], **cov["segments"]}.values())
 
 
 def test_product_lines_map_every_class():

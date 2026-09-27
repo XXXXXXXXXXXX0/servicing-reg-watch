@@ -185,18 +185,68 @@ def _row_reach(row: dict) -> list[str]:
     return parts + keyword_hits(f"{row.get('law') or ''} {cite} {row.get('constraint') or ''}")
 
 
+THIN_MIN_CITED_ROWS = 3  # a product line or segment reached by fewer cited rows is reported as thin
+
+
 def coverage() -> dict:
     """Which rule-A part or rule-C keyword reaches each register row and each
-    behavior class. A class is reached through its rows or its own description."""
-    from .common import load_register, load_taxonomy
-    rows = {r["id"]: _row_reach(r) for r in load_register()}
+    behavior class. A class is reached through its rows or its own description.
+
+    v1.2: each product line (taxonomy/product_lines.yaml) and each customer segment
+    (taxonomy/segments.yaml) must be reached by at least one register row that maps to
+    it (a segment: a row that binds it; `unclear` does not count) and that a prefilter
+    rule reaches. Lines and segments with few cited rows are reported as thin."""
+    from .common import load_product_lines, load_register, load_segments, load_taxonomy, row_segments
+    register = load_register()
+    rows = {r["id"]: _row_reach(r) for r in register}
     classes = {}
     for cls, spec in load_taxonomy()["behavior_classes"].items():
-        via_rows = sorted({h for r in load_register() if cls in r.get("behavior_classes", []) for h in rows[r["id"]]})
+        via_rows = sorted({h for r in register if cls in r.get("behavior_classes", []) for h in rows[r["id"]]})
         classes[cls] = sorted(set(via_rows) | set(keyword_hits(spec.get("description", ""))))
-    return {"rows": rows, "classes": classes,
+    pl, seg = load_product_lines(), load_segments()
+
+    def summary(members):
+        reached = [r for r in members if rows[r["id"]]]
+        cited = [r for r in reached if r["status"] != "unresearched"]
+        return {"rows": sorted(r["id"] for r in reached), "cited_rows": len(cited),
+                "unresearched_rows": len(reached) - len(cited),
+                "rules": sorted({h for r in reached for h in rows[r["id"]]})}
+
+    lines = {}
+    for line in pl["order"]:
+        members = [r for r in register
+                   if any(line in pl["class_product_lines"].get(c, []) for c in r.get("behavior_classes", []))]
+        # Classes that map to this line only: rows carrying one are specific to the line.
+        own = {c for c, ls in pl["class_product_lines"].items() if ls == [line]}
+        specific = summary([r for r in members if own & set(r.get("behavior_classes", []))])
+        lines[line] = {**summary(members), "exclusive_classes": sorted(own),
+                       "specific_rows": specific["rows"], "specific_cited_rows": specific["cited_rows"],
+                       "specific_unresearched_rows": specific["unresearched_rows"]}
+    segments = {}
+    for s_ in seg["order"]:
+        binds = [r for r in register if s_ in row_segments(r, seg)[0]]
+        segments[s_] = {**summary(binds), "unclear_rows": sum(s_ in row_segments(r, seg)[1] for r in register)}
+    # Thin: a line whose line-specific rows (a class mapped to that line only) are few or
+    # mostly unresearched; a line with no exclusive class is judged on all its rows.
+    thin = []
+    for k, v in lines.items():
+        cited, unres = ((v["specific_cited_rows"], v["specific_unresearched_rows"]) if v["exclusive_classes"]
+                        else (v["cited_rows"], v["unresearched_rows"]))
+        if cited < THIN_MIN_CITED_ROWS or unres >= cited:
+            thin.append(f"product line {k}: {cited} cited and {unres} unresearched rows"
+                        + (f" carry its own classes ({', '.join(v['exclusive_classes'])})" if v["exclusive_classes"] else ""))
+    thin += [f"segment {k}: {v['cited_rows']} cited rows bind it; {v['unclear_rows']} rows are unclear for it"
+             for k, v in segments.items() if v["cited_rows"] < THIN_MIN_CITED_ROWS or v["unclear_rows"] > v["cited_rows"]]
+    only = {s_: {r for r in segments[s_]["rows"]} for s_ in segments}
+    for s_ in segments:
+        others = set().union(*(only[o] for o in segments if o != s_))
+        if not only[s_] - others and not any(s_ in (seg.get("row_overrides") or {}).get(r, {}) for r in only[s_]):
+            thin.append(f"segment {s_}: no register row binds it alone (every row that binds it binds another segment too)")
+    return {"rows": rows, "classes": classes, "product_lines": lines, "segments": segments, "thin": thin,
             "unreached_rows": sorted(k for k, v in rows.items() if not v),
-            "unreached_classes": sorted(k for k, v in classes.items() if not v)}
+            "unreached_classes": sorted(k for k, v in classes.items() if not v),
+            "unreached_product_lines": sorted(k for k, v in lines.items() if not v["rows"] or not v["rules"]),
+            "unreached_segments": sorted(k for k, v in segments.items() if not v["rows"] or not v["rules"])}
 
 
 def run(data_dir=None) -> dict:
@@ -235,10 +285,20 @@ def main(argv=None):
     if args.command == "coverage":
         c = coverage()
         print(f"coverage: {len(c['rows']) - len(c['unreached_rows'])}/{len(c['rows'])} register rows, "
-              f"{len(c['classes']) - len(c['unreached_classes'])}/{len(c['classes'])} behavior classes reached")
-        for k in c["unreached_rows"] + c["unreached_classes"]:
+              f"{len(c['classes']) - len(c['unreached_classes'])}/{len(c['classes'])} behavior classes, "
+              f"{len(c['product_lines']) - len(c['unreached_product_lines'])}/{len(c['product_lines'])} product lines, "
+              f"{len(c['segments']) - len(c['unreached_segments'])}/{len(c['segments'])} segments reached")
+        for k, v in c["product_lines"].items():
+            print(f"  {k}: {len(v['rows'])} rows reached ({v['cited_rows']} cited), {len(v['specific_rows'])} line-specific "
+                  f"({v['specific_cited_rows']} cited), {len(v['rules'])} rules")
+        for k, v in c["segments"].items():
+            print(f"  {k}: {len(v['rows'])} rows bind it ({v['cited_rows']} cited), {v['unclear_rows']} unclear, {len(v['rules'])} rules")
+        for k in c["thin"]:
+            print(f"  thin: {k}")
+        unreached = c["unreached_rows"] + c["unreached_classes"] + c["unreached_product_lines"] + c["unreached_segments"]
+        for k in unreached:
             print(f"  unreached: {k}")
-        return 1 if c["unreached_rows"] or c["unreached_classes"] else 0
+        return 1 if unreached else 0
     s = run(args.data_dir)
     print(f"prefilter: {s['kept']} kept, {s['dropped']} dropped (logged) of {s['total']}")
     print(f"  kept: {s['kept_reasons']}  dropped: {s['dropped_reasons']}")
