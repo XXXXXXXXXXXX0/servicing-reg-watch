@@ -4,8 +4,7 @@ on:
   push:
   pull_request:
   workflow_dispatch:
-  schedule:
-    - cron: "0 12 * * 1-5"   # weekdays 12:00 UTC
+  
 
 permissions:
   contents: read
